@@ -1,0 +1,153 @@
+
+
+.header{
+    width: 1050px;
+    margin: 0 auto;
+    position: relative;  
+}
+.header__deliver-img{
+    position: absolute;
+    height:22px;
+    width: 163px;
+    top: 10px;
+}
+/* 마이페이지 */
+.my-page{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
+    font-weight: 500;
+}
+.my-page__item > a{
+    height: 37px;
+    line-height: 35px;
+    padding: 0 10px;
+    border-right: #F7F7F7 solid 2px;
+}
+.my-page__item:last-child{
+    padding-left: 10px;
+    padding-right: 0;
+}
+
+/* 메인로고 */
+.header__main-wrap{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 63px;
+}
+.header__main-logo {
+    position: absolute;
+    width: 99px;
+    height: 79px;
+    top: -20px;
+    left: 480px;
+}
+
+
+/* 대메뉴 */
+.gnb{
+    height: 56px;
+    display: flex;
+    align-items: center;
+    transition: postion 0.5s ease-in;
+}
+.gnb__list{
+    display: flex;
+    align-items: center;
+    width: 1050px;
+    margin: 0 auto;
+
+}
+.gnb__item i {
+    margin-right: 8px;
+}
+.gnb__item{
+    color: #333;
+    font-weight: 500;
+    padding : 0 50px;
+    font-size: 16px;
+    border-right: solid 2px #F7F7F7;
+}
+.gnb__item:first-child{
+    padding-left: 0;
+}
+.qna{
+    position: relative;
+}
+
+/* qna 메뉴 */
+.qna__menu{
+    box-sizing: border-box;
+    position: absolute;
+    display:none;
+    z-index:200;
+    border: 1px solid #ddd;
+    padding: 9px 0 9px 9px;
+    width: 102px;
+}
+.qna__menu li{
+    margin-bottom: 12px;
+}
+.qna__menu li:last-child{
+    margin-bottom: 0px;
+}
+
+/* qna hover 일때 menu 나타나게 */
+.qna:hover .qna__menu{
+    display: block;
+} 
+
+/* 스크롤 200 까지 내려갔을 때 */
+.fixed{
+    background:#FFFFFF;
+    position: fixed;
+    border-bottom: #e3e7ee 1px solid;
+    width: 100%;
+    top: 0;
+    z-index: 30;
+}
+.footer{
+    height:200px;
+}
+
+/* 메인 부분 컨테이너 */
+.content{
+    margin-bottom: 30px;
+    padding-bottom: 70px;
+    min-width: 1050px;
+}
+
+.page-location{
+    width: 1050px;
+    height: 44px;
+    margin: 0 auto;
+    padding-top: 26px;
+    font-size: 12px;
+    color: #4c4c4c;
+    display: flex;
+    justify-content: flex-end;
+}
+.content__title-location{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+.content__title{
+    font-size: 20px;
+    font-weight:600;
+    line-height: 20px;
+    color: #333;
+}
+.content__type{
+    width: 640px;
+    margin: 20px auto 10px auto;
+    display: flex;
+    justify-content: flex-end;
+    color: red;
+}
+.on{
+    display: block;
+}
+
+

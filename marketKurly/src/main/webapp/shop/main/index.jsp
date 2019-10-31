@@ -9,8 +9,8 @@
     <script src="https://kit.fontawesome.com/09d022f581.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/reset.css">
     <script src="./js/index.js"></script>
     <title>Document</title>
 </head>

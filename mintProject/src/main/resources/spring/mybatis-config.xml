@@ -3,5 +3,6 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="mint.qnaBoard.bean.QnaBoardDTO" alias="qnaBoard"/>
+		<typeAlias type="mint.noticeBoard.bean.NoticeBoardDTO" alias="noticeBoard"/>
 	</typeAliases>
 </configuration>

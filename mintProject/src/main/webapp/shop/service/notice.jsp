@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
     
-<seciton class="service">
+<section class="service">
     <div class="snb">
         <h2 class="snb__title">고객센터</h2>
         <ul class="snb__list">
@@ -16,7 +15,14 @@
         <h2 class="service__main-title">공지사항
             <span class="title_sub">민트의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.</span>
         </h2>
-        <table class="tb tb-notice">
+        <table class="tb tb-notice" width="100%" cellpadding="0" cellspacing="0">
+        	<colgroup>
+        		<col width="50">
+        		<col style="padding-left: 10px; text-align: left;">
+        		<col width="100">
+        		<col width="100">
+        		<col width="30">
+        	</colgroup>
             <tr>
                 <th class="size-1">번호</th>
                 <th class="size-6">제목</th>
@@ -66,4 +72,35 @@
             </div>
         </div>
     </div>
-</seciton>
+</section>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 공지사항 ajax 요청 */
+	
+})
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

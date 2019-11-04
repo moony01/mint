@@ -27,14 +27,14 @@
 	 <!-- 다음 우편번호 -->
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-    <link rel="stylesheet" href="/shop/css/style.css">
-    <link rel="stylesheet" href="/shop/css/reset.css">
-    <link rel="stylesheet" href="/shop/css/service.css">
-    <link rel="stylesheet" href="/shop/css/login.css">
-    <link rel="stylesheet" href="/shop/css/join.css">
+    <link rel="stylesheet" href="/mintProject/shop/css/style.css">
+    <link rel="stylesheet" href="/mintProject/shop/css/reset.css">
+    <link rel="stylesheet" href="/mintProject/shop/css/service.css">
+    <link rel="stylesheet" href="/mintProject/shop/css/login.css">
+    <link rel="stylesheet" href="/mintProject/shop/css/join.css">
     
        
-    <script src="/shop/js/index.js"></script>
+    <script src="/mintProject/shop/js/index.js"></script>
     
   
     <title>Document</title>
@@ -43,15 +43,15 @@
     <header class="header">
         <img src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif" alt="서울, 경기, 인천 샛별배송, 수도권 이외 지역 택배배송" class="header__deliver-img">
         <ul class="my-page">
-            <li class="my-page__item"><a href="/shop/member/join">회원가입</a></li>
-            <li class="my-page__item"><a href="/shop/member/login">로그인</a></li>
+            <li class="my-page__item"><a href="/mintProject/shop/member/join">회원가입</a></li>
+            <li class="my-page__item"><a href="/mintProject/shop/member/login">로그인</a></li>
             <li class="my-page__item">
-                <a href="/shop/service/notice/">고객센터</a>
+                <a href="/mintProject/shop/service/notice/">고객센터</a>
                 <ul class="qna__menu my-page__qna">
-                    <li><a href="/shop/service/notice">공지사항</a></li>
-                    <li><a href="/shop/service/faq">자주하는 질문</a></li>
-                    <li><a href="/shop/service/qna">1:1 문의</a></li>
-                    <li><a href="/shop/service/offer">상품 제안</a></li>
+                    <li><a href="/mintProject/shop/service/notice">공지사항</a></li>
+                    <li><a href="/mintProject/shop/service/faq">자주하는 질문</a></li>
+                    <li><a href="/mintProject/shop/service/qna">1:1 문의</a></li>
+                    <li><a href="/mintProject/shop/service/offer">상품 제안</a></li>
                 </ul>
             </li>
             <li class="my-page__item"><a href="">배송안내</a></li>

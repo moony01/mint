@@ -5,10 +5,10 @@
     <div class="snb">
         <h2 class="snb__title">고객센터</h2>
         <ul class="snb__list">
-            <li class="snb__item"><a href="./notice.html">공지사항</a></li>
-            <li class="snb__item current"><a href="./faq.html">자주하는 질문</a></li>
-            <li class="snb__item"><a href="">1:1 문의</a></li>
-            <li class="snb__item"><a href="">상품 제안</a></li>
+            <li class="snb__item"><a href="/mintProject/service/notice">공지사항</a></li>
+            <li class="snb__item current"><a href="/mintProject/service/faq">자주하는 질문</a></li>
+            <li class="snb__item"><a href="/mintProject/service/qna">1:1 문의</a></li>
+            <li class="snb__item"><a href="/mintProject/service/offer">상품 제안</a></li>
         </ul>
     </div>
     <div class="service__main">
@@ -77,4 +77,4 @@
         </div>
     </div>
 </seciton>
-<script src="/shop/js/qna.js"></script>
+<script src="/mintProject/shop/js/qna.js"></script>

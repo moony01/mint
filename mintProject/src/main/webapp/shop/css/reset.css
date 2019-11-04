@@ -58,4 +58,35 @@ body{
 	font-size: 12px;
 	font-weight: 400;
 }
-
+.size-1{
+	width: 8.33%;
+}
+.size-2{
+	width: 16.66%;
+}
+.size-3{
+	width: 25%;
+}
+.size-4{
+	width: 33.32%;
+}
+.size-5{
+	width: 41.66%;
+}
+.size-6{
+	width: 50%;
+}
+.size-7{
+	width: 58.31%;
+}
+.size-8{
+	width: 66.64%;
+}
+.size-9{
+	width: 75%;
+}
+.clearfix::after{
+	content: "";
+	display: block;
+	clear: both;
+}

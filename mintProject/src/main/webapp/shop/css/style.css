@@ -24,6 +24,9 @@
     padding: 0 10px;
     border-right: #F7F7F7 solid 2px;
 }
+.my-page__item > a:last-child{
+    border-right-style: none;
+}
 .my-page__item:last-child{
     padding-left: 10px;
     padding-right: 0;
@@ -68,6 +71,9 @@
     padding : 0 50px;
     font-size: 16px;
     border-right: solid 2px #F7F7F7;
+}
+.gnb__item:last-child{
+    border-right-style: none;
 }
 .gnb__item:first-child{
     padding-left: 0;
@@ -149,5 +155,8 @@
 .on{
     display: block;
 }
-
-
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

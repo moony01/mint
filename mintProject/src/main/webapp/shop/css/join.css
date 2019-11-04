@@ -80,7 +80,7 @@
     top:15px;
 }
 
-/* radio ¹öÆ° Ä¿½ºÅÒ */
+/* radio ë²„íŠ¼ ì»¤ìŠ¤í…€ */
 .radion-container{
     display: block;
     position: relative;
@@ -128,7 +128,7 @@
     display: block;
   }
 
-/* »ı³â¿ùÀÏ */
+/* ìƒë…„ì›”ì¼ */
 .join__birth{
     display: flex;
     height: 40px;
@@ -141,7 +141,7 @@
     text-align: center;
 }
 
-/* È¸¿ø°¡ÀÔ ÇÏ±â ¹öÆ° */
+/* íšŒì›ê°€ì… í•˜ê¸° ë²„íŠ¼ */
 .join__submit-wrap{
     width: 640px;
     margin: 45px auto 0 auto;

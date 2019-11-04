@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qnaBoardSQL">
+	<select id="getQnaBoardList"  parameterType="java.util.Map" resultType="qnaBoard" >
+		<![CDATA[
+			select * 
+              from (select rownum rn
+                         , tt.*
+                      from (select * 
+                              from qnaboard
+                             order by seq desc) tt)
+		]]>
+	</select>
+<!--  where rn >= #{startNum} and rn <= #{endNum} -->
+
+
+
+	<!-- <insert id="imageboardWrite" parameterType="imageboard">
+		insert into imageboard values(seq_imageboard.nextval
+									, #{imageId}
+									, #{imageName}
+									, #{imagePrice}
+									, #{imageQty}
+									, #{imageContent}
+									, #{image1}
+									, sysdate)
+									
+		insert into imageboard values(seq_imageboard.nextval
+									, #{imageId}
+									, #{imageName}
+									, #{imagePrice}
+									, #{imageQty}
+									, #{imageContent}
+									, #{image1}
+									, sysdate
+									, #{image2})
+		
+	</insert> -->
+	<!-- 
+	<select id="getImageboardList" parameterType="java.util.Map" resultType="imageboard">
+		<![CDATA[
+		select * from 
+		(select rownum rn, tt.* from 
+		(select * from imageboard order by seq desc) tt
+		) where rn>=#{startNum} and rn<=#{endNum}
+		]]>
+	</select>
+	
+	<select id="imageboardView" parameterType="int" resultType="imageboard">
+		select * from imageboard where seq=#{seq}
+	</select>
+	
+	<select id="getImageboardTotalA" resultType="int">
+		select count(*) from imageboard
+	</select>
+	
+	<delete id="imageboardDelete" parameterType="java.util.Map">
+		delete imageboard where seq in
+		<foreach collection="array" item="seq" index="i" open="(" close=")" separator=",">
+			#{seq} ${array[i]}
+		</foreach>
+	</delete> -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

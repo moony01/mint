@@ -30,7 +30,7 @@ public class SpringConfiguration {
 	//	sqlSessionFactoryBean.setConfigLocation(new ClassPathResource("spring/mybatis-config.xml"));
 												//패턴을 매칭해주는 클래스. 자원(xml; resource)의 값을 얻어온다.   //classpath: 없어도 되네 ?
 		sqlSessionFactoryBean.setConfigLocation(new PathMatchingResourcePatternResolver().getResource("classpath:spring/mybatis-config.xml"));
-		sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("*/dao/*Mapper.xml")); 
+		sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mint/*/dao/*Mapper.xml")); 
 	
 		return sqlSessionFactoryBean.getObject(); //sqlSessionFactory object를 리턴. 
 	}
@@ -47,3 +47,4 @@ public class SpringConfiguration {
 		return dataSourceTransactionManager;		
 	}
 }
+

@@ -5,10 +5,10 @@
     <div class="snb">
         <h2 class="snb__title">고객센터</h2>
         <ul class="snb__list">
-            <li class="snb__item"><a href="/shop/service/notice">공지사항</a></li>
-            <li class="snb__item current"><a href="/shop/service/faq">자주하는 질문</a></li>
-            <li class="snb__item"><a href="/shop/service/qna">1:1 문의</a></li>
-            <li class="snb__item"><a href="/shop/service/offer">상품 제안</a></li>
+            <li class="snb__item"><a href="./notice.html">공지사항</a></li>
+            <li class="snb__item current"><a href="./faq.html">자주하는 질문</a></li>
+            <li class="snb__item"><a href="">1:1 문의</a></li>
+            <li class="snb__item"><a href="">상품 제안</a></li>
         </ul>
     </div>
     <div class="service__main">
@@ -38,11 +38,24 @@
             </tr>
 
             <tr class="tb-view">
-                <td colspan="1"><img src="https://www.kurly.com/shop/data/skin/designgj/img/common/faq_a.gif"></td>
-                <td colspan="2">몰라</td>
+                <td colspan="1"></td>
+                <td colspan="2"><p>안녕하세요<br>김덕배입니다</p></td>
+            </tr>
+            <tr class="tb-content">
+                <td>1</td>
+                <td>안녕</td>
+                <td>아이디와 비밀번호가 생각나지 않아요. 어떻게 찾을 수 있나요?</td>
+            </tr>
+
+            <tr class="tb-view">
+                <td colspan="1"></td>
+                <td colspan="2">
+                    <p>안녕하세요 감사합니다 저희 민트를 이용해주셔서
+                            <br>김덕배입니다 감사합니다 ㅁㄴㅇㅁㄴㅇ
+                    </p>
+                </td>
             </tr>
         </table>
-        
         <div class="paging">
             <ul class="pagination">
                 <li class="page-item"><a class="page-link" href="#"><</a></li>
@@ -52,7 +65,6 @@
                 <li class="page-item"><a class="page-link" href="#">></a></li>
             </ul>  
         </div>
-        
         <div class="service__search">
             <div class="service__sel-box">
             </div>
@@ -65,3 +77,4 @@
         </div>
     </div>
 </seciton>
+<script src="/shop/js/qna.js"></script>

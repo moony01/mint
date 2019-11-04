@@ -5,7 +5,7 @@
     <div class="snb">
         <h2 class="snb__title">고객센터</h2>
         <ul class="snb__list">
-            <li class="snb__item"><a href="/shop/service/notice">공지사항</a></li>
+           <li class="snb__item"><a href="/shop/service/notice">공지사항</a></li>
             <li class="snb__item"><a href="/shop/service/faq">자주하는 질문</a></li>
             <li class="snb__item current"><a href="/shop/service/qna">1:1 문의</a></li>
             <li class="snb__item"><a href="/shop/service/offer">상품 제안</a></li>
@@ -37,8 +37,45 @@
                 <div class="board-write__order-num">
                     <div class="board-write__title">주문 번호</div>
                     <div class="board-write__order-inputs">
-                        <input type="text" class="board-write__order-txt">
-                        <input type="button" value="주문조회" class="board-write__order-btn">
+                        <div class="orders">
+                            <span>문의하실 주문번호를 선택하세요</span>
+                            <table>
+                                <tr>
+                                    <th class="size-2">주문번호</th>
+                                    <th class="size-2">주문일자</th>
+                                    <th class="size-4">상품명</th>
+                                    <th class="size-2">수량</th>
+                                    <th class="size-2">주문금액</th>
+                                </tr>
+                                <!-- 예시 -->
+                                <tr class="orders__list">
+                                    <td>20191212313</td>
+                                    <td>2019-33-29</td>
+                                    <td>만냥</td>
+                                    <td>23</td>
+                                    <td>13</td>
+                                </tr>
+                                <tr class="orders__list">
+                                    <td>2017141414</td>
+                                    <td>스걸</td>
+                                    <td>만냥</td>
+                                    <td>23</td>
+                                    <td>13</td>
+                                </tr>
+                                <tr class="orders__list">
+                                    <td>안녕</td>
+                                    <td>스걸</td>
+                                    <td>만냥</td>
+                                    <td>23</td>
+                                    <td>13</td>
+                                </tr>
+                                <!-- 여기까지 예시임 -->
+
+                            </table>
+                            <img src="https://www.kurly.com/shop/data/skin/designgj/img/common/popup_close.gif" class="orders-close">
+                        </div>
+                        <input type="text" class="board-write__order-txt" id="orderTxt" readonly>
+                        <input type="button" value="주문조회" class="board-write__order-btn" id="orderBtn">
                     </div>
                 </div>
                 <div class="board-write__content">
@@ -57,3 +94,4 @@
         </form>
     </div>
 </seciton>
+<script src="/shop/js/qnaWrite.js"></script>

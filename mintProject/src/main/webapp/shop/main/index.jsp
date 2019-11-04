@@ -24,12 +24,19 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 	
 	
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/notice.css">
+	 <!-- 다음 우편번호 -->
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+    <link rel="stylesheet" href="/shop/css/style.css">
+    <link rel="stylesheet" href="/shop/css/reset.css">
+    <link rel="stylesheet" href="/shop/css/service.css">
+    <link rel="stylesheet" href="/shop/css/login.css">
+    <link rel="stylesheet" href="/shop/css/join.css">
     
-    <script src="./js/index.js"></script>
+       
+    <script src="/shop/js/index.js"></script>
     
+  
     <title>Document</title>
 </head>
 <body>
@@ -40,7 +47,7 @@
             <li class="my-page__item"><a href="/shop/member/login">로그인</a></li>
             <li class="my-page__item">
                 <a href="/shop/service/notice/">고객센터</a>
-                <ul class="qna__menu">
+                <ul class="qna__menu my-page__qna">
                     <li><a href="/shop/service/notice">공지사항</a></li>
                     <li><a href="/shop/service/faq">자주하는 질문</a></li>
                     <li><a href="/shop/service/qna">1:1 문의</a></li>
@@ -62,7 +69,9 @@
             <li class="gnb__item"><a href="">이벤트</a></li>
         </ul>
     </nav>
-    <jsp:include page="${display }"/>
+    
+   <%--  <jsp:include page="${display }"/> --%>
+    
     <footer class="footer">
 
     </footer>

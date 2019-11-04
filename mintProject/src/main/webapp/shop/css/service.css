@@ -47,13 +47,13 @@
     border:none;
 }
 
-/* ë©”ì¸ íƒ€ì´í‹€ */
+/* ¸ÞÀÎ Å¸ÀÌÆ² */
 .service__main-title{
     font-size: 24px;
     font-weight: 450;
     margin-bottom: 30px;
 }
-/*ë©”ì¸ íƒ€ì´í‹€ ë°‘ì— ë©”ë‰´ì–¼ */
+/*¸ÞÀÎ Å¸ÀÌÆ² ¹Ø¿¡ ¸Þ´º¾ó */
 .service__manual{
     margin-bottom: 40px;
 }
@@ -63,7 +63,7 @@
     list-style: square;
 }
 
-/* ì„œë¸Œ íƒ€ì´í‹€ */
+/* ¼­ºê Å¸ÀÌÆ² */
 .title_sub{
     font-size: 11px;
     color: #4c4c4c;
@@ -81,7 +81,7 @@
 
 
 
-/* í…Œì´ë¸” */
+/* Å×ÀÌºí */
 .tb{
     width: 640px;
     border-top: 1px solid #5f0080;
@@ -119,6 +119,17 @@
 .tb-view{
     display: none;
 }
+.tb-view > td:nth-child(1)::after{
+    content: "";
+    display: table-cell;
+    position: relative;
+    background: url("https://www.kurly.com/shop/data/skin/designgj/img/common/faq_a.gif") no-repeat top left;
+    width: 25px;
+    height: 20px;
+    top: 20px;
+    left: 20px;
+    
+}
 .tb-view > td:nth-of-type(1){
     text-align: right;
 
@@ -127,9 +138,12 @@
     text-align: left;
     padding-left: 20px;
 }
+.tb-view td p {
+    line-height: 25px;
+}
 
 
-/* ê¸€ì“°ê¸°*/
+/* ±Û¾²±â*/
 .board-write{
     border-top: 1px solid #5f0080;
     border-bottom: 1px solid #5f0080;
@@ -198,6 +212,67 @@
     justify-content: center;
     padding-left: 15px;
 }
+
+
+.orders{
+    position: absolute;
+    top:30px;
+    left: 0;
+    width: 560px;
+    height: 380px;
+    border: 1px solid black;
+    z-index: 10;
+    background-color: white;
+    padding:15px 0 15px 15px;
+    overflow: auto;
+    display: none;
+}
+.orders > span{
+    font-size: 10px;
+    opacity: 0.6;
+}
+.orders > table{
+    width: 520px;
+    margin-top: 10px;
+}
+.orders > table tr{
+    height: 30px;
+    cursor: pointer;
+    
+}
+
+.orders > table tr:nth-child(2n){
+    background-color: #F7F7F7;
+}
+
+.orders > table th,
+.orders > table td {
+    text-align: center;
+    line-height: 30px;
+    
+}
+
+.orders > table th{
+    font-family: µ¸À½;
+    font-weight: bold;
+    background-color:#A8A8A8;
+    color: white;
+}
+
+.orders > table td:nth-of-type(3){
+    text-align: left;
+    padding-left: 15px;
+}
+.orders-close{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+
+
+
 .board-write__order-num{
     height: 60px;
 }
@@ -205,6 +280,7 @@
     display: flex;
 }
 .board-write__order-inputs{
+    position: relative;
     margin-top: 10px;
     display: flex;
 }
@@ -233,7 +309,7 @@
 
 
 
-/* íŽ˜ì´ì§• */
+/* ÆäÀÌÂ¡ */
 .paging{
     display: flex;
     justify-content: center;
@@ -245,7 +321,7 @@
 }
 
 
-/* ê²€ìƒ‰ */
+/* °Ë»ö */
 .service__search{
     display: flex;
     justify-content: space-between;
@@ -318,4 +394,30 @@
 .notice-view__title{
     background-color: #F7F5F8;
     width: 130px;
+}
+
+
+/* qna-view */
+.qna-view__conent > td,
+.qna-view__answer > td:nth-child(2){
+    text-align:left !important;
+}
+.qna-view__conent >td{
+    padding-left: 20px;
+}
+.qna-view__conent{
+    display: none;
+}
+.qna-view__answer{
+    background: #F7F7F7;
+    display: none;
+}
+.qna-view__answer td:nth-child(1){
+    vertical-align: middle;
+}
+.qna-view__answer td:nth-child(2){
+    padding-left: 30px;
+}
+.qna-view__answer p,.qna-view__conent p{
+    line-height: 24px;
 }

@@ -8,6 +8,7 @@
     background: #FFFFFF;
 }
 
+
 .join-col{
     display: flex;
     margin-bottom: 24px;
@@ -79,7 +80,7 @@
     top:15px;
 }
 
-/* radio ë²„íŠ¼ ì»¤ìŠ¤í…€ */
+/* radio ¹öÆ° Ä¿½ºÅÒ */
 .radion-container{
     display: block;
     position: relative;
@@ -127,7 +128,7 @@
     display: block;
   }
 
-/* ìƒë…„ì›”ì¼ */
+/* »ı³â¿ùÀÏ */
 .join__birth{
     display: flex;
     height: 40px;
@@ -140,7 +141,7 @@
     text-align: center;
 }
 
-/* íšŒì›ê°€ì… í•˜ê¸° ë²„íŠ¼ */
+/* È¸¿ø°¡ÀÔ ÇÏ±â ¹öÆ° */
 .join__submit-wrap{
     width: 640px;
     margin: 45px auto 0 auto;

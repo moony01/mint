@@ -3,7 +3,7 @@
 
 <section class="content">
     <div class="page-location">
-        <a href="./index.html">홈</a><span style="margin: 0 5px;">></span><span>로그인</span>
+        <a href="/shop/main/index">홈</a><span style="margin: 0 5px;">></span><span>로그인</span>
     </div>
     <div class="content__title-location">
         <h1 class="content__title">로그인</h1>

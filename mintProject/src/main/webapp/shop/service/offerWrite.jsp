@@ -1,61 +1,62 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <seciton class="service">
     <div class="snb">
-        <h2 class="snb__title">°í°´¼¾ÅÍ</h2>
+        <h2 class="snb__title">ê³ ê°ì„¼í„°</h2>
         <ul class="snb__list">
-            <li class="snb__item"><a href="/shop/service/notice">°øÁö»çÇ×</a></li>
-            <li class="snb__item"><a href="/shop/service/faq">ÀÚÁÖÇÏ´Â Áú¹®</a></li>
-            <li class="snb__item"><a href="/shop/service/qna">1:1 ¹®ÀÇ</a></li>
-            <li class="snb__item current"><a href="/shop/service/offer">»óÇ° Á¦¾È</a></li>
+            <li class="snb__item"><a href="/shop/service/notice">ê³µì§€ì‚¬í•­</a></li>
+            <li class="snb__item"><a href="/shop/service/faq">ìžì£¼í•˜ëŠ” ì§ˆë¬¸</a></li>
+            <li class="snb__item"><a href="/shop/service/qna">1:1 ë¬¸ì˜</a></li>
+            <li class="snb__item current"><a href="/shop/service/offer">ìƒí’ˆ ì œì•ˆ</a></li>
         </ul>
     </div>
     <div class="service__main">
-        <h2 class="service__main-title">»óÇ° Á¦¾È</h2>
+        <h2 class="service__main-title">ìƒí’ˆ ì œì•ˆ</h2>
         <ul class="service__manual">
             <li>
-                <p class="txt">¸¶ÄÏÄÃ¸®¿¡¼­ Ãß°¡ÀûÀ¸·Î ÆÇ¸ÅµÇ¸é ÁÁÀ» »óÇ°À» Á¦¾ÈÇØÁÖ¼¼¿ä.</p>
+                <p class="txt">ë§ˆì¼“ì»¬ë¦¬ì—ì„œ ì¶”ê°€ì ìœ¼ë¡œ íŒë§¤ë˜ë©´ ì¢‹ì„ ìƒí’ˆì„ ì œì•ˆí•´ì£¼ì„¸ìš”.</p>
             </li>
             <li>
-                <p class="txt">°í°´´ÔÀÇ ÀÇ°ßÀ» ¹ß ºü¸£°Ô ¹Ý¿µÇÏ¿© ´õ¿í Æí¸®ÇÑ ¸¶ÄÏÄÃ¸®°¡ µÇ°Ú½À´Ï´Ù.</p>
+                <p class="txt">ê³ ê°ë‹˜ì˜ ì˜ê²¬ì„ ë°œ ë¹ ë¥´ê²Œ ë°˜ì˜í•˜ì—¬ ë”ìš± íŽ¸ë¦¬í•œ ë§ˆì¼“ì»¬ë¦¬ê°€ ë˜ê² ìŠµë‹ˆë‹¤.</p>
             </li>
             <li>
-                <p class="txt">ÁÖÀÇ)¾ËÄÝ Á¦Ç°Àº ¹ý·É»ó ¿Â¶óÀÎ ÆÇ¸Å°¡ ºÒ°¡ÇÏ¿À´Ï, ÀÌ Á¡ Âü°íÇÏ¿© ÀÛ¼ººÎÅ¹µå¸³´Ï´Ù.</p>
+                <p class="txt">ì£¼ì˜)ì•Œì½œ ì œí’ˆì€ ë²•ë ¹ìƒ ì˜¨ë¼ì¸ íŒë§¤ê°€ ë¶ˆê°€í•˜ì˜¤ë‹ˆ, ì´ ì  ì°¸ê³ í•˜ì—¬ ìž‘ì„±ë¶€íƒë“œë¦½ë‹ˆë‹¤.</p>
             </li>
             <li>
-                <p class="txt">´ã´ç MD°¡ Á¦¾ÈÇØÁÖ½Å ÀÇ°ßÀ» ½Ç½Ã°£À¸·Î ¸ð´ÏÅÍ¸µÇÒ ¿¹Á¤ÀÌ³ª, º°µµ ´äº¯ ¾È³»´Â µÇÁö ¾ÊÀ½À» ¾çÇØºÎÅ¹µå¸³´Ï´Ù.</p>
+                <p class="txt">ë‹´ë‹¹ MDê°€ ì œì•ˆí•´ì£¼ì‹  ì˜ê²¬ì„ ì‹¤ì‹œê°„ìœ¼ë¡œ ëª¨ë‹ˆí„°ë§í•  ì˜ˆì •ì´ë‚˜, ë³„ë„ ë‹µë³€ ì•ˆë‚´ëŠ” ë˜ì§€ ì•ŠìŒì„ ì–‘í•´ë¶€íƒë“œë¦½ë‹ˆë‹¤.</p>
             </li>
         </ul>
         <form id="offerWriteForm" enctype="multipart/form-data">
             <div class="board-write">
                 <div class="board-write__subject">
-                    <div class="board-write__title">Á¦¸ñ</div>
+                    <div class="board-write__title">ì œëª©</div>
                     <div class="board-write__subject-inputs">
                             <select name="" id="" class="board-write__subject-select">
-                                <option value="">¼±ÅÃ</option>
-                                <option value="">½Å¼±Á¦Ç°</option>
-                                <option value="">Á¤À°/´Þ°¿</option>
-                                <option value="">¾ç³ä/¹ÝÂù</option>
+                                <option value="">ì„ íƒ</option>
+                                <option value="">ì‹ ì„ ì œí’ˆ</option>
+                                <option value="">ì •ìœ¡/ë‹¬ê±€</option>
+                                <option value="">ì–‘ë…/ë°˜ì°¬</option>
                                 <option value="">Home Dining</option>
                                 <option value="">Deli/Bakery</option>
                                 <option value="">Daily+</option>
-                                <option value="">±âÅ¸</option>
+                                <option value="">ê¸°íƒ€</option>
                             </select>
                             <input type="text" class="board-write__subject-txt">
                     </div>
                 </div>
                 <div class="board-write__content">
-                    <div class="board-write__title">³»¿ë</div>
+                    <div class="board-write__title">ë‚´ìš©</div>
                     <textarea name="content" id="content"></textarea>
                 </div>
                 <div class="board-write__upload">
-                    <div class="board-write__title">ÀÌ¹ÌÁö</div>
+                    <div class="board-write__title">ì´ë¯¸ì§€</div>
                     <div class="board-write__file">
                         <input type="file" name="" id="">
                     </div>
                 </div>
             </div>
-            <div class="board-write__write-btn">µî·Ï</div>
+            <div class="board-write__write-btn">ë“±ë¡</div>
             
         </form>
     </div>

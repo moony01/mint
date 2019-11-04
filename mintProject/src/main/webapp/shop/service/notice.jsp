@@ -1,39 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
 <seciton class="service">
     <div class="snb">
-        <h2 class="snb__title">°í°´¼¾ÅÍ</h2>
+        <h2 class="snb__title">ê³ ê°ì„¼í„°</h2>
         <ul class="snb__list">
-            <li class="snb__item current"><a href="/shop/service/notice">°øÁö»çÇ×</a></li>
-            <li class="snb__item"><a href="/shop/service/faq">ÀÚÁÖÇÏ´Â Áú¹®</a></li>
-            <li class="snb__item"><a href="/shop/service/qna">1:1 ¹®ÀÇ</a></li>
-            <li class="snb__item"><a href="/shop/service/offer">»óÇ° Á¦¾È</a></li>
+            <li class="snb__item current"><a href="/shop/service/notice">ê³µì§€ì‚¬í•­</a></li>
+            <li class="snb__item"><a href="/shop/service/faq">ìžì£¼í•˜ëŠ” ì§ˆë¬¸</a></li>
+            <li class="snb__item"><a href="/shop/service/qna">1:1 ë¬¸ì˜</a></li>
+            <li class="snb__item"><a href="/shop/service/offer">ìƒí’ˆ ì œì•ˆ</a></li>
         </ul>
     </div>
     <div class="service__main">
-        <h2 class="service__main-title">°øÁö»çÇ×
-            <span class="title_sub">¹ÎÆ®ÀÇ »õ·Î¿î ¼Ò½Äµé°ú À¯¿ëÇÑ Á¤º¸µéÀ» ÇÑ°÷¿¡¼­ È®ÀÎÇÏ¼¼¿ä.</span>
+        <h2 class="service__main-title">ê³µì§€ì‚¬í•­
+            <span class="title_sub">ë¯¼íŠ¸ì˜ ìƒˆë¡œìš´ ì†Œì‹ë“¤ê³¼ ìœ ìš©í•œ ì •ë³´ë“¤ì„ í•œê³³ì—ì„œ í™•ì¸í•˜ì„¸ìš”.</span>
         </h2>
         <table class="tb tb-notice">
             <tr>
-                <th class="size-1">¹øÈ£</th>
-                <th class="size-6">Á¦¸ñ</th>
-                <th class="size-2">ÀÛ¼ºÀÚ</th>
-                <th class="size-2">ÀÛ¼ºÀÏ</th>
-                <th class="size-1">Á¶È¸¼ö</th>
+                <th class="size-1">ë²ˆí˜¸</th>
+                <th class="size-6">ì œëª©</th>
+                <th class="size-2">ìž‘ì„±ìž</th>
+                <th class="size-2">ìž‘ì„±ì¼</th>
+                <th class="size-1">ì¡°íšŒìˆ˜</th>
             </tr>
             <tr class="tb-content">
-                <td>°øÁö</td>
-                <td>¾È³çÇÏ¼¼¿ä ¹Ý°©½À´Ï´Ù</td>
-                <td>±èÄ¡</td>
+                <td>ê³µì§€</td>
+                <td>ì•ˆë…•í•˜ì„¸ìš” ë°˜ê°‘ìŠµë‹ˆë‹¤</td>
+                <td>ê¹€ì¹˜</td>
                 <td>2019-11-22</td>
                 <td>33233</td>
             </tr>
             <tr class="tb-content">
-                <td>°øÁö</td>
-                <td>¾È³çÇÏ¼¼¿ä ¹Ý°©½À´Ï´Ù</td>
-                <td>±èÄ¡</td>
+                <td>ê³µì§€</td>
+                <td>ì•ˆë…•í•˜ì„¸ìš” ë°˜ê°‘ìŠµë‹ˆë‹¤</td>
+                <td>ê¹€ì¹˜</td>
                 <td>2019-11-22</td>
                 <td>33233</td>
             </tr>
@@ -49,13 +49,13 @@
         </div>
         <div class="service__search">
             <div class="service__sel-box">
-                <span>°Ë»ö¾î</span>
+                <span>ê²€ìƒ‰ì–´</span>
                 <input type="checkbox" name="" id="">
-                <span>ÀÌ¸§</span>
+                <span>ì´ë¦„</span>
                 <input type="checkbox" name="" id="">
-                <span>Á¦¸ñ</span>
+                <span>ì œëª©</span>
                 <input type="checkbox" name="" id="">
-                <span>³»¿ë</span>
+                <span>ë‚´ìš©</span>
             </div>
             <div class="service__serch-box">
                 <input type="text">

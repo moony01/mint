@@ -1,52 +1,53 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <seciton class="service">
     <div class="snb">
-        <h2 class="snb__title">°í°´¼¾ÅÍ</h2>
+        <h2 class="snb__title">ê³ ê°ì„¼í„°</h2>
         <ul class="snb__list">
-            <li class="snb__item"><a href="/shop/service/notice">°øÁö»çÇ×</a></li>
-            <li class="snb__item"><a href="/shop/service/faq">ÀÚÁÖÇÏ´Â Áú¹®</a></li>
-            <li class="snb__item"><a href="/shop/service/qna">1:1 ¹®ÀÇ</a></li>
-            <li class="snb__item current"><a href="/shop/service/offer">»óÇ° Á¦¾È</a></li>
+            <li class="snb__item"><a href="/shop/service/notice">ê³µì§€ì‚¬í•­</a></li>
+            <li class="snb__item"><a href="/shop/service/faq">ìžì£¼í•˜ëŠ” ì§ˆë¬¸</a></li>
+            <li class="snb__item"><a href="/shop/service/qna">1:1 ë¬¸ì˜</a></li>
+            <li class="snb__item current"><a href="/shop/service/offer">ìƒí’ˆ ì œì•ˆ</a></li>
         </ul>
     </div>
     <div class="service__main">
-        <h2 class="service__main-title">»óÇ° Á¦¾È</h2>
+        <h2 class="service__main-title">ìƒí’ˆ ì œì•ˆ</h2>
         <ul class="service__manual">
             <li>
-                <p class="txt">¸¶ÄÏÄÃ¸®¿¡¼­ Ãß°¡ÀûÀ¸·Î ÆÇ¸ÅµÇ¸é ÁÁÀ» »óÇ°À» Á¦¾ÈÇØÁÖ¼¼¿ä.</p>
+                <p class="txt">ë§ˆì¼“ì»¬ë¦¬ì—ì„œ ì¶”ê°€ì ìœ¼ë¡œ íŒë§¤ë˜ë©´ ì¢‹ì„ ìƒí’ˆì„ ì œì•ˆí•´ì£¼ì„¸ìš”.</p>
             </li>
             <li>
-                    <p class="txt">°í°´´ÔÀÇ ÀÇ°ßÀ» ¹ß ºü¸£°Ô ¹Ý¿µÇÏ¿© ´õ¿í Æí¸®ÇÑ ¸¶ÄÏÄÃ¸®°¡ µÇ°Ú½À´Ï´Ù.</p>
+                    <p class="txt">ê³ ê°ë‹˜ì˜ ì˜ê²¬ì„ ë°œ ë¹ ë¥´ê²Œ ë°˜ì˜í•˜ì—¬ ë”ìš± íŽ¸ë¦¬í•œ ë§ˆì¼“ì»¬ë¦¬ê°€ ë˜ê² ìŠµë‹ˆë‹¤.</p>
             </li>
             <li>
-                    <p class="txt">ÁÖÀÇ)¾ËÄÝ Á¦Ç°Àº ¹ý·É»ó ¿Â¶óÀÎ ÆÇ¸Å°¡ ºÒ°¡ÇÏ¿À´Ï, ÀÌ Á¡ Âü°íÇÏ¿© ÀÛ¼ººÎÅ¹µå¸³´Ï´Ù.</p>
+                    <p class="txt">ì£¼ì˜)ì•Œì½œ ì œí’ˆì€ ë²•ë ¹ìƒ ì˜¨ë¼ì¸ íŒë§¤ê°€ ë¶ˆê°€í•˜ì˜¤ë‹ˆ, ì´ ì  ì°¸ê³ í•˜ì—¬ ìž‘ì„±ë¶€íƒë“œë¦½ë‹ˆë‹¤.</p>
             </li>
             <li>
-                    <p class="txt">´ã´ç MD°¡ Á¦¾ÈÇØÁÖ½Å ÀÇ°ßÀ» ½Ç½Ã°£À¸·Î ¸ð´ÏÅÍ¸µÇÒ ¿¹Á¤ÀÌ³ª, º°µµ ´äº¯ ¾È³»´Â µÇÁö ¾ÊÀ½À» ¾çÇØºÎÅ¹µå¸³´Ï´Ù.</p>
+                    <p class="txt">ë‹´ë‹¹ MDê°€ ì œì•ˆí•´ì£¼ì‹  ì˜ê²¬ì„ ì‹¤ì‹œê°„ìœ¼ë¡œ ëª¨ë‹ˆí„°ë§í•  ì˜ˆì •ì´ë‚˜, ë³„ë„ ë‹µë³€ ì•ˆë‚´ëŠ” ë˜ì§€ ì•ŠìŒì„ ì–‘í•´ë¶€íƒë“œë¦½ë‹ˆë‹¤.</p>
             </li>
         </ul>
         <table class="tb tb-qna">
             <tr>
-                <th class="size-1">¹øÈ£</th>
-                <th class="size-2">Ä«Å×°í¸®</th>
-                <th class="size-6">Á¦¸ñ</th>
-                <th class="size-2">ÀÛ¼ºÀÏ</th>
-                <th class="size-1">»óÅÂ</th>
+                <th class="size-1">ë²ˆí˜¸</th>
+                <th class="size-2">ì¹´í…Œê³ ë¦¬</th>
+                <th class="size-6">ì œëª©</th>
+                <th class="size-2">ìž‘ì„±ì¼</th>
+                <th class="size-1">ìƒíƒœ</th>
             </tr>
             <tr class="tb-content">
-                <td>°øÁö</td>
-                <td>¾È³ç</td>
-                <td>±èÄ¡</td>
+                <td>ê³µì§€</td>
+                <td>ì•ˆë…•</td>
+                <td>ê¹€ì¹˜</td>
                 <td>2019-11-22</td>
-                <td>´ë±âÁß</td>
+                <td>ëŒ€ê¸°ì¤‘</td>
             </tr>
             <tr class="tb-content">
-                <td>°øÁö</td>
-                <td>¾È³ç</td>
-                <td>±èÄ¡</td>
+                <td>ê³µì§€</td>
+                <td>ì•ˆë…•</td>
+                <td>ê¹€ì¹˜</td>
                 <td>2019-11-22</td>
-                <td>´ë±âÁß</td>
+                <td>ëŒ€ê¸°ì¤‘</td>
             </tr>
         </table> 
         <div class="paging">
@@ -58,6 +59,6 @@
                 <li class="page-item"><a class="page-link" href="#">></a></li>
             </ul>
         </div>
-        <div class="service__write-btn">±Û¾²±â</div>
+        <div class="service__write-btn">ê¸€ì“°ê¸°</div>
     </div>
 </seciton>

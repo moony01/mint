@@ -1,39 +1,40 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <seciton class="service">
     <div class="snb">
-        <h2 class="snb__title">°í°´¼¾ÅÍ</h2>
+        <h2 class="snb__title">ê³ ê°ì„¼í„°</h2>
         <ul class="snb__list">
-            <li class="snb__item"><a href="/shop/service/notice">°øÁö»çÇ×</a></li>
-            <li class="snb__item"><a href="/shop/service/faq">ÀÚÁÖÇÏ´Â Áú¹®</a></li>
-            <li class="snb__item current"><a href="/shop/service/qna">1:1 ¹®ÀÇ</a></li>
-            <li class="snb__item"><a href="/shop/service/offer">»óÇ° Á¦¾È</a></li>
+            <li class="snb__item"><a href="/shop/service/notice">ê³µì§€ì‚¬í•­</a></li>
+            <li class="snb__item"><a href="/shop/service/faq">ìžì£¼í•˜ëŠ” ì§ˆë¬¸</a></li>
+            <li class="snb__item current"><a href="/shop/service/qna">1:1 ë¬¸ì˜</a></li>
+            <li class="snb__item"><a href="/shop/service/offer">ìƒí’ˆ ì œì•ˆ</a></li>
         </ul>
     </div>
     <div class="service__main">
-        <h2 class="service__main-title">1:1¹®ÀÇ
+        <h2 class="service__main-title">1:1ë¬¸ì˜
         </h2>
         <table class="tb tb-qna">
             <tr>
-                <th class="size-1">¹øÈ£</th>
-                <th class="size-2">Ä«Å×°í¸®</th>
-                <th class="size-6">Á¦¸ñ</th>
-                <th class="size-2">ÀÛ¼ºÀÏ</th>
-                <th class="size-1">»óÅÂ</th>
+                <th class="size-1">ë²ˆí˜¸</th>
+                <th class="size-2">ì¹´í…Œê³ ë¦¬</th>
+                <th class="size-6">ì œëª©</th>
+                <th class="size-2">ìž‘ì„±ì¼</th>
+                <th class="size-1">ìƒíƒœ</th>
             </tr>
             <tr class="tb-content">
-                <td>°øÁö</td>
-                <td>¾È³ç</td>
-                <td>±èÄ¡</td>
+                <td>ê³µì§€</td>
+                <td>ì•ˆë…•</td>
+                <td>ê¹€ì¹˜</td>
                 <td>2019-11-22</td>
-                <td>´ë±âÁß</td>
+                <td>ëŒ€ê¸°ì¤‘</td>
             </tr>
             <tr class="tb-content">
-                <td>°øÁö</td>
-                <td>¾È³ç</td>
-                <td>±èÄ¡</td>
+                <td>ê³µì§€</td>
+                <td>ì•ˆë…•</td>
+                <td>ê¹€ì¹˜</td>
                 <td>2019-11-22</td>
-                <td>´ë±âÁß</td>
+                <td>ëŒ€ê¸°ì¤‘</td>
             </tr>
         </table> 
         <div class="paging">
@@ -45,6 +46,6 @@
                 <li class="page-item"><a class="page-link" href="#">></a></li>
             </ul>
         </div>
-        <div class="service__write-btn clearfix">±Û¾²±â</div>
+        <div class="service__write-btn clearfix">ê¸€ì“°ê¸°</div>
     </div>
 </seciton>

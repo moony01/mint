@@ -1,44 +1,45 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <seciton class="service">
     <div class="snb">
-        <h2 class="snb__title">°í°´¼¾ÅÍ</h2>
+        <h2 class="snb__title">ê³ ê°ì„¼í„°</h2>
         <ul class="snb__list">
-            <li class="snb__item"><a href="/shop/service/notice">°øÁö»çÇ×</a></li>
-            <li class="snb__item current"><a href="/shop/service/faq">ÀÚÁÖÇÏ´Â Áú¹®</a></li>
-            <li class="snb__item"><a href="/shop/service/qna">1:1 ¹®ÀÇ</a></li>
-            <li class="snb__item"><a href="/shop/service/offer">»óÇ° Á¦¾È</a></li>
+            <li class="snb__item"><a href="/shop/service/notice">ê³µì§€ì‚¬í•­</a></li>
+            <li class="snb__item current"><a href="/shop/service/faq">ìžì£¼í•˜ëŠ” ì§ˆë¬¸</a></li>
+            <li class="snb__item"><a href="/shop/service/qna">1:1 ë¬¸ì˜</a></li>
+            <li class="snb__item"><a href="/shop/service/offer">ìƒí’ˆ ì œì•ˆ</a></li>
         </ul>
     </div>
     <div class="service__main">
-        <h2 class="service__main-title">ÀÚÁÖÇÏ´Â Áú¹®
-            <span class="title_sub">°í°´´Ôµé²²¼­ °¡Àå ÀÚÁÖÇÏ½Ã´Â Áú¹®À» ¸ðµÎ ¸ð¾Ò½À´Ï´Ù.</span>
+        <h2 class="service__main-title">ìžì£¼í•˜ëŠ” ì§ˆë¬¸
+            <span class="title_sub">ê³ ê°ë‹˜ë“¤ê»˜ì„œ ê°€ìž¥ ìžì£¼í•˜ì‹œëŠ” ì§ˆë¬¸ì„ ëª¨ë‘ ëª¨ì•˜ìŠµë‹ˆë‹¤.</span>
         </h2>
-        <!-- ¾ÆÁ÷ °ª ¼³Á¤ ¾ÈÇÔ °°ÀÌÇÒ ¿¹Á¤ -->
+        <!-- ì•„ì§ ê°’ ì„¤ì • ì•ˆí•¨ ê°™ì´í•  ì˜ˆì • -->
         <select name="" id="" class="select-box">
-            <option value="">¼±ÅÃ</option>
-            <option value="">È¸¿ø ¹®ÀÇ</option>
-            <option value="">ÁÖ¹®/°áÁ¦</option>
-            <option value="">Ãë¼Ò/±³È¯/¹ÝÇ°</option>
-            <option value="">¹è¼Û ¹®ÀÇ</option>
-            <option value="">ÄíÆù/Àû¸²±Ý</option>
-            <option value="">¼­ºñ½º ÀÌ¿ë ¹× ±âÅ¸</option>
+            <option value="">ì„ íƒ</option>
+            <option value="">íšŒì› ë¬¸ì˜</option>
+            <option value="">ì£¼ë¬¸/ê²°ì œ</option>
+            <option value="">ì·¨ì†Œ/êµí™˜/ë°˜í’ˆ</option>
+            <option value="">ë°°ì†¡ ë¬¸ì˜</option>
+            <option value="">ì¿ í°/ì ë¦¼ê¸ˆ</option>
+            <option value="">ì„œë¹„ìŠ¤ ì´ìš© ë° ê¸°íƒ€</option>
         </select>
         <table class="tb tb-fqa">
             <tr>
-                <th class="size-1">¹øÈ£</th>
-                <th class="size-2">ÀÛ¼ºÀÚ</th>
-                <th class="size-9">Á¦¸ñ</th>
+                <th class="size-1">ë²ˆí˜¸</th>
+                <th class="size-2">ìž‘ì„±ìž</th>
+                <th class="size-9">ì œëª©</th>
             </tr>
             <tr class="tb-content">
                 <td>1</td>
-                <td>¾È³ç</td>
-                <td>¾ÆÀÌµð¿Í ºñ¹Ð¹øÈ£°¡ »ý°¢³ªÁö ¾Ê¾Æ¿ä. ¾î¶»°Ô Ã£À» ¼ö ÀÖ³ª¿ä?</td>
+                <td>ì•ˆë…•</td>
+                <td>ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ê°€ ìƒê°ë‚˜ì§€ ì•Šì•„ìš”. ì–´ë–»ê²Œ ì°¾ì„ ìˆ˜ ìžˆë‚˜ìš”?</td>
             </tr>
 
             <tr class="tb-view">
                 <td colspan="1"><img src="https://www.kurly.com/shop/data/skin/designgj/img/common/faq_a.gif"></td>
-                <td colspan="2">¸ô¶ó</td>
+                <td colspan="2">ëª°ë¼</td>
             </tr>
         </table>
         

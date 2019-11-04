@@ -1,30 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <section class="service-view">
-    <h2 class="service__main-title">°øÁö»çÇ×
-        <span class="title_sub">¹ÎÆ®ÀÇ »õ·Î¿î ¼Ò½Äµé°ú À¯¿ëÇÑ Á¤º¸µéÀ» ÇÑ°÷¿¡¼­ È®ÀÎÇÏ¼¼¿ä.</span>
+    <h2 class="service__main-title">ê³µì§€ì‚¬í•­
+        <span class="title_sub">ë¯¼íŠ¸ì˜ ìƒˆë¡œìš´ ì†Œì‹ë“¤ê³¼ ìœ ìš©í•œ ì •ë³´ë“¤ì„ í•œê³³ì—ì„œ í™•ì¸í•˜ì„¸ìš”.</span>
     </h2>
     <table class="notcie-view">
         <tr class="notcie-view__subject">
-            <th class="notice-view__title">Á¦¸ñ</th>
-            <td colspan="3" id="subject">¸ô¶ó</td>
+            <th class="notice-view__title">ì œëª©</th>
+            <td colspan="3" id="subject">ëª°ë¼</td>
         </tr>
         <tr class="notcie-view__author">
-            <th class="notice-view__title">ÀÛ¼ºÀÚ</th>
+            <th class="notice-view__title">ìž‘ì„±ìž</th>
             <td colspan="3" id="id">mint</td>
         </tr>
         <tr class="notcie-view__author">
-            <th class="notice-view__title">ÀÛ¼ºÀÏ</th>
+            <th class="notice-view__title">ìž‘ì„±ì¼</th>
             <td id="logtime">2019-11-01</td>
-            <th class="notice-view__title">Á¶È¸¼ö</th>
+            <th class="notice-view__title">ì¡°íšŒìˆ˜</th>
             <td id="hit">175</td>
         </tr>
         <tr class="notice-view__conent">
             <td colspan="4" id="conent">
-                ¾È³ç<br>
-                ¸ô¶ó
+                ì•ˆë…•<br>
+                ëª°ë¼
             </td>
         </tr>
     </table>
-    <div class="service__write-btn">¸ñ·Ï</div>
+    <div class="service__write-btn">ëª©ë¡</div>
 </section>

@@ -5,7 +5,11 @@
 
 	<!-- 목록 -->
 	<select id="noticeBoardList" parameterType="java.util.Map" resultType="noticeBoard">
+		select * from test
+	</select>
 
+	<select id="getTotalNotice" resultType="int">
+		select count(*) from test
 	</select>
 
 </mapper>

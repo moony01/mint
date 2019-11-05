@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <section class="service">
     <div class="snb">
         <h2 class="snb__title">고객센터</h2>
@@ -30,24 +31,21 @@
                 <th class="size-2">작성일</th>
                 <th class="size-1">조회수</th>
             </tr>
-            <tr class="tb-content">
-                <td>공지</td>
-                <td>안녕하세요 반갑습니다</td>
-                <td>김치</td>
-                <td>2019-11-22</td>
-                <td>33233</td>
-            </tr>
-            <tr class="tb-content">
-                <td>공지</td>
-                <td>안녕하세요 반갑습니다</td>
-                <td>김치</td>
-                <td>2019-11-22</td>
-                <td>33233</td>
-            </tr>
+            <c:if test="${list != null}">
+            	<c:forEach var="noticeBoardDTO" items="${list }">
+            		<tr class="tb-content">
+            			<td>${noticeBoardDTO.seq }</td>
+            			<td>${noticeBoardDTO.subject }</td>
+            			<td>memId</td>
+            			<td>${noticeBoardDTO.logtime }</td>
+            			<td>${noticeBoardDTO.hit }</td>
+            		</tr>
+            	</c:forEach>
+            </c:if>
         </table> 
         <div class="paging">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#"><</a></li>
+                <li class="page-item"><a class="page-link" href="#">></a></li>
                 <li class="page-item active"><a class="page-link" href="#">1</a></li>
                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
@@ -77,7 +75,6 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script type="text/javascript">
 $(document).ready(function(){
-	/* 공지사항 ajax 요청 */
 	
 })
 </script>

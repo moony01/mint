@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<seciton class="service">
+<section class="service">
     <div class="snb">
         <h2 class="snb__title">고객센터</h2>
         <ul class="snb__list">
@@ -32,17 +32,17 @@
                 <div class="board-write__subject">
                     <div class="board-write__title">제목</div>
                     <div class="board-write__subject-inputs">
-                            <select name="" id="" class="board-write__subject-select">
-                                <option value="">선택</option>
-                                <option value="">신선제품</option>
-                                <option value="">정육/달걀</option>
-                                <option value="">양념/반찬</option>
-                                <option value="">Home Dining</option>
-                                <option value="">Deli/Bakery</option>
-                                <option value="">Daily+</option>
-                                <option value="">기타</option>
+                            <select name="category" id="" class="board-write__subject-select">
+                                <option value="선택">선택</option>
+                                <option value="신선제품">신선제품</option>
+                                <option value="정육/달걀">정육/달걀</option>
+                                <option value="양념/반찬">양념/반찬</option>
+                                <option value="Home Dining">Home Dining</option>
+                                <option value="Deli/Bakery">Deli/Bakery</option>
+                                <option value="Daily+">Daily+</option>
+                                <option value="기타">기타</option>
                             </select>
-                            <input type="text" class="board-write__subject-txt">
+                            <input type="text" name="subject" class="board-write__subject-txt">
                     </div>
                 </div>
                 <div class="board-write__content">
@@ -52,7 +52,7 @@
                 <div class="board-write__upload">
                     <div class="board-write__title">이미지</div>
                     <div class="board-write__file">
-                        <input type="file" name="" id="">
+                        <input type="file" name="img" id="img">
                     </div>
                 </div>
             </div>
@@ -60,4 +60,28 @@
             
         </form>
     </div>
-</seciton>
+</section>
+
+<script>
+$('.board-write__write-btn').click(function(){
+    let choice = document.querySelector(".board-write__subject-select").value;
+    if(choice == '선택') alert('카테고리 항목을 선택하세요. ');
+    else if($('.board-write__subject-txt').val() == '') alert('제목을 입력하세요 ');
+    else if($('#content').val() == '') alert('내용을 입력하세요. ');
+    else {
+    	let formData = new FormData($('#offerWriteForm')[0]);
+        $.ajax({
+            type: 'post',
+            url: '/mintProject/shop/service/offerWriteOk',
+            data: formData,
+            enctype: 'multipart/form-data',
+            processData: false, 
+            contentType: false, 
+            success: function(){
+                location.href='/mintProject/shop/service/offer';
+            },
+            error: function(){}
+        });
+    }
+});
+</script>

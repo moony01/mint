@@ -41,7 +41,6 @@ public class NoticeBoardController {
 		map.put("endNum", endNum);
 		
 		List<NoticeBoardDTO> list = noticeBoardService.noticeBoardList(map);
-		System.out.println("list : " +list.size());
 		
 		//페이징 처리
 		int totalNotice = noticeBoardService.getTotalNotice();//총글수

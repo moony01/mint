@@ -51,11 +51,11 @@
         <div class="service__search">
             <div class="service__sel-box">
                 <span>검색어</span>
-                <input type="checkbox" name="" id="">
+                <input type="checkbox" name="chkName" id="chkName">
                 <span>이름</span>
-                <input type="checkbox" name="" id="" checked>
+                <input type="checkbox" name="chkSub" id="chkSub">
                 <span>제목</span>
-                <input type="checkbox" name="" id="">
+                <input type="checkbox" name="chkContent" id="chkContent">
                 <span>내용</span>
             </div>
             <div class="service__serch-box">
@@ -70,6 +70,8 @@
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script type="text/javascript">
+//document.getElementsByName('chkSub')[0].checked = true;
+
 $(document).ready(function(){
 	
 })

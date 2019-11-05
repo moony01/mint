@@ -4,7 +4,7 @@
 <mapper namespace="noticeBoardSQL">
 
 	<!-- 목록 -->
-	<select id="noticeBoardList" parameterType="java.util.map" resultType="noticeBoard">
+	<select id="noticeBoardList" parameterType="java.util.Map" resultType="noticeBoard">
 
 	</select>
 

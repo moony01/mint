@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import mint.noticeBoard.bean.NoticeBoardDTO;
 import mint.noticeBoard.dao.NoticeBoardDAO;
 
-@Service
+@Service(value="noticeBoardService")
 public class NoticeBoardServiceImpl implements NoticeBoardService {
 
 	@Autowired

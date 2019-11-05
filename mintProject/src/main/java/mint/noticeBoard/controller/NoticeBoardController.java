@@ -19,8 +19,8 @@ import mint.noticeBoard.service.NoticeBoardService;
 @Controller
 @RequestMapping(value="/shop/service/")
 public class NoticeBoardController {
-	@Autowired
-	private NoticeBoardService noticeBoardService;
+	//@Autowired
+	//private NoticeBoardService noticeBoardService;
 	
 	@RequestMapping(value="notice")
 	public String noticeBoardList(@RequestParam(required=false, defaultValue="1") String pg,
@@ -29,6 +29,7 @@ public class NoticeBoardController {
 		
 		//String memId = (String)session.getAttribute("memId");
 		System.out.println("hello");
+		
 		//1페이지당 5개씩
 		int endNum = Integer.parseInt(pg)*5;
 		int startNum = endNum-4;

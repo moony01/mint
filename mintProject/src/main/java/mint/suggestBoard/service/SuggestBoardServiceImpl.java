@@ -30,4 +30,21 @@ public class SuggestBoardServiceImpl implements SuggestBoardService {
 		return suggestBoardDAO.getSuggestBoardTotArticle();
 	}
 
+	@Override
+	public SuggestBoardDTO getSuggestBoard(int seq) {
+		return suggestBoardDAO.getSuggestBoard(seq);
+	}
+
+	@Override
+	public void updateSuggestBoard(SuggestBoardDTO suggestBoardDTO) {
+		suggestBoardDAO.updateSuggestBoard(suggestBoardDTO);
+		
+	}
+
+	@Override
+	public void deleteSuggestBoard(int seq) {
+		suggestBoardDAO.deleteSuggestBoard(seq);
+		
+	}
+
 }

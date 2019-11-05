@@ -21,13 +21,28 @@ public class SuggestBoardDAOMybatis implements SuggestBoardDAO {
 
 	@Override
 	public List<SuggestBoardDTO> getSuggestBoardList(Map<String, Integer> map) {
-		return sqlSession.selectList("suggestBoardSQL.getSuggestBoardList", map);
-		
+		return sqlSession.selectList("suggestBoardSQL.getSuggestBoardList", map);		
 	}
 
 	@Override
 	public int getSuggestBoardTotArticle() {
 		return sqlSession.selectOne("suggestBoardSQL.getSuggestBoardTotArticle");
+	}
+
+	@Override
+	public SuggestBoardDTO getSuggestBoard(int seq) {
+		return sqlSession.selectOne("suggestBoardSQL.getSuggestBoard", seq);
+	}
+
+	@Override
+	public void updateSuggestBoard(SuggestBoardDTO suggestBoardDTO) {
+		sqlSession.update("suggestBoardSQL.updateSuggestBoard", suggestBoardDTO);
+	}
+
+	@Override
+	public void deleteSuggestBoard(int seq) {
+		sqlSession.delete("suggestBoardSQL.deleteSuggestBoard", seq);
+		
 	}
 
 }

@@ -47,15 +47,17 @@
 	               <c:if test="${suggestBoardDTO.replyStatus == 1 }"><td>답변완료</td></c:if>    
 	           </tr>
 	           
-	           <tr class="tb-view">
+	           <tr class="tb-view"> 
 	            	<td	colspan="2">${suggestBoardDTO.content }</td>
+	            	<td>
+	            		<input type="button" value="수정" onclick="location.href='/mintProject/shop/service/offerModify?pg=${pg}&seq=${suggestBoardDTO.seq }'">
+	            		<input type="button" value="삭제" class="btnDelete">
+	            	</td>
 	           </tr>   	
 	           
 	           <c:if test="${suggestBoardDTO.replyStatus == 1 }">
 	           	<tr class="tb-view">
-	               	<td colspan="1"><img src="https://www.kurly.com/shop/data/skin/designgj/img/common/faq_a.gif"></td>
 	                <td colspan="2">${suggestBoardDTO.replyContent }</td>
-					
 	           	</tr>	           
 		       </c:if>
 	               	
@@ -64,39 +66,20 @@
         </table> 
         <div class="paging">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#"><</a></li>
-                <li class="page-item active"><a class="page-link before" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">></a></li>
+               <li class="page-item prev"></li>
+                <li class="page-item next"></li>
             </ul>
         </div>
-        <div class="service__write-btn" onclick="location.href='../service/offerWrite'">글쓰기</div>
+        <div class="service__write-btn" onclick="location.href='/mintProject/shop/service/offerWrite'">글쓰기</div>
     </div>
 </section>
 <script>
 let totalArticle = ${totalArticle};
 let currentPage = ${pg};
-let pageBlock = 3;
-let pageSize = 3;
-let totalPage = (totalArticle+pageSize-1) / pageSize;
-let startPage = (currentPage-1)/pageBlock * pageBlock +1; 
-let endPage = startPage + pageBlock -1;
-if(endPage > totalPage) endPage = totalPage;
+let addr = '${addr}';
 
-if(startPage > pageBlock){
-	$('.page-link before').attr('href', '/mintProject/shop/service/offer?pg='+(startPage-1));
-	// 이전
-}
+window.onload = function(){ paging(totalArticle, currentPage, addr);}
 
-for(i = startPage; i <= endPage ; i++) {
-//	$('.page-link').attr('href', '/mintProject/shop/service/offer?pg='+i);
-	//i			
-}
-
-if(endPage < totalPage) $('.page-link').attr('href', '/mintProject/shop/service/offer?pg='+ (endPage+1));
-// +"'> 다음 </a> ]
-
-
-
-</script>
+</script> 
+<script src='/mintProject/shop/js/qna.js'></script>
+<script src='/mintProject/shop/js/offer.js'></script>

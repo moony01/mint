@@ -11,14 +11,17 @@ import mint.noticeBoard.dao.NoticeBoardDAO;
 
 @Service(value="noticeBoardService")
 public class NoticeBoardServiceImpl implements NoticeBoardService {
-
 	@Autowired
 	private NoticeBoardDAO noticeBoardDAO;
 	
 	@Override
 	public List<NoticeBoardDTO> noticeBoardList(Map<String, Integer> map) {
-		System.out.println("hello");
 		return noticeBoardDAO.noticeBoardList(map);
+	}
+
+	@Override
+	public int getTotalNotice() {
+		return noticeBoardDAO.getTotalNotice();
 	}
 
 }

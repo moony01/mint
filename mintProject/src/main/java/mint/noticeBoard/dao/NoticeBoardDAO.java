@@ -8,5 +8,7 @@ import mint.noticeBoard.bean.NoticeBoardDTO;
 public interface NoticeBoardDAO {
 
 	public List<NoticeBoardDTO> noticeBoardList(Map<String, Integer> map);
+
+	public int getTotalNotice();
 	
 }

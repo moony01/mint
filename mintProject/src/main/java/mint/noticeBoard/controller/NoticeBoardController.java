@@ -13,14 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import mint.noticeBoard.bean.NoticeBoardDTO;
+import mint.noticeBoard.bean.NoticeBoardPaging;
 import mint.noticeBoard.service.NoticeBoardService;
 
 
 @Controller
 @RequestMapping(value="/shop/service/")
 public class NoticeBoardController {
-	//@Autowired
-	//private NoticeBoardService noticeBoardService;
+	@Autowired
+	private NoticeBoardService noticeBoardService;
+	//private NoticeBoardPaging noticeBoardPaging;
 	
 	@RequestMapping(value="notice")
 	public String noticeBoardList(@RequestParam(required=false, defaultValue="1") String pg,
@@ -28,7 +30,6 @@ public class NoticeBoardController {
 								 HttpSession session) {
 		
 		//String memId = (String)session.getAttribute("memId");
-		System.out.println("hello");
 		
 		//1페이지당 5개씩
 		int endNum = Integer.parseInt(pg)*5;
@@ -38,12 +39,15 @@ public class NoticeBoardController {
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
 		
-		//List<NoticeBoardDTO> list = noticeBoardService.noticeBoardList(map);
-		//System.out.println("list : " +list);
+		List<NoticeBoardDTO> list = noticeBoardService.noticeBoardList(map);
+		
+		//페이징 처리
+		//int totalA = noticeBoardService.getTotalNotice();//총글수
 		
 		model.addAttribute("pg", pg);
-		//model.addAttribute("display", "/service/notice.jsp");
-		return "/shop/service/notice";
+		model.addAttribute("list", list);
+		model.addAttribute("display", "/shop/service/notice.jsp");
+		return "/shop/main/index";
 	}
 }
 

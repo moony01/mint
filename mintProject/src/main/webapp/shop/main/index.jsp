@@ -57,7 +57,7 @@
             <li class="my-page__item"><a href="">배송안내</a></li>
         </ul>
         <div class="header__main-wrap">
-            <a href="/shop/main/index"><img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" class="header__main-logo"></a>
+            <a href="/mintProject/shop/main/index"><img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" class="header__main-logo"></a>
         </div>
     </header>
     <nav class="gnb">
@@ -70,7 +70,7 @@
         </ul>
     </nav>
     
-   <%--  <jsp:include page="${display }"/> --%>
+   <jsp:include page="${display }"/> 
     
     <footer class="footer">
 

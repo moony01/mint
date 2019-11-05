@@ -28,6 +28,8 @@
             </li>
         </ul>
         <form id="offerWriteForm" enctype="multipart/form-data">
+            <input type="hidden" name="viewSeq" value="${seq }">
+            <input type="hidden" name="pg" value="${pg }">
             <div class="board-write">
                 <div class="board-write__subject">
                     <div class="board-write__title">제목</div>
@@ -52,7 +54,8 @@
                 <div class="board-write__upload">
                     <div class="board-write__title">이미지</div>
                     <div class="board-write__file">
-                        <input type="file" name="img" id="img">
+                        <input type="file" name="img" id="img" style="display: inline-block;">
+                        <div id="viewImg" style="display:inline-block; float: right;"></div>
                     </div>
                 </div>
             </div>
@@ -61,27 +64,23 @@
         </form>
     </div>
 </section>
-
+<script src='/mintProject/shop/js/offer.js'></script>
 <script>
-$('.board-write__write-btn').click(function(){
-    let choice = document.querySelector(".board-write__subject-select").value;
-    if(choice == '선택') alert('카테고리 항목을 선택하세요. ');
-    else if($('.board-write__subject-txt').val() == '') alert('제목을 입력하세요 ');
-    else if($('#content').val() == '') alert('내용을 입력하세요. ');
-    else {
-    	let formData = new FormData($('#offerWriteForm')[0]);
-        $.ajax({
-            type: 'post',
-            url: '/mintProject/shop/service/offerWriteOk',
-            data: formData,
-            enctype: 'multipart/form-data',
-            processData: false, 
-            contentType: false, 
-            success: function(){
-                location.href='/mintProject/shop/service/offer';
-            },
-            error: function(){}
-        });
-    }
-});
+let suggestBoardDTO = '${suggestBoardDTO.seq}';
+let options = document.querySelector(".board-write__subject-select");
+
+$().ready(function(){
+	if(suggestBoardDTO != ''){
+		for (var i = 0; i < options.length; i++) {
+			if(options[i].value == '${suggestBoardDTO.category}') options[i].setAttribute('selected', true);
+		}
+		$('.board-write__subject-txt').val('${suggestBoardDTO.subject}');
+		$('#content').text('${suggestBoardDTO.content}');
+		$('#viewImg').append($('<img/>', {
+			src: '/mintProject/shop/storage/${suggestBoardDTO.imgName}',
+			style: 'width: 50px; height:50px'
+		}));
+		$('.board-write__write-btn').text('수정');
+	}
+});	
 </script>

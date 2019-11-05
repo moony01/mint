@@ -17,4 +17,17 @@
 		select count(*) from suggestboard
 	</select>
 	
+	<select id="getSuggestBoard" parameterType="int" resultType="suggestBoard">
+		select * from suggestboard where seq = #{seq}
+	</select>
+	
+	<update id="updateSuggestBoard" parameterType="suggestBoard">
+		update suggestboard set 
+		category = #{category}, subject = #{subject}, content=#{content}, imgName=#{imgName}, logtimeQ= sysdate
+		where seq = #{seq}
+	</update>
+	
+	<delete id="deleteSuggestBoard" parameterType="int">
+		delete from suggestboard where seq=#{seq}
+	</delete>
 </mapper>

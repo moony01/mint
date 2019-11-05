@@ -13,4 +13,10 @@ public interface SuggestBoardService {
 
 	public int getSuggestBoardTotArticle();
 
+	public SuggestBoardDTO getSuggestBoard(int seq);
+
+	public void updateSuggestBoard(SuggestBoardDTO suggestBoardDTO);
+
+	public void deleteSuggestBoard(int seq);
+
 }

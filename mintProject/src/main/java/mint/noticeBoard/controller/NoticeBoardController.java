@@ -22,12 +22,13 @@ import mint.noticeBoard.service.NoticeBoardService;
 public class NoticeBoardController {
 	@Autowired
 	private NoticeBoardService noticeBoardService;
-	//private NoticeBoardPaging noticeBoardPaging;
+	@Autowired
+	private NoticeBoardPaging noticeBoardPaging;
 	
 	@RequestMapping(value="notice")
 	public String noticeBoardList(@RequestParam(required=false, defaultValue="1") String pg,
-								 Model model,
-								 HttpSession session) {
+								  Model model,
+								  HttpSession session) {
 		
 		//String memId = (String)session.getAttribute("memId");
 		
@@ -40,12 +41,19 @@ public class NoticeBoardController {
 		map.put("endNum", endNum);
 		
 		List<NoticeBoardDTO> list = noticeBoardService.noticeBoardList(map);
+		System.out.println("list : " +list.size());
 		
 		//페이징 처리
-		//int totalA = noticeBoardService.getTotalNotice();//총글수
+		int totalNotice = noticeBoardService.getTotalNotice();//총글수
+		noticeBoardPaging.setCurrentPage(Integer.parseInt(pg));
+		noticeBoardPaging.setPageBlock(3);
+		noticeBoardPaging.setPageSize(5);
+		noticeBoardPaging.setTotalNotice(totalNotice);
+		noticeBoardPaging.makePagingHTML();
 		
 		model.addAttribute("pg", pg);
 		model.addAttribute("list", list);
+		model.addAttribute("noticeBoardPaging", noticeBoardPaging);
 		model.addAttribute("display", "/shop/service/notice.jsp");
 		return "/shop/main/index";
 	}

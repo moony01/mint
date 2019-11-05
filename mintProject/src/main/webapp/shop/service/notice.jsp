@@ -36,7 +36,7 @@
             		<tr class="tb-content">
             			<td>${noticeBoardDTO.seq }</td>
             			<td>${noticeBoardDTO.subject }</td>
-            			<td>memId</td>
+            			<td>${noticeBoardDTO.id }</td>
             			<td>${noticeBoardDTO.logtime }</td>
             			<td>${noticeBoardDTO.hit }</td>
             		</tr>
@@ -45,19 +45,15 @@
         </table> 
         <div class="paging">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">></a></li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">></a></li>
-            </ul>  
+                ${noticeBoardPaging.pagingHTML }
+            </ul>
         </div>
         <div class="service__search">
             <div class="service__sel-box">
                 <span>검색어</span>
                 <input type="checkbox" name="" id="">
                 <span>이름</span>
-                <input type="checkbox" name="" id="">
+                <input type="checkbox" name="" id="" checked>
                 <span>제목</span>
                 <input type="checkbox" name="" id="">
                 <span>내용</span>

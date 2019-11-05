@@ -5,11 +5,16 @@
 
 	<!-- 목록 -->
 	<select id="noticeBoardList" parameterType="java.util.Map" resultType="noticeBoard">
-		select * from test
+		<![CDATA[
+			select * from 
+			(select rownum rn, tt. * from
+			(select * from noticeboard order by seq asc)tt
+			)where rn>=#{startNum} and rn<=#{endNum}
+		]]>
 	</select>
 
 	<select id="getTotalNotice" resultType="int">
-		select count(*) from test
+		select count(*) from noticeboard
 	</select>
 
 </mapper>

@@ -17,7 +17,7 @@ public class NoticeBoardDTO {
 	private String content;
 	private int hit;
 	private String fileName;
-	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
-	//private Date logtime;
-	private String logtime;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
+	private Date logtime;
+	//private String logtime;
 }

@@ -36,12 +36,12 @@
             <div class="join-col">
                 <div class="join-title">이메일*</div>
                 <input type="text" class="join-input input--lg" name="email" placeholder="ex) mintkurly@mint.com">
-                <div class="join-btn btn--primary">인증번호 받기</div>
+                <div class="join-btn btn--primary btn-auth">인증번호 받기</div>
             </div>
             <div class="join-col">
                 <div class="join-title"></div>
-                <input type="text" class="join-input input--lg" name="emailCerti" readonly>
-                <div class="join-btn btn--white">인증번호 확인</div>
+                <input type="text" class="join-input input--lg" name="emailCerti">
+                <div class="join-btn btn--white btn-certiAuthKey">인증번호 확인</div>
             </div>
             <div class="join-col">
                 <div class="join-title">배송 주소</div>

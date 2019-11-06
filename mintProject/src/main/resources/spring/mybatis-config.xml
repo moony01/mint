@@ -2,6 +2,7 @@
 <!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<typeAlias type="mint.member.bean.MemberDTO" alias="member"/>
 		<typeAlias type="mint.qnaBoard.bean.QnaBoardDTO" alias="qnaBoard"/>
 		<typeAlias type="mint.noticeBoard.bean.NoticeBoardDTO" alias="noticeBoard"/>
 		<typeAlias type="mint.suggestBoard.bean.SuggestBoardDTO" alias="suggestBoard"/>

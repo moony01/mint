@@ -29,14 +29,6 @@ public class SuggestBoardController {
 	@Autowired
 	private SuggestBoardService suggestBoardService;
 	
-	//임시 메인 인덱스 
-	@RequestMapping("/shop/main/index")
-	public String main(Model model) {
-		model.addAttribute("display", "/shop/member/join.jsp");
-		return "/shop/main/index";
-	}
-	
-	
 	//제안 문의 글쓰기 (form)
 	@RequestMapping("/shop/service/offerWrite")
 	public String getSuggestBoardWriteForm(Model model) {

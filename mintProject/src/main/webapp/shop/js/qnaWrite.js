@@ -6,8 +6,9 @@
     const ordersList = document.querySelectorAll(".orders__list");
     const ordersListLength = ordersList.length;
 
-    orderBtn.addEventListener("click",function(){    
+    orderBtn.addEventListener("click",function(){
         orders.style.display="block";
+        
     })
 
     closeBtn.addEventListener("click",function(){
@@ -22,5 +23,22 @@
             orders.style.display="none";
         });
     }
-
-})()
+    
+    //전송 버튼 클릭 시
+    $(".board-write__write-btn").click(function(){
+    	if($(".board-write__subject-txt").val() == ""){
+    		alert("제목을 입력하세요.");
+    		$(".board-write__subject-txt").focus();	
+    	}else if($("#content").val() == ""){
+    		alert("내용을 입력하세요.");
+    		$("#content").focus();
+    	}else{
+    		$("form[id=offerWriteForm]").submit();
+    	}
+    });
+    
+    
+    
+    
+    
+})();

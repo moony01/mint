@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mint.qnaBoard.bean.OrderAndSalesDTO;
 import mint.qnaBoard.bean.QnaBoardDTO;
 import mint.qnaBoard.dao.QnaBoardDAO;
 
@@ -17,6 +18,17 @@ public class QnaBoardServiceImpl implements QnaBoardService{
 	@Override
 	public List<QnaBoardDTO> getQnaBoardList(Map<String, Object> map) {
 		return qndBoardDAO.getQnaBoardList(map);
+	}
+
+	@Override
+	public List<OrderAndSalesDTO> getOrderList(String email) {
+		return qndBoardDAO.getOrderList(email);
+	}
+
+	@Override
+	public void qnaBoardWrite(QnaBoardDTO qnaBoardDTO) {
+		qndBoardDAO.qnaBoardWrite(qnaBoardDTO);
+		
 	}
 
 }

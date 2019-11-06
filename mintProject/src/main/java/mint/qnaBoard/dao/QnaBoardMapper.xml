@@ -12,9 +12,32 @@
                              order by seq desc) tt)
 		]]>
 	</select>
-<!--  where rn >= #{startNum} and rn <= #{endNum} -->
-
-
+	<!--  where rn >= #{startNum} and rn <= #{endNum} -->
+	
+	<select id="getOrderList" parameterType="String" resultType="mint.qnaBoard.bean.OrderAndSalesDTO">
+		select * 
+		  from orderAndSales
+		 where email = #{email} 
+	</select>
+	
+	
+	<insert id="qnaBoardWrite" parameterType="qnaBoard">
+		insert 
+  		  into qnaboard 
+        values (
+               seq_qnaboard.nextval
+             , #{id}
+             , #{orderNumber}
+             , #{subject}
+             , #{content}
+             , #{fileName}
+             , sysdate
+             , #{category}
+             , '0'
+             , ''
+             , ''
+               )
+	</insert>
 
 	<!-- <insert id="imageboardWrite" parameterType="imageboard">
 		insert into imageboard values(seq_imageboard.nextval

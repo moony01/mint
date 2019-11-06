@@ -6,9 +6,12 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import mint.qnaBoard.bean.OrderAndSalesDTO;
 import mint.qnaBoard.bean.QnaBoardDTO;
 
+@Transactional
 @Repository(value="qndBoardDAO")
 public class QnaBoardDAOMybatis implements QnaBoardDAO {
 	@Autowired
@@ -16,8 +19,20 @@ public class QnaBoardDAOMybatis implements QnaBoardDAO {
 
 	@Override
 	public List<QnaBoardDTO> getQnaBoardList(Map<String, Object> map) {
-		System.out.println("aa");
 		return sqlsession.selectList("qnaBoardSQL.getQnaBoardList");
+	}
+
+	@Override
+	public List<OrderAndSalesDTO> getOrderList(String email) {
+		//회원가입이 일단 없으므로 임시로 테스트함..
+		String eemail = "sonsangz@naver.com";
+		
+		return sqlsession.selectList("qnaBoardSQL.getOrderList", eemail);
+	}
+
+	@Override
+	public void qnaBoardWrite(QnaBoardDTO qnaBoardDTO) {
+		sqlsession.insert("qnaBoardSQL.qnaBoardWrite", qnaBoardDTO);
 	}                                            
 
 }

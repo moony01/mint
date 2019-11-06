@@ -1,5 +1,8 @@
 package mint.qnaBoard.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,9 +11,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import mint.qnaBoard.bean.OrderAndSalesDTO;
 import mint.qnaBoard.bean.QnaBoardDTO;
 import mint.qnaBoard.service.QnaBoardService;
 
@@ -41,6 +52,62 @@ public class QnaBoardController {
 		mav.addObject("display", "/shop/service/qna.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;
+	}
+
+	@RequestMapping(value = "/qnaboard/getQnaBoardWriteForm")
+	public ModelAndView getQnaBoardWriteForm(HttpSession session) {
+		// qndWrite실행시킬때 주문목록 값 미리 가져가기 email로 조회
+		String email = (String) session.getAttribute("memEmail");
+
+		List<OrderAndSalesDTO> list = qnaBoardService.getOrderList(email);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.addObject("display", "/shop/service/qnaWrite.jsp");
+
+		mav.setViewName("/shop/main/index");
+		return mav;
+	}
+
+//	name="img"가 1개일 경우
+	@RequestMapping(value = "/qnaboard/qnaBoardWrite", method = RequestMethod.POST)
+	public ModelAndView qndBoardWrite(@ModelAttribute QnaBoardDTO qnaBoardDTO, @RequestParam MultipartFile img, HttpSession session) {
+		
+		System.out.println(qnaBoardDTO.getContent());
+		System.out.println(qnaBoardDTO.getSubject());
+		System.out.println(qnaBoardDTO.getCategory());
+		
+		
+		if(!img.isEmpty()) {
+			System.out.println("파일 집어넣었다!!!!!!!!");
+			String filePath = "C:\\Users\\bitcamp\\Documents\\GitHub\\mint\\mintProject\\src\\main\\webapp\\shop\\storage";
+			String fileName = img.getOriginalFilename();
+			File file = new File(filePath, fileName);
+			System.out.println(fileName);
+			
+			try {
+				FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			qnaBoardDTO.setFileName(fileName);
+		}else {
+			System.out.println("파일 안집어넣었다!!!!!!!!");
+		}
+		
+		//일단 임시..
+		//String id = (String) session.getAttribute("memId");
+		String id = "sonsangz";
+		
+		qnaBoardDTO.setId(id);
+		qnaBoardService.qnaBoardWrite(qnaBoardDTO);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("display", "/shop/service/qnaWriteOk.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
+		
 	}
 
 }

@@ -41,7 +41,7 @@ public class MemberController {
 	public void writeMember(@ModelAttribute MemberDTO memberDTO, @RequestParam Map<String, String> map) {
 		String birthday = map.get("year") + map.get("month") + map.get("day");
 		memberDTO.setBirthday(birthday);
-		memberDTO.setAuthSecurity("Y"); //추후 spring security 로 설정 예정
+		memberDTO.setAuthSecurity("Y"); //추후 spring security 로 설정 예정.
 		memberService.writeMember(memberDTO);
 	}
 	

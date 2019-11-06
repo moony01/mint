@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
     
 <section class="service">
     <div class="snb">
@@ -15,16 +15,16 @@
         <h2 class="service__main-title">상품 제안</h2>
         <ul class="service__manual">
             <li>
-                <p class="txt">마켓컬리에서 추가적으로 판매되면 좋을 상품을 제안해주세요.</p>
+                <p class="txt">MINT에서 추가적으로 판매되면 좋을 상품을 제안해주세요.</p>
             </li>
             <li>
-                <p class="txt">고객님의 의견을 발 빠르게 반영하여 더욱 편리한 마켓컬리가 되겠습니다.</p>
+                <p class="txt">고객님의 의견을 발 빠르게 반영하여 더욱 편리한 MINT가 되겠습니다.</p>
             </li>
             <li>
                 <p class="txt">주의)알콜 제품은 법령상 온라인 판매가 불가하오니, 이 점 참고하여 작성부탁드립니다.</p>
             </li>
             <li>
-                <p class="txt">담당 MD가 제안해주신 의견을 실시간으로 모니터링할 예정이나, 별도 답변 안내는 되지 않음을 양해부탁드립니다.</p>
+                <p class="txt">담당 MD가 제안해주신 의견을 실시간으로 모니터링할 예정이며, 내부 회의를 거쳐 상품 입점 여부가 결정되므로 답변 안내는 지연될 수 있음을 양해 부탁 드립니다.</p>
             </li>
         </ul>
         <form id="offerWriteForm" enctype="multipart/form-data">
@@ -43,13 +43,16 @@
                                 <option value="Deli/Bakery">Deli/Bakery</option>
                                 <option value="Daily+">Daily+</option>
                                 <option value="기타">기타</option>
-                            </select>
+                            </select> 
+                            <div class="div-offer-category"></div>
                             <input type="text" name="subject" class="board-write__subject-txt">
+                            <div class="div-offer-subject"></div>
                     </div>
                 </div>
                 <div class="board-write__content">
                     <div class="board-write__title">내용</div>
-                    <textarea name="content" id="content"></textarea>
+                    <textarea name="content" id="content">${suggestBoardDTO.content}</textarea>
+                    <div class="div-offer-content"></div>
                 </div>
                 <div class="board-write__upload">
                     <div class="board-write__title">이미지</div>
@@ -68,18 +71,17 @@
 <script>
 let suggestBoardDTO = '${suggestBoardDTO.seq}';
 let options = document.querySelector(".board-write__subject-select");
-
+console.log(content);
 $().ready(function(){
 	if(suggestBoardDTO != ''){
 		for (var i = 0; i < options.length; i++) {
 			if(options[i].value == '${suggestBoardDTO.category}') options[i].setAttribute('selected', true);
 		}
+		
 		$('.board-write__subject-txt').val('${suggestBoardDTO.subject}');
-		$('#content').text('${suggestBoardDTO.content}');
-		$('#viewImg').append($('<img/>', {
-			src: '/mintProject/shop/storage/${suggestBoardDTO.imgName}',
-			style: 'width: 50px; height:50px'
-		}));
+		if('${suggestDTO.imgName}' !=''){
+			$('#viewImg').append('현재 이미지: ${suggestBoardDTO.imgName}');			
+		}
 		$('.board-write__write-btn').text('수정');
 	}
 });	

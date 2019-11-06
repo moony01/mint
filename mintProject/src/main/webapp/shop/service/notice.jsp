@@ -48,33 +48,50 @@
                 ${noticeBoardPaging.pagingHTML }
             </ul>
         </div>
-        <div class="service__search">
-            <div class="service__sel-box">
-                <span>검색어</span>
-                <input type="checkbox" name="chkName" id="chkName">
-                <span>이름</span>
-                <input type="checkbox" name="chkSub" id="chkSub">
-                <span>제목</span>
-                <input type="checkbox" name="chkContent" id="chkContent">
-                <span>내용</span>
-            </div>
-            <div class="service__serch-box">
-                <input type="text">
-                <div class="service__seach-btn">
-                    <i class="fas fa-search si"></i>
-                </div>
-            </div>
-        </div>
+        
+        <form id="noticeBoardSearchForm">
+        	<input type="hidden" name="pg" value="1">
+        	<div class="service__search">
+	            <div class="service__sel-box">
+	                <span>검색어</span>
+	                <input type="checkbox" name="check" id="chkName" value="id">
+	                <span>이름</span>
+	                <input type="checkbox" name="check" id="chkSub" value="subject">
+	                <span>제목</span>
+	                <input type="checkbox" name="check" id="chkContent" value="content">
+	                <span>내용</span>
+	            </div>
+	            <div class="service__serch-box">
+	                <input type="text" name="keyword" value="${keyword }">
+	                <div id="noticeSearchBtn" class="service__seach-btn">
+	                    <i class="fas fa-search si"></i>
+	                </div>
+	            </div>
+	    	</div>
+        </form>
+
     </div>
 </section>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script type="text/javascript">
-//document.getElementsByName('chkSub')[0].checked = true;
 
-$(document).ready(function(){
-	
-})
+//var chk_name = document.getElementById('chkName');
+document.getElementById('noticeSearchBtn').onclick = function() {
+	$.ajax({
+		type: 'post',
+		url: '/mintProject/notice/noticeBoardSearch',
+		data: $('#noticeBoardSearchForm').serialize(),
+		dataType: 'json',
+		success: function(data){
+			console.log(JSON.stringify(data));
+		},
+		error: function(err){
+			console.log(err);
+		}
+	});
+}
+
 </script>
 
 

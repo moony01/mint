@@ -13,8 +13,36 @@
 		]]>
 	</select>
 
+	<!-- 게시글 개수 -->
 	<select id="getTotalNotice" resultType="int">
 		select count(*) from noticeboard
 	</select>
+
+	<!-- 검색 -->
+<!-- 	<select id="noticeBoardSearch" parameterType="java.util.Map" resultType="noticeBoard">
+		<![CDATA[
+			select * from
+			(select rownum rn, tt. * from
+			(select * from noticeboard
+			 where (${chkName} like '%'||#{keyword}||'%') or (${chkSub} like '%'||#{keyword}||'%') or (${chkContent} like '%'||#{keyword}||'%')
+			 order by seq asc)tt
+			)where rn>=#{startNum} and rn<=#{endNum}
+		]]>
+	</select> -->
+	
+	<select id="noticeBoardSearch" parameterType="java.util.Map" resultType="noticeBoard">
+			select * from
+			(select rownum rn, tt. * from
+			(select * from noticeboard
+			where
+			<foreach collection="array" item="checkbox" index="i">
+			#{checkbox}
+			</foreach>
+			 like '%'||#{keyword}||'%' order by seq asc)tt
+		<![CDATA[
+			)where rn>=#{startNum} and rn<=#{endNum}
+		]]>
+	</select>
+	
 
 </mapper>

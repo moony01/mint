@@ -10,5 +10,7 @@ public interface NoticeBoardDAO {
 	public List<NoticeBoardDTO> noticeBoardList(Map<String, Integer> map);
 
 	public int getTotalNotice();
+
+	public List<NoticeBoardDTO> noticeBoardSearch(Map<String, Object> map);
 	
 }

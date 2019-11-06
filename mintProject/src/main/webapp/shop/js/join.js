@@ -1,5 +1,6 @@
 const addrBtn = document.querySelector(".btn-addr");
-
+const authBtn = document.querySelector(".btn-auth");
+const certiAuthBtn = document.querySelector(".btn-certiAuthKey");
 
 // 다음 우편번호
 addrBtn.addEventListener("click",function(){
@@ -50,4 +51,53 @@ addrBtn.addEventListener("click",function(){
     });
 })
 
+//인증번호 받기
+authBtn.addEventListener("click", function(){
+	$.ajax({
+		type: 'post',
+		url: '/mintProject/shop/member/auth',
+		data: {"id": document.getElementsByName("id")[0].value,
+			"email": document.getElementsByName("email")[0].value},
+		success: function(){
+			console.log('success');
+		},
+		error: function(e){
+			console.log(e);
+		}
+	});
+});
 
+//인증번호 확인
+certiAuthBtn.addEventListener("click", function(){
+	$.ajax({
+		type: 'post',
+		url: '/mintProject/shop/member/certiAuthKey',
+		data: {"id": document.getElementsByName("id")[0].value,
+			"certiAuthKey": document.getElementsByName("emailCerti")[0].value},
+		dataType: 'text',
+		success: function(data){
+			console.log(data);
+			if(data == 'true') alert("인증이 완료되었습니다. ");
+			else alert('인증번호가 잘못되었습니다. ');
+		},
+		error: function(e){
+			console.log(e);
+		}
+	});
+});
+
+$('.btn--lg').click(function(){
+	$.ajax({
+		type: 'post',
+		url: '/mintProject/shop/member/joinOk',
+		data: $('#join-form').serialize(),
+		success: function(){
+			console.log('success');
+			alert('회원가입이 완료되었습니다. ');
+			location.href='/mintProject/shop/main/index';
+		},
+		error: function(e){
+			console.log(e);
+		}
+	});
+});

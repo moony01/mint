@@ -42,7 +42,7 @@
     background-color:white;
     color: #5f0080;
     width: 150px;
-    pointer-events: none;
+    /* pointer-events: none; */
     opacity: 0.3;
 }
 .btn--lg{

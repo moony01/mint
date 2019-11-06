@@ -11,4 +11,6 @@ public interface NoticeBoardService {
 
 	public int getTotalNotice();
 
+	public List<NoticeBoardDTO> noticeBoardSearch(Map<String, Object> map);
+
 }

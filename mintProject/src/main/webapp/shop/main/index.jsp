@@ -46,7 +46,7 @@
             <li class="my-page__item"><a href="/mintProject/shop/member/join">회원가입</a></li>
             <li class="my-page__item"><a href="/mintProject/shop/member/login">로그인</a></li>
             <li class="my-page__item my-page__qna">
-                <a href="/mintProject/shop/service/notice?pg=1">고객센터</a>
+                <a href="/mintProject/notice/noticeBoardList?pg=1">고객센터</a>
                 <ul class="qna__menu">
                     <li><a href="/mintProject/shop/service/notice?pg=1">공지사항</a></li>
                     <li><a href="/mintProject/shop/service/faq">자주하는 질문</a></li>

@@ -24,4 +24,9 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		return noticeBoardDAO.getTotalNotice();
 	}
 
+	@Override
+	public List<NoticeBoardDTO> noticeBoardSearch(Map<String, Object> map) {
+		return noticeBoardDAO.noticeBoardSearch(map);
+	}
+
 }

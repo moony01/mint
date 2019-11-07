@@ -39,7 +39,7 @@
     height: 50px;
 }
 .snb__item > a:hover ,.current > a{
-    color: #5f0080;
+    color: #45b8ac;
     background: #F7F7F7;
 }
 
@@ -84,8 +84,8 @@
 /* 테이블 */
 .tb{
     width: 640px;
-    border-top: 1px solid #5f0080;
-    border-bottom: 1px solid #5f0080;
+    border-top: 1px solid #45b8ac;
+    border-bottom: 1px solid #45b8ac;
     color: #555;
     font-weight: 400;
 
@@ -145,8 +145,8 @@
 
 /* 글쓰기*/
 .board-write{
-    border-top: 1px solid #5f0080;
-    border-bottom: 1px solid #5f0080;
+    border-top: 1px solid #45b8ac;
+    border-bottom: 1px solid #45b8ac;
     color: #555;
     font-weight: 400;
 }
@@ -192,7 +192,7 @@
     width: 160px;
     height: 50px;
     color: white;
-    background-color: #5F0080;
+    background-color: #45b8ac;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -314,7 +314,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #5f0080;
+    border-bottom: 1px solid #45b8ac;
     height: 150px;
     margin-bottom: 22px;
 
@@ -373,8 +373,8 @@
 /* service view*/
 .notcie-view{
     width: 100% ;
-    border-top: 1px solid #5f0080;
-    border-bottom: 1px solid #5f0080;
+    border-top: 1px solid #45b8ac;
+    border-bottom: 1px solid #45b8ac;
     margin-bottom: 30px;
 }
 .notcie-view__subject,

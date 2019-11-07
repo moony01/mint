@@ -29,4 +29,9 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		return noticeBoardDAO.noticeBoardSearch(map);
 	}
 
+	@Override
+	public int getSearchTotalNotice(Map<String, Object> map) {
+		return noticeBoardDAO.getSearchTotalNotice(map);
+	}
+
 }

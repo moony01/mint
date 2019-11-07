@@ -77,19 +77,64 @@
 <script type="text/javascript">
 
 //var chk_name = document.getElementById('chkName');
-document.getElementById('noticeSearchBtn').onclick = function() {
-	$.ajax({
-		type: 'post',
-		url: '/mintProject/notice/noticeBoardSearch',
-		data: $('#noticeBoardSearchForm').serialize(),
-		dataType: 'json',
-		success: function(data){
-			console.log(JSON.stringify(data));
-		},
-		error: function(err){
-			console.log(err);
-		}
-	});
+document.getElementById('noticeSearchBtn').onclick = function(event, str) {
+	if(str!='trigger') $('input[name=pg]').val(1);
+	
+	var count = $('input[name=check]:checked').length;
+	var keyword = $('input[name=keyword]').val();
+	
+	if(count==0){
+		alert("검색할 항목을 선택하세요");
+	} else if(keyword==''){
+		alert("검색할 단어를 입력해주세요")
+	} else {
+		$.ajax({
+			type: 'post',
+			url: '/mintProject/notice/noticeBoardSearch',
+			data: $('#noticeBoardSearchForm').serialize(),
+			dataType: 'json',
+			success: function(data){
+				//console.log(JSON.stringify(data));
+				$('tr.tb-content').remove();
+				
+				$.each(data.list, function(index, items){
+					$('<tr class="tb-content"/>')
+					.append($('<td/>',{
+						align: 'center',
+						text: items.seq
+					}))
+					.append($('<td/>',{
+						align: 'center',
+						text: items.subject
+					}))
+					.append($('<td/>',{
+						align: 'center',
+						text: items.id
+					}))
+					.append($('<td/>',{
+						align: 'center',
+						text: items.logtime
+					}))
+					.append($('<td/>',{
+						align: 'center',
+						text: items.hit
+					}))
+					.appendTo($('.tb-notice'));
+				});
+				
+				//페이징
+				$('.pagination').html(data.noticeBoardPaging.pagingHTML);
+			},
+			error: function(err){
+				console.log(err);
+			}
+		});
+	}
+}
+
+function noticeBoardSearch(pg){	
+	$('input[name=pg]').val(pg);
+	$('#noticeSearchBtn').trigger('click','trigger');
 }
 
 </script>

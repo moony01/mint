@@ -18,31 +18,44 @@
 		select count(*) from noticeboard
 	</select>
 
-	<!-- 검색 -->
-<!-- 	<select id="noticeBoardSearch" parameterType="java.util.Map" resultType="noticeBoard">
-		<![CDATA[
-			select * from
-			(select rownum rn, tt. * from
-			(select * from noticeboard
-			 where (${chkName} like '%'||#{keyword}||'%') or (${chkSub} like '%'||#{keyword}||'%') or (${chkContent} like '%'||#{keyword}||'%')
-			 order by seq asc)tt
-			)where rn>=#{startNum} and rn<=#{endNum}
-		]]>
-	</select> -->
-	
+	<!-- 검색 -->	
 	<select id="noticeBoardSearch" parameterType="java.util.Map" resultType="noticeBoard">
-			select * from
-			(select rownum rn, tt. * from
-			(select * from noticeboard
-			where
-			<foreach collection="array" item="checkbox" index="i">
-			#{checkbox}
-			</foreach>
-			 like '%'||#{keyword}||'%' order by seq asc)tt
+		select * from
+		(select rownum rn, tt. * from
+		(select * from noticeboard where
+		<foreach collection="checkbox" item="check" index="i" separator="or">
+		${checkbox[i]} like '%'||#{keyword}||'%' 
+		</foreach>
+		order by seq asc)tt
 		<![CDATA[
 			)where rn>=#{startNum} and rn<=#{endNum}
 		]]>
 	</select>
 	
+	<!-- 검색 게시글 개수 -->
+	<select id="getSearchTotalNotice" resultType="int">
+		select count(*) from noticeboard where
+		<foreach collection="checkbox" item="check" index="i" separator="or">
+			${checkbox[i]} like '%'||#{keyword}||'%' 
+		</foreach>
+	</select>
+
 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

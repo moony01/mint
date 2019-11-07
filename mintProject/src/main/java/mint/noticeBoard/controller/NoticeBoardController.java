@@ -86,6 +86,17 @@ public class NoticeBoardController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
+	
+	@RequestMapping(value="/notice/noticeBoardView", method=RequestMethod.GET)
+	public String noticeBoardView(@RequestParam String seq,
+								  @RequestParam String pg,
+								  Model model) {
+		
+		model.addAttribute("seq", seq);
+		model.addAttribute("pg", pg);
+		model.addAttribute("display", "/shop/service/noticeView.jsp");
+		return "/shop/main/index";
+	}
 }
 
 

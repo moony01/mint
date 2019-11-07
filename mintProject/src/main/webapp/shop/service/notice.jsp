@@ -35,7 +35,7 @@
             	<c:forEach var="noticeBoardDTO" items="${list }">
             		<tr class="tb-content">
             			<td>${noticeBoardDTO.seq }</td>
-            			<td>${noticeBoardDTO.subject }</td>
+            			<td><a href="javascript:void(0)" id="${noticeBoardDTO.seq }" class="sub_click_view">${noticeBoardDTO.subject }</a></td>
             			<td>${noticeBoardDTO.id }</td>
             			<td>${noticeBoardDTO.logtime }</td>
             			<td>${noticeBoardDTO.hit }</td>
@@ -56,7 +56,7 @@
 	                <span>검색어</span>
 	                <input type="checkbox" name="check" id="chkName" value="id">
 	                <span>이름</span>
-	                <input type="checkbox" name="check" id="chkSub" value="subject">
+	                <input type="checkbox" name="check" id="chkSub" value="subject" checked>
 	                <span>제목</span>
 	                <input type="checkbox" name="check" id="chkContent" value="content">
 	                <span>내용</span>
@@ -72,92 +72,4 @@
 
     </div>
 </section>
-
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script type="text/javascript">
-
-//var chk_name = document.getElementById('chkName');
-document.getElementById('noticeSearchBtn').onclick = function(event, str) {
-	if(str!='trigger') $('input[name=pg]').val(1);
-	
-	var count = $('input[name=check]:checked').length;
-	var keyword = $('input[name=keyword]').val();
-	
-	if(count==0){
-		alert("검색할 항목을 선택하세요");
-	} else if(keyword==''){
-		alert("검색할 단어를 입력해주세요")
-	} else {
-		$.ajax({
-			type: 'post',
-			url: '/mintProject/notice/noticeBoardSearch',
-			data: $('#noticeBoardSearchForm').serialize(),
-			dataType: 'json',
-			success: function(data){
-				//console.log(JSON.stringify(data));
-				$('tr.tb-content').remove();
-				
-				$.each(data.list, function(index, items){
-					$('<tr class="tb-content"/>')
-					.append($('<td/>',{
-						align: 'center',
-						text: items.seq
-					}))
-					.append($('<td/>',{
-						align: 'center',
-						text: items.subject
-					}))
-					.append($('<td/>',{
-						align: 'center',
-						text: items.id
-					}))
-					.append($('<td/>',{
-						align: 'center',
-						text: items.logtime
-					}))
-					.append($('<td/>',{
-						align: 'center',
-						text: items.hit
-					}))
-					.appendTo($('.tb-notice'));
-				});
-				
-				//페이징
-				$('.pagination').html(data.noticeBoardPaging.pagingHTML);
-			},
-			error: function(err){
-				console.log(err);
-			}
-		});
-	}
-}
-
-function noticeBoardSearch(pg){	
-	$('input[name=pg]').val(pg);
-	$('#noticeSearchBtn').trigger('click','trigger');
-}
-
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<script type="text/javascript" src="/mintProject/shop/js/notice.js"></script>

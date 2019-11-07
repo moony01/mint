@@ -31,6 +31,11 @@ public class NoticeBoardDAOMybatis implements NoticeBoardDAO {
 		return sqlSession.selectList("noticeBoardSQL.noticeBoardSearch", map);
 	}
 
+	@Override
+	public int getSearchTotalNotice(Map<String, Object> map) {
+		return sqlSession.selectOne("noticeBoardSQL.getSearchTotalNotice", map);
+	}
+
 	
 	
 }

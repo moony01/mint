@@ -46,7 +46,7 @@ public class NoticeBoardController {
 		//페이징 처리
 		int totalNotice = noticeBoardService.getTotalNotice();//총글수
 		noticeBoardPaging.setCurrentPage(Integer.parseInt(pg));
-		noticeBoardPaging.setPageBlock(3);
+		noticeBoardPaging.setPageBlock(5);
 		noticeBoardPaging.setPageSize(5);
 		noticeBoardPaging.setTotalNotice(totalNotice);
 		noticeBoardPaging.makePagingHTML();
@@ -59,18 +59,8 @@ public class NoticeBoardController {
 	}
 	
 	@RequestMapping(value="/notice/noticeBoardSearch", method=RequestMethod.POST)
-	public ModelAndView noticeBoardSearch(@RequestParam Map<String, Object> map, 
+	public ModelAndView noticeBoardSearch(@RequestParam Map<String, Object> map,
 										  @RequestParam String[] check) {
-		
-		System.out.println("check 1번째 : " +check[0]);
-		System.out.println("check 2번째 : " +check[1]);
-		
-		for(int i=0; i<check.length; i++) {
-			map.put("checkBox", check[i]);
-			
-		}
-		System.out.println("map" +map);
-		System.out.println("pg:" +map.get("pg"));
 		
 		//1페이지당 5개씩
 		int endNum = Integer.parseInt((String)map.get("pg"))*5;
@@ -78,11 +68,22 @@ public class NoticeBoardController {
 		
 		map.put("startNum", startNum+"");
 		map.put("endNum", endNum+"");
+		map.put("checkbox", check);
 		
 		List<NoticeBoardDTO> list = noticeBoardService.noticeBoardSearch(map);
-		System.out.println("list : " +list);
+		
+		//페이징 처리
+		int totalNotice = noticeBoardService.getSearchTotalNotice(map);//총글수
+		noticeBoardPaging.setCurrentPage(Integer.parseInt((String) map.get("pg")));
+		noticeBoardPaging.setPageBlock(5);
+		noticeBoardPaging.setPageSize(5);
+		noticeBoardPaging.setTotalNotice(totalNotice);
+		noticeBoardPaging.makeSearchPagingHTML();
 		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.addObject("noticeBoardPaging", noticeBoardPaging);
+		mav.setViewName("jsonView");
 		return mav;
 	}
 }

@@ -60,26 +60,26 @@ public class NoticeBoardPaging {
 			endPage = totalP;
 		
 		/* NOTICE LIST HTML : START */
-		pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearch("+(startPage)+")'><<</a></li>");
+		pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearchPaging("+(startPage)+")'><<</a></li>");
 		if(currentPage == 1) 
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearch("+(startPage)+")'><</a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearchPaging("+(startPage)+")'><</a></li>");
 		else 
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearch("+(currentPage-1)+")'><</a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearchPaging("+(currentPage-1)+")'><</a></li>");
 		
 		
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
-				pagingHTML.append("<li class='page-item active'><a class='page-link' onclick='noticeBoardSearch("+(i)+")'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item active'><a class='page-link' onclick='noticeBoardSearchPaging("+(i)+")'>"+i+"</a></li>");
 			else
-				pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearch("+(i)+")'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearchPaging("+(i)+")'>"+i+"</a></li>");
 		}
 		
 		
 		if(currentPage == endPage)
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearch("+(endPage)+")'>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearchPaging("+(endPage)+")'>></a></li>");
 		else 
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearch("+(currentPage+1)+")'>></a></li>");
-		pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearch("+(endPage)+")'>>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearchPaging("+(currentPage+1)+")'>></a></li>");
+		pagingHTML.append("<li class='page-item'><a class='page-link' onclick='noticeBoardSearchPaging("+(endPage)+")'>>></a></li>");
 		/* NOTICE LIST HTML : END */
 	}
 }

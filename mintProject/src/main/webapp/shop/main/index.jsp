@@ -57,7 +57,8 @@
             <li class="my-page__item"><a href="">배송안내</a></li>
         </ul>
         <div class="header__main-wrap">
-            <a href="/mintProject/shop/main/index"><img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" class="header__main-logo"></a>
+            <a href="/mintProject/shop/main/index"><img src="../storage/main_logo.png" alt="마켓컬리 로고" class="header__main-logo"></a>
+<!--             <a href="/mintProject/shop/main/index"><img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" class="header__main-logo"></a> -->
         </div>
     </header>
     <nav class="gnb">

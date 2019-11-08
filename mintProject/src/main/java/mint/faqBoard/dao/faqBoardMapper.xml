@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="faqBoardSQL">
+
+	<!--
+		앞으로 구현되어야하는 것들
+		
+		글쓰기
+		검색
+		수정시 정보 가져오기
+		수정
+		삭제		
+	  -->
+
+	<!-- FAQ게시판 목록 가져오기 -->
+	<select id="getFAQBoardList" parameterType="java.util.Map" resultType="faqBoard">
+		<![CDATA[
+			select * from (select rownum rn, tt.* from
+		 (select * from faqboard order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
+		]]>  
+	</select>
+
+	<!-- FAQ게시판 게시물 총 개수 가져오기 -->
+	<select id="getFAQTotalArticle" resultType="Integer">
+		select count(*) from faqboard
+	</select>
+</mapper>

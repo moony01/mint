@@ -31,8 +31,6 @@ public class NoticeBoardController {
 								  Model model,
 								  HttpSession session) {
 		
-		//String memId = (String)session.getAttribute("memId");
-		
 		//1페이지당 5개씩
 		int endNum = Integer.parseInt(pg)*5;
 		int startNum = endNum-4;
@@ -92,7 +90,6 @@ public class NoticeBoardController {
 								  @RequestParam String pg,
 								  Model model,
 								  HttpSession session) {
-		//String memId = (String)session.getAttribute("memId");
 		
 		NoticeBoardDTO noticeBoardDTO = noticeBoardService.getNoticeBoardView(seq);
 		System.out.println("noticeBoardDTO = "+noticeBoardDTO);

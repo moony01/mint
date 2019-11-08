@@ -25,4 +25,20 @@
 	<select id="getFAQTotalArticle" resultType="Integer">
 		select count(*) from faqboard
 	</select>
+	
+	
+	<!-- ///////////////// 게시글 검색 ////////////////-->
+	<select id="faqBoardSearch" parameterType="java.util.Map" resultType="board">
+		<![CDATA[
+			select * from (select rownum rn, tt.* from
+		 (select * from board where ${searchOption} like '%'||#{keyword}||'%' order by ref desc, step asc) tt) where rn >= #{startNum} and rn<= #{endNum}
+		]]>  
+	</select>
+	
+	<select id="getSearchTotalArticle" parameterType="java.util.Map" resultType="Integer">
+		<![CDATA[
+		select count(*) from board where ${searchOption} like '%'||#{keyword}||'%'
+		]]> 
+	</select>
+	
 </mapper>

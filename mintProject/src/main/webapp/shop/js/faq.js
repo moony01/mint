@@ -65,7 +65,7 @@ $(function(){
 	
     const contents = document.querySelectorAll('.tb-content');
     const length = contents.length;
-
+    console.log(contents.length);
     /* 제목 클릭시 content나타나기 : 그런데 왜 안되지*/
     for(let i=0; i<length; i++){
         contents[i].addEventListener('click',function(){

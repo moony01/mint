@@ -26,4 +26,14 @@ public class FAQBoardDAOMybatis implements FAQBoardDAO {
 		return sqlSession.selectOne("faqBoardSQL.getFAQTotalArticle");
 	}
 
+	@Override
+	public List<FAQBoardDTO> faqBoardSearch(Map<String, Integer> map) {
+		return sqlSession.selectList("faqBoardSQL.faqBoardSearch", map);
+	}
+
+	@Override
+	public int getSearchTotalArticle() {
+		return sqlSession.selectOne("faqBoardSQL.getSearchTotalArticle");
+	}
+
 }

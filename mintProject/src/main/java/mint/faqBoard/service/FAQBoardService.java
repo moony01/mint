@@ -11,4 +11,8 @@ public interface FAQBoardService {
 
 	public int getTotalArticle();
 
+	public List<FAQBoardDTO> faqBoardSearch(Map<String, Integer> map);
+
+	public int getSearchTotalArticle();
+
 }

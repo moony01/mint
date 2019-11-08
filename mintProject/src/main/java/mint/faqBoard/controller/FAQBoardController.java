@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import board.bean.BoardDTO;
 import mint.faqBoard.bean.FAQBoardDTO;
 import mint.faqBoard.bean.FAQBoardPaging;
 import mint.faqBoard.service.FAQBoardService;
@@ -80,5 +81,36 @@ public class FAQBoardController {
 		mav.setViewName("jsonView");
 		return mav;
 
+	}
+	
+	/* FAQ게시판 검색 기능 */
+	@RequestMapping(value="/faqBoard/getFAQBoardSearch", method=RequestMethod.POST)
+	public ModelAndView getFAQBoardSearch(@RequestParam Map<String, Integer> map) {
+
+		int endNum = map.get("pg")*5;
+		int startNum = endNum-4;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+				
+		List<FAQBoardDTO> list = faqBoardService.faqBoardSearch(map);
+		
+		
+		// 게시판 페이징 처리
+		// 총 글수
+		int totalArticle = faqBoardService.getSearchTotalArticle();
+		faqBoardPaging.setCurrentPage(map.get("pg"));
+		faqBoardPaging.setPageBlock(5);
+		faqBoardPaging.setPageSize(15);
+		faqBoardPaging.setTotalArticle(totalArticle);
+		faqBoardPaging.makePagingHTML();
+		// Response
+		
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.addObject("faqBoardPaging", faqBoardPaging);
+		mav.setViewName("jsonView");
+		return mav;
 	}
 }

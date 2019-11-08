@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<seciton class="service">
+<!-- FAQ페이지 접속용 hidden pg -->
+<input type="hidden" name="pg" id="pg" value="${pg }">
+
+<section class="service">
     <div class="snb">
         <h2 class="snb__title">고객센터</h2>
         <ul class="snb__list">
@@ -28,9 +30,13 @@
         <table class="tb tb-fqa">
             <tr>
                 <th class="size-1">번호</th>
-                <th class="size-2">작성자</th>
+                <th class="size-2">카테고리</th>
                 <th class="size-9">제목</th>
             </tr>
+
+            <!--
+            	2019.11.08 수정 : 기존에 있던 내용 주석 처리
+            
             <tr class="tb-content">
                 <td>1</td>
                 <td>안녕</td>
@@ -55,17 +61,24 @@
                     </p>
                 </td>
             </tr>
+             -->
+             
+             
         </table>
         <div class="paging">
             <ul class="pagination">
+		<!--
                 <li class="page-item"><a class="page-link" href="#"><</a></li>
                 <li class="page-item active"><a class="page-link" href="#">1</a></li>
                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item"><a class="page-link" href="#">></a></li>
+		 -->
             </ul>  
+
         </div>
         <div class="service__search">
+        	<input type="hidden" name="pg" value="${pg}">
             <div class="service__sel-box">
             </div>
             <div class="service__serch-box">
@@ -76,5 +89,5 @@
             </div>
         </div>
     </div>
-</seciton>
-<script src="/mintProject/shop/js/qna.js"></script>
+</section>
+<script type="text/javascript" src="/mintProject/shop/js/faq.js"></script>

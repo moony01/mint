@@ -97,6 +97,9 @@ public class NoticeBoardController {
 		NoticeBoardDTO noticeBoardDTO = noticeBoardService.getNoticeBoardView(seq);
 		System.out.println("noticeBoardDTO = "+noticeBoardDTO);
 		
+		//이전글 다음글 불러오기
+		//String[] nextPrevNotice = noticeBoardService.getNextPrevNotice(seq);
+		
 		model.addAttribute("seq", seq);
 		model.addAttribute("pg", pg);
 		model.addAttribute("noticeBoardDTO", noticeBoardDTO);

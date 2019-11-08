@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+<!-- <security:http:/>: springSecurityFilterChain 설정  
+		● auto-config: true => filter는 default값으로 동작한다. false 일 시 anonymous, x-509, http-basic, remember-me 등을 직접 정의해주어야 함.
+		● use-expressions: 스프링 표현식(spEL) 사용여부 -->
+	<security:http auto-config="true" use-expressions="true">
+		<security:csrf disabled="true"/>  <!--csrf 보안 설정여부 -->
+		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/> 
+		<security:intercept-url pattern="/resourses/**" access="permitAll"/> 
+		<security:intercept-url pattern="/member/login" access="isAnonymous()"/> 
+		<security:intercept-url pattern="/**" access="permitAll"/> 
+		<!-- <security:intercept-url pattern="/main" access="permitAll"/> isAnonymous() pattern에 정의된 경로에 대해 access 권한 지정 (filter가 감시) -->
+
+		<security:form-login login-page="/shop/member/login"
+							login-processing-url="/shop/member/loginOk" 
+							default-target-url="/shop/main/index"
+							authentication-success-forward-url="/shop/main/index"
+							authentication-failure-url="/shop/member/login"
+							always-use-default-target="true"
+							username-parameter="id" password-parameter="pwd"/> 
+							 <!-- parameter: name 속성값 -->
+		<security:logout logout-success-url="/main" invalidate-session="true" logout-url="/logout"/>				
+		<!-- <security:session-management invalid-session-url="/login">
+			<security:concurrency-control max-sessions="1" error-if-maximum-exceeded="false"/>
+		</security:session-management> -->
+		<!-- ● invalid-session-url: invalid session(세션 타임아웃 등) 일 때 이동 URL
+		  ● max-sessions: 최대 허용 가능한 세션 수 
+		  ● expired-url: 중복 로그인 발생 시 이동 URL(처음 접속한 세션이 invalidate 되고, 다음 요청 시 invalid-session-url 으로 이동) 
+		  ● error-if-maximum-exceeded: max-sessions 을 넘었을 때 접속한 세션을 실패 처리할 지 여부 -->
+	</security:http>
+	
+	<!--  secured method -->
+	<security:global-method-security secured-annotations="enabled"/>
+	
+	<!-- provider -->
+	<security:authentication-manager>
+		<security:authentication-provider ref="memberAuthServiceImpl"/>
+	</security:authentication-manager>
+	
+	<bean id="memberAuthServiceImpl" class="mint.member.service.MemberAuthServiceImpl"></bean>
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	
+</beans>

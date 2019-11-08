@@ -6,13 +6,35 @@
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/root-context.xml
+			/WEB-INF/spring/security-context.xml
+		</param-value>
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	<!-- Spring Security --> 
+	<!-- HttpSessionEventPublisher: 중복 로그인 방지(한 유저가 다른 브라우저로 동시 로그인 하는 것을 막음) -->
+	<listener> 
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class> 
+	</listener>
+	
+	<!-- spring security는 필터 기반! spring MVC와 별개로 동작한다. 
+		DelegatingFilterProxy: 모든 요청은 이 프록시필터를 거친다. spring security 는 이를 통해 인증(authenticate), 인가(authorize)를 수행 -->
+	<filter> 
+		<filter-name>springSecurityFilterChain</filter-name> 
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> 
+	</filter> 
+	
+	<filter-mapping> 
+		<filter-name>springSecurityFilterChain</filter-name> 
+		<url-pattern>/*</url-pattern> 
+	</filter-mapping>
+	
 
 	<!-- Processes application requests -->
 	<servlet>

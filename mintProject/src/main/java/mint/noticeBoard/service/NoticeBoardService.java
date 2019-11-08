@@ -15,4 +15,6 @@ public interface NoticeBoardService {
 
 	public int getSearchTotalNotice(Map<String, Object> map);
 
+	public NoticeBoardDTO getNoticeBoardView(String seq);
+
 }

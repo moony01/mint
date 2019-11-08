@@ -14,5 +14,7 @@ public interface NoticeBoardDAO {
 	public List<NoticeBoardDTO> noticeBoardSearch(Map<String, Object> map);
 
 	public int getSearchTotalNotice(Map<String, Object> map);
+
+	public NoticeBoardDTO getNoticeBoardView(String seq);
 	
 }

@@ -34,4 +34,9 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		return noticeBoardDAO.getSearchTotalNotice(map);
 	}
 
+	@Override
+	public NoticeBoardDTO getNoticeBoardView(String seq) {
+		return noticeBoardDAO.getNoticeBoardView(seq);
+	}
+
 }

@@ -50,7 +50,7 @@
         </div>
         
         <form id="noticeBoardSearchForm">
-        	<input type="hidden" name="pg" value="1">
+        	<input type="hidden" name="pg" value="${pg }">
         	<div class="service__search">
 	            <div class="service__sel-box">
 	                <span>검색어</span>

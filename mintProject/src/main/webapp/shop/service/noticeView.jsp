@@ -8,24 +8,33 @@
     <table class="notcie-view">
         <tr class="notcie-view__subject">
             <th class="notice-view__title">제목</th>
-            <td colspan="3" id="subject">몰라</td>
+            <td colspan="3" id="subject">${noticeBoardDTO.subject}</td>
         </tr>
         <tr class="notcie-view__author">
             <th class="notice-view__title">작성자</th>
-            <td colspan="3" id="id">mint</td>
+            <td colspan="3" id="id">${noticeBoardDTO.id}</td>
         </tr>
         <tr class="notcie-view__author">
             <th class="notice-view__title">작성일</th>
-            <td id="logtime">2019-11-01</td>
+            <td id="logtime">${noticeBoardDTO.logtime}</td>
             <th class="notice-view__title">조회수</th>
-            <td id="hit">175</td>
+            <td id="hit">${noticeBoardDTO.hit}</td>
         </tr>
         <tr class="notice-view__conent">
             <td colspan="4" id="conent">
-                안녕<br>
-                몰라
+                ${noticeBoardDTO.content}
             </td>
         </tr>
     </table>
-    <div class="service__write-btn">목록</div>
+    <div class="service__write-btn" onclick="window.location.href='/mintProject/notice/noticeBoardList?pg='+${pg}">목록</div>
 </section>
+
+
+
+
+
+
+
+
+
+

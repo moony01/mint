@@ -24,4 +24,14 @@ public class FAQBoardServiceImpl implements FAQBoardService {
 		return faqBoardDAO.getTotalArticle();
 	}
 
+	@Override
+	public List<FAQBoardDTO> faqBoardSearch(Map<String, Integer> map) {
+		return faqBoardDAO.faqBoardSearch(map);
+	}
+
+	@Override
+	public int getSearchTotalArticle() {
+		return faqBoardDAO.getSearchTotalArticle();
+	}
+
 }

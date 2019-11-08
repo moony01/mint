@@ -14,4 +14,10 @@ public interface QnaBoardDAO {
 
 	public void qnaBoardWrite(QnaBoardDTO qnaBoardDTO);
 
+	public QnaBoardDTO getQnaModify(int seq);
+
+	public void qnaBoardModify(QnaBoardDTO qnaBoardDTO);
+
+	public void qnaBoardDelete(int seq);
+
 }

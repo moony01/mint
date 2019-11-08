@@ -24,7 +24,7 @@
         });
     }
     
-    //전송 버튼 클릭 시
+    //새로 문의
     $(".board-write__write-btn").click(function(){
     	if($(".board-write__subject-txt").val() == ""){
     		alert("제목을 입력하세요.");
@@ -36,6 +36,7 @@
     		$("form[id=offerWriteForm]").submit();
     	}
     });
+    
     
     
     

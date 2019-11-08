@@ -20,6 +20,11 @@
 		 where email = #{email} 
 	</select>
 	
+	<select id="getQnaModify" parameterType="Integer" resultType="qnaBoard">
+		select * 
+		  from qnaboard
+		 where seq = #{seq}
+	</select>
 	
 	<insert id="qnaBoardWrite" parameterType="qnaBoard">
 		insert 
@@ -38,6 +43,24 @@
              , ''
                )
 	</insert>
+
+	<update id="qnaBoardModify" parameterType="qnaBoard">
+		update qnaboard 
+		   set orderNumber = #{orderNumber}
+		     , subject = #{subject}
+			 , content = #{content}
+			 , category = #{category}
+			 <if test="fileName!=null">
+			 , filename = #{fileName}
+			  </if>	
+			 , logtimeQ = sysdate
+		 where seq = #{seq}	 
+	</update>
+
+	<delete id="qnaBoardDelete" parameterType="Integer">
+		delete from qnaboard
+		where seq = #{seq}
+	</delete>
 
 	<!-- <insert id="imageboardWrite" parameterType="imageboard">
 		insert into imageboard values(seq_imageboard.nextval

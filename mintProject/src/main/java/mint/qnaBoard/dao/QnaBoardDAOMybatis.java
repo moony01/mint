@@ -33,6 +33,23 @@ public class QnaBoardDAOMybatis implements QnaBoardDAO {
 	@Override
 	public void qnaBoardWrite(QnaBoardDTO qnaBoardDTO) {
 		sqlsession.insert("qnaBoardSQL.qnaBoardWrite", qnaBoardDTO);
+	}
+
+	@Override
+	public QnaBoardDTO getQnaModify(int seq) {
+		return sqlsession.selectOne("qnaBoardSQL.getQnaModify", seq);
+	}
+
+	@Override
+	public void qnaBoardModify(QnaBoardDTO qnaBoardDTO) {
+		sqlsession.update("qnaBoardSQL.qnaBoardModify", qnaBoardDTO);
+		
+	}
+
+	@Override
+	public void qnaBoardDelete(int seq) {
+		sqlsession.delete("qnaBoardSQL.qnaBoardDelete", seq);
+		
 	}                                            
 
 }

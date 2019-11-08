@@ -71,43 +71,105 @@ public class QnaBoardController {
 
 //	name="img"가 1개일 경우
 	@RequestMapping(value = "/qnaboard/qnaBoardWrite", method = RequestMethod.POST)
-	public ModelAndView qndBoardWrite(@ModelAttribute QnaBoardDTO qnaBoardDTO, @RequestParam MultipartFile img, HttpSession session) {
-		
+	public ModelAndView qndBoardWrite(@ModelAttribute QnaBoardDTO qnaBoardDTO, @RequestParam MultipartFile img,
+			HttpSession session) {
+
 		System.out.println(qnaBoardDTO.getContent());
 		System.out.println(qnaBoardDTO.getSubject());
 		System.out.println(qnaBoardDTO.getCategory());
-		
-		
-		if(!img.isEmpty()) {
+
+		if (!img.isEmpty()) {
 			System.out.println("파일 집어넣었다!!!!!!!!");
 			String filePath = "C:\\Users\\bitcamp\\Documents\\GitHub\\mint\\mintProject\\src\\main\\webapp\\shop\\storage";
 			String fileName = img.getOriginalFilename();
 			File file = new File(filePath, fileName);
 			System.out.println(fileName);
-			
+
 			try {
 				FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			qnaBoardDTO.setFileName(fileName);
-		}else {
+		} else {
 			System.out.println("파일 안집어넣었다!!!!!!!!");
+			qnaBoardDTO.setFileName("");
 		}
-		
-		//일단 임시..
-		//String id = (String) session.getAttribute("memId");
+
+		// 일단 임시..
+		// String id = (String) session.getAttribute("memId");
 		String id = "sonsangz";
-		
+
 		qnaBoardDTO.setId(id);
 		qnaBoardService.qnaBoardWrite(qnaBoardDTO);
-		
+
 		ModelAndView mav = new ModelAndView();
-		
+
 		mav.addObject("display", "/shop/service/qnaWriteOk.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;
-		
+
+	}
+
+	@RequestMapping(value = "/qnaboard/qnaBoardModifyForm")
+	public ModelAndView qnaBoardModifyForm(@RequestParam int seq, HttpSession session) {
+		// qndWrite실행시킬때 주문목록 값 미리 가져가기 email로 조회
+		String email = (String) session.getAttribute("memEmail");
+
+		List<OrderAndSalesDTO> list = qnaBoardService.getOrderList(email);
+		// 수정할 정보 seq로 조회해서 가져오기
+		QnaBoardDTO qnaBoardDTO = qnaBoardService.getQnaModify(seq);
+
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("qnaBoardDTO", qnaBoardDTO);
+		mav.addObject("list", list);
+		mav.addObject("display", "/shop/service/qnaModify.jsp");
+		mav.setViewName("/shop/main/index");
+
+		return mav;
+	}
+
+	// qna 수정
+	@RequestMapping(value = "/qnaboard/qnaBoardModify", method = RequestMethod.POST)
+	public ModelAndView qnaBoardModify(@ModelAttribute QnaBoardDTO qnaBoardDTO, @RequestParam MultipartFile img,
+			HttpSession session) {
+
+		System.out.println("qnaBoardDTO : " + qnaBoardDTO);
+		System.out.println("img : " + img);
+
+		if (!img.isEmpty()) {
+			System.out.println("파일 집어넣었다!!!!!!!!");
+			String filePath = "C:\\Users\\bitcamp\\Documents\\GitHub\\mint\\mintProject\\src\\main\\webapp\\shop\\storage";
+			String fileName = img.getOriginalFilename();
+			File file = new File(filePath, fileName);
+			System.out.println(fileName);
+
+			try {
+				FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			qnaBoardDTO.setFileName(fileName);
+		} else {
+			System.out.println("파일 안집어넣었다!!!!!!!!");
+		}
+
+		qnaBoardService.qnaBoardModify(qnaBoardDTO);
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("display", "/shop/service/qnaModifyOk.jsp");
+		mav.setViewName("/shop/main/index");
+
+		return mav;
+	}
+
+	// 삭제
+	@RequestMapping(value = "/qnaboard/qnaBoardDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public void qnaBoardDelete(@RequestParam int seq, HttpSession session) {
+		System.out.println("삭제할 seq : " + seq);
+		qnaBoardService.qnaBoardDelete(seq);
 	}
 
 }

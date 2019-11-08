@@ -30,5 +30,10 @@ public class MailAuthConfiguration {
 		return mailSender;
 		
 	}
-
+	 
+	// 스프링 이메일 인증 References:
+	//1) https://blog.naver.com/PostView.nhn?blogId=vnemftnsska2&logNo=221413314636&parentCategoryNo=&categoryNo=29&viewDate=&isShowPopularPosts=false&from=postView
+	//2) https://thiago6.tistory.com/38 
+	//3) https://dlgkstjq623.tistory.com/351
+	
 }

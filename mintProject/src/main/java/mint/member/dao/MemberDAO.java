@@ -5,4 +5,6 @@ import mint.member.bean.MemberDTO;
 public interface MemberDAO {
 	public void writeMember(MemberDTO memberDTO);
 
+	public MemberDTO getUserById(String id);
+
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import mint.member.bean.MemberDTO;
+import mint.member.service.MemberAuthServiceImpl;
 import mint.member.service.MemberMailSendService;
 import mint.member.service.MemberService;
 
@@ -27,6 +29,8 @@ public class MemberController {
 	private MemberMailSendService mmss;
 	@Autowired 
 	private MemberService memberService;
+	@Autowired
+	private MemberAuthServiceImpl memberAuthServiceImpl;
 	
 	@RequestMapping(value="/shop/member/join", method = RequestMethod.GET)
 	public ModelAndView join() {
@@ -51,6 +55,22 @@ public class MemberController {
 		mav.addObject("display", "/shop/member/login.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;
+	}
+	
+	@RequestMapping("/shop/member/loginOk")
+	@ResponseBody
+	public void loginOk(@RequestParam String id, @RequestParam String pwd, HttpSession session) {
+		System.out.println("hi security");
+		MemberDTO memberDTO = (MemberDTO) memberAuthServiceImpl.loadUserByUsername(id);
+		System.out.println("memberDTO(userDetail) 가져오기");
+		if(memberDTO == null) {
+			System.out.println("확인되지 않은 사용자입니다. ");
+		} else {
+			System.out.println("welcome !!! ");
+			System.out.println(memberDTO.getId());
+			session.setAttribute("memDTO", memberDTO);
+		}
+		
 	}
 	
 	//인증번호 요청

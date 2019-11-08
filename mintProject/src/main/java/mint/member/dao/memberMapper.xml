@@ -7,4 +7,7 @@
 								#{birthday}, #{isStaff}, #{point}, #{isAgreedSMS}, #{memLevel}, #{authSecurity}, sysdate)
 	</insert>
 	
+	<select id="getUserById" parameterType="String" resultType="member">
+		select * from member where id = #{id}
+	</select>
 </mapper>

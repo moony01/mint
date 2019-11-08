@@ -21,4 +21,9 @@ public class MemberDAOMybatis implements MemberDAO {
 		
 	}
 
+	@Override
+	public MemberDTO getUserById(String id) {
+		return sqlSession.selectOne("memberSQL.getUserById", id);
+	}
+
 }

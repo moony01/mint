@@ -6,4 +6,6 @@ public interface MemberService {
 
 	public void writeMember(MemberDTO memberDTO);
 
+	public MemberDTO getUserById(String id);
+
 }

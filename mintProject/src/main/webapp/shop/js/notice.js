@@ -71,16 +71,12 @@ function noticeBoardSearchPaging(pg){
 
 //로그인 여부 체크 후 noticeBoardView 접속
 $('.tb-notice').on('click', '.sub_click_view', function(){
-	//console.log($(this).prop('tagName'));
-	//console.log($(this).text());
-	
 /*	if(data.memId!=null){
 		//alert('로그인 후 이용가능합니다.');
 	} else {*/
 		location.href='/mintProject/notice/noticeBoardView?seq='
 			+$(this).attr('id')+'&pg='+$('input[name=pg]').val();
 	/*}*/
-	
 });
 
 

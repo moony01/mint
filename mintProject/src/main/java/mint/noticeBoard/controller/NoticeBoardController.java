@@ -90,10 +90,16 @@ public class NoticeBoardController {
 	@RequestMapping(value="/notice/noticeBoardView", method=RequestMethod.GET)
 	public String noticeBoardView(@RequestParam String seq,
 								  @RequestParam String pg,
-								  Model model) {
+								  Model model,
+								  HttpSession session) {
+		//String memId = (String)session.getAttribute("memId");
+		
+		NoticeBoardDTO noticeBoardDTO = noticeBoardService.getNoticeBoardView(seq);
+		System.out.println("noticeBoardDTO = "+noticeBoardDTO);
 		
 		model.addAttribute("seq", seq);
 		model.addAttribute("pg", pg);
+		model.addAttribute("noticeBoardDTO", noticeBoardDTO);
 		model.addAttribute("display", "/shop/service/noticeView.jsp");
 		return "/shop/main/index";
 	}

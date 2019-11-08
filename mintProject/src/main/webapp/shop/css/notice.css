@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+.content_btm_wrap{
+	overflow: hidden;
+}
+
+.notice-board-movement{
+	width: 100%;
+	border: 2px solid #45b8ac;
+	border-left:0; 
+	border-right:0; 
+	margin: 20px 0;
+	float: left;
+}
+.notice-board-movement li {
+	overflow: hidden;
+    padding: 0 20px;
+    border-bottom: 1px solid #e9e9e9;
+    line-height: 140%;
+    color: #353535;
+}
+
+.notice-board-movement li a, .notice-board-movement li strong{
+	float: left;
+	padding: 10px;
+}
+
+.notice-board-movement li strong{
+	width: 60px;
+	border-right: 1px solid #e9e9e9;
+	font-weight: normal;
+	background: url('https://res.kurly.com/pc/etc/old/images/board/ico_move_prev.gif') no-repeat 0 15px;
+}
+
+.notice-board-movement li:last-child strong{
+	background: url('https://res.kurly.com/pc/etc/old/images/board/ico_move_next.gif') no-repeat 0 15px;
+}
+

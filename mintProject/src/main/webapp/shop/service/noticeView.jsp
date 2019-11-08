@@ -26,7 +26,22 @@
             </td>
         </tr>
     </table>
-    <div class="service__write-btn" onclick="window.location.href='/mintProject/notice/noticeBoardList?pg='+${pg}">목록</div>
+    
+    <div class="content_btm_wrap">
+	    <div class="service__write-btn" onclick="window.location.href='/mintProject/notice/noticeBoardList?pg='+${pg}">목록</div>
+	    <div class="notice-board-movement" style="display: none;">
+	    	<ul>
+	    		<li class="prev">
+		    		<strong>이전글</strong>
+		    		<a href=""></a>
+	    		</li>
+				<li class="next">
+					<strong>다음글</strong>
+					<a href=""></a>
+				</li>
+	    	</ul>
+	    </div>
+    </div>
 </section>
 
 

@@ -31,4 +31,20 @@ public class QnaBoardServiceImpl implements QnaBoardService{
 		
 	}
 
+	@Override
+	public QnaBoardDTO getQnaModify(int seq) {
+		return qndBoardDAO.getQnaModify(seq);
+	}
+
+	@Override
+	public void qnaBoardModify(QnaBoardDTO qnaBoardDTO) {
+		qndBoardDAO.qnaBoardModify(qnaBoardDTO);
+	}
+
+	@Override
+	public void qnaBoardDelete(int seq) {
+		qndBoardDAO.qnaBoardDelete(seq);
+		
+	}
+
 }

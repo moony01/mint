@@ -53,12 +53,14 @@
                     		<c:if test="${list.fileName != null }">
                     			<img alt="" src="/mintProject/shop/storage/${list.fileName}" width="200px" height="250px"><br>
                     		</c:if>
-                    	<pre><p>${list.content}</p></pre>
-                    	<div style="display: flex;  flex-direction:row-reverse;" >
-                    		<input type="button" id="delBtn" value="삭제" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;
-                    		onclick="location.href='asdasdasdsad?seq=${s}'">
-                    		<input type="button" id="updateBtn" value="수정" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;"> 
-                    	</div>
+                    		<pre><p>${list.content}</p></pre>
+                    	
+	                    	<c:if test="${list.replyStatus == 0 }">
+	                    		<div style="display: flex;  flex-direction:row-reverse;" >
+	                    			<input type="button" id="delBtn" value="삭제" onclick="qnaDelete(${list.seq})" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;">
+	                    			<input type="button" id="updateBtn" value="수정" onclick="location.href='/mintProject/qnaboard/qnaBoardModifyForm?seq=${list.seq}'" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;"> 
+	                    		</div>
+	                    	</c:if>
                     	</td>
                 	</tr>
                 	<c:if test="${list.replyStatus == '1'}">

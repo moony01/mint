@@ -9,9 +9,9 @@ public interface SuggestBoardDAO {
 
 	public void writeSuggestBoard(SuggestBoardDTO suggestBoardDTO);
 
-	public List<SuggestBoardDTO> getSuggestBoardList(Map<String, Integer> map);
+	public List<SuggestBoardDTO> getSuggestBoardList(Map<String, Object> map);
 
-	public int getSuggestBoardTotArticle();
+	public int getSuggestBoardTotArticle(String id);
 
 	public SuggestBoardDTO getSuggestBoard(int seq);
 

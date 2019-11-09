@@ -81,8 +81,8 @@
 <script>
 let memId = '${memId}';
 let memName = '${memName}';
-let memEmail = '${memEmail}'
-
+let memEmail = '${memEmail}';
 checkMemId(memId, memName);
+$('#logoutForm').append('<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">');
 </script>
 </html>

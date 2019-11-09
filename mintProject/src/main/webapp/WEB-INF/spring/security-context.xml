@@ -11,36 +11,49 @@
 		● auto-config: true => filter는 default값으로 동작한다. false 일 시 anonymous, x-509, http-basic, remember-me 등을 직접 정의해주어야 함.
 		● use-expressions: 스프링 표현식(spEL) 사용여부 -->
 	<security:http auto-config="true" use-expressions="true">
-		<security:csrf disabled="false"/>  <!--csrf 보안 설정여부 -->
-		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/> 
-		<security:intercept-url pattern="/resourses/**" access="permitAll"/> 
-		<security:intercept-url pattern="/shop/member/login" access="isAnonymous()"/> 
-		<security:intercept-url pattern="/**" access="permitAll"/> 
-		<!-- <security:intercept-url pattern="/main" access="permitAll"/> isAnonymous() pattern에 정의된 경로에 대해 access 권한 지정 (filter가 감시) -->
+		<!--csrf 보안 설정여부 -->
+		<security:csrf disabled="false"/>  
 
+		<!-- pattern에 정의된 경로에 대해 access 권한 지정 (filter가 감시) -->
+		<security:intercept-url pattern="/shop/admin/*" access="hasRole('ROLE_ADMIN')"/> 
+		<security:intercept-url pattern="/shop/member/login" access="isAnonymous()"/> 
+		<security:intercept-url pattern="/shop/mypage/*" access="hasRole('ROLE_USER')"/> 
+		<security:intercept-url pattern="/**" access="permitAll"/> 
+		
+		<!-- 로그인 -->
 		<security:form-login login-page="/shop/member/login"
 							login-processing-url="/mintProject/shop/member/loginOk" 
 							username-parameter="id" password-parameter="pwd"/> 
 							 <!-- parameter: name 속성값 -->
-		<security:logout logout-success-url="/main" invalidate-session="true" logout-url="/logout"/>
-		<security:session-management invalid-session-url="/shop/member/login">
-			<security:concurrency-control max-sessions="1" error-if-maximum-exceeded="false"/>
+		<!-- 중복 로그인 -->
+		<security:session-management>
+			<security:concurrency-control expired-url="/shop/member/loginError" 
+										max-sessions="1"
+										error-if-maximum-exceeded="true"/>
 		</security:session-management> 
-		<!-- ● invalid-session-url: invalid session(세션 타임아웃 등) 일 때 이동 URL
-		  ● max-sessions: 최대 허용 가능한 세션 수 
-		  ● expired-url: 중복 로그인 발생 시 이동 URL(처음 접속한 세션이 invalidate 되고, 다음 요청 시 invalid-session-url 으로 이동) 
-		  ● error-if-maximum-exceeded: max-sessions 을 넘었을 때 접속한 세션을 실패 처리할 지 여부 -->
+
+		<!-- 로그아웃 -->
+		<security:logout logout-url="/shop/member/logout"
+						invalidate-session="true"
+						logout-success-url="/shop/main/index"/>
+						
+	<!-- invalid-session-url="/shop/main/index"
+		● invalid-session-url: invalid session(세션 타임아웃 등) 일 때 이동 URL
+		● max-sessions: 최대 허용 가능한 세션 수 
+		● expired-url: 중복 로그인 발생 시 이동 URL(처음 접속한 세션이 invalidate 되고, 다음 요청 시 invalid-session-url 으로 이동) 
+		● error-if-maximum-exceeded: max-sessions 을 넘었을 때 접속한 세션을 실패 처리할 지 여부. 
+		error-if-maximum-exceeded="true" == 두번째 인증을 거부, false == 첫번째 인증을 거부 -->
 	</security:http>
 	
 	<!--  secured method -->
 	<security:global-method-security secured-annotations="enabled"/>
 	
-	<!-- spring security -authentication provider -->
+	<!-- authentication provider -->
 	<security:authentication-manager>
 		<security:authentication-provider ref="memberAuthServiceImpl"/>
 	</security:authentication-manager>
 	
-	<!-- spring security -authentication-provider 구현 클래스  -->
+	<!-- authentication-provider 구현 클래스  -->
 	<bean id="memberAuthServiceImpl" class="mint.member.service.MemberAuthServiceImpl"></bean>
 	
 	<!-- 비밀번호 암호화 -->

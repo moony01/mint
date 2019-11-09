@@ -9,12 +9,12 @@
 	<select id="getSuggestBoardList" parameterType="java.util.Map" resultType="suggestBoard">
 		select * from 
 		(select rownum rn, temp.* from 
-		(select * from suggestboard order by seq desc) temp) 
+		(select * from suggestboard where id= #{id} order by seq desc) temp) 
 		where rn between #{startNum} and #{endNum}
 	</select>
 	
-	<select id="getSuggestBoardTotArticle" resultType="int">
-		select count(*) from suggestboard
+	<select id="getSuggestBoardTotArticle" parameterType="String" resultType="int">
+		select count(*) from suggestboard where id=#{id}
 	</select>
 	
 	<select id="getSuggestBoard" parameterType="int" resultType="suggestBoard">

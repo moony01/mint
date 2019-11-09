@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import board.bean.BoardDTO;
 import mint.faqBoard.bean.FAQBoardDTO;
 import mint.faqBoard.bean.FAQBoardPaging;
 import mint.faqBoard.service.FAQBoardService;

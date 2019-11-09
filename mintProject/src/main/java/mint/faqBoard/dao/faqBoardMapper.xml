@@ -28,7 +28,7 @@
 	
 	
 	<!-- ///////////////// 게시글 검색 ////////////////-->
-	<select id="faqBoardSearch" parameterType="java.util.Map" resultType="board">
+	<select id="faqBoardSearch" parameterType="java.util.Map" resultType="faqBoard">
 		<![CDATA[
 			select * from (select rownum rn, tt.* from
 		 (select * from board where ${searchOption} like '%'||#{keyword}||'%' order by ref desc, step asc) tt) where rn >= #{startNum} and rn<= #{endNum}

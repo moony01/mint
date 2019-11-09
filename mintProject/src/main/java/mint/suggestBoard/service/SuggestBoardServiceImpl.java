@@ -20,14 +20,14 @@ public class SuggestBoardServiceImpl implements SuggestBoardService {
 	}
 
 	@Override
-	public List<SuggestBoardDTO> getSuggestBoardList(Map<String, Integer> map) {
+	public List<SuggestBoardDTO> getSuggestBoardList(Map<String, Object> map) {
 		return suggestBoardDAO.getSuggestBoardList(map);
 		
 	}
 
 	@Override
-	public int getSuggestBoardTotArticle() {
-		return suggestBoardDAO.getSuggestBoardTotArticle();
+	public int getSuggestBoardTotArticle(String id) {
+		return suggestBoardDAO.getSuggestBoardTotArticle(id);
 	}
 
 	@Override

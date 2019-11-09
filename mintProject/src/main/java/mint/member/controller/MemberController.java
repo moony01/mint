@@ -115,6 +115,12 @@ public class MemberController {
 		
 	}
 		
+	//로그아웃: spring security 가 인터셉트하여 처리하기 때문에,컨트롤러를 거치지 않음 =>세션 삭제 후 메인 인덱스로 이동시킴.
+	
+	@RequestMapping("/shop/member/loginError")
+	public String loginError() {
+		return "/shop/member/loginError";
+	}
 	/*
 	 * 1. Spring security References:
 	 * 	1) https://sjh836.tistory.com/165
@@ -126,9 +132,5 @@ public class MemberController {
 	 */
 	
 	
-	//로그아웃
-	@RequestMapping("shop/member/logout")
-	public void logout() {
-		
-	}
+
 }

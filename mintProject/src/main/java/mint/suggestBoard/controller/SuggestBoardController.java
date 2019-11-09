@@ -44,8 +44,8 @@ public class SuggestBoardController {
 								@ModelAttribute SuggestBoardDTO suggestBoardDTO, 
 								@RequestParam MultipartFile img, HttpSession session, Model model) {
 		
-		suggestBoardDTO.setId("hong");
-		//추후 session 값으로 받아옴. suggestBoardDTO.setId((String) session.getAttribute("memId"));
+		
+		suggestBoardDTO.setId((String) session.getAttribute("memId"));
 		
 		//file 경로: 상대경로로 지정되어야 함 (보완예정)
 		String filePath = "C:\\Users\\user\\Desktop\\soyeon\\Spring\\mint\\mintProject\\src\\main\\webapp\\shop\\storage";
@@ -88,23 +88,27 @@ public class SuggestBoardController {
 	
 	//제안 문의 글삭제. 삭제 후 바로 /offer(목록) 로 이동.
 	@RequestMapping("/shop/service/offerDelete")
-	public ModelAndView deleteSuggestBoard(@RequestParam String seq, ModelAndView mav) {
+	public ModelAndView deleteSuggestBoard(@RequestParam String seq, HttpSession session, ModelAndView mav) {
 		suggestBoardService.deleteSuggestBoard(Integer.parseInt(seq));
-		return getSuggestBoardList("1", mav);
+		return getSuggestBoardList("1", session, mav);
 	}
 	
 	//제안 문의 글목록
 	@RequestMapping("/shop/service/offer")
 	public ModelAndView getSuggestBoardList(@RequestParam(required = false, defaultValue = "1") String pg,
-											ModelAndView mav) {
+											HttpSession session, ModelAndView mav) {
+		
+		String id = (String) session.getAttribute("memId");
+		
 		int endNum = Integer.parseInt(pg) *3;
 		int startNum = endNum -2; 
 		
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("endNum", endNum);
 		map.put("startNum", startNum);
+		map.put("id", id);
 		
-		int totalArticle = suggestBoardService.getSuggestBoardTotArticle();
+		int totalArticle = suggestBoardService.getSuggestBoardTotArticle(id);
 		List<SuggestBoardDTO> list = suggestBoardService.getSuggestBoardList(map);
 		
 		//페이징 처리를 script에서 처리하기 위해 pg, totalArticle, addr 를 함께 싣어 보내준다. 

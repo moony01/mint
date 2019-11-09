@@ -53,9 +53,8 @@ addrBtn.addEventListener("click",function(){
 
 let emailCerti = document.getElementsByName("emailCerti")[0];
 emailCerti.addEventListener("focus", function(){
-    $('.btn--white').css('background-color', '#5f0080').css('pointer-events', 'visible').css('color', '#fff').css('opacity', 1);
+    $('.btn--white').css('background-color', '#45b8ac').css('pointer-events', 'visible').css('color', '#fff').css('opacity', 1);
 });
-
 
 //인증번호 받기
 authBtn.addEventListener("click", function(){
@@ -92,6 +91,7 @@ certiAuthBtn.addEventListener("click", function(){
 	});
 });
 
+//회원가입
 $('.btn--lg').click(function(){
 	$.ajax({
 		type: 'post',

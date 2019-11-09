@@ -4,7 +4,7 @@
 <mapper namespace="memberSQL">
 	<insert id="writeMember" parameterType="member">
 		insert into member values (#{name}, #{id}, #{pwd}, #{email}, #{tel}, #{addr1}, #{addr2}, #{gender}, 
-								#{birthday}, #{isStaff}, #{point}, #{isAgreedSMS}, #{memLevel}, #{authSecurity}, sysdate)
+								#{birthday}, #{isStaff}, #{point}, #{isAgreedSMS}, #{memLevel}, #{role}, sysdate)
 	</insert>
 	
 	<select id="getUserById" parameterType="String" resultType="member">

@@ -78,4 +78,11 @@
 
     </footer>
 </body>
+<script>
+let memId = '${memId}';
+let memName = '${memName}';
+let memEmail = '${memEmail}'
+
+checkMemId(memId, memName);
+</script>
 </html>

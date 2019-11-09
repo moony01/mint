@@ -82,8 +82,8 @@
     position: relative;
 }
 
-/* qna 메뉴 */
-.qna__menu{
+/* mypage, qna 메뉴 */
+.my-page__menu,.qna__menu{
     box-sizing: border-box;
     position: absolute;
     display:none;
@@ -92,15 +92,15 @@
     padding: 9px 0 9px 9px;
     width: 102px;
 }
-.qna__menu li{
+.my-page__menu li, .qna__menu li{
     margin-bottom: 12px;
 }
-.qna__menu li:last-child{
+.my-page__menu li:last-child, .qna__menu li:last-child{
     margin-bottom: 0px;
 }
 
-/* qna hover 일때 menu 나타나게 */
-.my-page__qna:hover .qna__menu{
+/* mypage, qna hover 일때 menu 나타나게 */
+.my-page__mypage:hover .my-page__menu, .my-page__qna:hover .qna__menu{
     display: block;
 } 
 

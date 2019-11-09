@@ -11,7 +11,7 @@
     <div class="content__type">
         <span></span>
     </div>
-    <form class="login-form">
+    <form class="login-form" id="loginForm" > <!-- method="post" action="/mintProject/shop/member/loginOk" -->
         <div class="login-content">
             <h1>회원 로그인</h1>
             <div class="login__input-container">
@@ -27,10 +27,19 @@
             </div>
         </div>
         <div class="login__btns">
-            <div class="login__btn login__btn--primary btn-join">회원 가입</div>
+            <div class="login__btn login__btn--primary btn-join" onclick="location.href='/mintProject/shop/member/join'">회원 가입</div>
             <div class="login__btn login__btn--white btn-findId">아이디 찾기</div>
             <div class="login__btn login__btn--white btn-findPwd">비밀번호 찾기</div>
         </div>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>    
 </section>
-<script src="/mintProject/shop/js/join.js"></script>
+<script src="/mintProject/shop/js/login.js"></script>
+
+<!-- CSRF 공격: 인터넷 사용자가 자신의 의지와는 무관하게 공격자가 의도한 행위를 특정 웹 사이트에 요청하도록 만드는 공격. 
+방어 기법으로는 1) Referrer 검증, 2) Security Token 가 있으며, mintProject에서는 2) Security Token을 사용한다.
+
+*Security Token 사용 방법
+1. front: 사용자의 세션에 임의의 난수 값을 저장하고, 사용자의 요청마다 해당 난수값을 포함시켜 전송한다. 
+2. back: 요청받을 때마다 세션에 저장된 토큰값과 요청 파라미터에 전달되는 토큰 값이 일치하는 지 검증한다. 
+단점: 같은 도메인 내 XSS 취약점이 있다면 결국 CSRF 공격에 취약해짐. -->

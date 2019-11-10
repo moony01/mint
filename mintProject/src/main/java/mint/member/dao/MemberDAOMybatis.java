@@ -26,4 +26,5 @@ public class MemberDAOMybatis implements MemberDAO {
 		return sqlSession.selectOne("memberSQL.getUserById", id);
 	}
 
+
 }

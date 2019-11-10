@@ -8,4 +8,5 @@ public interface MemberService {
 
 	public MemberDTO getUserById(String id);
 
+
 }

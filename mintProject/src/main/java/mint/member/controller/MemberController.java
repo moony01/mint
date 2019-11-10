@@ -55,6 +55,20 @@ public class MemberController {
 		memberService.writeMember(memberDTO);
 	}
 	
+	//아이디 중복확인 
+	@RequestMapping("/shop/member/isDuplicatedID")
+	@ResponseBody
+	public boolean isDuplicatedID(@RequestParam String id, ModelAndView mav) {
+		boolean isDuplicated = false; 
+		MemberDTO memberDTO = memberService.getUserById(id);
+		if(memberDTO != null) {
+			isDuplicated = true;
+		}
+		
+		mav.setViewName("jsonView");
+		return isDuplicated;
+	}
+	
 	//이메일 인증번호 요청
 	@RequestMapping("/shop/member/auth")
 	@ResponseBody

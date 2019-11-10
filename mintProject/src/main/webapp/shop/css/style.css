@@ -50,6 +50,7 @@
 
 /* 대메뉴 */
 .gnb{
+	position: relative;
     height: 56px;
     display: flex;
     align-items: center;
@@ -78,6 +79,18 @@
 .gnb__item:first-child{
     padding-left: 0;
 }
+
+.gnb .cart_count{
+	position: absolute;
+	right: 0;
+}
+.gnb .cart_count .btn_cart{
+	display: inline-block;
+}
+.gnb .cart_count .btn_cart img{
+	width: 36px;
+}
+
 .qna{
     position: relative;
 }

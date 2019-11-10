@@ -47,7 +47,7 @@
             <li class="my-page__item"><a href="/mintProject/shop/member/join">회원가입</a></li>
             <li class="my-page__item"><a href="/mintProject/shop/member/login">로그인</a></li>
             <li class="my-page__item my-page__qna">
-                <a href="/mintProject/notice/noticeBoardList?pg=1">고객센터</a>
+                <a href="/mintProject/shop/service/notice?pg=1">고객센터</a>
                 <ul class="qna__menu">
                     <li><a href="/mintProject/shop/service/notice?pg=1">공지사항</a></li>
                     <li><a href="/mintProject/shop/service/faq">자주하는 질문</a></li>
@@ -61,7 +61,7 @@
             <a href="/mintProject/shop/main/index"><img src="../storage/main_logo.png" alt="마켓컬리 로고" class="header__main-logo"></a>
 <!--             <a href="/mintProject/shop/main/index"><img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" class="header__main-logo"></a> -->
         </div>
-    </header>
+    </header> 
     <nav class="gnb">
         <ul class="gnb__list">
             <li class="gnb__item"><a href=""><i class="fas fa-bars"></i>전체 카테고리</a></li>
@@ -70,6 +70,9 @@
             <li class="gnb__item"><a href="">알뜰쇼핑</a></li>
             <li class="gnb__item"><a href="">이벤트</a></li>
         </ul>
+        <div class="cart_count">
+        	<a class="btn_cart" href="/mintProject/shop/goods/cart"><img src="https://res.kurly.com/pc/ico/1908/ico_cart_x2_v2.png" alt="장바구니"></a>
+        </div>
     </nav>
     
    <jsp:include page="${display }"/> 

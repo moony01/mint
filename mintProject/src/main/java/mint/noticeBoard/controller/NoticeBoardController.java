@@ -26,7 +26,7 @@ public class NoticeBoardController {
 	@Autowired
 	private NoticeBoardPaging noticeBoardPaging;
 	
-	@RequestMapping(value="/notice/noticeBoardList")
+	@RequestMapping(value="/shop/service/notice")
 	public String noticeBoardList(@RequestParam(required=false, defaultValue="1") String pg,
 								  Model model,
 								  HttpSession session) {
@@ -56,7 +56,7 @@ public class NoticeBoardController {
 		return "/shop/main/index";
 	}
 	
-	@RequestMapping(value="/notice/noticeBoardSearch", method=RequestMethod.POST)
+	@RequestMapping(value="/shop/service/noticeBoardSearch", method=RequestMethod.POST)
 	public ModelAndView noticeBoardSearch(@RequestParam Map<String, Object> map,
 										  @RequestParam String[] check) {
 		
@@ -85,14 +85,13 @@ public class NoticeBoardController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/notice/noticeBoardView", method=RequestMethod.GET)
+	@RequestMapping(value="/shop/service/noticeView", method=RequestMethod.GET)
 	public String noticeBoardView(@RequestParam String seq,
 								  @RequestParam String pg,
 								  Model model,
 								  HttpSession session) {
 		
 		NoticeBoardDTO noticeBoardDTO = noticeBoardService.getNoticeBoardView(seq);
-		System.out.println("noticeBoardDTO = "+noticeBoardDTO);
 		
 		//이전글 다음글 불러오기
 		//String[] nextPrevNotice = noticeBoardService.getNextPrevNotice(seq);

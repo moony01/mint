@@ -17,7 +17,7 @@ document.getElementById('noticeSearchBtn').onclick = function() {
 	} else {
 		$.ajax({
 			type: 'post',
-			url: '/mintProject/notice/noticeBoardSearch',
+			url: '/mintProject/shop/service/noticeBoardSearch',
 			data: $('#noticeBoardSearchForm').serialize(),
 			dataType: 'json',
 			success: function(data){
@@ -75,7 +75,7 @@ $('.tb-notice').on('click', '.sub_click_view', function(){
 /*	if(data.memId!=null){
 		//alert('로그인 후 이용가능합니다.');
 	} else {*/
-		location.href='/mintProject/notice/noticeBoardView?seq='
+		location.href='/mintProject/shop/service/noticeView?seq='
 			+$(this).attr('id')+'&pg='+$('input[name=pg]').val();
 	/*}*/
 });

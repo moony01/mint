@@ -7,7 +7,7 @@
 								#{birthday}, #{isStaff}, #{point}, #{isAgreedSMS}, #{memLevel}, #{role}, sysdate)
 	</insert>
 	
-	<select id="getUserById" parameterType="String" resultType="member">
-		select * from member where id = #{id}
+	<select id="getUserBy" parameterType="java.util.Map" resultType="member">
+		select * from member where ${key} = #{value}
 	</select>
 </mapper>

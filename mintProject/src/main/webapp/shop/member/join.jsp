@@ -42,7 +42,8 @@
             <div class="join-col">
                 <div class="join-title"></div>
                 <input type="text" class="join-input input--lg" name="emailCerti">
-                <div class="join-btn btn--white btn-certiAuthKey">인증번호 확인</div>
+                <div class="join-btn btn--white btn-certiAuthKey">인증번호 확인</div><br>
+                <div class="timeCount" style="display: block;">남은시간: </div>
             </div>
             <div class="join-col">
                 <div class="join-title">배송 주소</div>

@@ -1,7 +1,9 @@
 package mint.member.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -23,7 +25,11 @@ public class MemberAuthServiceImpl implements UserDetailsService, Authentication
 	@Override
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 		//DB에서 유저 정보를 불러오는 메소드
-		MemberDTO memberDTO = memberService.getUserById(id);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key", "id");
+		map.put("value", id);
+		
+		MemberDTO memberDTO = memberService.getUserBy(map);
 		
 		//DB에 일치하는 사용자가 없을 경우, exception 을 날림
 		if(memberDTO == null) {

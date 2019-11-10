@@ -1,6 +1,8 @@
 package mint.member.controller;
 
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -55,12 +57,19 @@ public class MemberController {
 		memberService.writeMember(memberDTO);
 	}
 	
-	//아이디 중복확인 
-	@RequestMapping("/shop/member/isDuplicatedID")
+	//아이디 & 이메일 중복확인 
+	@RequestMapping("/shop/member/isDuplicated")
 	@ResponseBody
-	public boolean isDuplicatedID(@RequestParam String id, ModelAndView mav) {
+	public boolean isDuplicated(@RequestParam Map<String, String> map, ModelAndView mav) {
 		boolean isDuplicated = false; 
-		MemberDTO memberDTO = memberService.getUserById(id);
+		
+		Set<String> set = map.keySet(); 
+		for (String key : set) {
+			map.put("key", key); //key="id" or "email", value=해당값
+			map.put("value", map.get(key));
+		}
+
+		MemberDTO memberDTO = memberService.getUserBy(map);
 		if(memberDTO != null) {
 			isDuplicated = true;
 		}

@@ -4,6 +4,7 @@ const checkIdBtn = document.querySelector(".btn-checkId");
 const certiAuthBtn = document.querySelector(".btn-certiAuthKey");
 let emailCerti = document.getElementsByName("emailCerti")[0];
 
+
 // 다음 우편번호
 addrBtn.addEventListener("click",function(){
    daum.postcode.load(function(){
@@ -57,7 +58,7 @@ addrBtn.addEventListener("click",function(){
 checkIdBtn.addEventListener("click", function(){
 	$.ajax({
 		type: 'post',
-		url: '/mintProject/shop/member/isDuplicatedID',
+		url: '/mintProject/shop/member/isDuplicated',
 		data: {"id": document.getElementsByName("id")[0].value},
 		dataType: 'json',
 		success: function(result){
@@ -65,6 +66,7 @@ checkIdBtn.addEventListener("click", function(){
 				alert('사용 가능한 아이디입니다. ');
 			} else {
 				alert('이미 사용중인 아이디입니다. 다른 아이디를 입력하세요. ');
+				document.getElementsByName("id")[0].focus();
 			}
 		},
 		error: function(e){
@@ -73,21 +75,42 @@ checkIdBtn.addEventListener("click", function(){
 	});
 });
 
-
+//ajax 안에 또 ajax가 들어감.. => 이 부분 리팩토링 할 예정!
 //인증번호 받기
 authBtn.addEventListener("click", function(){
+	//우선 이메일 중복확인 먼저 하고 
 	$.ajax({
 		type: 'post',
-		url: '/mintProject/shop/member/auth',
-		data: {"id": document.getElementsByName("id")[0].value,
-			"email": document.getElementsByName("email")[0].value},
-		success: function(){
-			console.log('success');
+		url: '/mintProject/shop/member/isDuplicated',
+		data: {"email": document.getElementsByName("email")[0].value},
+		success: function(result){
+			if(!result){
+				alert('사용 가능한 이메일입니다. 인증번호를 발송합니다. ');
+				timer = 60*3; 
+				counter = setInterval(countDown, 1000); //1초마다 반복적으로 countDown() 실행
+
+				//이메일 중복 아닐 시 인증번호 발송
+				$.ajax({
+					type: 'post',
+					url: '/mintProject/shop/member/auth',
+					data: {"id": document.getElementsByName("id")[0].value,
+						"email": document.getElementsByName("email")[0].value},
+					success: function(){
+					},
+					error: function(e){
+						console.log(e);
+					}
+				});
+			} else {
+				alert('이미 사용중인 이메일입니다. ');
+				document.getElementsByName("email")[0].focus();
+			}
 		},
 		error: function(e){
 			console.log(e);
 		}
 	});
+	
 });
 
 emailCerti.addEventListener("focus", function(){
@@ -103,7 +126,6 @@ certiAuthBtn.addEventListener("click", function(){
 			"certiAuthKey": document.getElementsByName("emailCerti")[0].value},
 		dataType: 'text',
 		success: function(data){
-			console.log(data);
 			if(data == 'true') alert("인증이 완료되었습니다. ");
 			else alert('인증번호가 잘못되었습니다. ');
 		},
@@ -120,7 +142,6 @@ $('.btn--lg').click(function(){
 		url: '/mintProject/shop/member/joinOk',
 		data: $('#join-form').serialize(),
 		success: function(){
-			console.log('success');
 			alert('회원가입이 완료되었습니다. ');
 			location.href='/mintProject/shop/main/index';
 		},
@@ -129,3 +150,26 @@ $('.btn--lg').click(function(){
 		}
 	});
 });
+
+
+let timer, counter;
+//이메일 인증 시 시간 제한 3분
+function countDown(){
+	let min = parseInt(timer/60);
+	let sec = timer % 60;
+	
+	if(timer == 0) { //제한시간이 지나면 실행중인 루프 종료. 
+		clearInterval(counter); 
+	}
+	
+	$('.timeCount').text(zeroPad(min,2)+ ":" + zeroPad(sec,2));
+	timer--; 
+		
+}
+
+//분, 초의 자릿수를 2자리로 맞춤. ex) 2분 9초 => 02:09 
+function zeroPad(number, width){ 
+	number = number + '';
+	return number.length >= width ? number : new Array(width - number.length +1).join('0') +number;
+	
+}

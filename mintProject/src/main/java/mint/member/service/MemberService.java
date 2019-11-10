@@ -1,12 +1,14 @@
 package mint.member.service;
 
+import java.util.Map;
+
 import mint.member.bean.MemberDTO;
 
 public interface MemberService {
 
 	public void writeMember(MemberDTO memberDTO);
 
-	public MemberDTO getUserById(String id);
+	public MemberDTO getUserBy(Map<String, String> map);
 
 
 }

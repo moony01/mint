@@ -77,6 +77,7 @@
     <footer class="footer">
 
     </footer>
+
 </body>
 <script>
 let memId = '${memId}';

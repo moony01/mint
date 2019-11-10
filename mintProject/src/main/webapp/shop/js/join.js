@@ -1,6 +1,8 @@
 const addrBtn = document.querySelector(".btn-addr");
 const authBtn = document.querySelector(".btn-auth");
+const checkIdBtn = document.querySelector(".btn-checkId");
 const certiAuthBtn = document.querySelector(".btn-certiAuthKey");
+let emailCerti = document.getElementsByName("emailCerti")[0];
 
 // 다음 우편번호
 addrBtn.addEventListener("click",function(){
@@ -51,10 +53,26 @@ addrBtn.addEventListener("click",function(){
     });
 })
 
-let emailCerti = document.getElementsByName("emailCerti")[0];
-emailCerti.addEventListener("focus", function(){
-    $('.btn--white').css('background-color', '#45b8ac').css('pointer-events', 'visible').css('color', '#fff').css('opacity', 1);
+//아이디 중복확인
+checkIdBtn.addEventListener("click", function(){
+	$.ajax({
+		type: 'post',
+		url: '/mintProject/shop/member/isDuplicatedID',
+		data: {"id": document.getElementsByName("id")[0].value},
+		dataType: 'json',
+		success: function(result){
+			if(!result){
+				alert('사용 가능한 아이디입니다. ');
+			} else {
+				alert('이미 사용중인 아이디입니다. 다른 아이디를 입력하세요. ');
+			}
+		},
+		error: function(e){
+			console.log(e);
+		}
+	});
 });
+
 
 //인증번호 받기
 authBtn.addEventListener("click", function(){
@@ -70,6 +88,10 @@ authBtn.addEventListener("click", function(){
 			console.log(e);
 		}
 	});
+});
+
+emailCerti.addEventListener("focus", function(){
+    $('.btn--white').css('background-color', '#45b8ac').css('pointer-events', 'visible').css('color', '#fff').css('opacity', 1);
 });
 
 //인증번호 확인

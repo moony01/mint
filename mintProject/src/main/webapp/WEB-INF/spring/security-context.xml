@@ -12,7 +12,7 @@
 		● use-expressions: 스프링 표현식(spEL) 사용여부 -->
 	<security:http auto-config="true" use-expressions="true">
 		<!--csrf 보안 설정여부 -->
-		<security:csrf disabled="false"/>  
+		<security:csrf disabled="true"/>  
 
 		<!-- pattern에 정의된 경로에 대해 access 권한 지정 (filter가 감시) -->
 		<security:intercept-url pattern="/shop/admin/*" access="hasRole('ROLE_ADMIN')"/> 

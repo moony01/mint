@@ -95,7 +95,7 @@
                         <li><a href="">오리고기</a></li>
                     </ul>
                     <ul class="gnb__menu">
-                        <li><a href="">일반식품</a></li>
+                        <li><a href="">가공식품</a></li>
                         <li><a href="">유제품</a></li>
                         <li><a href="">만두류</a></li>
                         <li><a href="">라면</a></li>

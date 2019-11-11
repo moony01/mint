@@ -91,11 +91,6 @@ body{
 	clear: both;
 }
 .out{
-<<<<<<< HEAD
 	position: absolute;
 	top: -9999px;
-=======
-	position:absolute;
-	left:-9999px;
->>>>>>> 6200d4223cb58b57478ccba8c21f362ec9c52eb9
 }

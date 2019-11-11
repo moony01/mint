@@ -20,11 +20,11 @@
             </div>
             <div class="join-col">
                 <div class="join-title">비밀번호*</div>
-                <input type="text" class="join-input input--lg" name="pwd" placeholder="비밀번호를 입력해주세요">
+                <input type="password" class="join-input input--lg" name="pwd" placeholder="비밀번호를 입력해주세요">
             </div>
             <div class="join-col">
                 <div class="join-title">비밀번호확인*</div>
-                <input type="text" class="join-input input--lg" name="repwd" placeholder="비밀번호를 한번 더 입력해주세요">
+                <input type="password" class="join-input input--lg" name="repwd" placeholder="비밀번호를 한번 더 입력해주세요">
             </div>
             <div class="join-col">
                 <div class="join-title">이름*</div>

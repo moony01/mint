@@ -17,7 +17,7 @@
             <div class="login__input-container">
                 <div class="login__inputs">
                     <input type="text" class="login__input" id="id" name="id">
-                    <input type="text" class="login__input" name="pwd">
+                    <input type="password" class="login__input" name="pwd">
                 </div>
                 <div class="login__btn login__login-btn">로그인</div>
             </div>

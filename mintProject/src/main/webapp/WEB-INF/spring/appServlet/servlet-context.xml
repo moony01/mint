@@ -16,6 +16,7 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources location="/shop/js/" mapping="/shop/js/**"/>
 	<resources location="/shop/css/" mapping="/shop/css/**"/>
+	<resources location="/admin/css/" mapping="/admin/css/**"/>
 	<resources mapping="/shop/image/**" location="/shop/image/"/>
 	<resources mapping="/shop/storage/**" location="/shop/storage/"/>
 

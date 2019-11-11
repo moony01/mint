@@ -15,10 +15,10 @@
 		<security:csrf disabled="true"/>  
 
 		<!-- pattern에 정의된 경로에 대해 access 권한 지정 (filter가 감시) -->
-		<security:intercept-url pattern="/shop/admin/*" access="hasRole('ROLE_ADMIN')"/> 
+		<!-- <security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/> 
 		<security:intercept-url pattern="/shop/member/login" access="isAnonymous()"/> 
 		<security:intercept-url pattern="/shop/mypage/*" access="hasRole('ROLE_USER')"/> 
-		<security:intercept-url pattern="/**" access="permitAll"/> 
+		<security:intercept-url pattern="/**" access="permitAll"/>  -->
 		
 		<!-- 로그인 -->
 		<security:form-login login-page="/shop/member/login"

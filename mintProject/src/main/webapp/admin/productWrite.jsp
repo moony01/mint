@@ -1,5 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<style>
+
+.file-container{
+	height:210px;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	
+}
+.product-img-upload-btn {
+ 	/* border: 1px solid #45b8ac;
+	border-radius: 20px; */ 
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-bottom: 5px; 
+	border: 1px solid black;
+}
+
+#preview-img {
+	width: 150px;
+	height: 150px;
+	margin-bottom: 10px;
+}
+
+.cover .product-img-upload-btn {
+	left: 0;
+	top: 0;
+} 
+.cover #product-img {
+	opacity: 0;
+	width: 1px;
+	height: 1px;
+}
+
+.product-img-block{
+}
+</style>
+    
 <div class="main__title">
     <h2 class="out">상품 관리</h2>
     <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>게시판</span></a>
@@ -58,9 +98,17 @@
             <th>소 제목</th>
             <td class="table--left"><input type="text"></td>
         </tr>
-        <tr>
+        <tr class="write-tb__content">
             <th>상품 대표 이미지</th>
-            <td></td>
+            <td class="table--left">
+            	<div class="file-container">
+            		<img id="preview-img" src="http://icons.iconarchive.com/icons/blackvariant/button-ui-system-apps/1024/Preview-2-icon.png" width="100px;" height="100px;"/>
+            		<div class="cover">
+						<input id="product-img" name="product-img" accept=".jpg, .jpeg, .png" type="file" onchange="preview(this)">
+						<label for="product-img" class="product-img-upload-btn">이미지 업로드</label>
+					</div>
+            	</div>  
+            </td>
         </tr>
         <tr>
             <th>가격</th>
@@ -120,14 +168,24 @@ $(document).ready(function(){
         height: 400,                 // set editor height
         minHeight: null,             // set minimum height of editor
         maxHeight: null,             // set maximum height of editor
-        focus: true   
+        focus: true,
+        callbacks: {
+	          onImageUpload: function(files, editor, welEditable) {
+	        	  sendFile(files[0], this); 
+	         }
+	   	}
     });
     $('#info').summernote({
         placeholder:"내용을 입력해주세요",
         height: 400,                 // set editor height
         minHeight: null,             // set minimum height of editor
         maxHeight: null,             // set maximum height of editor
-        focus: true   
+        focus: true,
+        callbacks: {
+	          onImageUpload: function(files, editor, welEditable) {
+	        	  sendFile(files[0], this); 
+	         }
+	   	}
     });
 })
 const category = {
@@ -167,5 +225,57 @@ mainCategory.addEventListener("change",function(){
         subCategory.appendChild(option);
         
     });
-}); 
+});
+
+function preview(input){
+	if(input.files && input.files[0]){
+		var reader = new FileReader();
+		reader.onload = function(e){
+			$('#preview-img').attr('src', e.target.result).width(150).height(150);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
+/* summernote에서 이미지 업로드시 실행할 함수 */
+function sendFile(file, editor){
+	/* 파일 전송을 위한 폼생성 */
+	data = new FormData();
+	data.append('uploadFile', file);
+	$.ajax({ // ajax를 통해 파일 업로드 처리
+		data : data,
+		type : 'POST',
+		url : '/mintProject/admin/imageUpload',
+		cache : false,
+		contentType : false,
+		enctype : 'multipart/form-data',
+		processData : false,
+		dataType : 'text',
+		success : function(data){
+			$(editor).summernote('editor.insertImage', '../shop/storage/'+data);
+		},
+		error : function(err){
+			console.log(err);
+		}
+	});
+	
+	/*
+	컨트롤러 부분
+	@RequestMapping(value="/admin/imageUpload", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String handleFileUpload(@RequestParam("uploadFile") MultipartFile multiPartFile){
+		String filePath = ""; // 원하는 위치 (storage로 잡아주세요)
+		String fileName = multiPartFile.getOriginalFilename();
+		File file = new File (filePath, fileName);
+		try {
+			FileCopyUtils.copy(multiPartFile.getInputStream(), new FileOutputStream(file)); // spring저장소에서 storage로 복사
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return fileName;
+	} 
+	*/
+	
+	
+}
 </script>

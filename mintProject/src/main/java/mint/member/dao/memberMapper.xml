@@ -3,11 +3,25 @@
 
 <mapper namespace="memberSQL">
 	<insert id="writeMember" parameterType="member">
-		insert into member values (#{name}, #{id}, #{pwd}, #{email}, #{tel}, #{addr1}, #{addr2}, #{gender}, 
+		insert into member(name,id,pwd,email,tel,addr1,addr2,gender,birthday,point,isAgreedSMS,memLevel,logtime) values (#{name}, #{id}, #{pwd}, #{email}, #{tel}, #{addr1}, #{addr2}, #{gender}, 
 								#{birthday}, #{point}, #{isAgreedSMS}, #{memLevel}, sysdate)
 	</insert>
 	
 	<select id="getUserBy" parameterType="java.util.Map" resultType="member">
 		select * from member where ${key} = #{value}
+	</select>
+	
+	<!-- 출석체크 -->
+	<select id="isAttExist" parameterType="String" resultType="String">
+		select attDate from member where id=#{id}
+	</select>	
+	<update id="insertAttendance" parameterType="String">
+		update member set attDate=sysdate,point=point+100 where id=#{id}
+	</update>
+	<update id="updateAttendance" parameterType="String">
+		update member set attDate=concat(attDate, ','||sysdate),point=point+100 where id=#{id}
+	</update>
+	<select id="getAttDates" parameterType="String" resultType="String">
+		select attDate from member where id=#{id}
 	</select>
 </mapper>

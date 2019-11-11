@@ -25,26 +25,26 @@ public class NoticeBoardPaging {
 			endPage = totalP; //1
 		
 		/* NOTICE LIST HTML : START */
-		pagingHTML.append("<li class='page-item'><a class='page-link' href='noticeBoardList?pg=1'><<</a></li>");
+		pagingHTML.append("<li class='page-item'><a class='page-link' href='notice?pg=1'><<</a></li>");
 		if(currentPage == 1) 
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='noticeBoardList?pg=1'><</a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='notice?pg=1'><</a></li>");
 		else 
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='noticeBoardList?pg="+(currentPage-1)+"'><</a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='notice?pg="+(currentPage-1)+"'><</a></li>");
 		
 		
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
-				pagingHTML.append("<li class='page-item active'><a class='page-link' href='noticeBoardList?pg="+i+"'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item active'><a class='page-link' href='notice?pg="+i+"'>"+i+"</a></li>");
 			else
-				pagingHTML.append("<li class='page-item'><a class='page-link' href='noticeBoardList?pg="+i+"'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item'><a class='page-link' href='notice?pg="+i+"'>"+i+"</a></li>");
 		}
 		
 		
 		if(currentPage == endPage)
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='noticeBoardList?pg="+(endPage)+"'>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='notice?pg="+(endPage)+"'>></a></li>");
 		else 
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='noticeBoardList?pg="+(currentPage+1)+"'>></a></li>");
-		pagingHTML.append("<li class='page-item'><a class='page-link' href='noticeBoardList?pg="+(endPage)+"'>>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='notice?pg="+(currentPage+1)+"'>></a></li>");
+		pagingHTML.append("<li class='page-item'><a class='page-link' href='notice?pg="+(endPage)+"'>>></a></li>");
 		/* NOTICE LIST HTML : END */
 	}
 	

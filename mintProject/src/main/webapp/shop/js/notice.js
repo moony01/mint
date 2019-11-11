@@ -3,9 +3,11 @@
  */
 
 //게시판 검색
-document.getElementById('noticeSearchBtn').onclick = function() {
-	let pg = $('input[name=pg]').val(1);
-	console.log(pg);
+document.getElementById('noticeSearchBtn').onclick = function(event, str) {
+	
+	if(str!='trigger'){
+		$('input[name=pg]').val(1);
+	}
 	
 	var count = $('input[name=check]:checked').length;
 	var keyword = $('input[name=keyword]').val();
@@ -67,6 +69,7 @@ document.getElementById('noticeSearchBtn').onclick = function() {
 //게시판 검색 후 페이징처리
 function noticeBoardSearchPaging(pg){	
 	$('input[name=pg]').val(pg);
+	console.log($('input[name=pg]').val(pg));
 	$('#noticeSearchBtn').trigger('click','trigger');
 }
 

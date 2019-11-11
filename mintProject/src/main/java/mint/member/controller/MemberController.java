@@ -3,6 +3,7 @@ package mint.member.controller;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -55,7 +56,7 @@ public class MemberController {
 		String pwd = passwordEncoder.encode(memberDTO.getPwd()); //비밀번호 암호화
 		memberDTO.setPwd(pwd);
 		memberDTO.setBirthday(birthday);
-		memberDTO.setRole("");
+		//memberDTO.setAuthRole(null);	
 		
 		memberService.writeMember(memberDTO);
 	}
@@ -141,6 +142,7 @@ public class MemberController {
 		
 	}
 	
+	//kakao API 로그인 
 	@RequestMapping(value="/shop/member/kakaoLogin")
 	@ResponseBody
 	public void kakaoLogin(@RequestParam String email, HttpSession session, Map<String, String> map) {
@@ -156,8 +158,10 @@ public class MemberController {
 		
 	//로그아웃: spring security 가 인터셉트하여 처리하기 때문에,컨트롤러를 거치지 않음 =>세션 삭제 후 메인 인덱스로 이동시킴.
 	
+	// 중복 로그인 시 
 	@RequestMapping("/shop/member/loginError")
 	public String loginError() {
+		System.out.println("팅겨");
 		return "/shop/member/loginError";
 	}
 	/*
@@ -170,6 +174,7 @@ public class MemberController {
 	 *  1) https://itstory.tk/entry/CSRF-%EA%B3%B5%EA%B2%A9%EC%9D%B4%EB%9E%80-%EA%B7%B8%EB%A6%AC%EA%B3%A0-CSRF-%EB%B0%A9%EC%96%B4-%EB%B0%A9%EB%B2%95
 	 */
 	
+	// 회원정보 수정
 	@RequestMapping("/shop/member/myinfo_pwd_check")
 	public ModelAndView myinfo_pwd_check(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -206,6 +211,7 @@ public class MemberController {
 		return mav;
 	}
 	
+	// 출석체크 
 	@RequestMapping(value="/shop/member/attendance", method = RequestMethod.GET)
 	public ModelAndView attendance() {
 		ModelAndView mav = new ModelAndView();
@@ -242,5 +248,47 @@ public class MemberController {
 		}
 		return isAlready;
 	}
+	
+	// 아이디/비밀번호 찾기 
+	@RequestMapping("/shop/member/findId")
+	public ModelAndView findId(ModelAndView mav) {
+		mav.addObject("display", "/shop/member/findId.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
+	}
+	
+	@RequestMapping("/shop/member/findPwd")
+	public ModelAndView findPwd(ModelAndView mav) {
+		mav.addObject("display", "/shop/member/findPwd.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
+	}
+	
+	@RequestMapping("/shop/member/findIdOk")
+	@ResponseBody
+	public String findIdOk(@RequestParam Map<String, String> map) {
+		Object[] key =  map.keySet().toArray(); 
+		Object[] value = map.values().toArray();
+		
+		Map<Object, Object> map2 = new HashMap<Object, Object>();
+		map2.put("key", key);
+		map2.put("value", value);
+		String id = memberService.findUserBy(map2);
+		return id;
+	}
+	
+	@RequestMapping("/shop/member/updateInfo")
+	public ModelAndView updateInfo(@RequestParam Map<String, String> map, ModelAndView mav) {
+		System.out.println(map);
+		
+		String pwd = passwordEncoder.encode(map.get("pwd")); //비밀번호 암호화
+		map.put("pwd", pwd);
+		
+		memberService.updateInfo(map);
+		mav.addObject("display","/shop/template/body.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
+	}
+
 	
 }

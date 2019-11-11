@@ -14,7 +14,9 @@ public interface MemberService {
 
 	public String getAttDates(String id);
 
+	public String findUserBy(Map<Object, Object> map);
 
+	public void updateInfo(Map<String, String> map);
 
 
 }

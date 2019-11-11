@@ -44,5 +44,14 @@ public class MemberDAOMybatis implements MemberDAO {
 		}
 		return attDate;
 	}
+	
+	@Override
+	public String findUserBy(Map<Object, Object> map) {
+		return sqlSession.selectOne("memberSQL.findUserBy", map);
+	}
 
+	@Override
+	public void updateInfo(Map<String, String> map) {
+		sqlSession.update("memberSQL.updateInfo", map);
+	}
 }

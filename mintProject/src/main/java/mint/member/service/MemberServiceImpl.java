@@ -34,5 +34,16 @@ public class MemberServiceImpl implements MemberService {
 	public String getAttDates(String id) {
 		return memberDAO.getAttDates(id);
 	}
+	
+	@Override
+	public String findUserBy(Map<Object, Object> map) {
+		return memberDAO.findUserBy(map);
+	}
+
+	@Override
+	public void updateInfo(Map<String, String> map) {
+		memberDAO.updateInfo(map);
+	}
+
 
 }

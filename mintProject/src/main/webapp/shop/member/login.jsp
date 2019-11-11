@@ -11,7 +11,7 @@
     <div class="content__type">
         <span></span>
     </div>
-    <form class="login-form" id="loginForm" > <!-- method="post" action="/mintProject/shop/member/loginOk" -->
+    <form class="login-form" id="loginForm" >
         <div class="login-content">
             <h1>회원 로그인</h1>
             <div class="login__input-container">
@@ -28,8 +28,8 @@
         </div>
         <div class="login__btns">
             <div class="login__btn login__btn--primary btn-join" onclick="location.href='/mintProject/shop/member/join'">회원 가입</div>
-            <div class="login__btn login__btn--white btn-findId">아이디 찾기</div>
-            <div class="login__btn login__btn--white btn-findPwd">비밀번호 찾기</div>
+            <div class="login__btn login__btn--white" onclick="location.href='/mintProject/shop/member/findId'">아이디 찾기</div>
+            <div class="login__btn login__btn--white" onclick="location.href='/mintProject/shop/member/findPwd'">비밀번호 찾기</div>
             <div><a id="login-btn-kakao" onclick="javascript:loginWithKakao();"><img src="../storage/kakao_login_btn.png" height="48px"></a></div>
         </div>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">

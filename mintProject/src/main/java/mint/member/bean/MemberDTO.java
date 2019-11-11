@@ -29,26 +29,13 @@ public class MemberDTO  implements UserDetails { //
     private String addr2;
     private int gender;
     private String birthday;
-    private int isStaff;
     private int point;
     private int isAgreedSMS;
     private int memLevel;
     private String attDate;
-    private String role;
+ // private Collection authRole;
     private Date logtime;
     
-    public MemberDTO(String id, String pwd, List<GrantedAuthority> role) {
-    	//super(id, pwd, authorities);
-    	this.id = id;
-    	this.pwd = pwd;
-    	this.role = role.toString();
-    }
-    
-//    public MemberDTO(User user) {
-//    	super(user.getUsername(), user.getPassword(), user.isAccountNonExpired(), user.isAccountNonLocked(),
-//    			user.isCredentialsNonExpired(), user.isEnabled() );
-//	}
- 
 	@Override
 	public Collection<GrantedAuthority> getAuthorities() { 
         return null;
@@ -84,8 +71,4 @@ public class MemberDTO  implements UserDetails { //
 		return true;
 	}
 	
-	@Override
-	public String toString() {
-		return name +": "+ id +": "+ role;
-	}
 }

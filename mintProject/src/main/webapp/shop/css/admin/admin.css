@@ -189,3 +189,8 @@ html,body{
     width: 900px;
 }
 
+
+/* 프로덕트 글쓰기 테이블 */
+.sub-category,.main-category{
+    width: 114px;
+}

@@ -26,5 +26,23 @@ public class MemberDAOMybatis implements MemberDAO {
 		return sqlSession.selectOne("memberSQL.getUserBy", map);
 	}
 
+	@Override
+	public void insertAttendance(String id) {
+		String attDates = sqlSession.selectOne("memberSQL.isAttExist",id);
+		if(attDates == null) {
+			sqlSession.update("memberSQL.insertAttendance", id);			
+		} else {
+			sqlSession.update("memberSQL.updateAttendance", id);		
+		}
+	}
+
+	@Override
+	public String getAttDates(String id) {
+		String attDate = sqlSession.selectOne("memberSQL.getAttDates", id);
+		if(attDate==null) {
+			attDate = "!";
+		}
+		return attDate;
+	}
 
 }

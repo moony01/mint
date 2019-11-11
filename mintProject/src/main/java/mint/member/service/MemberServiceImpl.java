@@ -24,6 +24,15 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.getUserBy(map);
 	}
 
+	@Override
+	public void insertAttendance(String id) {
+		memberDAO.insertAttendance(id);
+		
+	}
 
+	@Override
+	public String getAttDates(String id) {
+		return memberDAO.getAttDates(id);
+	}
 
 }

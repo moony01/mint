@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="/mintProject/shop/css/reset.css">
-    <link rel="stylesheet" href="/mintProject/shop/css/admin/admin.css">
+    <link rel="stylesheet" href="/mintProject/admin/css/admin.css">
     <script></script>
     <style>
         
@@ -76,17 +76,18 @@
                     <span>게시판</span>
                 </div>
                 <ul class="list">
-                    <li><a href="/mintProject/shop/admin/faq">faq 관리</a></li>
-                    <li><a href="/mintProject/shop/admin/qna">1:1문의 관리</a></li>
-                    <li><a href="/mintProject/shop/admin/notice">공지사항 관리</a></li>
-                    <li><a href="/mintProject/shop/admin/qna">상품 qna관리</a></li>
-                    <li><a href="/mintProject/shop/admin/">후기관리</a></li>
-                    <li><a href="/mintProject/shop/admin/offer">상품제안 관리</a></li>
+                    <li><a href="/mintProject/admin/faq">faq 관리</a></li>
+                    <li><a href="/mintProject/admin/qna">1:1문의 관리</a></li>
+                    <li><a href="/mintProject/admin/notice">공지사항 관리</a></li>
+                    <li><a href="/mintProject/admin/qna">상품 qna관리</a></li>
+                    <li><a href="/mintProject/admin/">후기관리</a></li>
+                    <li><a href="/mintProject/admin/offer">상품제안 관리</a></li>
                 </ul>
             </div>
         </nav>
         <div class="main">
-            <jsp:include page="${display }"/> 
+            <%-- <jsp:include page="${display }"/>  --%>
+            <jsp:include page="productWrite.jsp"/>
             
         </div>
     </div>

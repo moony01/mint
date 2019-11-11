@@ -38,7 +38,7 @@
     <script src="/mintProject/shop/js/index.js"></script>
     
   
-    <title>Document</title>
+    <title>민트</title>
 </head>
 <body>
     <header class="header">
@@ -64,11 +64,60 @@
     </header> 
     <nav class="gnb">
         <ul class="gnb__list">
-            <li class="gnb__item"><a href=""><i class="fas fa-bars"></i>전체 카테고리</a></li>
-            <li class="gnb__item"><a href="">신상품</a></li>
-            <li class="gnb__item"><a href="">베스트</a></li>
-            <li class="gnb__item"><a href="">알뜰쇼핑</a></li>
-            <li class="gnb__item"><a href="">이벤트</a></li>
+            <li class="gnb__item">
+                <a href=""><span><i class="fas fa-bars"></i>전체 카테고리</span></a>
+                <div class="gnb__category">
+                    <ul class="gnb__menu">
+                        <li><a href="">농산물</a></li>
+                        <li><a href="">과일</a></li>
+                        <li><a href="">기본채소</a></li>
+                        <li><a href="">쌈채소</a></li>
+                        <li><a href="">브로콜리·특수채소</a></li>
+                        <li><a href="">피망·고추</a></li>
+                        <li><a href="">곡류</a></li>
+                        <li><a href="">버섯류</a></li>
+                        <li><a href="">견과류</a></li>
+                    </ul>
+                    <ul class="gnb__menu">
+                        <li><a href="">수산물</a></li>
+                        <li><a href="">생선류</a></li>
+                        <li><a href="">조개류</a></li>
+                        <li><a href="">해조류</a></li>
+                        <li><a href="">건어물</a></li>
+                        <li><a href="">오징어</a></li>
+                    </ul>
+                    <ul class="gnb__menu">
+                        <li><a href="">축산물</a></li>
+                        <li><a href="">소고기</a></li>
+                        <li><a href="">돼지고기</a></li>
+                        <li><a href="">닭고기</a></li>
+                        <li><a href="">계란류</a></li>
+                        <li><a href="">오리고기</a></li>
+                    </ul>
+                    <ul class="gnb__menu">
+                        <li><a href="">일반식품</a></li>
+                        <li><a href="">유제품</a></li>
+                        <li><a href="">만두류</a></li>
+                        <li><a href="">라면</a></li>
+                        <li><a href="">과자</a></li>
+                        <li><a href="">국수</a></li>
+                        <li><a href="">어묵</a></li>
+                        <li><a href="">햄</a></li>
+                    </ul>
+                    <ul class="gnb__menu">
+                        <li><a href="">반찬</a></li>
+                        <li><a href="">김치</a></li>
+                        <li><a href="">국·찌개</a></li>
+                        <li><a href="">전·부침</a></li>
+                        <li><a href="">간편식</a></li>
+                        <li><a href="">통조림</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="gnb__item"><a href=""><span>신상품</span></a></li>
+            <li class="gnb__item"><a href=""><span>베스트</span></a></li>
+            <li class="gnb__item"><a href=""><span>알뜰쇼핑</span></a></li>
+            <li class="gnb__item"><a href=""><span>이벤트</span></a></li>
         </ul>
         <div class="cart_count">
         	<a class="btn_cart" href="/mintProject/shop/goods/cart"><img src="https://res.kurly.com/pc/ico/1908/ico_cart_x2_v2.png" alt="장바구니"></a>

@@ -25,7 +25,7 @@ public class FAQBoardServiceImpl implements FAQBoardService {
 	}
 
 	@Override
-	public List<FAQBoardDTO> faqBoardSearch(Map<String, Integer> map) {
+	public List<FAQBoardDTO> faqBoardSearch(Map<String, Object> map) {
 		return faqBoardDAO.faqBoardSearch(map);
 	}
 

@@ -21,17 +21,20 @@ import mint.faqBoard.service.FAQBoardService;
  * 	자주 묻는 질문 게시판 컨트롤러
  * 
  *  /shop/service/faq.jsp
- * @version 1.0
+ * @version 1.1
  * @author LimChangHyun 
  *
- *	구현된 기능 : 리스트  가져오기(페이징 처리)
+ *	구현된 기능 :   리스트  가져오기
+ *				페이징 처리
+ *				카테고리 선택
+ *				검색 기능
  *	앞으로 구현되어야 하는 것 : 글쓰기(관리자페이지 연동)
  *						수정(관리자페이지 연동)
  *						삭제(관리자페이지 연동)
- *						검색(페이징 처리)
- *						카테고리 선택(페이징 처리)
- *	뷰는 faq.js에서 ajax로 할 예정
- *						
+ *	
+ *	이슈 : 카테고리 '선택'(value='')시 모든 게시물을 보여주고 싶었으나 아예 게시물을 가져오지 못함
+ *			(이 영향으로 검색시 카테고리 '선택'으로 둘 시 게시물을 가져오지 못함)
+ *		  질문의 답변 내용(class="tb-view")출력 시 height가 .tb tr의 height가 50px로 고정되어 깨져보임
  */
 
 @Controller
@@ -51,13 +54,12 @@ public class FAQBoardController {
 		
 	}
 	
-	/* FAQ게시판 리스트 불러오기 */
+	/* FAQ게시판 리스트 가져오기 */
 	@RequestMapping(value="/faqBoard/getFAQBoardList", method=RequestMethod.POST)
 	public ModelAndView getFAQBoardList(@RequestParam(required=false, defaultValue="1") String pg) {
-		//1페이지당 5개씩
-		int endNum = Integer.parseInt(pg)*5;
-		int startNum = endNum-4;
-
+		// 1페이지당 15개씩
+		int endNum = Integer.parseInt(pg)*15;
+		int startNum = endNum-14;
 		// 게시물 리스트 가져오기
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startNum", startNum);
@@ -82,12 +84,15 @@ public class FAQBoardController {
 
 	}
 	
-	/* FAQ게시판 검색 기능 */
-	@RequestMapping(value="/faqBoard/getFAQBoardSearch", method=RequestMethod.POST)
-	public ModelAndView getFAQBoardSearch(@RequestParam Map<String, Integer> map) {
-
-		int endNum = map.get("pg")*5;
-		int startNum = endNum-4;
+	/* FAQ게시판 검색시 리스트 가져오기 */
+	@RequestMapping(value="/faqBoard/getFAQBoardSearchList", method=RequestMethod.POST)
+	public ModelAndView getFAQBoardSearch(@RequestParam Map<String, Object> map) {
+		System.out.println(map.get("category"));
+		System.out.println(map.get("keyword"));
+		
+		// 1페이지당 15개씩
+		int endNum = Integer.parseInt((String) map.get("pg"))*15;
+		int startNum = endNum-14;
 		
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
@@ -98,14 +103,13 @@ public class FAQBoardController {
 		// 게시판 페이징 처리
 		// 총 글수
 		int totalArticle = faqBoardService.getSearchTotalArticle();
-		faqBoardPaging.setCurrentPage(map.get("pg"));
+		faqBoardPaging.setCurrentPage(Integer.parseInt((String) map.get("pg")));
 		faqBoardPaging.setPageBlock(5);
 		faqBoardPaging.setPageSize(15);
 		faqBoardPaging.setTotalArticle(totalArticle);
 		faqBoardPaging.makePagingHTML();
-		// Response
 		
-		
+		// Response		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
 		mav.addObject("faqBoardPaging", faqBoardPaging);

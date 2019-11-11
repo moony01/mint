@@ -4,7 +4,7 @@
 <mapper namespace="memberSQL">
 	<insert id="writeMember" parameterType="member">
 		insert into member values (#{name}, #{id}, #{pwd}, #{email}, #{tel}, #{addr1}, #{addr2}, #{gender}, 
-								#{birthday}, #{isStaff}, #{point}, #{isAgreedSMS}, #{memLevel}, #{role}, sysdate)
+								#{birthday}, #{point}, #{isAgreedSMS}, #{memLevel}, sysdate)
 	</insert>
 	
 	<select id="getUserBy" parameterType="java.util.Map" resultType="member">

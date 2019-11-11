@@ -9,4 +9,9 @@ public interface MemberDAO {
 
 	public MemberDTO getUserBy(Map<String, String> map);
 
+	public void insertAttendance(String id);
+
+	public String getAttDates(String id);
+
+
 }

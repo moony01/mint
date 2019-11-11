@@ -33,6 +33,7 @@ public class MemberDTO  implements UserDetails { //
     private int point;
     private int isAgreedSMS;
     private int memLevel;
+    private String attDate;
     private String role;
     private Date logtime;
     

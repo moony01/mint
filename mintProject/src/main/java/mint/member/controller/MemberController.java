@@ -1,5 +1,8 @@
 package mint.member.controller;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -154,6 +157,77 @@ public class MemberController {
 	 *  1) https://itstory.tk/entry/CSRF-%EA%B3%B5%EA%B2%A9%EC%9D%B4%EB%9E%80-%EA%B7%B8%EB%A6%AC%EA%B3%A0-CSRF-%EB%B0%A9%EC%96%B4-%EB%B0%A9%EB%B2%95
 	 */
 	
+	@RequestMapping("/shop/member/myinfo_pwd_check")
+	public ModelAndView myinfo_pwd_check(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("display", "/shop/member/myinfo_pwd_check.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
+	}
 	
-
+	@RequestMapping("/shop/member/myinfo_pwd_check_result")
+	@ResponseBody
+	public ModelAndView myinfo_pwd_check(@RequestParam String pwd, HttpSession session, Map<String, String> map) {
+		map.put("key", "id");
+		map.put("value", (String) session.getAttribute("memId"));
+		MemberDTO memberDTO = memberService.getUserBy(map);
+		ModelAndView mav = new ModelAndView();
+		if(passwordEncoder.matches(pwd, memberDTO.getPwd())) { //비밀번호 복호화
+			mav.addObject("result", "success");
+		} else {
+			mav.addObject("result", "fail");
+		}
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	@RequestMapping("/shop/member/myinfo")
+	public ModelAndView myinfo(HttpSession session, Map<String, String> map) {
+		map.put("key", "id");
+		map.put("value", (String) session.getAttribute("memId"));
+		MemberDTO memberDTO = memberService.getUserBy(map);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("memberDTO", memberDTO);
+		mav.addObject("display","/shop/member/myinfo.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
+	}
+	
+	@RequestMapping(value="/shop/member/attendance", method = RequestMethod.GET)
+	public ModelAndView attendance() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("display", "/shop/member/attendance.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
+	}
+	
+	@RequestMapping(value="/shop/member/attendance_checkin", method = RequestMethod.POST)
+	@ResponseBody
+	public String attendance(HttpSession session, SimpleDateFormat sdf) {
+		memberService.insertAttendance((String)session.getAttribute("memId")); // 첫 출첵
+		return new SimpleDateFormat("yyyy-MM-dd").format(Timestamp.valueOf(LocalDate.now().atStartOfDay()));
+	}
+	
+	@RequestMapping(value="/shop/member/getAttDates", method = RequestMethod.POST)
+	public ModelAndView getAttdates(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String[] attDates = memberService.getAttDates((String)session.getAttribute("memId")).replaceAll("/", "-").split(",");
+		mav.addObject("attDates",attDates);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	@RequestMapping(value="/shop/member/attendance_isAlready", method = RequestMethod.POST)
+	@ResponseBody
+	public String attendanceForSure(HttpSession session, SimpleDateFormat sdf) {
+		String isAlready = null;
+		String[] attDates = memberService.getAttDates((String)session.getAttribute("memId")).replaceAll("/", "-").split(",");
+		if(("20"+attDates[attDates.length-1]).equals(new SimpleDateFormat("yyyy-MM-dd").format(Timestamp.valueOf(LocalDate.now().atStartOfDay())))) {
+			isAlready = "already";
+		} else {
+			isAlready = "yet";
+		}
+		return isAlready;
+	}
+	
 }

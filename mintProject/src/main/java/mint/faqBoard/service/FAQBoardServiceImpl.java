@@ -30,8 +30,8 @@ public class FAQBoardServiceImpl implements FAQBoardService {
 	}
 
 	@Override
-	public int getSearchTotalArticle() {
-		return faqBoardDAO.getSearchTotalArticle();
+	public int getSearchTotalArticle(Map<String, Object> map) {
+		return faqBoardDAO.getSearchTotalArticle(map);
 	}
 
 }

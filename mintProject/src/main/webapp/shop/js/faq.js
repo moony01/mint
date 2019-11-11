@@ -1,3 +1,14 @@
+/**
+ * faq.js
+ * 
+ * @version 1.2
+ * @author LimChangHyun
+ * 
+ * 연동되는 파일들 : FAQBoardController.java ~ faqBoardMapper.xml
+ * 				faq.jsp
+ */
+
+
 const $table = $('.tb-fqa');
 let $frag = $(document.createDocumentFragment());
 
@@ -123,7 +134,7 @@ function getFAQList(result){
 				<td id="faq_${seq}" onclick="faqView(this)">${subject}</td>
 			</tr>
 			<tr class="tb-view">
-				<td colspan="1"></td>
+				<td></td>
 				<td colspan="2">${content}</td>
 			</tr>
 			`;
@@ -136,8 +147,8 @@ function getFAQList(result){
 function faqView(content){
 	if($(content).parent().next().css('display') === 'none'){
 		$('.tb-view').css('display', 'none');
-		$(content).parent().next().css('display', 'block');
-	} else if($(content).parent().next().css('display') === 'block'){
+		$(content).parent().next().css('display', 'table-row');
+	} else if($(content).parent().next().css('display') === 'table-row'){
 		$('.tb-view').css('display', 'none');
 	}
 }

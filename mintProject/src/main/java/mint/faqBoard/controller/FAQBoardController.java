@@ -21,20 +21,19 @@ import mint.faqBoard.service.FAQBoardService;
  * 	자주 묻는 질문 게시판 컨트롤러
  * 
  *  /shop/service/faq.jsp
- * @version 1.1
+ * @version 1.2
  * @author LimChangHyun 
  *
- *	구현된 기능 :   리스트  가져오기
+ *	구현된 기능 :  리스트  가져오기
  *				페이징 처리
  *				카테고리 선택
  *				검색 기능
+ *				답변 display기능
  *	앞으로 구현되어야 하는 것 : 글쓰기(관리자페이지 연동)
  *						수정(관리자페이지 연동)
  *						삭제(관리자페이지 연동)
  *	
- *	이슈 : 카테고리 '선택'(value='')시 모든 게시물을 보여주고 싶었으나 아예 게시물을 가져오지 못함
- *			(이 영향으로 검색시 카테고리 '선택'으로 둘 시 게시물을 가져오지 못함)
- *		  질문의 답변 내용(class="tb-view")출력 시 height가 .tb tr의 height가 50px로 고정되어 깨져보임
+ *	유의 : faq.jsp에서 카테고리 select option '선택'시 임의 value를 9로 두었음
  */
 
 @Controller
@@ -87,8 +86,8 @@ public class FAQBoardController {
 	/* FAQ게시판 검색시 리스트 가져오기 */
 	@RequestMapping(value="/faqBoard/getFAQBoardSearchList", method=RequestMethod.POST)
 	public ModelAndView getFAQBoardSearch(@RequestParam Map<String, Object> map) {
-		System.out.println(map.get("category"));
-		System.out.println(map.get("keyword"));
+		//System.out.println(map.get("category"));
+		//System.out.println(map.get("keyword"));
 		
 		// 1페이지당 15개씩
 		int endNum = Integer.parseInt((String) map.get("pg"))*15;
@@ -98,11 +97,12 @@ public class FAQBoardController {
 		map.put("endNum", endNum);
 				
 		List<FAQBoardDTO> list = faqBoardService.faqBoardSearch(map);
-		
+		//System.out.println(list);
 		
 		// 게시판 페이징 처리
 		// 총 글수
-		int totalArticle = faqBoardService.getSearchTotalArticle();
+		int totalArticle = faqBoardService.getSearchTotalArticle(map);
+		//System.out.println(totalArticle);
 		faqBoardPaging.setCurrentPage(Integer.parseInt((String) map.get("pg")));
 		faqBoardPaging.setPageBlock(5);
 		faqBoardPaging.setPageSize(15);

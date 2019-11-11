@@ -13,6 +13,6 @@ public interface FAQBoardDAO {
 
 	public List<FAQBoardDTO> faqBoardSearch(Map<String, Object> map);
 
-	public int getSearchTotalArticle();
+	public int getSearchTotalArticle(Map<String, Object> map);
 
 }

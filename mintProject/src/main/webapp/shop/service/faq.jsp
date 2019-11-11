@@ -19,7 +19,7 @@
 		<form id="faqBoardForm">
 	        <!-- 아직 값 설정 안함 같이할 예정 -->
 	        <select name="category" id="faq-select" class="select-box">
-	            <option value="">선택</option>
+	            <option value="9">선택</option>
 	            <option value="0">회원 문의</option>
 	            <option value="1">주문/결제</option>
 	            <option value="2">취소/교환/반품</option>

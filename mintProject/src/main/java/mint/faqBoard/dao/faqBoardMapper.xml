@@ -29,22 +29,22 @@
 		 (select * from faqboard
 		 ]]> 
 		 
-		<if test='category != null and keyword == null'>
+		<if test='category != 9 and keyword == null'>
 			<![CDATA[
 				where category like #{category} order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
 			]]>  
 		</if>
-		<if test='category == null and keyword != null'>
+		<if test='category == 9 and keyword != null'>
 			<![CDATA[
 				where subject like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
 			]]> 
 		</if>
-		<if test='category != null and keyword != null'>
+		<if test='category != 9 and keyword != null'>
 			<![CDATA[
 				where category like #{category} and subject like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
 			]]> 
 		</if>
-		<if test='category == null and keyword == null'>
+		<if test='category == 9 and keyword == null'>
 			<![CDATA[
 				order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
 			]]>
@@ -53,16 +53,16 @@
 	
 	<!-- FAQ게시판 게시물 검색 & 카테고리 선택 시 총 게시물 수 가져오기-->
 	<select id="getSearchTotalArticle" parameterType="java.util.Map" resultType="Integer">
-		<if test='category != null and keyword == null'>
+		<if test='category != 9 and keyword == null'>
 			select count(*) from faqboard where category like #{category}
 		</if>
-		<if test='category == null and keyword != null'>
+		<if test='category == 9 and keyword != null'>
 			select count(*) from faqboard where subject like '%'||#{keyword}||'%'
 		</if>
-		<if test='category != null and keyword != null'>
+		<if test='category != 9 and keyword != null'>
 			select count(*) from faqboard where category like #{category} and subject like '%'||#{keyword}||'%'
 		</if>
-		<if test='category == null and keyword == null'>
+		<if test='category == 9 and keyword == null'>
 			select count(*) from faqboard
 		</if>
 	</select>

@@ -140,6 +140,19 @@ public class MemberController {
 		}
 		
 	}
+	
+	@RequestMapping(value="/shop/member/kakaoLogin")
+	@ResponseBody
+	public void kakaoLogin(@RequestParam String email, HttpSession session, Map<String, String> map) {
+		map.put("key", "email");
+		map.put("value", email);
+		MemberDTO memberDTO = memberService.getUserBy(map);
+		if(memberDTO.getEmail().equals(email)) {
+			session.setAttribute("memId", memberDTO.getId());
+			session.setAttribute("memName", memberDTO.getName());
+			session.setAttribute("memEmail", memberDTO.getEmail());
+		}
+	}
 		
 	//로그아웃: spring security 가 인터셉트하여 처리하기 때문에,컨트롤러를 거치지 않음 =>세션 삭제 후 메인 인덱스로 이동시킴.
 	

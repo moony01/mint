@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import mint.member.bean.MemberDTO;
-import mint.member.service.MemberAuthServiceImpl;
 import mint.member.service.MemberMailSendService;
 import mint.member.service.MemberService;
 
@@ -34,9 +32,7 @@ public class MemberController {
 	@Autowired //이메일 인증 구현을 위한 클래스.
 	private MemberMailSendService mmss; 
 	@Autowired 
-	private MemberService memberService;
-	@Autowired // spring security 구현을 위한 클래스. 
-	private MemberAuthServiceImpl memberAuthServiceImpl; 
+	private MemberService memberService;	
 	@Autowired // 비밀번호 암호화를 위한 클래스.
 	private PasswordEncoder passwordEncoder;  
 	
@@ -56,8 +52,6 @@ public class MemberController {
 		String pwd = passwordEncoder.encode(memberDTO.getPwd()); //비밀번호 암호화
 		memberDTO.setPwd(pwd);
 		memberDTO.setBirthday(birthday);
-		//memberDTO.setAuthRole(null);	
-		
 		memberService.writeMember(memberDTO);
 	}
 	
@@ -114,32 +108,34 @@ public class MemberController {
 	
 	//로그인
 	@RequestMapping(value="/shop/member/login", method = RequestMethod.GET)
-	public ModelAndView login() {
+	public ModelAndView login(@RequestParam(required = false, defaultValue = "") String status) {
 		ModelAndView mav = new ModelAndView();
+		if(status.equals("fail")) {
+			mav.addObject("status", "fail");
+		} else if(status.equals("need")) {
+			mav.addObject("status", "need");
+		} else if(status.equals("duplicated")) {
+			mav.addObject("status", "duplicated");
+		}
 		mav.addObject("display", "/shop/member/login.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;
 	}
 	
-	@RequestMapping(value="/shop/member/loginOk", method = RequestMethod.POST)
-	@ResponseBody
-	public String loginOk(@RequestParam Map<String, String> map,
-						HttpSession session, HttpServletRequest request) {
-		
-		for(String key : map.keySet()) {
-			System.out.println("key:" + key + "/ value: " + map.get(key));
-		}
-			
-		MemberDTO memberDTO = (MemberDTO) memberAuthServiceImpl.loadUserByUsername(map.get("id"));
-		if(passwordEncoder.matches(map.get("pwd"), memberDTO.getPwd())) { //비밀번호 복호화
-			session.setAttribute("memId", memberDTO.getId());
-			session.setAttribute("memName", memberDTO.getName());
-			session.setAttribute("memEmail", memberDTO.getEmail());
-			return "success";
-		} else {
-			return "fail";
-		}
-		
+	@RequestMapping("/shop/member/needLogin")
+	public ModelAndView needLogin() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("display", "/shop/member/needLogin.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
+	}
+	
+	@RequestMapping("/shop/member/duplicatedLogin")
+	public ModelAndView duplicatedLogin() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("display", "/shop/member/duplicatedLogin.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
 	}
 	
 	//kakao API 로그인 
@@ -156,24 +152,6 @@ public class MemberController {
 		}
 	}
 		
-	//로그아웃: spring security 가 인터셉트하여 처리하기 때문에,컨트롤러를 거치지 않음 =>세션 삭제 후 메인 인덱스로 이동시킴.
-	
-	// 중복 로그인 시 
-	@RequestMapping("/shop/member/loginError")
-	public String loginError() {
-		System.out.println("팅겨");
-		return "/shop/member/loginError";
-	}
-	/*
-	 * 1. Spring security References:
-	 * 	1) https://sjh836.tistory.com/165
-	 * 	2) https://hamait.tistory.com/325
-	 * 	3) https://zgundam.tistory.com/47?category=430446
-	 * 
-	 * 2. CSRF Token References: 
-	 *  1) https://itstory.tk/entry/CSRF-%EA%B3%B5%EA%B2%A9%EC%9D%B4%EB%9E%80-%EA%B7%B8%EB%A6%AC%EA%B3%A0-CSRF-%EB%B0%A9%EC%96%B4-%EB%B0%A9%EB%B2%95
-	 */
-	
 	// 회원정보 수정
 	@RequestMapping("/shop/member/myinfo_pwd_check")
 	public ModelAndView myinfo_pwd_check(HttpSession session) {

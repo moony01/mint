@@ -58,7 +58,7 @@
                     <span>상품</span>
                 </div>
                 <ul class="list">
-                    <li><a href="">상품 관리</a></li>
+                    <li><a href="/mintProject/productManage/productWriteForm">상품 관리</a></li> <!-- 일단 상품 등록 페이지로 연결 -->
                 </ul>
             </div>
             <div class="event-manage">

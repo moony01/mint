@@ -9,5 +9,6 @@
 		<typeAlias type="mint.suggestBoard.bean.SuggestBoardDTO" alias="suggestBoard"/>
 		<typeAlias type="mint.productQnaBoard.bean.ProductQnaBoardDTO" alias="productQnaBoard"/>
 		<typeAlias type="mint.product.bean.ProductDTO" alias="product"/>
+		<typeAlias type="mint.cart.bean.CartDTO" alias="cart"/>
 	</typeAliases>
 </configuration>

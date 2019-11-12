@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import mint.member.bean.MemberDTO;
 import mint.suggestBoard.bean.SuggestBoardDTO;
 import mint.suggestBoard.service.SuggestBoardService;
 
@@ -95,9 +97,8 @@ public class SuggestBoardController {
 	
 	//제안 문의 글목록
 	@RequestMapping("/shop/service/offer")
-	public ModelAndView getSuggestBoardList(@RequestParam(required = false, defaultValue = "1") String pg,
+	public ModelAndView getSuggestBoardList(@RequestParam(required = false, defaultValue = "1") String pg, 
 											HttpSession session, ModelAndView mav) {
-		
 		String id = (String) session.getAttribute("memId");
 		
 		int endNum = Integer.parseInt(pg) *3;

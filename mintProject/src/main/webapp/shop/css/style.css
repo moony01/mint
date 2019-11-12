@@ -110,6 +110,7 @@
     background: white;
     border: #45b8ac 1px solid;
     display: none;
+    z-index: 100;
 }
 .gnb__menu{
     border-right:1px solid #ebebeb;

@@ -421,3 +421,61 @@
 .qna-view__answer p,.qna-view__conent p{
     line-height: 24px;
 }
+
+/* 2019-11-12 */
+/* 마이 페이지 */
+.my-page__top-article{
+    height: 280px;
+    background-color: #F7F7F7;
+}
+.my-wrap{
+    width: 820px;
+    border-top: 2px solid #45b8ac;
+}
+
+
+/* 정보수정 비밀번호 입력 페이지 */
+.conf-tit{
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.conf-main{
+    height: 200px;
+    border: 2px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.conf-info{
+    width: 120px;
+    line-height: 28px;
+    font-size: 13px;
+    font-weight: 700;
+}
+.conf-info > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.conf-info > div:nth-child(2){
+    color: #45b8ac;
+}
+
+
+
+.conf-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #45b8ac;
+    width: 260px;
+    height: 52px;
+    margin: 50px auto;
+    color: white;
+    font-size: 15px;
+    border-radius: 5px;
+    font-weight: 700;
+    cursor: pointer;
+}

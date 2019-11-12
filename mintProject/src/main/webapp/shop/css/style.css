@@ -56,6 +56,7 @@
     display: flex;
     align-items: center;
     transition: postion 0.5s ease-in;
+    border-bottom: #e3e7ee 1px solid;
 }
 .gnb__list{
     display: flex;

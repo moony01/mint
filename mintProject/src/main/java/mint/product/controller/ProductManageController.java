@@ -52,12 +52,12 @@ public class ProductManageController {
 		return fileName;
 	} 
 	
-	@RequestMapping(value = "/productManage/productWriteForm", method = RequestMethod.POST)
-	public ModelAndView productManageWrite(@ModelAttribute ProductDTO productManageDTO, @RequestParam MultipartFile thumbnail,
-			HttpSession session) {
-
-	
-		return null;
+	@RequestMapping(value = "/productManage/productWriteForm", method = RequestMethod.GET) 
+	public ModelAndView productManageWrite() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("display","/admin/productWrite.jsp");
+		mav.setViewName("/admin/admin");
+		return mav;
 	}
 	
 	@RequestMapping(value="/productManage/productWrite", method = RequestMethod.POST)

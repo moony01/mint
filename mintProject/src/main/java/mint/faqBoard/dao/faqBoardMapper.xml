@@ -62,4 +62,16 @@
 		</if>
 	</select>
 	
+	
+	
+	<!-- FAQ관리자 게시물 등록 -->
+	<insert id="faqBoardWrite" parameterType="java.util.Map">
+		insert into faqboard values(SEQ_FAQBOARD.nextval,#{id},#{subject},#{content},#{category},sysdate)
+	</insert>	
+	
+	<!-- FAQ게시판 글 열람, 수정시 정보 가져오기 -->
+	<select id="getFAQArticle" parameterType="Integer" resultType="faqBoard">
+		select * from faqboard where seq=#{seq}
+	</select>
+	
 </mapper>

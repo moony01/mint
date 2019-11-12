@@ -34,4 +34,14 @@ public class FAQBoardServiceImpl implements FAQBoardService {
 		return faqBoardDAO.getSearchTotalArticle(map);
 	}
 
+	@Override
+	public void faqBoardWrite(Map<String, String> map) {
+		faqBoardDAO.faqBoardWrite(map);		
+	}
+
+	@Override
+	public FAQBoardDTO getFAQArticle(int seq) {
+		return faqBoardDAO.getFAQArticle(seq);
+	}
+
 }

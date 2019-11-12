@@ -15,4 +15,8 @@ public interface FAQBoardDAO {
 
 	public int getSearchTotalArticle(Map<String, Object> map);
 
+	public void faqBoardWrite(Map<String, String> map);
+
+	public FAQBoardDTO getFAQArticle(int seq);
+
 }

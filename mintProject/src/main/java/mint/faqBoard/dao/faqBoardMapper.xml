@@ -3,11 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="faqBoardSQL">
 
-	<!--
-		이슈 (201null.11.11.)
-		1. category 없을 때 모든 게시물을 가져가야하는데 아무 것도 가져가지 않음	
-	  -->
-
 	<!-- FAQ게시판 목록 가져오기 -->
 	<select id="getFAQBoardList" parameterType="java.util.Map" resultType="faqBoard">
 		<![CDATA[

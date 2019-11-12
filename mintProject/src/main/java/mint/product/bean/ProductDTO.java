@@ -1,13 +1,16 @@
-package mint.productManage.bean;
+package mint.product.bean;
+
+import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
 @Data
-public class ProductManageDTO {
+@Component
+public class ProductDTO {
 	// 상품코드
 	private int productCode;
 	// 대분류
-	private int category;
+	private int mainCategory;
 	// 소분류
 	private int subCategory;
 	// 사업자 아이디
@@ -15,7 +18,7 @@ public class ProductManageDTO {
 	// 재고/수량
 	private int stock;
 	// 큰제목
-	private String subject;
+	private String mainSubject;
 	// 소제목
 	private String subSubject;
 	// 상품 대표 이미지 (파일첨부/미리보기)
@@ -25,11 +28,11 @@ public class ProductManageDTO {
 	// 판매단위
 	private String unit;
 	// 중량/용량
-	private String capacity;
+	private String weight;
 	// 포장타입
 	private String packageType;
 	// 안내사항
-	private String guidance;
+	private String information;
 	// 상품설명 (summernote)
 	private String description;
 	// 상품이미지 (파일첨부/미리보기)

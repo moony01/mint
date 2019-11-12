@@ -7,19 +7,17 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-
+import lombok.Data;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
+@Data
 @Component
-@RequiredArgsConstructor
-public class MemberDTO  implements UserDetails { //
+public class MemberDTO implements UserDetails { 
+	//loadUserByUsername() 의 리턴값으로 캐스팅 하기 위해 UserDetails 를 implements 함. 실제 오버라이드 하여 사용하는 함수는 getAuthorities()뿐이며, 나머지는 사용하지 않음.
     private String name;
     private String id;
     private String pwd;
@@ -33,12 +31,17 @@ public class MemberDTO  implements UserDetails { //
     private int isAgreedSMS;
     private int memLevel;
     private String attDate;
- // private Collection authRole;
     private Date logtime;
     
 	@Override
-	public Collection<GrantedAuthority> getAuthorities() { 
-        return null;
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		if(this.id.equals("admin")) {
+			authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		} else {
+			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));			
+		}
+		return authorities;
 	}
 
 	@Override
@@ -46,25 +49,30 @@ public class MemberDTO  implements UserDetails { //
 		return this.pwd;
 	}
 
+
 	@Override
 	public String getUsername() {
-		return this.id;
+		return this.pwd;
 	}
+
 
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
 
+
 	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
 
+
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
+
 
 	@Override
 	public boolean isEnabled() {

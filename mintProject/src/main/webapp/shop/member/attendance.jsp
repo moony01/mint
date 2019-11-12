@@ -10,27 +10,21 @@
 <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" />
 </head>
 
+<style>
+.fc-row.fc-week.fc-widget-content{
+	min-height: 6em;
+}
+</style>
+
 <body>
-	<div id='calendar' style="width: 600px; height: 500px;"></div> 
+	<div id='calendar' style="width: 600px;"></div> 
 </body>  
-
-<div id="fullCalModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 id="modalTitle" class="modal-title"></h4>
-            </div>
-            <div id="modalBody" class="modal-body"></div>
-        </div>
-    </div>
-    Test
-</div>
-
 <script>
 var prevEvents;
 $(document).ready(function(){
 	$('#calendar').fullCalendar({
 		height : 'auto',
+		contentHeight: '600',
 	    defaultView: 'month',
 		locale : 'ko',
 	    header: {
@@ -49,9 +43,9 @@ $(document).ready(function(){
      					var events = [];
            				$.each(data.attDates, function(index,value){
            					events.push({
-           						title: ':D',
-        			            	start: '20'+value,
-        			            	allDay: true
+           					 	start: '20'+value,
+           					 	imageurl : '../storage/main_logo.png',
+           					 	color : 'transparent'
            					});
            				});
            				callback(events);
@@ -80,9 +74,9 @@ $(document).ready(function(){
     		    				dataType : 'text',
     		    				success : function(date){
     		    					$('#calendar').fullCalendar('renderEvent', {
-    		    			              title: ':D',
     		    			              start: date,
-    		    			              allDay: true
+    		    			              imageurl : '../storage/main_logo.png',
+    		           					  color : 'transparent'
     		    			        });
     		    				},
     		    				error : function(err){
@@ -98,7 +92,14 @@ $(document).ready(function(){
 	        }
 	      }
 	    },
-	    
+	    eventRender:function(event, eventElement) {
+            if(event.imageurl) {
+                eventElement.find("div.fc-content").prepend("<center><img src='" + event.imageurl + "', width='40px;' height='40px;'><center>");
+            }
+        },
+        eventAtferAllRender : function(){
+        	$('.fc-row.fc-week.fc-widget-content').attr('style', 'min-height: 6em');
+        }
 	  /*   eventClick: function(event) {
             $('#fullCalModal').modal();
             $('#modalTitle').html(event.event.title);

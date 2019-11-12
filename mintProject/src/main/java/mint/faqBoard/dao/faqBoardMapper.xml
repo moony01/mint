@@ -3,16 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="faqBoardSQL">
 
-	<!--
-		앞으로 구현되어야하는 것들
-		
-		글쓰기
-		검색
-		수정시 정보 가져오기
-		수정
-		삭제		
-	  -->
-
 	<!-- FAQ게시판 목록 가져오기 -->
 	<select id="getFAQBoardList" parameterType="java.util.Map" resultType="faqBoard">
 		<![CDATA[
@@ -21,24 +11,55 @@
 		]]>  
 	</select>
 
-	<!-- FAQ게시판 게시물 총 개수 가져오기 -->
+	<!-- FAQ게시판 총 게시물 총 개수 가져오기 -->
 	<select id="getFAQTotalArticle" resultType="Integer">
 		select count(*) from faqboard
 	</select>
 	
 	
-	<!-- ///////////////// 게시글 검색 ////////////////-->
-	<select id="faqBoardSearch" parameterType="java.util.Map" resultType="faqBoard">
+	<!-- FAQ게시판 게시물 검색 & 카테고리 선택 -->
+	<select id="faqBoardSearchList" parameterType="java.util.Map" resultType="faqBoard">
 		<![CDATA[
-			select * from (select rownum rn, tt.* from
-		 (select * from board where ${searchOption} like '%'||#{keyword}||'%' order by ref desc, step asc) tt) where rn >= #{startNum} and rn<= #{endNum}
-		]]>  
+		select * from (select rownum rn, tt.* from
+		 (select * from faqboard
+		 ]]> 
+		 
+		<if test='category != 9 and keyword == null'>
+			<![CDATA[
+				where category like #{category} order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
+			]]>  
+		</if>
+		<if test='category == 9 and keyword != null'>
+			<![CDATA[
+				where subject like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
+			]]> 
+		</if>
+		<if test='category != 9 and keyword != null'>
+			<![CDATA[
+				where category like #{category} and subject like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
+			]]> 
+		</if>
+		<if test='category == 9 and keyword == null'>
+			<![CDATA[
+				order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
+			]]>
+		</if>
 	</select>
 	
+	<!-- FAQ게시판 게시물 검색 & 카테고리 선택 시 총 게시물 수 가져오기-->
 	<select id="getSearchTotalArticle" parameterType="java.util.Map" resultType="Integer">
-		<![CDATA[
-		select count(*) from board where ${searchOption} like '%'||#{keyword}||'%'
-		]]> 
+		<if test='category != 9 and keyword == null'>
+			select count(*) from faqboard where category like #{category}
+		</if>
+		<if test='category == 9 and keyword != null'>
+			select count(*) from faqboard where subject like '%'||#{keyword}||'%'
+		</if>
+		<if test='category != 9 and keyword != null'>
+			select count(*) from faqboard where category like #{category} and subject like '%'||#{keyword}||'%'
+		</if>
+		<if test='category == 9 and keyword == null'>
+			select count(*) from faqboard
+		</if>
 	</select>
 	
 </mapper>

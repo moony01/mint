@@ -9,24 +9,35 @@
 		<form id="" name="" method="post" action="">
 		
 		<div class="cart_goods">
-			<table class="">
+			<table class="" style="width: 100%;">
 				<caption>장바구니 목록 제목</caption>
-				<colgroup><col style="width: 375px;"> <col style="width: 432px;"> <col style="width: 115px;"> <col style="width: 110px;"> <col style="width: auto;"></colgroup>
+				<colgroup>
+				<col style="width: 5%;">
+				<col style="width: 25%;">
+				<col style="width: 20%;">
+				<col style="width: 10%;">
+				<col style="width: 20%;">
+				<col style="width: 20%;">
+				</colgroup>
 				 
 				<thead>
 				<tr>
 					<th id="thSelect">
 						<div class="all_select">
 							<label class="label_check"> <input type="checkbox" name="allCheck" class="ico_check"> </label>
-							<span class="tit"> 전체선택 (0/0)</span>
 						</div>
 					</th>
+					<th id="thSelect">전체선택 (0/0)</th>
 					<th id="thInfo">상품 정보</th>
 					<th id="thCount">수량</th>
 					<th id="thCost">상품금액</th>
 					<th id="thDelete">삭제선택</th>
 				</tr>
 				</thead>
+				
+				<tbody class="viewGoods">
+					
+				</tbody>
 			</table>
 		</div>
 		
@@ -44,15 +55,7 @@
 
 </section>
 
-<script type="text/javascript">
-	$(document).ready(function(){
-		$.ajax({
-			type: 'post',
-			url: '/mintProject/shop/goods/getCartList',
-			data: ,
-		});
-	});
-</script>
+<script type="text/javascript" src="/mintProject/shop/js/cart.js"></script>
 
 
 

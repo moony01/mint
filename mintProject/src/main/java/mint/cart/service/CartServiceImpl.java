@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mint.cart.bean.CartDTO;
 import mint.cart.dao.CartDAO;
+import mint.product.bean.ProductDTO;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -15,7 +15,7 @@ public class CartServiceImpl implements CartService {
 	private CartDAO cartDAO;
 	
 	@Override
-	public List<CartDTO> getCartList(Map<String, String> map) {
+	public List<ProductDTO> getCartList(Map<String, String> map) {
 		return cartDAO.getCartList(map);
 	}
 

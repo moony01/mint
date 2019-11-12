@@ -11,7 +11,7 @@
     <div class="content__type">
         <span></span>
     </div>
-    <form class="login-form" id="loginForm" >
+    <form class="login-form" id="loginForm" name="loginForm">
         <div class="login-content">
             <h1>회원 로그인</h1>
             <div class="login__input-container">
@@ -37,6 +37,15 @@
 </section>
 <script src="/mintProject/shop/js/login.js"></script>
 <script type='text/javascript'>
+if('${status}' == 'fail') { //로그인 실패 시 
+	alert("아이디 혹은 비밀번호가 틀립니다. ");
+} else if('${status}' == 'need') { // 로그인 전에 인증 권한이 필요한 페이지를 요청했을 시
+	alert('로그인 후 이용 가능한 페이지 입니다.');
+	location.href='/mintProject/shop/member/login';
+} else if('${status}' == 'duplicated') { // 다른 브라우저에서 중복 로그인 되었을 시  
+	alert('다른 브라우저에서 로그인 되었습니다.');
+	location.href='/mintProject/shop/main/index';
+}
 
 function loginWithKakao(){
 	//<![CDATA[

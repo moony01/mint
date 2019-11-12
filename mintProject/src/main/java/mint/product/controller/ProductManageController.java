@@ -1,9 +1,10 @@
-package mint.productManage.controller;
+package mint.product.controller;
 
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,8 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import mint.productManage.bean.ProductManageDTO;
-import mint.productManage.service.ProductManageService;
+import mint.product.bean.ProductDTO;
+import mint.product.service.ProductManageService;
 import mint.qnaBoard.bean.QnaBoardDTO;
 
 @Controller
@@ -40,7 +41,7 @@ public class ProductManageController {
 	@RequestMapping(value="/admin/imageUpload", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String handleFileUpload(@RequestParam("uploadFile") MultipartFile multiPartFile){
-		String filePath = "C:\\Users\\bitcamp\\Documents\\GitHub\\mint\\mintProject\\src\\main\\webapp\\shop\\storage"; // 원하는 위치 (storage로 잡아주세요)
+		String filePath = "C:/Spring/workSTS/springProject/src/main/webapp/storage"; // 원하는 위치 (storage로 잡아주세요)
 		String fileName = multiPartFile.getOriginalFilename();
 		File file = new File (filePath, fileName);
 		try {
@@ -51,12 +52,29 @@ public class ProductManageController {
 		return fileName;
 	} 
 	
-	@RequestMapping(value = "/productManage/productManageWrite", method = RequestMethod.POST)
-	public ModelAndView productManageWrite(@ModelAttribute ProductManageDTO productManageDTO, @RequestParam MultipartFile thumbnail,
+	@RequestMapping(value = "/productManage/productWriteForm", method = RequestMethod.POST)
+	public ModelAndView productManageWrite(@ModelAttribute ProductDTO productManageDTO, @RequestParam MultipartFile thumbnail,
 			HttpSession session) {
 
 	
 		return null;
 	}
+	
+	@RequestMapping(value="/productManage/productWrite", method = RequestMethod.POST)
+	@ResponseBody
+	public void productWrite(@ModelAttribute ProductDTO productDTO, @RequestParam MultipartFile product_img, @RequestParam MultipartFile thumbnail_img) {
+		String filePath = "C:/Spring/workSTS/springProject/src/main/webapp/storage"; // 원하는 위치
+		try {
+			FileCopyUtils.copy(thumbnail_img.getInputStream(), new FileOutputStream(new File(filePath, thumbnail_img.getOriginalFilename()))); 
+			FileCopyUtils.copy(product_img.getInputStream(), new FileOutputStream(new File(filePath, product_img.getOriginalFilename()))); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		productDTO.setThumbnail(thumbnail_img.getOriginalFilename());
+		productDTO.setProductImage(product_img.getOriginalFilename());
+		
+		productManageService.productWrite(productDTO);
+	}
+	
 	
 }

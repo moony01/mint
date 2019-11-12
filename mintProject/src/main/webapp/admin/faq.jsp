@@ -8,14 +8,14 @@
 </div>
 <div class="container">
     <div class="main__select">
-        <select name="" id="" class="select-box">
-            <option value="">전체</option>
-            <option value="">회원 문의</option>
-            <option value="">주문/결제</option>
-            <option value="">취소/교환/반품</option>
-            <option value="">배송 문의</option>
-            <option value="">쿠폰/적림금</option>
-            <option value="">서비스 이용 및 기타</option>
+        <select name="category" id="admin" class="select-box">
+            <option value="9">전체</option>
+            <option value="0">회원 문의</option>
+            <option value="1">주문/결제</option>
+            <option value="2">취소/교환/반품</option>
+            <option value="3">배송 문의</option>
+            <option value="4">쿠폰/적림금</option>
+            <option value="5">서비스 이용 및 기타</option>
         </select>
     </div>
     
@@ -27,8 +27,9 @@
             <th class="col-md-6">제목</th>
             <th class="col-md-1">작성일</th>
             <th class="col-md-1">작성자</th>
-
         </tr>
+        
+        <!-- 
         <tr>
             <td><input type="checkbox" name="" id=""></td>
             <td>1</td>
@@ -37,6 +38,7 @@
             <td>2019-11-20</td>
             <td>민트</td>
         </tr>
+         -->
 
     </table>
     <div class="paging">
@@ -71,4 +73,5 @@
             <button type="button" class="btn btn-danger">게시판 등록</button>
         </div>
     </div>
-</div>    
+</div>
+<script type="text/javascript" src="/mintProject/admin/js/faq.js"></script>

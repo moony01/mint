@@ -86,8 +86,9 @@
             </div>
         </nav>
         <div class="main">
-            <%-- <jsp:include page="${display }"/>  --%>
-            <jsp:include page="productWrite.jsp"/>
+ 
+            <jsp:include page="${display }"/>
+            <%-- <jsp:include page="faq.jsp"/> --%>
             
         </div>
     </div>

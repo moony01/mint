@@ -1,5 +1,7 @@
-
-
+.wrap{
+    width: 980px;
+    margin: 0 auto;
+}
 .header{
     width: 1050px;
     margin: 0 auto;
@@ -22,9 +24,9 @@
     height: 37px;
     line-height: 35px;
     padding: 0 10px;
-    border-right: #F7F7F7 solid 2px;
+    border-right: 1px solid #ebebeb;
 }
-.my-page__item > a:last-child{
+.my-page__item:last-child >a{
     border-right-style: none;
 }
 .my-page__item:last-child{
@@ -131,7 +133,7 @@
 .gnb__menu > li:first-of-type a{
     font-size: 15px;
     font-weight: 700;
-    background: #f7f7f7;
+    background: #f7f7f7;    
 }
 
 .gnb__item:first-of-type:hover .gnb__category{

@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="/mintProject/shop/css/login.css">
     <link rel="stylesheet" href="/mintProject/shop/css/join.css">
     <link rel="stylesheet" href="/mintProject/shop/css/notice.css">
+    <link rel="stylesheet" href="/mintProject/shop/css/productList.css">
     
        
     <script src="/mintProject/shop/js/index.js"></script>
@@ -58,7 +59,7 @@
             <li class="my-page__item"><a href="">배송안내</a></li>
         </ul>
         <div class="header__main-wrap">
-            <a href="/mintProject/shop/main/index"><img src="../storage/main_logo.png" alt="마켓컬리 로고" class="header__main-logo"></a>
+            <a href="/mintProject/shop/main/index"><img src="/mintProject/shop/storage/mint/icon/main_logo.png" alt="마켓컬리 로고" class="header__main-logo"></a>
 <!--             <a href="/mintProject/shop/main/index"><img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" class="header__main-logo"></a> -->
         </div>
     </header> 
@@ -124,7 +125,7 @@
         </div>
     </nav>
     
-   <jsp:include page="${display }"/> 
+   <jsp:include page="${display }"/>
     
     <footer class="footer">
 

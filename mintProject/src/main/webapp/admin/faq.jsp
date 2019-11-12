@@ -45,9 +45,7 @@
         <ul class="pagination">
             <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
             <li class="page-item"><a class="page-link" href="#">&lsaquo;</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+
             <li class="page-item"><a class="page-link" href="#">&rsaquo;</a></li>
             <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
         </ul>
@@ -61,6 +59,7 @@
                     <option value="">내용</option>
                 </select>
                 <div class="search">
+                	<input type="hidden" id="pg" name="pg" value="${pg}">
                     <input type="text" class="searchTerm" placeholder="검색 해주세요!!">
                     <button type="submit" class="searchButton">
                         <i class="fa fa-search"></i>
@@ -69,8 +68,8 @@
             </div>
         </form>
         <div>
-            <button type="button" class="btn btn-primary">선택 삭제</button>
-            <button type="button" class="btn btn-danger">게시판 등록</button>
+            <button type="button" id="faqDeleteBtn" class="btn btn-primary">선택 삭제</button>
+            <button type="button" id="faqWriteFormBtn" class="btn btn-danger">게시판 등록</button>
         </div>
     </div>
 </div>

@@ -1,5 +1,4 @@
-const $table = $('.table-bordered');
-let $frag = $(document.createDocumentFragment());
+
 
 $(function(){
 	
@@ -20,8 +19,14 @@ $(function(){
 });
 
 
+
+
+
 function getAdminFAQList(result){
+	const $table = $('.table-bordered');
 	let faqs = result.list;
+	let $frag = $(document.createDocumentFragment());
+	
 	// 구조분해할당, 템플릿 리터럴
 	for(let i=0; i<faqs.length; i++){
 		const {
@@ -35,7 +40,7 @@ function getAdminFAQList(result){
 		
 		let faqRow = `
 	      	<tr>
-				<td><input type="checkbox" name="" id=""></td>
+				<td><input type="checkbox" name="" id="chk_${seq}"></td>
 				<td>${seq}</td>
 				<td>${
 						(() => {
@@ -47,7 +52,7 @@ function getAdminFAQList(result){
 							else if(faqs[i].category === '5') return '서비스 이용 및 기타';
 						})()
 					}</td>
-				<td class="table--left" id="" onclick="faqFAQView(this)">${subject}</td>
+				<td class="table--left" onclick="faqAdminView(${seq})">${subject}</td>
 				<td>${logtime}</td>
 				<td>${id}</td>
 			</tr>
@@ -55,5 +60,15 @@ function getAdminFAQList(result){
 		$frag.append($(faqRow));
 	}
 	$table.append($frag);
+}
 
+// 글쓰기 이동
+$('#faqWriteFormBtn').click(function(){
+	location.href='/mintProject/admin/faqWriteForm';
+});
+
+// 게시물 보기
+function faqAdminView(seq){
+	let pg = $('#pg').val();
+	location.href='/mintProject/admin/faqView?seq='+seq+'&pg='+pg;
 }

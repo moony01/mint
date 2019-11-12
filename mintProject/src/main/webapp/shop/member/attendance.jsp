@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang='en'>
-  <head>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://momentjs.com/downloads/moment.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/locale-all.js'></script>
 <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" />
-</head>
 
 <style>
 .fc-row.fc-week.fc-widget-content{
@@ -16,9 +13,8 @@
 }
 </style>
 
-<body>
-	<div id='calendar' style="width: 600px;"></div> 
-</body>  
+<div id='calendar' style="width: 600px;"></div> 
+ 
 <script>
 var prevEvents;
 $(document).ready(function(){
@@ -44,7 +40,7 @@ $(document).ready(function(){
            				$.each(data.attDates, function(index,value){
            					events.push({
            					 	start: '20'+value,
-           					 	imageurl : '../storage/main_logo.png',
+           					 	imageurl : '../storage/mint/icon/main_logo.png',
            					 	color : 'transparent'
            					});
            				});
@@ -75,7 +71,7 @@ $(document).ready(function(){
     		    				success : function(date){
     		    					$('#calendar').fullCalendar('renderEvent', {
     		    			              start: date,
-    		    			              imageurl : '../storage/main_logo.png',
+    		    			              imageurl : '../storage/mint/icon/main_logo.png', 
     		           					  color : 'transparent'
     		    			        });
     		    				},

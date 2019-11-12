@@ -102,8 +102,5 @@ $(document).ready(function(){
 	$('#month').val($('#birthday').val().substring(4,6));
 	$('#day').val($('#birthday').val().substring(6,9));
 	
-	$('.join-btn btn--white btn--lg').click(function(){
-		alert("정말 탈퇴하시겠습니까?");
-	});
 });
 </script>

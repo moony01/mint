@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -74,6 +75,19 @@ public class ProductManageController {
 		productDTO.setProductImage(product_img.getOriginalFilename());
 		
 		productManageService.productWrite(productDTO);
+	}
+	
+	@RequestMapping(value = "/productList/getProductList", method = RequestMethod.GET) 
+	public ModelAndView getProductList(@RequestParam Map<String,String> map ) {
+		
+		List<ProductDTO> list =  productManageService.getProductList(map);
+		
+		System.out.println(list); 
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("display","/shop/product/productList.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
 	}
 	
 	

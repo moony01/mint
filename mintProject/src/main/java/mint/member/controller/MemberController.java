@@ -186,7 +186,7 @@ public class MemberController {
 		MemberDTO memberDTO = memberService.getUserBy(map);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberDTO", memberDTO);
-		mav.addObject("display","/shop/member/myinfo.jsp");
+		mav.addObject("display","/shop/mypage/infoModify.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;
 	}

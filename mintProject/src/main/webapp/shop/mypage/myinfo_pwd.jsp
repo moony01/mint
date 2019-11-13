@@ -24,13 +24,14 @@
                 <div class="conf-main">
                     <div class="conf-info">
                         <div>아이디</div>
-                        <div>asd123</div>
+                        <div>${memId }</div>
                         <div>비밀번호</div>
-                        <input type="password" style="width: 120px;">
+                        <input type="password" id="pwd" style="width: 120px;">
                     </div>
                 </div>
-                <div class=conf-btn>확인</div>
+                <div class=conf-btn id="pwd_conf_btn">확인</div>
           </form> 
         </div>
     </div>
 </seciton>
+<script src="/mintProject/shop/js/myinfo.js"></script>

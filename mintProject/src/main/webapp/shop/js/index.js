@@ -18,8 +18,8 @@ function checkMemId(memId, memName){
 				            <li><a href="#">주문내역</a></li>
 				            <li><a href="#">위시 리스트</a></li>
 				            <li><a href="#">상품 후기</a></li>
-				            <li><a href="/mintProject/shop/member/myinfo_pwd_check">개인정보 수정</a></li>
-				            <li><a href="/mintProject/shop/member/attendance">출석체크</a></li>
+				            <li><a href="/mintProject/shop/mypage/myinfo_pwd">개인정보 수정</a></li>
+				            <li><a href="/mintProject/shop/mypage/attendance">출석체크</a></li>
 				            <li>
 				            	<form id="logoutForm" method="post" action="/mintProject/shop/member/logout">
 									<a href="javascript:void(0)" onclick="document.getElementById('logoutForm').submit();">로그아웃</a></li>

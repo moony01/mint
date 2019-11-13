@@ -56,8 +56,8 @@ public class ProductManageController {
 	@RequestMapping(value = "/productManage/productWriteForm", method = RequestMethod.GET) 
 	public ModelAndView productManageWrite() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("display","/admin/productWrite.jsp");
-		mav.setViewName("/admin/admin");
+		mav.addObject("display","/admin/service/productWrite.jsp");
+		mav.setViewName("/admin/main/admin");
 		return mav;
 	}
 	

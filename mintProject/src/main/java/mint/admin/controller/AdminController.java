@@ -11,7 +11,7 @@ public class AdminController {
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("display","/shop/template/body.jsp");
-		mav.setViewName("/admin/admin");
+		mav.setViewName("/admin/main/admin");
 		return mav;
 	}
 }

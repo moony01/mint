@@ -433,6 +433,38 @@
     border-top: 2px solid #45b8ac;
 }
 
+.my-wrap--center{
+    width: 820px;;
+    display: flex;
+    justify-content: center;
+}
+
+.modi-wrap{
+    width: 820px;
+    border-top: 2px solid #45b8ac;
+    padding-left: 45px;
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+.my-page__sub-title{
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+.wd-btn,.modi-btn{
+    width: 260px;
+    height: 54px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wd-btn{
+    color:#45b8ac;
+}
+.modi-btn{
+    background-color: #45b8ac;
+    color: white;
+}
 
 /* 정보수정 비밀번호 입력 페이지 */
 .conf-tit{
@@ -462,8 +494,6 @@
 .conf-info > div:nth-child(2){
     color: #45b8ac;
 }
-
-
 
 .conf-btn{
     display: flex;

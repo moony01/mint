@@ -151,24 +151,25 @@ public class MemberController {
 			session.setAttribute("memEmail", memberDTO.getEmail());
 		}
 	}
-		
-	// 회원정보 수정
-	@RequestMapping("/shop/member/myinfo_pwd_check")
+
+	// 회원정보 수정 - 비밀번호 확인 페이지
+	@RequestMapping("/shop/mypage/myinfo_pwd")
 	public ModelAndView myinfo_pwd_check(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("display", "/shop/member/myinfo_pwd_check.jsp");
+		mav.addObject("display", "/shop/mypage/myinfo_pwd.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;
 	}
-	
-	@RequestMapping("/shop/member/myinfo_pwd_check_result")
+
+	// 회원정보 수정 - 비밀번호 확인 
+	@RequestMapping("/shop/mypage/myinfo_pwd_conf")
 	@ResponseBody
 	public ModelAndView myinfo_pwd_check(@RequestParam String pwd, HttpSession session, Map<String, String> map) {
 		map.put("key", "id");
 		map.put("value", (String) session.getAttribute("memId"));
 		MemberDTO memberDTO = memberService.getUserBy(map);
 		ModelAndView mav = new ModelAndView();
-		if(passwordEncoder.matches(pwd, memberDTO.getPwd())) { //비밀번호 복호화
+		if (passwordEncoder.matches(pwd, memberDTO.getPwd())) { // 비밀번호 복호화
 			mav.addObject("result", "success");
 		} else {
 			mav.addObject("result", "fail");
@@ -176,8 +177,9 @@ public class MemberController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
-	
-	@RequestMapping("/shop/member/myinfo")
+
+	// 회원정보 수정 - 수정/탈퇴 페이지
+	@RequestMapping("/shop/mypage/myinfo")
 	public ModelAndView myinfo(HttpSession session, Map<String, String> map) {
 		map.put("key", "id");
 		map.put("value", (String) session.getAttribute("memId"));
@@ -189,8 +191,8 @@ public class MemberController {
 		return mav;
 	}
 	
-	// 출석체크 
-	@RequestMapping(value="/shop/member/attendance", method = RequestMethod.GET)
+	// 출석체크 - 출석체크 페이지
+	@RequestMapping(value="/shop/mypage/attendance", method = RequestMethod.GET)
 	public ModelAndView attendance() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("display", "/shop/member/attendance.jsp");
@@ -198,14 +200,16 @@ public class MemberController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/shop/member/attendance_checkin", method = RequestMethod.POST)
+	// 출석체크 - 당일 출석체크
+	@RequestMapping(value="/shop/mypage/attendance_checkin", method = RequestMethod.POST)
 	@ResponseBody
 	public String attendance(HttpSession session, SimpleDateFormat sdf) {
 		memberService.insertAttendance((String)session.getAttribute("memId")); // 첫 출첵
 		return new SimpleDateFormat("yyyy-MM-dd").format(Timestamp.valueOf(LocalDate.now().atStartOfDay()));
 	}
 	
-	@RequestMapping(value="/shop/member/getAttDates", method = RequestMethod.POST)
+	// 출석체크 - DB에 저장된 출석체크 정보
+	@RequestMapping(value="/shop/mypage/getAttDates", method = RequestMethod.POST)
 	public ModelAndView getAttdates(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		String[] attDates = memberService.getAttDates((String)session.getAttribute("memId")).replaceAll("/", "-").split(",");
@@ -213,18 +217,21 @@ public class MemberController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
-	
-	@RequestMapping(value="/shop/member/attendance_isAlready", method = RequestMethod.POST)
+
+	// 춣석체크 - 하루에 한번만 가능
+	@RequestMapping(value = "/shop/mypage/attendance_checkdup", method = RequestMethod.POST)
 	@ResponseBody
-	public String attendanceForSure(HttpSession session, SimpleDateFormat sdf) {
-		String isAlready = null;
-		String[] attDates = memberService.getAttDates((String)session.getAttribute("memId")).replaceAll("/", "-").split(",");
-		if(("20"+attDates[attDates.length-1]).equals(new SimpleDateFormat("yyyy-MM-dd").format(Timestamp.valueOf(LocalDate.now().atStartOfDay())))) {
-			isAlready = "already";
+	public String attendanceCheckDup(HttpSession session, SimpleDateFormat sdf) {
+		String att = null;
+		String[] attDates = memberService.getAttDates((String) session.getAttribute("memId")).replaceAll("/", "-")
+				.split(",");
+		if (("20" + attDates[attDates.length - 1])
+				.equals(new SimpleDateFormat("yyyy-MM-dd").format(Timestamp.valueOf(LocalDate.now().atStartOfDay())))) {
+			att = "already";
 		} else {
-			isAlready = "yet";
+			att = "yet";
 		}
-		return isAlready;
+		return att;
 	}
 	
 	// 아이디/비밀번호 찾기 
@@ -264,6 +271,16 @@ public class MemberController {
 		mav.addObject("display","/shop/template/body.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;
+	}
+	
+	@RequestMapping("/shop/mypage/myinfo_modify")
+	@ResponseBody
+	public void myinfo_modify(@ModelAttribute MemberDTO memberDTO, @RequestParam Map<String, String> map) {
+		String birthday = map.get("year") + map.get("month") + map.get("day");
+		String pwd = passwordEncoder.encode(memberDTO.getPwd()); // 비밀번호 암호화
+		memberDTO.setPwd(pwd);
+		memberDTO.setBirthday(birthday);
+		/* memberService.modifyMember(map); */
 	}
 
 	

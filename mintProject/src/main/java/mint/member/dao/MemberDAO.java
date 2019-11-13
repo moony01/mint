@@ -17,4 +17,8 @@ public interface MemberDAO {
 
 	public void updateInfo(Map<String, String> map);
 
+	public void modifyMember(MemberDTO memberDTO);
+
+	public void deleteMember(String id);
+
 }

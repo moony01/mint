@@ -34,4 +34,5 @@
         </div>
     </div>
 </seciton>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/mintProject/shop/js/myinfo.js"></script>

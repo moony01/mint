@@ -25,7 +25,7 @@
 <div id="calendar_wrap">
 	<div id='calendar' style="width: 600px;"></div>
 </div>
- 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 var prevEvents;
 $(document).ready(function(){
@@ -35,8 +35,9 @@ $(document).ready(function(){
 	    defaultView: 'month',
 		locale : 'ko',
 	    header: {
+	      left : 'title',
 	      center: '',
-	      right : 'addEventButton'
+	      right : 'prev addEventButton next'
 	    },
 		events : function(start, end, timeaone, callback){
 			$.ajax({
@@ -85,7 +86,9 @@ $(document).ready(function(){
 			url : '/mintProject/shop/mypage/attendance_checkdup',
 			dataType : 'text',
 			success : function(data){
-				if(data=='already'){ alert("이미 출석체크를 하였습니다"); } 
+				if(data=='already'){ 
+					swal('이미 출석체크 하였습니다.'); 
+				} 
 				else { attCheckin(); }
 			},
 			error : function(err){

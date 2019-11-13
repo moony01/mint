@@ -84,6 +84,15 @@
                     <li><a href="/mintProject/admin/offer">상품제안 관리</a></li>
                 </ul>
             </div>
+            <div class="sales-manage">
+                <div class="nav__item" >
+                    <i class=""></i>
+                    <span>매출</span>
+                </div>
+                <ul class="list">
+                    <li><a href="/mintProject/admin/sales">매출 관리</a></li>
+                </ul>
+            </div>
         </nav>
         <div class="main">
  

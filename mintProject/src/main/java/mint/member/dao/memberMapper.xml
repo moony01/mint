@@ -39,4 +39,15 @@
 	<update id="updateInfo" parameterType="java.util.Map">
 		update member set pwd = #{pwd} where id = #{id}
 	</update>
+	
+	<!-- 개인정보 수정 -->
+	<update id="modifyMember" parameterType="member">
+		update member set name = #{name}, tel = #{tel}, email = #{email}, gender = #{gender}, birthday = #{birthday}
+		<if test="pwd != null">, pwd = #{pwd}</if>
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteMember">
+		delete from member where id = #{id}
+	</delete>
 </mapper>

@@ -51,7 +51,7 @@
                 </div>
                 <div class="board-write__content">
                     <div class="board-write__title">내용</div>
-                    <textarea name="content" id="content">${suggestBoardDTO.content}</textarea>
+                    <textarea name="content" id="content"></textarea>
                     <div class="div-offer-content"></div>
                 </div>
                 <div class="board-write__upload">
@@ -71,18 +71,7 @@
 <script>
 let suggestBoardDTO = '${suggestBoardDTO.seq}';
 let options = document.querySelector(".board-write__subject-select");
-console.log(content);
-$().ready(function(){
-	if(suggestBoardDTO != ''){
-		for (var i = 0; i < options.length; i++) {
-			if(options[i].value == '${suggestBoardDTO.category}') options[i].setAttribute('selected', true);
-		}
-		
-		$('.board-write__subject-txt').val('${suggestBoardDTO.subject}');
-		if('${suggestDTO.imgName}' !=''){
-			$('#viewImg').append('현재 이미지: ${suggestBoardDTO.imgName}');			
-		}
-		$('.board-write__write-btn').text('수정');
-	}
-});	
+let content = `${suggestBoardDTO.content}`;
+
+getOfferBoardView();
 </script>

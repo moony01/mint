@@ -256,9 +256,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/shop/member/updateInfo")
-	public ModelAndView updateInfo(@RequestParam Map<String, String> map, ModelAndView mav) {
-		System.out.println(map);
-		
+	public ModelAndView updateInfo(@RequestParam Map<String, String> map, ModelAndView mav) {		
 		String pwd = passwordEncoder.encode(map.get("pwd")); //비밀번호 암호화
 		map.put("pwd", pwd);
 		

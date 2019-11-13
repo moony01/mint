@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<style>
+.thumb {
+    width: 52px;
+    height: 60px;
+    margin: 10px 0 5px;
+}
+</style>
 <section class="content">
     <div class="page-location">
         <a href="/mintProject/shop/main/index">홈</a><span style="margin: 0 5px;">></span><span>아이디 찾기</span>
@@ -12,7 +18,7 @@
         <span></span>
     </div>
     <form class="login-form" id="findIdForm" >
-        <div class="login-form hideIfSucceed">
+        <div class="hideIfSucceed">
 	        <div class="login-content">
 	            <h1>아이디 찾기</h1>
 	            <div class="login__input-container">
@@ -28,7 +34,7 @@
 	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	   	</div>
 	   	
-	    <div class="login-form showIfSucceed" style="display: none;">
+	    <div class="showIfSucceed" style="display: none;">
 	    	<div class="login__input-container">
 		    	<img class="thumb" src="https://res.kurly.com/pc/service/member/1908/img_id_find_succsess_v2.png" alt="아이디찾기완료">
 		    	<div class="login-content">
@@ -40,4 +46,5 @@
 	    </div>    
     </form>
 </section>
-<script src="/mintProject/shop/js/login.js"></script>
+<script src="/mintProject/shop/js/find.js"></script>
+<script src="/mintProject/shop/js/authFunction.js"></script>

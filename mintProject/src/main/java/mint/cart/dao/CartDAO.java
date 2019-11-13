@@ -3,9 +3,9 @@ package mint.cart.dao;
 import java.util.List;
 import java.util.Map;
 
-import mint.cart.bean.CartDTO;
+import mint.product.bean.ProductDTO;
 
 public interface CartDAO {
 
-	List<CartDTO> getCartList(Map<String, String> map);
+	public List<ProductDTO> getCartList(Map<String, String> map);
 }

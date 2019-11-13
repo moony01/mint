@@ -11,9 +11,20 @@
 .fc-row.fc-week.fc-widget-content{
 	min-height: 6em;
 }
+.fc-left {
+	font-size: 20px;
+	font-weight: bolder;
+}
+#calendar_wrap {
+	margin-top : 30px;  
+	display: flex;
+	justify-content: center;
+}
 </style>
 
-<div id='calendar' style="width: 600px;"></div> 
+<div id="calendar_wrap">
+	<div id='calendar' style="width: 600px;"></div>
+</div>
  
 <script>
 var prevEvents;
@@ -30,12 +41,12 @@ $(document).ready(function(){
 		events : function(start, end, timeaone, callback){
 			$.ajax({
 				type : 'POST',
-     			url : '/mintProject/shop/member/getAttDates',
+     			url : '/mintProject/shop/mypage/getAttDates',
      			dataType : 'JSON',
      			success : function(data){
      				if(data.attDates=="!"){
      					alert("매일매일 출석체크해서 포인트를 모아보세요 :D");
-     				} else {
+     				} else { 
      					var events = [];
            				$.each(data.attDates, function(index,value){
            					events.push({
@@ -55,37 +66,7 @@ $(document).ready(function(){
 	    customButtons: {
 	      addEventButton: {
 	        text: '출석체크',
-	        click: function() {
-	        	$.ajax({
-	        		type : 'POST',
-    				url : '/mintProject/shop/member/attendance_isAlready',
-    				dataType : 'text',
-    				success : function(data){
-    					if(data=='already'){
-    						alert("이미 출석체크를 하였습니다");
-    					} else {
-    						$.ajax({
-    		    				type : 'POST',
-    		    				url : '/mintProject/shop/member/attendance_checkin',
-    		    				dataType : 'text',
-    		    				success : function(date){
-    		    					$('#calendar').fullCalendar('renderEvent', {
-    		    			              start: date,
-    		    			              imageurl : '../storage/mint/icon/main_logo.png', 
-    		           					  color : 'transparent'
-    		    			        });
-    		    				},
-    		    				error : function(err){
-    		    					console.log(err);
-    		    				}
-    		    			});	
-    					}
-    				},
-    				error : function(err){
-    					console.log(err);
-    				}
-	        	}); 
-	        }
+	        click: function() { checkAttDup(); }
 	      }
 	    },
 	    eventRender:function(event, eventElement) {
@@ -96,12 +77,40 @@ $(document).ready(function(){
         eventAtferAllRender : function(){
         	$('.fc-row.fc-week.fc-widget-content').attr('style', 'min-height: 6em');
         }
-	  /*   eventClick: function(event) {
-            $('#fullCalModal').modal();
-            $('#modalTitle').html(event.event.title);
-            $('#modalBody').html(event.event.extendedProps.description);
-        }, */
 	  });
+
+	function checkAttDup(){ // 하루에 한 번만 가능
+		$.ajax({
+    		type : 'POST',
+			url : '/mintProject/shop/mypage/attendance_checkdup',
+			dataType : 'text',
+			success : function(data){
+				if(data=='already'){ alert("이미 출석체크를 하였습니다"); } 
+				else { attCheckin(); }
+			},
+			error : function(err){
+				console.log(err);
+			}
+    	}); 
+	}
+	
+	function attCheckin(){ // 출석체크
+		$.ajax({
+			type : 'POST',
+			url : '/mintProject/shop/mypage/attendance_checkin',
+			dataType : 'text',
+			success : function(date){
+				$('#calendar').fullCalendar('renderEvent', {
+		              start: date,
+		              imageurl : '../storage/mint/icon/main_logo.png', 
+   					  color : 'transparent'
+		        });
+			},
+			error : function(err){
+				console.log(err);
+			}
+		});	
+	}
 });
 </script>
 

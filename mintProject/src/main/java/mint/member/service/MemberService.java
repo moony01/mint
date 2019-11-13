@@ -18,5 +18,4 @@ public interface MemberService {
 
 	public void updateInfo(Map<String, String> map);
 
-
 }

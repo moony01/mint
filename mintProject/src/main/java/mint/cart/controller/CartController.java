@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import mint.cart.bean.CartDTO;
 import mint.cart.service.CartService;
+import mint.product.bean.ProductDTO;
 
 @Controller
 public class CartController {
@@ -32,10 +33,9 @@ public class CartController {
 									HttpSession session) {
 		
 		String id = (String)session.getAttribute("memId");
-		
 		map.put("id", id);
 		
-		List<CartDTO> list = cartService.getCartList(map);
+		List<ProductDTO> list = cartService.getCartList(map);
 		System.out.println("list : "+list);
 		
 		ModelAndView mav = new ModelAndView();

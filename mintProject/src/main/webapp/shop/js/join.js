@@ -1,10 +1,9 @@
 const addrBtn = document.querySelector(".btn-addr");
-const authBtn = document.querySelector(".btn-auth");
 const checkIdBtn = document.querySelector(".btn-checkId");
-const certiAuthBtn = document.querySelector(".btn-certiAuthKey");
+let authBtn = document.querySelector(".btn-auth");
+let certiAuthBtn = document.querySelector(".btn-certiAuthKey");
 let emailCerti = document.getElementsByName("emailCerti")[0];
-
-
+//회원가입============================================================================================================
 // 다음 우편번호
 addrBtn.addEventListener("click",function(){
    daum.postcode.load(function(){
@@ -75,67 +74,45 @@ checkIdBtn.addEventListener("click", function(){
 	});
 });
 
-//ajax 안에 또 ajax가 들어감.. => 이 부분 리팩토링 할 예정!
+
 //인증번호 받기
-authBtn.addEventListener("click", function(){
-	//우선 이메일 중복확인 먼저 하고 
-	$.ajax({
-		type: 'post',
-		url: '/mintProject/shop/member/isDuplicated',
-		data: {"email": document.getElementsByName("email")[0].value},
-		success: function(result){
+authBtn.addEventListener("click", function(){	
+		//회원가입일 경우 => 우선 이메일 중복확인 먼저 하고 
+		getIsDuplicatedPage()
+		.then(function(result){
 			if(!result){
 				alert('사용 가능한 이메일입니다. 인증번호를 발송합니다. ');
-				timer = 60*3; 
-				counter = setInterval(countDown, 1000); //1초마다 반복적으로 countDown() 실행
-
-				//이메일 중복 아닐 시 인증번호 발송
-				$.ajax({
-					type: 'post',
-					url: '/mintProject/shop/member/auth',
-					data: {"id": document.getElementsByName("id")[0].value,
-						"email": document.getElementsByName("email")[0].value},
-					success: function(){
-					},
-					error: function(e){
-						console.log(e);
-					}
-				});
+				setCountDown();
+				
+				//인증번호 발송
+				getAuthCheckPage()
+				.catch(printError);
 			} else {
 				alert('이미 사용중인 이메일입니다. ');
 				document.getElementsByName("email")[0].focus();
-			}
-		},
-		error: function(e){
-			console.log(e);
-		}
-	});
-	
+			}		
+		})
+		.catch(printError);
+
+		
 });
 
 emailCerti.addEventListener("focus", function(){
-    $('.btn--white').css('background-color', '#45b8ac').css('pointer-events', 'visible').css('color', '#fff').css('opacity', 1);
+  $('.btn--white').css('background-color', '#45b8ac').css('pointer-events', 'visible').css('color', '#fff').css('opacity', 1);
 });
 
 //인증번호 확인
 certiAuthBtn.addEventListener("click", function(){
-	$.ajax({
-		type: 'post',
-		url: '/mintProject/shop/member/certiAuthKey',
-		data: {"id": document.getElementsByName("id")[0].value,
-			"certiAuthKey": document.getElementsByName("emailCerti")[0].value},
-		dataType: 'text',
-		success: function(data){
-			if(data == 'true') alert("인증이 완료되었습니다. ");
-			else alert('인증번호가 잘못되었습니다. ');
-		},
-		error: function(e){
-			console.log(e);
-		}
-	});
+	getAuthConfirmPage()
+	.then(function(result){
+		if(result == 'true') alert("인증이 완료되었습니다. ");
+		else alert('인증번호가 잘못되었습니다. ');
+	})
+	.catch(printError);
+		
 });
 
-//회원가입
+//회원가입 버튼 클릭
 $('.btn--lg').click(function(){
 	$.ajax({
 		type: 'post',
@@ -146,10 +123,12 @@ $('.btn--lg').click(function(){
 			location.href='/mintProject/shop/main/index';
 		},
 		error: function(e){
-			console.log(e);
+			printError(e);
 		}
 	});
 });
+
+//===========
 
 
 let timer, counter;
@@ -171,5 +150,11 @@ function countDown(){
 function zeroPad(number, width){ 
 	number = number + '';
 	return number.length >= width ? number : new Array(width - number.length +1).join('0') +number;
-	
+}
+
+
+function setCountDown(){	
+	timer = 60*3; 
+	counter = setInterval(countDown, 1000); //1초마다 반복적으로 countDown() 실행
+
 }

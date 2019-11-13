@@ -94,3 +94,4 @@
     </form>
 </section>
 <script src="/mintProject/shop/js/join.js"></script>
+<script src="/mintProject/shop/js/authFunction.js"></script>

@@ -5,7 +5,7 @@
 <input type="hidden" id="birthday" value="${memberDTO.birthday }">
 <section class="content join">
     <div class="page-location">
-        <a href="/mintProject/shop/main/index">홈</a><span style="margin: 0 5px;">></span><span>회원가입</span>
+        <a href="/mintProject/shop/main/index">마이페이지</a><span style="margin: 0 5px;">></span><span>개인 정보 수정</span>
     </div>
     <div class="content__title-location">
         <h1 class="content__title">개인정보 수정</h1>
@@ -20,7 +20,7 @@
                 <input type="text" class="join-input input--lg" name="id" value="${memberDTO.id }" readonly="readonly"><br>
             </div>
             <div class="join-col">
-                <div class="join-title">비밀번호*</div>
+                <div class="join-title">새 비밀번호*</div>
                 <input type="password" class="join-input input--lg" name="pwd" placeholder="비밀번호를 입력해주세요">
             </div>
             <div class="join-col">
@@ -43,9 +43,10 @@
             <div class="join-col">
                 <div class="join-title"></div>
                 <input type="text" class="join-input input--lg" name="emailCerti">
-                <div class="join-btn btn--white btn-certiAuthKey">인증번호 확인</div><br>
+                <div class="join-btn btn--white btn-certiAuthKey">인증번호 확인</div>
                 <div class="timeCount" style="display: block;">남은시간: </div>
             </div>
+            
             <div class="join-col">
                 <div class="join-title">배송 주소</div>
                 <div class="join-btn btn--primary btn-addr">주소 검색</div>
@@ -90,7 +91,7 @@
             </div>
         </div>
         <div class="join__submit-wrap">
-            <div class="join-btn btn--primary btn--lg">회원정보 수정</div> 
+            <div class="join-btn btn--primary btn--lg" id="modify_btn">회원정보 수정</div> 
             <div class="join-btn btn--white btn--lg">탈퇴하기</div> 
         </div>
     </form>
@@ -101,6 +102,10 @@ $(document).ready(function(){
 	$('#year').val($('#birthday').val().substring(0,4));
 	$('#month').val($('#birthday').val().substring(4,6));
 	$('#day').val($('#birthday').val().substring(6,9));
+	
+	$('#modify_btn').click(function(){
+		alert("회원정보 수정");
+	});
 	
 });
 </script>

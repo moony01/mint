@@ -19,15 +19,16 @@
         <h3 class="my-page__sub-title">기본정보</h3> 
         <input type="hidden" id="gender" value="${memberDTO.gender }">
 		<input type="hidden" id="birthday" value="${memberDTO.birthday }">
+        <form id="modify-form" method="post" action="/mintProject/shop/mypage/myinfo_modify">
         <div class="modi-wrap">
             <div class="join-col">
                 <div class="join-title">아이디</div>
                 <input type="text" class="join-input input--lg" name="id" readonly value="${memberDTO.id }">
             </div>
-            <div class="join-col">
+            <!-- <div class="join-col">
                 <div class="join-title">현재 비밀번호</div>
                 <input type="password" class="join-input input--lg" name="pwd">
-            </div>
+            </div> -->
             <div class="join-col">
                 <div class="join-title">새 비밀번호</div>
                 <input type="password" class="join-input input--lg" name="npwd">
@@ -85,24 +86,21 @@
                 </div>
             </div> 
         </div>
+        </form>
         <div class="my-wrap--center">
-            <div class="join-btn wd-btn">탈퇴하기</div>
-            <div class="join-btn modi-btn" id="modify_btn">수정하기</div>
+            <div class="join-btn wd-btn" id="wd_btn">탈퇴하기</div>
+            <div class="join-btn modi-btn" id="modi_btn">수정하기</div>
         </div>
     </div>
     
 </seciton>
-
-<script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/mintProject/shop/js/myinfo.js"></script>
+<script type="text/javascript">
 $(document).ready(function(){
 	$('#gender_'+$('#gender').val()).prop('checked', true);
 	$('#year').val($('#birthday').val().substring(0,4));
 	$('#month').val($('#birthday').val().substring(4,6));
 	$('#day').val($('#birthday').val().substring(6,9));
-	
-	$('#modify_btn').click(function(){
-		alert("회원정보 수정");
-	});
-	
 });
 </script>

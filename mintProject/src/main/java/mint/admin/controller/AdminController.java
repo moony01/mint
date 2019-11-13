@@ -14,4 +14,12 @@ public class AdminController {
 		mav.setViewName("/admin/main/admin");
 		return mav;
 	}
+	
+	@RequestMapping(value="/admin/sales", method=RequestMethod.GET)
+	public ModelAndView sales() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("display","/admin/service/chart.jsp");
+		mav.setViewName("/admin/main/admin");
+		return mav;
+	}
 }

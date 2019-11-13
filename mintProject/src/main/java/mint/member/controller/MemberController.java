@@ -186,7 +186,7 @@ public class MemberController {
 		MemberDTO memberDTO = memberService.getUserBy(map);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberDTO", memberDTO);
-		mav.addObject("display","/shop/mypage/infoModify.jsp");
+		mav.addObject("display","/shop/mypage/myinfo.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;
 	}
@@ -273,15 +273,34 @@ public class MemberController {
 		return mav;
 	}
 	
+	// 마이페이지 - 개인정보 수정
 	@RequestMapping("/shop/mypage/myinfo_modify")
 	@ResponseBody
 	public void myinfo_modify(@ModelAttribute MemberDTO memberDTO, @RequestParam Map<String, String> map) {
 		String birthday = map.get("year") + map.get("month") + map.get("day");
-		String pwd = passwordEncoder.encode(memberDTO.getPwd()); // 비밀번호 암호화
-		memberDTO.setPwd(pwd);
 		memberDTO.setBirthday(birthday);
-		/* memberService.modifyMember(map); */
+		if(map.get("npwd") != "") {
+			memberDTO.setPwd(passwordEncoder.encode(map.get("npwd")));
+		}
+		memberService.modifyMember(memberDTO);
+	}
+	
+	// 마이페이지 - 탈퇴하기
+	@RequestMapping(value="/shop/mypage/remove_account")
+	@ResponseBody
+	public String close_account(@RequestParam String pwd, HttpSession session, Map<String, String> map) {
+		String result = null;
+		map.put("key", "id");
+		map.put("value", (String) session.getAttribute("memId"));
+		MemberDTO memberDTO = memberService.getUserBy(map);
+		if (passwordEncoder.matches(pwd, memberDTO.getPwd())) { // 비밀번호 복호화
+			memberService.deleteMember((String) session.getAttribute("memId"));
+			session.invalidate();
+			result = "success";
+		} else {
+			result = "fail";
+		}
+		return result;
 	}
 
-	
 }

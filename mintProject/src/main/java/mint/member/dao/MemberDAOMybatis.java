@@ -54,4 +54,16 @@ public class MemberDAOMybatis implements MemberDAO {
 	public void updateInfo(Map<String, String> map) {
 		sqlSession.update("memberSQL.updateInfo", map);
 	}
+
+	@Override
+	public void modifyMember(MemberDTO memberDTO) {
+		sqlSession.update("memberSQL.modifyMember", memberDTO);
+		
+	}
+
+	@Override
+	public void deleteMember(String id) {
+		sqlSession.delete("memberSQL.deleteMember",id);
+		
+	}
 }

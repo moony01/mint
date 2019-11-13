@@ -45,5 +45,17 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.updateInfo(map);
 	}
 
+	@Override
+	public void modifyMember(MemberDTO memberDTO) {
+		memberDAO.modifyMember(memberDTO);
+		
+	}
+
+	@Override
+	public void deleteMember(String id) {
+		memberDAO.deleteMember(id);
+		
+	}
+
 
 }

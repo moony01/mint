@@ -77,7 +77,7 @@
         <div class="paging">
             <ul class="pagination">
                <li class="page-item prev"></li>
-                <li class="page-item next"></li>
+               <li class="page-item next"></li>
             </ul>
         </div>
         <div class="service__write-btn" onclick="location.href='/mintProject/shop/service/offerWrite'">글쓰기</div>

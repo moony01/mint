@@ -9,12 +9,23 @@
 	<select id="getSuggestBoardList" parameterType="java.util.Map" resultType="suggestBoard">
 		select * from 
 		(select rownum rn, temp.* from 
-		(select * from suggestboard where id= #{id} order by seq desc) temp) 
+		(select * from suggestboard where ${key} = #{value} order by seq desc) temp) 
 		where rn between #{startNum} and #{endNum}
 	</select>
 	
-	<select id="getSuggestBoardTotArticle" parameterType="String" resultType="int">
-		select count(*) from suggestboard where id=#{id}
+	<select id="getAllSuggestBoardList" parameterType="java.util.Map" resultType="suggestBoard">
+		select * from 
+		(select rownum rn, temp.* from 
+		(select * from suggestboard order by seq desc) temp) 
+		where rn between #{startNum} and #{endNum}
+	</select>
+	
+	<select id="getSuggestBoardTotArticle" parameterType="java.util.Map" resultType="int">
+		select count(*) from suggestboard where ${key} = #{value}
+	</select>
+	
+	<select id="getAllSuggestBoardTotArticle" resultType="int">
+		select count(*) from suggestboard
 	</select>
 	
 	<select id="getSuggestBoard" parameterType="int" resultType="suggestBoard">
@@ -27,7 +38,13 @@
 		where seq = #{seq}
 	</update>
 	
+	<update id="updateReplySuggestBoard" parameterType="java.util.Map">
+		update suggestboard set replyContent = #{replyContent}, replyStatus = 1 where seq = #{seq}	
+	</update>
+	
 	<delete id="deleteSuggestBoard" parameterType="int">
 		delete from suggestboard where seq=#{seq}
 	</delete>
+	
+	
 </mapper>

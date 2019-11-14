@@ -40,7 +40,7 @@
 			● error-if-maximum-exceeded: max-sessions 을 넘었을 때 접속한 세션을 실패 처리할 지 여부. 
 				"true" == 두번째 인증을 거부, false == 첫번째 인증을 거부 -->
 		<security:session-management>
-			<security:concurrency-control expired-url="/shop/member/login?status=duplicated" 
+			<security:concurrency-control expired-url="/shop/member/login?status=already" 
 										max-sessions="1"/>
 		</security:session-management> 
 

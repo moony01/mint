@@ -3,6 +3,9 @@ package mint.suggestBoard.bean;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -14,7 +17,7 @@ public class SuggestBoardDTO {
 	private String subject;
 	private String content;
 	private String imgName;
-	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
 	private Date logtimeQ;
 
 	private String replyContent;

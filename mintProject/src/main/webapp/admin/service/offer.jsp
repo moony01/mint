@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <div class="main__title">
     <h2 class="out">상품제안 관리</h2>
     <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>게시판</span></a>
@@ -8,14 +11,14 @@
 </div>
 <div class="container">
     <div class="main__select">
-        <select name="" id="" class="select-box">
-            <option value="">전체</option>
-            <option value="">대기중</option>
-            <option value="">답변완료</option>
+        <select name="replyStatus" id="replyStatus" class="select-box" onchange="getSuggestBoardByOption()">
+            <option value="2" selected="selected">전체</option>
+            <option value="0">대기중</option>
+            <option value="1">답변완료</option>
         </select>
     </div>
     
-    <table class="table table-bordered">
+    <table class="table table-bordered table-offer">
         <tr class="th--dark">
             <th class="col-md-1"><input type="checkbox" name="" id=""></th>
             <th class="col-md-1">번호</th>
@@ -24,28 +27,20 @@
             <th class="col-md-1">작성일</th>
             <th class="col-md-1">작성자</th>
             <th class="col-md-1">상태</th>
-
-        </tr>
-        <tr>
-            <td><input type="checkbox" name="" id=""></td>
-            <td>1</td>
-            <td>문의/답변</td>
-            <td class="table--left">안녕하세요 반갑습니다 우엉이 먹고싶은데 어떻게 할까요??</td>
-            <td>2019-11-20</td>
-            <td>민트</td>
-            <td>대기중</td>
         </tr>
 
     </table>
     <div class="paging">
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+        	  <li class="page-item prev"></li>
+              <li class="page-item next"></li>
+            <!-- <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
             <li class="page-item"><a class="page-link" href="#">&lsaquo;</a></li>
             <li class="page-item"><a class="page-link" href="#">1</a></li>
             <li class="page-item"><a class="page-link" href="#">2</a></li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
             <li class="page-item"><a class="page-link" href="#">&rsaquo;</a></li>
-            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li> -->
         </ul>
     </div>
     <div class="main__btns">
@@ -70,3 +65,4 @@
         </div>
     </div>
 </div>
+<script src="/mintProject/admin/js/offer.js"></script>

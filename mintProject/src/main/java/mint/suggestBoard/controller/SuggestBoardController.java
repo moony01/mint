@@ -100,27 +100,107 @@ public class SuggestBoardController {
 	public ModelAndView getSuggestBoardList(@RequestParam(required = false, defaultValue = "1") String pg, 
 											HttpSession session, ModelAndView mav) {
 		String id = (String) session.getAttribute("memId");
+		Map<String, Object> map = new HashMap<String, Object>();	
+		map.put("key", "id");
+		map.put("value", id);
 		
-		int endNum = Integer.parseInt(pg) *3;
-		int startNum = endNum -2; 
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("endNum", endNum);
-		map.put("startNum", startNum);
-		map.put("id", id);
-		
-		int totalArticle = suggestBoardService.getSuggestBoardTotArticle(id);
+		int totalArticle = suggestBoardService.getSuggestBoardTotArticle(map);
+
+		setPagingNumber(pg, map);
 		List<SuggestBoardDTO> list = suggestBoardService.getSuggestBoardList(map);
 		
 		//페이징 처리를 script에서 처리하기 위해 pg, totalArticle, addr 를 함께 싣어 보내준다. 
 		mav.addObject("pg", pg);
 		mav.addObject("totalArticle", totalArticle);
-		mav.addObject("addr", "../service/offer");
+		mav.addObject("addr", "/shop/service/offer");
 		mav.addObject("list", list);
 		mav.addObject("display", "/shop/service/offer.jsp");
 		mav.setViewName("/shop/main/index");
 		
 		return mav; 
+	}
+	
+	
+	//[관리자 페이지]==============================================================================================================
+	//제안 문의 글목록 - 처음 로드 시 status = [문의 답변 전] 인 글의 list 를 가져오며, 이후 선택 옵션에 따라 status = [문의답변 완료] 인 글을 가져온다. 
+	
+	
+	//처음 로드 할 때 폼을 먼저 띄우고
+	@RequestMapping("/admin/service/offer")
+	public ModelAndView getSuggestBoardListForm(ModelAndView mav) {
+		mav.addObject("display", "/admin/service/offer.jsp");
+		mav.setViewName("/admin/main/admin");
+		
+		return mav;
+	}
+	
+	//바로 list 를 가져올 수 있도록 ajax 처리. 
+	@RequestMapping("/admin/service/getOffer")
+	public ModelAndView getSuggestBoardList(@RequestParam(required = false, defaultValue = "1") String pg, 
+									@RequestParam(required = false, defaultValue = "2") String replyStatus, 
+									ModelAndView mav) {
+		int status = Integer.parseInt(replyStatus);
+		int totalArticle = 0;
+		List<SuggestBoardDTO> list = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(status == 2) { // 답변상태: 전체선택일 시 
+			totalArticle= suggestBoardService.getAllSuggestBoardTotArticle();
+			
+			setPagingNumber(pg, map);
+			list = suggestBoardService.getAllSuggestBoardList(map);
+			
+		}else { // 답변상태: 답변중 or 답변완료
+			map.put("key", "replyStatus");
+			map.put("value", status);
+			
+			totalArticle = suggestBoardService.getSuggestBoardTotArticle(map);
+
+			setPagingNumber(pg, map);
+			list = suggestBoardService.getSuggestBoardList(map);
+			
+		}
+			
+		//페이징 처리를 script에서 처리하기 위해 pg, totalArticle, addr 를 함께 싣어 보내준다. 
+		mav.addObject("pg", pg);
+		mav.addObject("totalArticle", totalArticle);
+		mav.addObject("addr", "/admin/service/getOffer");
+		mav.addObject("list", list);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
+	
+	@RequestMapping("/admin/service/offerAnswer")
+	public String getOfferAnswer(@RequestParam(required = false, defaultValue = "1") String pg,
+								@RequestParam String seq, Model model) {
+		
+		SuggestBoardDTO suggestBoardDTO = suggestBoardService.getSuggestBoard(Integer.parseInt(seq));
+		
+		model.addAttribute("seq", seq);
+		model.addAttribute("pg", pg);
+		model.addAttribute("suggestBoardDTO", suggestBoardDTO);
+		model.addAttribute("display", "/admin/service/offerAnswer.jsp");
+		return "/admin/main/admin"; 
+		
+	}
+	
+	@RequestMapping("/admin/service/updateReply")
+	public ModelAndView updateReply(@RequestParam Map<String, String> map, ModelAndView mav) {
+		System.out.println("map: " + map);
+		suggestBoardService.updateReplySuggestBoard(map);	
+		return getSuggestBoardListForm(mav);
+		
+	}
+	
+	// [사용자, 관리자 페이지 공통 함수] ==================================================================================================
+	public  void setPagingNumber(String pg, Map<String, Object> map) {
+		int endNum = Integer.parseInt(pg) *5;
+		int startNum = endNum -4; 
+		
+		map.put("endNum", endNum);
+		map.put("startNum", startNum);
+		
 	}
 	
 }

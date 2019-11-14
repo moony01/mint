@@ -19,4 +19,8 @@ public interface FAQBoardService {
 
 	public FAQBoardDTO getFAQArticle(int seq);
 
+	public List<FAQBoardDTO> faqCategory(Map<String, Object> map);
+
+	public int getCategoryTotalArticle(Map<String, Object> map);
+
 }

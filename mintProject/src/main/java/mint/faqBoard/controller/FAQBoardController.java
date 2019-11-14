@@ -23,19 +23,21 @@ import mint.faqBoard.service.FAQBoardService;
  *	FAQBoardController
  * 	자주 묻는 질문 게시판 컨트롤러
  * 
- * @version 1.4
+ * @version 1.5
  * @author LimChangHyun 
  *
  *	구현된 기능 : 사용자 기능 모두 완료 (리스트 가져오기, 페이징 처리, 카테고리 선택, 검색 기능, 답변 Display)
- *			    관리자 기능 (리스트 가져오기, 페이징 처리, 등록, 게시물 열람)
+ *			    관리자 기능 (리스트 가져오기, 페이징 처리, 등록, 게시물 열람, 카테고리 선택)
  *	앞으로 구현되어야 하는 것 : 
- *						카테고리 선택
  *						관리자용 검색 기능(필터 추가)
  *						수정 기능
  *						체크박스 일괄 삭제
  *	
  *	유의 : faq.jsp에서 카테고리 select option '선택'시 임의 value를 9로 두었음
- *	문제 : summernote로 미디어 요소(이미지, 표 등) 추가시 사용자 측에서 전체적인 레이아웃이 깨져버림
+ *	문제 : 1. summernote로 미디어 요소(이미지, 표 등) 추가시 사용자 측에서 전체적인 레이아웃이 깨져버림
+ *		  2. 관리자용 FAQ페이지에서 검색 기능 작동 안함 
+ *			증상 : RequestParam으로 값을 잘 가져가지만 SQL거치고 들고오는 것이 없음
+ *		  3. 수정 시 summernote textarea쪽에 content내용이 안들어감
  */
 
 @Controller
@@ -85,12 +87,9 @@ public class FAQBoardController {
 
 	}
 	
-	/* FAQ게시판 검색시 리스트 가져오기 */
-	@RequestMapping(value="/shop/service/faq/getSearchBoardList", method=RequestMethod.POST)
-	public ModelAndView getFAQBoardSearch(@RequestParam Map<String, Object> map) {
-		//System.out.println(map.get("category"));
-		//System.out.println(map.get("keyword"));
-		
+	/* FAQ게시판 카테고리 선택시 리스트 가져오기  (사용자, 관리자 공통) */
+	@RequestMapping(value="/shop/service/faq/getCategoryList", method=RequestMethod.POST)
+	public ModelAndView getCategoryList(@RequestParam Map<String, Object> map) {
 		// 1페이지당 15개씩
 		int endNum = Integer.parseInt((String) map.get("pg"))*15;
 		int startNum = endNum-14;
@@ -98,13 +97,41 @@ public class FAQBoardController {
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
 				
-		List<FAQBoardDTO> list = faqBoardService.faqBoardSearch(map);
-		//System.out.println(list);
+		List<FAQBoardDTO> list = faqBoardService.faqCategory(map);
 		
 		// 게시판 페이징 처리
 		// 총 글수
+		int totalArticle = faqBoardService.getCategoryTotalArticle(map);
+		faqBoardPaging.setCurrentPage(Integer.parseInt((String) map.get("pg")));
+		faqBoardPaging.setPageBlock(5);
+		faqBoardPaging.setPageSize(15);
+		faqBoardPaging.setTotalArticle(totalArticle);
+		faqBoardPaging.makePagingHTML();
+		
+		// Response		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.addObject("faqBoardPaging", faqBoardPaging);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	/* FAQ게시판 검색시 리스트 가져오기 (사용자, 관리자 공통) */
+	@RequestMapping(value="/shop/service/faq/getSearchBoardList", method=RequestMethod.POST)
+	public ModelAndView getFAQBoardSearch(@RequestParam Map<String, Object> map) {
+		// 1페이지당 15개씩
+		int endNum = Integer.parseInt((String) map.get("pg"))*15;
+		int startNum = endNum-14;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+
+		List<FAQBoardDTO> list = faqBoardService.faqBoardSearch(map);
+
+		// 게시판 페이징 처리
+		// 총 글수
 		int totalArticle = faqBoardService.getSearchTotalArticle(map);
-		//System.out.println(totalArticle);
+		System.out.println(totalArticle);
 		faqBoardPaging.setCurrentPage(Integer.parseInt((String) map.get("pg")));
 		faqBoardPaging.setPageBlock(5);
 		faqBoardPaging.setPageSize(15);
@@ -122,25 +149,25 @@ public class FAQBoardController {
 	
 	///////////////////////관리자//////////////////////////
 	/* FAQ관리자 페이지 이동 */
-	@RequestMapping(value="/admin/faq", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/service/faq", method=RequestMethod.GET)
 	public String faqAdmin(@RequestParam(required=false, defaultValue="1") String pg,
 						Model model) {
-		model.addAttribute("display", "/admin/faq.jsp");
+		model.addAttribute("display", "/admin/service/faq.jsp");
 		model.addAttribute("pg", pg);
-		return "/admin/admin";
+		return "/admin/main/admin";
 	}
 	
 	
 	
 	/* FAQ관리자 게시물 등록 페이지 이동 */
-	@RequestMapping(value="/admin/faqWriteForm", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/service/faqWriteForm", method=RequestMethod.GET)
 	public String faqAdminWrite(Model model) {
-		model.addAttribute("display", "/admin/faqWrite.jsp");
-		return "/admin/admin";
+		model.addAttribute("display", "/admin/service/faqWrite.jsp");
+		return "/admin/main/admin";
 	}
 	
 	/* FAQ관리자 게시물 등록 */
-	@RequestMapping(value="/admin/faqWrite", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/service/faqWrite", method=RequestMethod.POST)
 	@ResponseBody
 	public void faqAdminExecuteWrite(@RequestParam Map<String, String> map,
 													HttpSession session) {
@@ -152,25 +179,25 @@ public class FAQBoardController {
 	}
 	
 	/* FAQ관리자 게시물 열람 페이지 이동 */
-	@RequestMapping(value="/admin/faqView", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/service/faqView", method=RequestMethod.GET)
 	public String faqAdminView(@RequestParam int seq,
 								@RequestParam int pg,
 								Model model) {
 		model.addAttribute("seq", seq);
 		model.addAttribute("pg", pg);
-		model.addAttribute("display", "/admin/faqView.jsp");
-		return "/admin/admin";
+		model.addAttribute("display", "/admin/service/faqView.jsp");
+		return "/admin/main/admin";
 	}
 	
 	/* FAQ관리자 게시물 정보 가져오기 (열람, 수정) */
-	@RequestMapping(value="/admin/getFAQView", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/service/getFAQView", method=RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView getFAQAdminView(@RequestParam int seq,
-									@RequestParam int pg,
+	public ModelAndView getFAQAdminView(@RequestParam String seq,
+									@RequestParam String pg,
 									HttpSession session) {
-		FAQBoardDTO faqBoardDTO = faqBoardService.getFAQArticle(seq);
+		FAQBoardDTO faqBoardDTO = faqBoardService.getFAQArticle(Integer.parseInt(seq));
 		// String id = (String)session.getAttribute("memId");
-		
+
 		ModelAndView mav = new ModelAndView();
 		// 나중에 id로 먹일 것
 		mav.addObject("memId", "mint_admin");
@@ -182,6 +209,21 @@ public class FAQBoardController {
 	}
 	
 
+	/* FAQ게시판 게시물 수정 페이지 이동 */
+	@RequestMapping(value="/admin/service/faqModifyForm", method=RequestMethod.GET)
+	public String faqModifyForm(@RequestParam String seq,
+								@RequestParam String pg,
+								@RequestParam String type,
+								Model model) {
+		FAQBoardDTO faqBoardDTO = faqBoardService.getFAQArticle(Integer.parseInt(seq));
+		model.addAttribute("pg", pg);
+		model.addAttribute("seq", seq);
+		model.addAttribute("type", type);
+		model.addAttribute("dto", faqBoardDTO);
+		model.addAttribute("display", "/admin/service/faqWrite.jsp");
+		return "/admin/main/admin";
+	}
+	
 	/* FAQ게시판 게시물 수정 기능 */
 	/* FAQ게시판 게시물 삭제 기능 */
 	

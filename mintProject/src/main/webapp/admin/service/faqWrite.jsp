@@ -48,16 +48,38 @@
     </div>   
 </div>
 <script>
-    $(document).ready(function(){
-        $('#summernote').summernote({
-            placeholder:"내용을 입력해주세요",
-            height: 450,                 // set editor height
-            minHeight: null,             // set minimum height of editor
-            maxHeight: null,             // set maximum height of editor
-            focus: true   
-        });
-    })
-    
+$(document).ready(function(){
+let type = '"${type}"';
+   	
+       $('#summernote').summernote({
+           placeholder:"내용을 입력해주세요",
+           height: 450,                 // set editor height
+           minHeight: null,             // set minimum height of editor
+           maxHeight: null,             // set maximum height of editor
+           focus: true   
+       });
+       
+       if(type === 'mod'){
+	       $.ajax({
+			type:'post',
+			url:'/mintProject/admin/service/getFAQView',
+			data: 'seq=${seq}&pg=${pg}',
+			dataType:'json',
+			success: function(result){
+				let dto = result.dto;
+
+				$('#faqWriteCategory').val(dto.category);
+				$('#faqWriteSubject').val(dto.subject);
+				$('#summernote').val(`dto.content`);
+			},
+			error: function(error){
+				alert('불러오기 실패!');
+				console.error(error);
+			}
+		});
+      }
+})
+   
     // 글쓰기 버튼 클릭시
     /* 유효성 검사 alert로 해놓긴 했는데 div나 다른 방식으로 바꿀 수 있음  */
 $('#faqWriteBtn').click(function(){
@@ -67,11 +89,11 @@ $('#faqWriteBtn').click(function(){
 	else {
 		$.ajax({
 			type:'post',
-			url:'/mintProject/admin/faqWrite',
+			url:'/mintProject/admin/service/faqWrite',
 			data: $('#faqAdminWriteForm').serialize(),
 			success: function(){
 				alert('작성 완료!');
-				location.href='/mintProject/admin/faq';
+				location.href='/mintProject/admin/service/faq';
 			},
 			error: function(error){
 				alert('작성 실패!');

@@ -33,7 +33,7 @@
       
     </table>
     <div class="write-tb__btns">
-        <button type="button" class="btn btn-primary btn-lg">수정하기</button>
+        <button type="button" id="faqModifyBtn" class="btn btn-primary btn-lg">수정하기</button>
         <button type="button" class="btn btn-success btn-lg">목록으로</button>
     </div>   
 </div>
@@ -41,7 +41,7 @@
 $(function(){
 	$.ajax({
 		type:'post',
-		url:'/mintProject/admin/getFAQView',
+		url:'/mintProject/admin/service/getFAQView',
 		data: 'seq=${seq}&pg=${pg}',
 		dataType: 'json', 
 		success: function(result){
@@ -67,6 +67,10 @@ $(function(){
 	});	
 });
 
+
+$('#faqModifyBtn').click(function(){
+	location.href='/mintProject/admin/service/faqModifyForm?seq=${seq}&pg=${pg}&type=mod';
+});
 
 function getCategory(value){
 	if(value === '0') return '회원 문의';

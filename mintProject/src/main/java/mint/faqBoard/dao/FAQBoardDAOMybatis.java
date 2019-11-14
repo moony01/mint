@@ -28,7 +28,7 @@ public class FAQBoardDAOMybatis implements FAQBoardDAO {
 
 	@Override
 	public List<FAQBoardDTO> faqBoardSearch(Map<String, Object> map) {
-		return sqlSession.selectList("faqBoardSQL.faqBoardSearchList", map);
+		return sqlSession.selectList("faqBoardSQL.faqBoardSearch", map);
 	}
 
 	@Override
@@ -44,6 +44,16 @@ public class FAQBoardDAOMybatis implements FAQBoardDAO {
 	@Override
 	public FAQBoardDTO getFAQArticle(int seq) {
 		return sqlSession.selectOne("faqBoardSQL.getFAQArticle", seq);
+	}
+
+	@Override
+	public List<FAQBoardDTO> faqCategory(Map<String, Object> map) {
+		return sqlSession.selectList("faqBoardSQL.faqCategorySearchList", map);
+	}
+
+	@Override
+	public int getFAQCategoryTotalArticle(Map<String, Object> map) {
+		return sqlSession.selectOne("faqBoardSQL.getFAQCategoryTotalArticle", map);
 	}
 
 }

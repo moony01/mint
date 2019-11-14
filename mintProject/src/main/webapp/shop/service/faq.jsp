@@ -17,8 +17,7 @@
             <span class="title_sub">고객님들께서 가장 자주하시는 질문을 모두 모았습니다.</span>
         </h2>
 		<form id="faqBoardForm">
-	        <!-- 아직 값 설정 안함 같이할 예정 -->
-	        <select name="category" id="faq-select" class="select-box">
+	        <select name="category" id="categorySelect" class="select-box">
 	            <option value="9">선택</option>
 	            <option value="0">회원 문의</option>
 	            <option value="1">주문/결제</option>
@@ -33,11 +32,11 @@
 	                <th class="size-2">카테고리</th>
 	                <th class="size-9">제목</th>
 	            </tr>
-	            <!-- ajax로 게시물 들어가는 곳 -->
+	            <%-- ajax로 게시물 들어가는 곳 --%>
 	        </table>
 	        <div class="paging">
 	            <ul class="pagination">
-				<!-- 페이징 처리 들어가는 곳 -->
+				<%-- 페이징 처리 들어가는 곳 --%>
 	            </ul>  	
 	        </div>
 	        <div class="service__search">

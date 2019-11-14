@@ -44,4 +44,14 @@ public class FAQBoardServiceImpl implements FAQBoardService {
 		return faqBoardDAO.getFAQArticle(seq);
 	}
 
+	@Override
+	public List<FAQBoardDTO> faqCategory(Map<String, Object> map) {
+		return faqBoardDAO.faqCategory(map);
+	}
+
+	@Override
+	public int getCategoryTotalArticle(Map<String, Object> map) {
+		return faqBoardDAO.getFAQCategoryTotalArticle(map);
+	}
+
 }

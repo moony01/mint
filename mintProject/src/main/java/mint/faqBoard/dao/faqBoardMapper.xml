@@ -16,49 +16,74 @@
 		select count(*) from faqboard
 	</select>
 	
-	
-	<!-- FAQ게시판 게시물 검색 & 카테고리 선택 -->
-	<select id="faqBoardSearchList" parameterType="java.util.Map" resultType="faqBoard">
+	<!-- FAQ게시판 카테고리 선택시  -->
+	<select id="faqCategorySearchList" parameterType="java.util.Map" resultType="faqBoard">
 		<![CDATA[
 		select * from (select rownum rn, tt.* from
 		 (select * from faqboard
 		 ]]> 
 		 
-		<if test='category != 9 and keyword == null'>
+		<if test='category != 9'>
 			<![CDATA[
-				where category like #{category} order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
+				where category like #{category} order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
 			]]>  
 		</if>
-		<if test='category == 9 and keyword != null'>
+		<if test='category == 9'>
 			<![CDATA[
-				where subject like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
+				order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
 			]]> 
-		</if>
-		<if test='category != 9 and keyword != null'>
-			<![CDATA[
-				where category like #{category} and subject like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
-			]]> 
-		</if>
-		<if test='category == 9 and keyword == null'>
-			<![CDATA[
-				order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
-			]]>
 		</if>
 	</select>
 	
-	<!-- FAQ게시판 게시물 검색 & 카테고리 선택 시 총 게시물 수 가져오기-->
-	<select id="getSearchTotalArticle" parameterType="java.util.Map" resultType="Integer">
-		<if test='category != 9 and keyword == null'>
+	<!-- FAQ게시판 카테고리 선택시 총 게시물 -->
+	<select id="getFAQCategoryTotalArticle" parameterType="java.util.Map" resultType="Integer">
+		<if test='category != 9'>
 			select count(*) from faqboard where category like #{category}
 		</if>
-		<if test='category == 9 and keyword != null'>
+		<if test='category == 9'>
+			select count(*) from faqboard
+		</if>
+	</select>
+	
+	
+	<!-- FAQ게시판 게시물 검색 -->
+	<select id="faqBoardSearch" parameterType="java.util.Map" resultType="faqBoard">
+	 	<if test='searchOption == null and category == 9'>
+			<![CDATA[
+				select * from (select rownum rn, tt.* from (select * from faqboard where subject like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
+			]]> 
+		</if>
+		<if test='searchOption == null and category != 9'>
+			<![CDATA[
+				select * from (select rownum rn, tt.* from (select * from faqboard where subject like '%'||#{keyword}||'%' and category like #{category} order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
+			]]> 
+		</if>
+
+		<if test='searchOption != null and category == 9'>
+			<![CDATA[
+				select * from (select rownum rn, tt.* from (select * from faqboard where #{searchOption} like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
+			]]> 
+		</if>
+		<if test='searchOption != null and category != 9'>
+			<![CDATA[
+				select * from (select rownum rn, tt.* from (select * from faqboard where category like #{category} and #{searchOption} like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
+			]]> 
+		</if>
+	</select>
+	
+	<!-- FAQ게시판 게시물 검색 시 총 게시물 수 가져오기-->
+	<select id="getSearchTotalArticle" parameterType="java.util.Map" resultType="Integer">
+		<if test='searchOption == null and category == 9'>
 			select count(*) from faqboard where subject like '%'||#{keyword}||'%'
 		</if>
-		<if test='category != 9 and keyword != null'>
-			select count(*) from faqboard where category like #{category} and subject like '%'||#{keyword}||'%'
+		<if test='searchOption == null and category != 9'>
+			select count(*) from faqboard where subject like '%'||#{keyword}||'%' and category like #{category}
 		</if>
-		<if test='category == 9 and keyword == null'>
-			select count(*) from faqboard
+		<if test='searchOption != null and category == 9'>
+			select count(*) from faqboard where #{searchOption} like '%'||#{keyword}||'%'
+		</if>
+		<if test='searchOption != null and category != 9'>
+			select count(*) from faqboard where category like #{category} and #{searchOption} like '%'||#{keyword}||'%'
 		</if>
 	</select>
 	

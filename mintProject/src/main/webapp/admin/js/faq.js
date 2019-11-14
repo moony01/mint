@@ -2,6 +2,9 @@
 
 $(function(){
 	
+	// 검색 버튼에 포커스
+	$('.searchTerm').focus();
+	
 	// 게시판 리스트 가져오기 
 	$.ajax({
 		type:'post',
@@ -18,7 +21,50 @@ $(function(){
 	});
 });
 
+// 카테고리 선택시 게시판 리스트 불러오기
+$('#categorySelect').change(function(){
+	// 기존 테이블 비우기
+	$('.faqRow').remove();
+	
+	$.ajax({
+		type:'post',
+		url:'/mintProject/shop/service/faq/getCategoryList',
+		data: $('#faqBoardForm').serialize(),
+		dataType:'json',
+		success: function(result){
+			getAdminFAQList(result);
+			$('.pagination').html(result.faqBoardPaging.pagingHTML);
+		},
+		error: function(error){
+			console.error(error);
+		}
+	});
+});
 
+// 검색시  게시판 리스트 불러오기
+$('.searchButton').click(function(){
+	if(!$('.searchTerm').val()){
+		alert('검색어를 입력해주세요');
+	} else {
+		// 기존 테이블 비우기
+		$('.faqRow').remove();
+		
+		$.ajax({
+			type:'post',
+			url:'/mintProject/shop/service/faq/getSearchBoardList',
+			data: $('#faqBoardForm').serialize(),
+			dataType:'json',
+			success: function(result){
+				getAdminFAQList(result);
+				$('.pagination').html(result.faqBoardPaging.pagingHTML);
+			},
+			error: function(error){
+				console.error(error);
+			}
+		});
+	}
+	
+});
 
 
 
@@ -39,7 +85,7 @@ function getAdminFAQList(result){
 		} = faqs[i];
 		
 		let faqRow = `
-	      	<tr>
+	      	<tr class = "faqRow">
 				<td><input type="checkbox" name="" id="chk_${seq}"></td>
 				<td>${seq}</td>
 				<td>${
@@ -64,11 +110,13 @@ function getAdminFAQList(result){
 
 // 글쓰기 이동
 $('#faqWriteFormBtn').click(function(){
-	location.href='/mintProject/admin/faqWriteForm';
+	location.href='/mintProject/admin/service/faqWriteForm';
 });
 
 // 게시물 보기
 function faqAdminView(seq){
 	let pg = $('#pg').val();
-	location.href='/mintProject/admin/faqView?seq='+seq+'&pg='+pg;
+	location.href='/mintProject/admin/service/faqView?seq='+seq+'&pg='+pg;
 }
+
+

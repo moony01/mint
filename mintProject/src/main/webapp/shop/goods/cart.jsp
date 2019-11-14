@@ -4,7 +4,7 @@
 <section class="cart">
 
 <div id="main">
-	<div id="content">
+	<div id="content" style="width: 100%;">
 	<div class="section_cart">
 		<form id="" name="" method="post" action="">
 		
@@ -42,6 +42,26 @@
 			<span class="tit"> 전체선택 (<span class="prd_count">0</span>/<span class="prd_total_count">0</span>) </span>
 			<button type="button" class="btn_delete">선택 삭제</button>
 			<button type="button" class="btn_delete">품절 상품 삭제</button>
+		</div>
+		
+		<div>
+			<div id="totalPrdPrice">
+				상품금액 <span>0</span>원
+			</div>
+			<p>-</p>
+			<div>
+				상품할인금액 <span>0</span>원
+			</div>
+			<p>+</p>
+			<div>
+				배송비 <span>0</span>원
+			</div>
+			<p>=</p>
+			<div>
+				<div>결제예정금액</div>
+				<div>0</div>원
+				<div>구매시 <span>0</span>원 적립예정</div>
+			</div>
 		</div>
 		
 		</form>

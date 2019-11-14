@@ -23,21 +23,17 @@ import mint.faqBoard.service.FAQBoardService;
  *	FAQBoardController
  * 	자주 묻는 질문 게시판 컨트롤러
  * 
- * @version 1.5
+ * @version 1.6
  * @author LimChangHyun 
  *
  *	구현된 기능 : 사용자 기능 모두 완료 (리스트 가져오기, 페이징 처리, 카테고리 선택, 검색 기능, 답변 Display)
- *			    관리자 기능 (리스트 가져오기, 페이징 처리, 등록, 게시물 열람, 카테고리 선택)
+ *			    관리자 기능 (리스트 가져오기, 페이징 처리, 등록, 게시물 열람, 수정, 카테고리 선택, 체크박스 일괄 삭제)
  *	앞으로 구현되어야 하는 것 : 
  *						관리자용 검색 기능(필터 추가)
- *						수정 기능
- *						체크박스 일괄 삭제
  *	
  *	유의 : faq.jsp에서 카테고리 select option '선택'시 임의 value를 9로 두었음
  *	문제 : 1. summernote로 미디어 요소(이미지, 표 등) 추가시 사용자 측에서 전체적인 레이아웃이 깨져버림
- *		  2. 관리자용 FAQ페이지에서 검색 기능 작동 안함 
- *			증상 : RequestParam으로 값을 잘 가져가지만 SQL거치고 들고오는 것이 없음
- *		  3. 수정 시 summernote textarea쪽에 content내용이 안들어감
+ *		  2. 관리자 페이지 검색 기능 작동 안함
  */
 
 @Controller
@@ -125,13 +121,14 @@ public class FAQBoardController {
 		
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
-
+		System.out.println("관리자 FAQ게시판 검색 페이지에서 넘어오는 패러미터"+map);
+		
 		List<FAQBoardDTO> list = faqBoardService.faqBoardSearch(map);
-
+		System.out.println("SQL거쳐서 온 리스트 : "+list);
 		// 게시판 페이징 처리
 		// 총 글수
 		int totalArticle = faqBoardService.getSearchTotalArticle(map);
-		System.out.println(totalArticle);
+		System.out.println("SQL거쳐서 온 조건 부합 게시물 개수 : "+totalArticle);
 		faqBoardPaging.setCurrentPage(Integer.parseInt((String) map.get("pg")));
 		faqBoardPaging.setPageBlock(5);
 		faqBoardPaging.setPageSize(15);
@@ -225,6 +222,19 @@ public class FAQBoardController {
 	}
 	
 	/* FAQ게시판 게시물 수정 기능 */
+	@RequestMapping(value="/admin/service/faqModify", method=RequestMethod.POST)
+	@ResponseBody
+	public void boardModify(@RequestParam Map<String, String> map) {
+		faqBoardService.faqModify(map);
+	}
+	
 	/* FAQ게시판 게시물 삭제 기능 */
+	@RequestMapping(value="/admin/service/faqDelete", method=RequestMethod.POST)
+	@ResponseBody
+	public void faqDelete(@RequestParam String[] check) {
+		Map<String, String[]> map = new HashMap<String,String[]>();
+		map.put("array", check);
+		faqBoardService.faqDelete(map);
+	}
 	
 }

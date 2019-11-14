@@ -34,7 +34,7 @@
     </table>
     <div class="write-tb__btns">
         <button type="button" id="faqModifyBtn" class="btn btn-primary btn-lg">수정하기</button>
-        <button type="button" class="btn btn-success btn-lg">목록으로</button>
+        <button type="button" id="faqListBtn" class="btn btn-success btn-lg">목록으로</button>
     </div>   
 </div>
 <script type="text/javascript">
@@ -67,11 +67,17 @@ $(function(){
 	});	
 });
 
-
+// 수정 이동
 $('#faqModifyBtn').click(function(){
 	location.href='/mintProject/admin/service/faqModifyForm?seq=${seq}&pg=${pg}&type=mod';
 });
 
+// 목록 이동
+$('#faqListBtn').click(function(){
+	location.href='/mintProject/admin/service/faq?pg=${pg}';
+});
+
+// 카테고리 value에 따른 text 변경
 function getCategory(value){
 	if(value === '0') return '회원 문의';
 	else if(value === '1') return '주문/결제';
@@ -80,4 +86,5 @@ function getCategory(value){
 	else if(value === '4') return '쿠폰/적립금';
 	else if(value === '5') return '서비스 이용 및 기타';
 }
+
 </script>

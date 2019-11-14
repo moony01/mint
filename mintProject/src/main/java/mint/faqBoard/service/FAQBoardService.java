@@ -23,4 +23,8 @@ public interface FAQBoardService {
 
 	public int getCategoryTotalArticle(Map<String, Object> map);
 
+	public void faqDelete(Map<String, String[]> map);
+
+	public void faqModify(Map<String, String> map);
+
 }

@@ -54,4 +54,15 @@ public class FAQBoardServiceImpl implements FAQBoardService {
 		return faqBoardDAO.getFAQCategoryTotalArticle(map);
 	}
 
+	@Override
+	public void faqDelete(Map<String, String[]> map) {
+		faqBoardDAO.faqDelete(map);
+	}
+
+	@Override
+	public void faqModify(Map<String, String> map) {
+		faqBoardDAO.faqModify(map);
+		
+	}
+
 }

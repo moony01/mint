@@ -66,7 +66,7 @@
 		</if>
 		<if test='searchOption != null and category != 9'>
 			<![CDATA[
-				select * from (select rownum rn, tt.* from (select * from faqboard where category like #{category} and #{searchOption} like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
+				select * from (select rownum rn, tt.* from (select * from faqboard where #{searchOption} like '%'||#{keyword}||'%' and category like #{category} order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
 			]]> 
 		</if>
 	</select>
@@ -98,5 +98,18 @@
 	<select id="getFAQArticle" parameterType="Integer" resultType="faqBoard">
 		select * from faqboard where seq=#{seq}
 	</select>
+	
+	<!-- FAQ게시판 삭제 -->
+	<delete id="faqDelete" parameterType="java.util.Map">
+		delete faqboard where seq in 
+		<foreach collection="array" item="seq" index="i" open="(" separator="," close=")">
+			#{seq}
+		</foreach>
+	</delete>
+	
+	<!-- FAQ게시판 글 수정 -->
+	<update id="faqModify" parameterType="java.util.Map">
+		update faqboard set subject=#{subject}, content=#{content}, logtime=sysdate where seq=#{seq}
+	</update>
 	
 </mapper>

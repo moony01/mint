@@ -23,4 +23,8 @@ public interface FAQBoardDAO {
 
 	public int getFAQCategoryTotalArticle(Map<String, Object> map);
 
+	public void faqDelete(Map<String, String[]> map);
+
+	public void faqModify(Map<String, String> map);
+
 }

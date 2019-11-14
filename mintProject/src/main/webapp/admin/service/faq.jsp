@@ -22,7 +22,7 @@
 	    
 	    <table class="table table-bordered">
 	        <tr class="th--dark">
-	            <th class="col-md-1"><input type="checkbox" name="" id=""></th>
+	            <th class="col-md-1"><input type="checkbox" name="" id="chkAll"></th>
 	            <th class="col-md-1">번호</th>
 	            <th class="col-md-1">카테고리</th>
 	            <th class="col-md-6">제목</th>

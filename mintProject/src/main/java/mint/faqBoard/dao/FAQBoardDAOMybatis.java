@@ -56,4 +56,15 @@ public class FAQBoardDAOMybatis implements FAQBoardDAO {
 		return sqlSession.selectOne("faqBoardSQL.getFAQCategoryTotalArticle", map);
 	}
 
+	@Override
+	public void faqDelete(Map<String, String[]> map) {
+		sqlSession.delete("faqBoardSQL.faqDelete", map);
+		
+	}
+
+	@Override
+	public void faqModify(Map<String, String> map) {
+		sqlSession.update("faqBoardSQL.faqModify", map);		
+	}
+
 }

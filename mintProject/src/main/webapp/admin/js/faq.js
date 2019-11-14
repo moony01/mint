@@ -41,7 +41,7 @@ $('#categorySelect').change(function(){
 	});
 });
 
-// 검색시  게시판 리스트 불러오기
+// 검색시 게시판 리스트 불러오기
 $('.searchButton').click(function(){
 	if(!$('.searchTerm').val()){
 		alert('검색어를 입력해주세요');
@@ -86,7 +86,7 @@ function getAdminFAQList(result){
 		
 		let faqRow = `
 	      	<tr class = "faqRow">
-				<td><input type="checkbox" name="" id="chk_${seq}"></td>
+				<td><input type="checkbox" name="check" class="check" value=${seq}></td>
 				<td>${seq}</td>
 				<td>${
 						(() => {
@@ -113,10 +113,43 @@ $('#faqWriteFormBtn').click(function(){
 	location.href='/mintProject/admin/service/faqWriteForm';
 });
 
+// 목록 이동
+$('#faqListBtn').click(function(){
+	location.href='/mintProject/admin/service/faq';
+});
+
 // 게시물 보기
 function faqAdminView(seq){
 	let pg = $('#pg').val();
 	location.href='/mintProject/admin/service/faqView?seq='+seq+'&pg='+pg;
 }
 
+
+// 체크박스 컨트롤
+$('#chkAll').click(function(){
+	if($('#chkAll').prop('checked')) $('.check').prop('checked', true);
+	else $('.check').prop('checked', false);
+});
+
+// 삭제 기능
+$('#faqDeleteBtn').click(function(){
+	var cnt = $('.check:checked').length; // 체크된 항목 갯수 구하기
+	if(cnt===0) alert('삭제할 항목을 먼저 선택하세요');
+	else {
+		if(confirm('정말로 삭제하시겠습니까?')) {
+			$.ajax({
+				type:'post',
+				url:'/mintProject/admin/service/faqDelete',
+				data: $('#faqBoardForm').serialize(),
+				success: function(result){
+					alert('삭제 완료!');
+					location.href='/mintProject/admin/service/faq';
+				},
+				error: function(error){
+					console.error(error);
+				}
+			});
+		}
+	}
+});
 

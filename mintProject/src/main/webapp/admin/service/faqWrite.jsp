@@ -10,9 +10,9 @@
 </div>
 <div class="container">
 	<form id="faqAdminWriteForm">
-		<%-- 수정용 pg --%>
+		<%-- 수정용 pg, seq --%>
 	   	<input type="hidden" name="pg" value="${pg}">
-	
+		<input type="hidden" name="seq" value="${seq}">
 	
 	    <table class="table table-bordered write-tb">
 	        <tr>
@@ -44,62 +44,73 @@
     </form>
     <div class="write-tb__btns">
         <button type="button" id="faqWriteBtn" class="btn btn-primary btn-lg">글쓰기</button>
-        <button type="button" class="btn btn-success btn-lg">목록으로</button>
+        <button type="button" id="faqListBtn" class="btn btn-success btn-lg">목록으로</button>
     </div>   
 </div>
 <script>
-$(document).ready(function(){
-let type = '"${type}"';
-   	
-       $('#summernote').summernote({
-           placeholder:"내용을 입력해주세요",
-           height: 450,                 // set editor height
-           minHeight: null,             // set minimum height of editor
-           maxHeight: null,             // set maximum height of editor
-           focus: true   
-       });
-       
-       if(type === 'mod'){
-	       $.ajax({
-			type:'post',
-			url:'/mintProject/admin/service/getFAQView',
-			data: 'seq=${seq}&pg=${pg}',
-			dataType:'json',
-			success: function(result){
-				let dto = result.dto;
 
-				$('#faqWriteCategory').val(dto.category);
-				$('#faqWriteSubject').val(dto.subject);
-				$('#summernote').val(`dto.content`);
-			},
-			error: function(error){
-				alert('불러오기 실패!');
-				console.error(error);
-			}
-		});
-      }
-})
+$(document).ready(function(){
+	// modify일시 type이 mod로 넘어옴
+	let type = '"${type}"';
+	   if(type === '"mod"'){
+		$('#faqWriteCategory').val(${dto.category});
+		$('#faqWriteSubject').val(`${dto.subject}`);
+		$('#summernote').val(`${dto.content}`);
+	}
+	  	
+	$('#summernote').summernote({
+	    placeholder:"내용을 입력해주세요",
+	    height: 450,                 // set editor height
+	    minHeight: null,             // set minimum height of editor
+	    maxHeight: null,             // set maximum height of editor
+	    focus: true   
+	});
+});
    
-    // 글쓰기 버튼 클릭시
-    /* 유효성 검사 alert로 해놓긴 했는데 div나 다른 방식으로 바꿀 수 있음  */
+// 글쓰기 버튼 클릭시
+/* 유효성 검사 alert로 해놓긴 했는데 div나 다른 방식으로 바꿀 수 있음  */
 $('#faqWriteBtn').click(function(){
+	let type = '"${type}"';
 	if($('#faqWriteCategory').val() === '') alert('카테고리 선택을 해주세요');
 	else if (!$('#faqWriteSubject').val()) alert('제목을 입력 해주세요');
 	else if (!$('#summernote').val()) alert('내용을 입력 해주세요');
 	else {
-		$.ajax({
-			type:'post',
-			url:'/mintProject/admin/service/faqWrite',
-			data: $('#faqAdminWriteForm').serialize(),
-			success: function(){
-				alert('작성 완료!');
-				location.href='/mintProject/admin/service/faq';
-			},
-			error: function(error){
-				alert('작성 실패!');
-				console.error(error);
-			}
-		});
+		if(type === '"mod"'){
+			$.ajax({
+				type:'post',
+				url:'/mintProject/admin/service/faqModify',
+				data: $('#faqAdminWriteForm').serialize(),
+				success: function(){
+					alert('수정 완료!');
+					location.href='/mintProject/admin/service/faq?pg=${pg}';
+				},
+				error: function(error){
+					alert('수정 실패!');
+					console.error(error);
+				}
+			});
+		} else {
+			$.ajax({
+				type:'post',
+				url:'/mintProject/admin/service/faqWrite',
+				data: $('#faqAdminWriteForm').serialize(),
+				success: function(){
+					alert('작성 완료!');
+					location.href='/mintProject/admin/service/faq';
+				},
+				error: function(error){
+					alert('작성 실패!');
+					console.error(error);
+				}
+			
+			});
+		}
 	}
-})
+});
+
+// 목록 이동
+$('#faqListBtn').click(function(){
+	location.href='/mintProject/admin/service/faq?pg=${pg}';
+});
+
 </script>

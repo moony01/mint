@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mint.orderAndSales.bean.OrderAndSalesDTO;
 import mint.product.bean.ProductDTO;
 import mint.product.dao.ProductManageDAO;
 
@@ -24,6 +25,11 @@ public class ProductManageServiceImpl implements ProductManageService{
 	@Override
 	public List<ProductDTO> getProductList(Map<String, String> map) {
 		return productManageDAO.getProductList(map);
+	}
+
+	@Override
+	public List<OrderAndSalesDTO> getSalesData() {
+		return productManageDAO.getSalesData();
 	}
 
 }

@@ -4,6 +4,7 @@ package mint.product.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,9 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import mint.orderAndSales.bean.OrderAndSalesDTO;
 import mint.product.bean.ProductDTO;
 import mint.product.service.ProductManageService;
 import mint.qnaBoard.bean.QnaBoardDTO;
+import net.sf.json.JSONArray;
 
 @Controller
 public class ProductManageController {
@@ -90,5 +93,14 @@ public class ProductManageController {
 		return mav;
 	}
 	
-	
+	@RequestMapping(value="/admin/sales_getData", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONArray getDataForChart() {
+		List<OrderAndSalesDTO> list = productManageService.getSalesData();
+		System.out.println("list : "+list);
+		JSONArray jsonArray = JSONArray.fromObject(list);
+		System.out.println("jsonArray : "+jsonArray);
+		return jsonArray;
+		
+	}
 }

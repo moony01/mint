@@ -3,7 +3,7 @@ package mint.qnaBoard.service;
 import java.util.List;
 import java.util.Map;
 
-import mint.qnaBoard.bean.OrderAndSalesDTO;
+import mint.orderAndSales.bean.OrderAndSalesDTO;
 import mint.qnaBoard.bean.QnaBoardDTO;
 
 public interface QnaBoardService {

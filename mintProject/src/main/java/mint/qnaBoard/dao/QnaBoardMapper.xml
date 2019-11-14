@@ -14,7 +14,7 @@
 	</select>
 	<!--  where rn >= #{startNum} and rn <= #{endNum} -->
 	
-	<select id="getOrderList" parameterType="String" resultType="mint.qnaBoard.bean.OrderAndSalesDTO">
+	<select id="getOrderList" parameterType="String" resultType="orderAndSales">
 		select * 
 		  from orderAndSales
 		 where email = #{email} 

@@ -1,4 +1,4 @@
-package mint.qnaBoard.bean;
+package mint.orderAndSales.bean;
 
 import java.util.Date;
 
@@ -6,17 +6,15 @@ import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
-@Component
 @Data
+@Component
 public class OrderAndSalesDTO {
 	private String orderNumber;
 	private String email;
 	private String productCode;
 	private int price;
 	private int qty;
-	private int sales;
-	private Date logtime;
-	private String category;
-	private String supplierId;
+	private String logtime;
+//	private Date logtime;
 	private int status;
 }

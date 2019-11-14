@@ -11,12 +11,19 @@ public interface SuggestBoardDAO {
 
 	public List<SuggestBoardDTO> getSuggestBoardList(Map<String, Object> map);
 
-	public int getSuggestBoardTotArticle(String id);
+	public int getSuggestBoardTotArticle(Map<String, Object> map);
+
+	public int getAllSuggestBoardTotArticle();
 
 	public SuggestBoardDTO getSuggestBoard(int seq);
 
 	public void updateSuggestBoard(SuggestBoardDTO suggestBoardDTO);
 
 	public void deleteSuggestBoard(int seq);
+
+	public List<SuggestBoardDTO> getAllSuggestBoardList(Map<String, Object> map);
+
+	public void updateReplySuggestBoard(Map<String, String> map);
+
 
 }

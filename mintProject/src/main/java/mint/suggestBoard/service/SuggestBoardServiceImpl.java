@@ -24,12 +24,21 @@ public class SuggestBoardServiceImpl implements SuggestBoardService {
 		return suggestBoardDAO.getSuggestBoardList(map);
 		
 	}
-
+	
 	@Override
-	public int getSuggestBoardTotArticle(String id) {
-		return suggestBoardDAO.getSuggestBoardTotArticle(id);
+	public List<SuggestBoardDTO> getAllSuggestBoardList(Map<String, Object> map) {
+		return suggestBoardDAO.getAllSuggestBoardList(map);
 	}
 
+	@Override
+	public int getSuggestBoardTotArticle(Map<String, Object> map) {
+		return suggestBoardDAO.getSuggestBoardTotArticle(map);
+	}
+	
+	@Override
+	public int getAllSuggestBoardTotArticle() {
+		return suggestBoardDAO.getAllSuggestBoardTotArticle();
+	}
 	@Override
 	public SuggestBoardDTO getSuggestBoard(int seq) {
 		return suggestBoardDAO.getSuggestBoard(seq);
@@ -46,5 +55,15 @@ public class SuggestBoardServiceImpl implements SuggestBoardService {
 		suggestBoardDAO.deleteSuggestBoard(seq);
 		
 	}
+
+	@Override
+	public void updateReplySuggestBoard(Map<String, String> map) {
+		suggestBoardDAO.updateReplySuggestBoard(map);
+		
+	}
+
+	
+
+	
 
 }

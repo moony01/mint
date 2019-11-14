@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminController {
-	@RequestMapping(value="/admin/admin", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/main/admin", method=RequestMethod.GET)
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("display","/shop/template/body.jsp");

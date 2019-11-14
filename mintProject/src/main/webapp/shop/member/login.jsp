@@ -37,7 +37,8 @@
 </section>
 <script src="/mintProject/shop/js/login.js"></script>
 <script type='text/javascript'>
-checkStatus();
+let status = '${status}';
+checkStatus(status);
 getCookie();
 
 function loginWithKakao(){

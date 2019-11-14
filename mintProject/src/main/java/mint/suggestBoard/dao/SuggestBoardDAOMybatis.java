@@ -23,10 +23,21 @@ public class SuggestBoardDAOMybatis implements SuggestBoardDAO {
 	public List<SuggestBoardDTO> getSuggestBoardList(Map<String, Object> map) {
 		return sqlSession.selectList("suggestBoardSQL.getSuggestBoardList", map);		
 	}
+	
+	@Override
+	public List<SuggestBoardDTO> getAllSuggestBoardList(Map<String, Object> map) {
+		return sqlSession.selectList("suggestBoardSQL.getAllSuggestBoardList", map);	
+	}
+
 
 	@Override
-	public int getSuggestBoardTotArticle(String id) {
-		return sqlSession.selectOne("suggestBoardSQL.getSuggestBoardTotArticle", id);
+	public int getSuggestBoardTotArticle(Map<String, Object> map) {
+		return sqlSession.selectOne("suggestBoardSQL.getSuggestBoardTotArticle", map);
+	}
+	
+	@Override
+	public int getAllSuggestBoardTotArticle() {
+		return sqlSession.selectOne("suggestBoardSQL.getAllSuggestBoardTotArticle");
 	}
 
 	@Override
@@ -44,5 +55,13 @@ public class SuggestBoardDAOMybatis implements SuggestBoardDAO {
 		sqlSession.delete("suggestBoardSQL.deleteSuggestBoard", seq);
 		
 	}
+
+	@Override
+	public void updateReplySuggestBoard(Map<String, String> map) {
+		sqlSession.update("suggestBoardSQL.updateReplySuggestBoard", map);
+	}
+
+	
+	
 
 }

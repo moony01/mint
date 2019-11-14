@@ -11,13 +11,13 @@ function getCookie(){
 }
 
 //login?status= 에 따라 url 변경 
-function checkStatus(){
-	if('${status}' == 'fail') { //로그인 실패 시 
+function checkStatus(status){
+	if(status == 'fail') { //로그인 실패 시 
 		alert("아이디 혹은 비밀번호가 틀립니다. ");
-	} else if('${status}' == 'need') { // 로그인 전에 인증 권한이 필요한 페이지를 요청했을 시
+	} else if(status == 'need') { // 로그인 전에 인증 권한이 필요한 페이지를 요청했을 시
 		alert('로그인 후 이용 가능한 페이지 입니다.');
 		location.href='/mintProject/shop/member/login';
-	} else if('${status}' == 'duplicated') { // 다른 브라우저에서 중복 로그인 되었을 시  
+	} else if(status == 'already') { // 다른 브라우저에서 중복 로그인 되었을 시  
 		alert('다른 브라우저에서 로그인 되었습니다.');
 		location.href='/mintProject/shop/main/index';
 	}	

@@ -38,7 +38,7 @@ public class MemberController {
 	
 	//회원가입
 	@RequestMapping(value="/shop/member/join", method = RequestMethod.GET)
-	public ModelAndView join() {
+	public ModelAndView getJoinForm() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("display", "/shop/member/join.jsp");
 		mav.setViewName("/shop/main/index");
@@ -108,36 +108,15 @@ public class MemberController {
 	
 	//로그인
 	@RequestMapping(value="/shop/member/login", method = RequestMethod.GET)
-	public ModelAndView login(@RequestParam(required = false, defaultValue = "") String status) {
+	public ModelAndView getLoginForm(@RequestParam(required = false, defaultValue = "") String status) {
 		ModelAndView mav = new ModelAndView();
-		if(status.equals("fail")) {
-			mav.addObject("status", "fail");
-		} else if(status.equals("need")) {
-			mav.addObject("status", "need");
-		} else if(status.equals("duplicated")) {
-			mav.addObject("status", "duplicated");
-		}
+		mav.addObject("status", status);
+
 		mav.addObject("display", "/shop/member/login.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;
 	}
-	
-	@RequestMapping("/shop/member/needLogin")
-	public ModelAndView needLogin() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("display", "/shop/member/needLogin.jsp");
-		mav.setViewName("/shop/main/index");
-		return mav;
-	}
-	
-	@RequestMapping("/shop/member/duplicatedLogin")
-	public ModelAndView duplicatedLogin() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("display", "/shop/member/duplicatedLogin.jsp");
-		mav.setViewName("/shop/main/index");
-		return mav;
-	}
-	
+
 	//kakao API 로그인 
 	@RequestMapping(value="/shop/member/kakaoLogin")
 	@ResponseBody
@@ -236,14 +215,14 @@ public class MemberController {
 	
 	// 아이디/비밀번호 찾기 
 	@RequestMapping("/shop/member/findId")
-	public ModelAndView findId(ModelAndView mav) {
+	public ModelAndView getFindIdForm(ModelAndView mav) {
 		mav.addObject("display", "/shop/member/findId.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;
 	}
 	
 	@RequestMapping("/shop/member/findPwd")
-	public ModelAndView findPwd(ModelAndView mav) {
+	public ModelAndView getFindPwdForm(ModelAndView mav) {
 		mav.addObject("display", "/shop/member/findPwd.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;
@@ -251,7 +230,7 @@ public class MemberController {
 	
 	@RequestMapping("/shop/member/findIdOk")
 	@ResponseBody
-	public String findIdOk(@RequestParam Map<String, String> map) {
+	public String getMember(@RequestParam Map<String, String> map) {
 		Object[] key =  map.keySet().toArray(); 
 		Object[] value = map.values().toArray();
 		
@@ -263,7 +242,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/shop/member/updateInfo")
-	public ModelAndView updateInfo(@RequestParam Map<String, String> map, ModelAndView mav) {		
+	public ModelAndView updateMemberInfo(@RequestParam Map<String, String> map, ModelAndView mav) {		
 		String pwd = passwordEncoder.encode(map.get("pwd")); //비밀번호 암호화
 		map.put("pwd", pwd);
 		

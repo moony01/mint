@@ -10,5 +10,6 @@
 		<typeAlias type="mint.productQnaBoard.bean.ProductQnaBoardDTO" alias="productQnaBoard"/>
 		<typeAlias type="mint.product.bean.ProductDTO" alias="product"/>
 		<typeAlias type="mint.cart.bean.CartDTO" alias="cart"/>
+		<typeAlias type="mint.orderAndSales.bean.OrderAndSalesDTO" alias="orderAndSales"/>
 	</typeAliases>
 </configuration>

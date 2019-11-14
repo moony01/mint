@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import mint.qnaBoard.bean.OrderAndSalesDTO;
+import mint.orderAndSales.bean.OrderAndSalesDTO;
 import mint.qnaBoard.bean.QnaBoardDTO;
 import mint.qnaBoard.service.QnaBoardService;
 

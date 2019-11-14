@@ -19,6 +19,9 @@
 		 </if>   
 	</select>
 	
-	
+	<!-- 매출 -->
+	<select id="getSalesData" resultType="orderAndSales">
+	select price, qty, to_char(logtime,'YYYY-MM-DD') as logtime from orderandsales where status=3
+	</select>
 </mapper>
 

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="main__title">
-    <h2 class="out">상품제안 관리</h2>
+    <h2 class="out">FAQ 관리</h2>
     <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>게시판</span></a>
     <span class="ar-title">></span>        
-    <a href="">상품제안 관리</a>
+    <a href="">FAQ 관리</a>
     <span class="ar-title">></span>
     <a href="" class="now-title">글 읽기</a>                
 </div>

@@ -57,8 +57,8 @@
                     	
 	                    	<c:if test="${list.replyStatus == 0 }">
 	                    		<div style="display: flex;  flex-direction:row-reverse;" >
-	                    			<input type="button" id="delBtn" value="삭제" onclick="qnaDelete(${list.seq})" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;">
-	                    			<input type="button" id="updateBtn" value="수정" onclick="location.href='/mintProject/qnaboard/qnaBoardModifyForm?seq=${list.seq}'" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;"> 
+	                    			<input type="button" id="delBtn" value="삭제" onclick="qnaDelete(${list.seq})" style="background-color: white; border: 1px solid #45b8ac; align-content: center; line-height: 20px;">
+	                    			<input type="button" id="updateBtn" value="수정" onclick="location.href='/mintProject/qnaboard/qnaBoardModifyForm?seq=${list.seq}'" style="background-color: white; border: 1px solid #45b8ac; align-content: center; line-height: 20px;"> 
 	                    		</div>
 	                    	</c:if>
                     	</td>
@@ -82,7 +82,7 @@
                 <li class="page-item"><a class="page-link" href="#">></a></li>
             </ul>
         </div>
-        <div class="service__write-btn clearfix" onclick="location.href='/mintProject/qnaboard/getQnaBoardWriteForm'">글쓰기</div>
+        <div class="service__write-btn clearfix" style="background-color: #45b8ac"  onclick="location.href='/mintProject/qnaboard/getQnaBoardWriteForm'">글쓰기</div>
     </div>
 </section>
 <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->

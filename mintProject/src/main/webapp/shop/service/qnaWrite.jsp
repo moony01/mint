@@ -54,7 +54,8 @@
                                 	 <c:forEach var="list" items="${list}">
 										 <tr class="orders__list">
                                     		<td>${list.orderNumber}</td>
-                                    		<td><fmt:formatDate value="${list.logtime}" pattern="yyyy-MM-dd"/></td>
+                                    		<td>${list.logtime}</td>
+                                    		<%-- <td><fmt:formatDate value="${list.logtime}" pattern="yyyy-MM-dd"/></td> --%>
                                     		<td>일단보류</td>
 		                                    <td>${list.qty}</td>
 		                                    <td>${list.price}</td>
@@ -65,7 +66,7 @@
                             <img src="https://www.kurly.com/shop/data/skin/designgj/img/common/popup_close.gif" class="orders-close">
                         </div>
                         <input type="text" class="board-write__order-txt" id="orderTxt" name= "orderNumber" readonly>
-                        <input type="button" value="주문조회" class="board-write__order-btn" id="orderBtn">
+                        <input type="button" value="주문조회" class="board-write__order-btn" style="background-color: #45b8ac" id="orderBtn">
                     </div>
                 </div>
                 <div class="board-write__content">

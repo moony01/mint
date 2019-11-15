@@ -21,7 +21,9 @@
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
-    
+    <!-- 다음 우편번호 -->
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
     <link rel="stylesheet" href="/mintProject/shop/css/reset.css">
     <link rel="stylesheet" href="/mintProject/admin/css/admin.css">
     <script></script>
@@ -49,7 +51,8 @@
                 </div>
                 <ul class="list">
                     <li><a href="">회원 목록</a></li>
-                    <li><a href="">회원 포인트 관리</a></li>
+                    <li><a href="">판매자 목록</a></li>
+                    <li><a href="/mintProject/admin/member/supplierForm">판매자 등록</a></li>
                 </ul>            
             </div>
             <div class="prd-manage">
@@ -90,7 +93,7 @@
                     <span>매출</span>
                 </div>
                 <ul class="list">
-                    <li><a href="/mintProject/admin/service/sales">매출 관리</a></li>
+                    <li><a href="/mintProject/admin/sales">매출 관리</a></li>
                 </ul>
             </div>
         </nav>

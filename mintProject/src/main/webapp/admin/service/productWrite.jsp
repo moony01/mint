@@ -82,6 +82,15 @@
 	            </td>
 	        </tr>
 	        <tr>
+	            <th>판매상태</th>
+	            <td class="table--left">
+	                <select name="productStatus" id="productStatus" class="product-status">
+	                    <option value="0" id="onsale">판매중</option>
+	                    <option value="1" id="discontinued">판매중지</option>
+	                </select>
+	            </td>
+	        </tr>
+	        <tr>
 	            <th>사업자 아이디</th>
 	            <td class="table--left">
 	                <input type="text" name="supplierId">
@@ -117,6 +126,19 @@
 	            <th>가격</th>
 	            <td class="table--left">
 	                <input type="text" name="price">
+	            </td>
+	        </tr>
+	        <tr>
+	            <th>할인률</th>
+	            <td class="table--left">
+	                <select name="discountRate" id="discountRate" class="discount-rate">
+	                    <option value="0" id="none">0%</option>
+	                    <option value="10" id="10percent">10%</option>
+	                    <option value="20" id="20percent">20%</option>
+	                    <option value="30" id="30percent">30%</option>
+	                    <option value="40" id="40percent">40%</option>
+	                    <option value="50" id="50percent">50%</option>
+	                </select>
 	            </td>
 	        </tr>
 	        <tr>

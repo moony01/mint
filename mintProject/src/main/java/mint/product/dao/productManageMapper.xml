@@ -8,7 +8,7 @@
 	</insert>
 	
 	<!-- 상품 리스트 조회 -->
-	<select id="getProductList" parameterType="java.util.Map" resultType="product">
+	<!-- <select id="getProductList" parameterType="java.util.Map" resultType="product">
 		select * 
 		  from product
 		 where 
@@ -17,7 +17,87 @@
 		 </if>
 		 <if test="subCategory!=null">
 			   subCategory = #{subCategory}
-		 </if>   
+		 </if>
+		 신상품 : 1   인기상품순 : 2    낮은 가격순 : 3   높은 가격순 : 4
+		 <choose>
+		 	<when test="selectGubun==null||selectGubun==1">
+		 		order by productCode desc
+		 	</when>
+		 	<when test="selectGubun==2">
+		 		order by RECOMMEND desc
+		 	</when>
+		 	<when test="selectGubun==3">
+		 		order by price
+		 	</when>
+		 	<otherwise>
+		 		order by price desc
+		 	</otherwise>
+		 </choose> -->
+		 
+		<!-- 상품 리스트 조회 -->
+		<select id="getProductList" parameterType="java.util.Map" resultType="product"> 
+		 <choose>
+		 	<when test="selectGubun==3||selectGubun==4">
+		 		select PRODUCTCODE         
+                     , MAINCATEGORY                 
+				     , SUBCATEGORY                    
+				     , SUPPLIERID           
+				     , STOCK                       
+				     , MAINSUBJECT            
+				     , SUBSUBJECT            
+				     , THUMBNAIL
+				     , case when DISCOUNTRATE != 0 or DISCOUNTRATE is not null then price - (price * (discountRate * (1/100)))  
+				            else price    
+				       end as price
+				     , UNIT                 
+				     , WEIGHT               
+				     , PACKAGETYPE        
+				     , INFORMATION            
+				     , DESCRIPTION           
+				     , PRODUCTIMAGE        
+				     , DETAILS           
+				     , PRODUCTSTATUS        
+				     , RECOMMEND                  
+				     , DISCOUNTRATE 
+				  from product
+				 where 
+		 	 	<if test="mainCategory!=null">
+					   mainCategory = #{mainCategory}
+				</if>
+				<if test="subCategory!=null">
+					   subCategory = #{subCategory}
+				</if>	
+		 		<!-- 신상품 : 1   인기상품순 : 2    낮은 가격순 : 3   높은 가격순 : 4 -->
+				<choose>
+					<when test="selectGubun==3">
+			     order by price
+			 		</when>
+				 	<otherwise>
+				 order by price desc
+				 	</otherwise>
+			 	</choose>
+		 	</when>
+		 	<otherwise>
+		 		select * 
+		  	      from product
+		         where 
+		 		<if test="mainCategory!=null">
+			   		   mainCategory = #{mainCategory}
+		        </if>
+		        <if test="subCategory!=null">
+			           subCategory = #{subCategory}
+		        </if>
+				<!-- 신상품 : 1   인기상품순 : 2    낮은 가격순 : 3   높은 가격순 : 4 -->
+		 		<choose>
+		 	    	<when test="selectGubun==null||selectGubun==1">
+		 	     order by productCode desc
+		 		    </when>
+		 	        <when test="selectGubun==2">
+		 		 order by RECOMMEND desc
+		 	   		</when>	
+		 	    </choose>
+		 	</otherwise>
+		 </choose>
 	</select>
 	
 	<!-- 매출 -->

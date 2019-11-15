@@ -21,11 +21,24 @@
             <div class="product__sort">
                 <span class="sort up">신상품순</span>
                 <ul class="sort__list">
-                    <li><a href="">추천순</a></li>
-                    <li><a href="">신상품순</a></li>
-                    <li><a href="">인기상품순</a></li>
-                    <li><a href="">낮은 가격순</a></li>
-                    <li><a href="">높은 가격순</a></li>
+                	<c:if test="${gubun == 1}">
+                		<li><a href="/mintProject/productList/getProductList?mainCategory=${list.get(0).getMainCategory()}&selectGubun=1&gubun=${gubun}">신상품순</a></li>
+	                    <li><a href="/mintProject/productList/getProductList?mainCategory=${list.get(0).getMainCategory()}&selectGubun=2&gubun=${gubun}">인기상품순</a></li>
+	                    <li><a href="/mintProject/productList/getProductList?mainCategory=${list.get(0).getMainCategory()}&selectGubun=3&gubun=${gubun}">낮은 가격순</a></li>
+	                    <li><a href="/mintProject/productList/getProductList?mainCategory=${list.get(0).getMainCategory()}&selectGubun=4&gubun=${gubun}">높은 가격순</a></li>
+	            	</c:if>
+	            	<c:if test="${gubun == 2}">
+                		<li><a href="/mintProject/productList/getProductList?subCategory=${list.get(0).getSubCategory()}&selectGubun=1&gubun=${gubun}">신상품순</a></li>
+	                    <li><a href="/mintProject/productList/getProductList?subCategory=${list.get(0).getSubCategory()}&selectGubun=2&gubun=${gubun}">인기상품순</a></li>
+	                    <li><a href="/mintProject/productList/getProductList?subCategory=${list.get(0).getSubCategory()}&selectGubun=3&gubun=${gubun}">낮은 가격순</a></li>
+	                    <li><a href="/mintProject/productList/getProductList?subCategory=${list.get(0).getSubCategory()}&selectGubun=4&gubun=${gubun}">높은 가격순</a></li>
+	            	</c:if>
+	            	<c:if test="${gubun == 3}">
+                		<li><a href="/mintProject/productList/getProductList?selectGubun=1&gubun=${gubun}">신상품순</a></li>
+	                    <li><a href="/mintProject/productList/getProductList?selectGubun=2&gubun=${gubun}">인기상품순</a></li>
+	                    <li><a href="/mintProject/productList/getProductList?selectGubun=3&gubun=${gubun}">낮은 가격순</a></li>
+	                    <li><a href="/mintProject/productList/getProductList?selectGubun=4&gubun=${gubun}">높은 가격순</a></li>
+	            	</c:if>                
                 </ul>
             </div>
         </div>
@@ -36,22 +49,45 @@
 		        <div class="product__item">
 		            <div class="product__thumb">
 		            	<c:if test="${list.discountRate == 20}">
-		            		<img class="discount-rate" src="./image/distate-20.png" alt="">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/distate-20.png" alt="">
 		            	</c:if>
-		                <img class="thumb" src="https://img-cf.kurly.com/shop/data/goods/1531901452450l0.jpg" alt="">
+		            	<c:if test="${list.discountRate == 30}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/distate-30.png" alt="">
+		            	</c:if>
+		            	<c:if test="${list.discountRate == 40}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/distate-40.png" alt="">
+		            	</c:if>
+		            	<c:if test="${list.discountRate == 50}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/distate-50.png" alt="">
+		            	</c:if>
+		                <img class="thumb" src="/mintProject/shop/storage/${list.thumbnail}" alt="">
 		                <div class="cart-btn">
-		                    <img src="./image/cart.png" alt="">
+		                    <a href="/mintProject/shop/goods/cart"><img src="/mintProject/shop/storage/mint/icon/cart_test.png" alt="" style="width: 28px"></a>
 		                </div>
 		            </div>
 		            <div class="product__info">
-		                <div class="product__name">무농약 깐 생강</div>
-		                <div class="product__cost">
-		                	<c:if test="${list.discountRate == 20}">
-		                		<span class="product__dc">${list.price * 0.8}</span>
+		                <div class="product__name">${list.mainSubject }</div>
+		                <div class="product__cost"> 
+		                	<c:if test="${list.discountRate != 0}">
+		                		<span class="product__dc">
+		                			<fmt:formatNumber type="currency" value="${list.price}" currencyCode="KRW" pattern="#,###"/>
+								</span>			                	
+		                		<%-- <span class="product__dc">${list.price}</span> --%>
+		                		<span class="product__price">
+		                			<fmt:formatNumber type="currency" value = "${list.price - (list.price * (list.discountRate * (1/100)))}" currencyCode="KRW" pattern="#,###"/>원
+		                		</span><!-- 원가 - 원가*0.할인율 -->
 		                	</c:if>
-		                    <span class="product__price">${list.price}</span>
+		                	<c:if test="${list.discountRate == 0}">
+		                		<span class="product__price">
+		                			<fmt:formatNumber type="currency" value = "${list.price}" currencyCode="KRW" pattern="#,###"/>원
+		                		</span><!-- 원가 - 원가*0.할인율 -->
+		                	
+		                	</c:if>
+		                	<c:if test="${list.discountRate == null}">
+		                		 <span class="product__price">${list.price}원</span>
+		                	</c:if>
 		                </div>
-		                <div class="product__disc">요리의 풍미를 더하는 간편 향신채(1봉/50g)</div>
+		                <div class="product__disc">${list.subSubject }</div>
 		            </div>
 		        </div>
         	</c:forEach>
@@ -73,5 +109,12 @@
             sortList.classList.toggle("on")
         }
     });
+    
+   /*  console.log(${selectGubun})
+    const gubun = ${selectGubun};
+    const sortText = ["신상품순","인기상품순","낮은 가격순","높은 가격순"]; */
+    /* sort.textContent = sortText[gubun-1];  */
+  
+ 
 
 </script>

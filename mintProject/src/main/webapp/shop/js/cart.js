@@ -3,15 +3,6 @@
  * 한문희
  */
 
-let chk_obj = [];
-let chk_leng = 0;
-let checked = 0;
-
-let pur_cnt = 1; //구매개수
-
-let prd_price = [];//총 상품금액
-
-
 $(document).ready(function(){
 	if(memId != ''){
 		$(function() {
@@ -52,12 +43,12 @@ $(document).ready(function(){
 					let customCart = `
 						<tr class="viewDel">
 							<input type="hidden" class="prd_price_fix" value="${price }">
-							<td><input type="checkbox" name="prdCheck" class="ico_check" checked onchange="aa($(this))"></td>
+							<td><input type="checkbox" name="prdCheck" class="ico_check" checked onchange="chMinusPrice($(this))"></td>
 							<td><img src="../storage/cartTest/${thumbnail }" style="width: 30px;"> </td>
 							<td>
 								<div>${mainSubject }</div>
 								<div class="price_Box">
-									<span class="dctrPrice">할인율적용,</span>
+									<span class="dctrPrice"></span>
 									<span class="finalPrice">${price }</span>
 								</div>
 							</td>
@@ -76,6 +67,7 @@ $(document).ready(function(){
 					$frag.append($(customCart));
 				}
 				$viewGoods.append($frag);
+				
 				//fnPrice
 				let dctrPrice = 0;
 				let finalPrice = 0;
@@ -83,10 +75,13 @@ $(document).ready(function(){
 				//fnck
 				let chk_total_obj = [];//input checkBox 객체
 				let chk_total_leng = 0;//input checkBox 개수
+				let chk_obj = [];//상품row checkbox
+				let chk_leng = 0;//상품row checkbox count
+				let checked = 0;//상품 for문에 쓸 변수
 				
-				let prdPriceFix = 0;
+				let prdPriceFix = 0;//hide시킨 최초 상품금액
 				
-				var lastPrice = 0;
+				var lastPrice = 0;//총상품금액 계
 				
 				//fnPrice();//상품금액계산
 				fnck();//체크박스
@@ -102,18 +97,6 @@ $(document).ready(function(){
 	}
 	
 });
-
-//상품정보 -> 할인율,원가
-//function fnPrice() {
-//	dctrPrice = parseInt($('.discountRate').text());
-//	finalPrice = parseInt($('.finalPrice').text());
-//	
-//	
-//	var fileData = new Array(prdCnt);
-//	
-//	
-//}
-
 
 //총 체크 개수 카운트, 상품채크
 function fnck() {
@@ -215,15 +198,10 @@ function total_calcul() {
 
 
 
-function aa(check){
-	console.log("aa");
-	console.log(prdCnt);
+function chMinusPrice(check){
+	console.log("chMinusPrice");
 	var fileData = new Array(prdCnt);
-	
-//	if(!check.prop("checked")){
-//		let ass = check.parents().next().next().next().next().val();
-//		console.log(ass);
-//	}
+
 	lastPrice=0;
 	for(var i=0; i<prdCnt; i++){
 		fileData[i] = parseInt($('.prd_price').eq(i).text());
@@ -232,16 +210,11 @@ function aa(check){
 		if($("input[name=prdCheck]").eq(i).prop("checked")){
 			lastPrice += fileData[i];
 			console.log("when checked: "+lastPrice);
-		} else{
-		//	lastPrice -= fileData[i];
 		}
 	}
 	
 	$('#totalPrdPrice span').text(lastPrice);
 }
-
-
-
 
 
 

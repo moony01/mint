@@ -42,13 +42,14 @@ $(document).ready(function(){
 					
 					let customCart = `
 						<tr class="viewDel">
+							<input type="hidden" class="discountRate" value="${discountRate }">
 							<input type="hidden" class="prd_price_fix" value="${price }">
 							<td><input type="checkbox" name="prdCheck" class="ico_check" checked onchange="chMinusPrice($(this))"></td>
 							<td><img src="../storage/cartTest/${thumbnail }" style="width: 30px;"> </td>
 							<td>
 								<div>${mainSubject }</div>
 								<div class="price_Box">
-									<span class="dctrPrice"></span>
+									<span class="dctrPrice">${discountRate }</span>
 									<span class="finalPrice">${price }</span>
 								</div>
 							</td>
@@ -83,10 +84,10 @@ $(document).ready(function(){
 				
 				var lastPrice = 0;//총상품금액 계
 				
-				//fnPrice();//상품금액계산
 				fnck();//체크박스
 				seldel();//상품삭제
 				total_calcul();//총상품금액
+				fnPrice();//상품금액계산
 			}
 			
 		});
@@ -196,8 +197,6 @@ function total_calcul() {
 	$('#totalPrdPrice span').text(lastPrice);
 }
 
-
-
 function chMinusPrice(check){
 	console.log("chMinusPrice");
 	var fileData = new Array(prdCnt);
@@ -215,6 +214,48 @@ function chMinusPrice(check){
 	
 	$('#totalPrdPrice span').text(lastPrice);
 }
+
+function fnPrice() {
+	let originPrice = $('.prd_price_fix').val();
+	let rate = $('.discountRate').val();
+	let savePrice = 0;
+	let resultPrice = 0;
+	
+//	console.log(originPrice);
+//	console.log(rate);
+	
+	var fileData_origin = new Array(prdCnt);
+	var fileData_rate = new Array(prdCnt);
+	var fileData_savePrice = new Array(prdCnt);
+	var fileData_resultPrice = new Array(prdCnt);
+	
+	for(var i=0; i<prdCnt; i++) {
+		fileData_origin[i] = parseInt($('.prd_price_fix').eq(i).val());
+		fileData_rate[i] = parseInt($('.discountRate').eq(i).val());
+		
+		fileData_savePrice[i] = fileData_origin[i] * (fileData_rate[i]/100);
+		fileData_resultPrice[i] = fileData_origin[i] - fileData_savePrice[i];
+		
+		console.log(fileData_resultPrice[i]);
+		
+		if(fileData_resultPrice[i] === fileData_origin[i]) {
+			console.log("hi");
+			$('.dctrPrice').eq(i).remove();
+		}
+		else {
+			console.log("hi else");
+			$('.dctrPrice').eq(i).val(fileData_resultPrice[i]);
+		}
+	}
+	
+
+//	
+//	lastPrice=0;
+
+}
+
+
+
 
 
 

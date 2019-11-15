@@ -22,4 +22,5 @@ public class AdminController {
 		mav.setViewName("/admin/main/admin");
 		return mav;
 	}
+	
 }

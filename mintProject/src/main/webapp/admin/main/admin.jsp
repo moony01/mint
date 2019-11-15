@@ -82,7 +82,7 @@
                     <li><a href="/mintProject/admin/service/faq">faq 관리</a></li>
                     <li><a href="/mintProject/admin/service/qna">1:1문의 관리</a></li>
                     <li><a href="/mintProject/admin/service/notice">공지사항 관리</a></li>
-                    <li><a href="/mintProject/admin/service/qna">상품 qna관리</a></li>
+                    <li><a href="/mintProject/admin/service/productQna">상품 qna관리</a></li>
                     <li><a href="/mintProject/admin/service/review">후기관리</a></li>
                     <li><a href="/mintProject/admin/service/offer">상품제안 관리</a></li>
                 </ul>

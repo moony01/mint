@@ -4,7 +4,7 @@
     <h2 class="out">faq 관리</h2>
     <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>게시판</span></a>
     <span class="ar-title">></span>        
-    <a href="" class="ch-title now-title">faq 관리</a>        
+    <a href="" class="ch-title now-title">FAQ 관리</a>        
 </div>
 <div class="container">
 	<form id="faqBoardForm">

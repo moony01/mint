@@ -15,7 +15,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/admin/sales", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/service/sales", method=RequestMethod.GET)
 	public ModelAndView sales() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("display","/admin/service/chart.jsp");

@@ -10,6 +10,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +33,7 @@ public class MemberDTO implements UserDetails {
     private int isAgreedSMS;
     private int memLevel;
     private String attDate;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
     private Date logtime;
     
 	@Override

@@ -50,8 +50,8 @@
                     <span>회원</span>
                 </div>
                 <ul class="list">
-                    <li><a href="">회원 목록</a></li>
-                    <li><a href="">판매자 목록</a></li>
+                    <li><a href="/mintProject/admin/member/memberList">회원 목록</a></li>
+                    <li><a href="/mintProject/admin/member/supplierList">판매자 목록</a></li>
                     <li><a href="/mintProject/admin/member/supplierForm">판매자 등록</a></li>
                 </ul>            
             </div>

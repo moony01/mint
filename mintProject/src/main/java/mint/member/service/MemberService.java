@@ -3,10 +3,11 @@ package mint.member.service;
 import java.util.Map;
 
 import mint.member.bean.MemberDTO;
+import mint.member.bean.SupplierDTO;
 
 public interface MemberService {
 
-	public void writeMember(MemberDTO memberDTO);
+	public void writeMember(Object memberDTO);
 
 	public MemberDTO getUserBy(Map<String, String> map);
 
@@ -21,5 +22,7 @@ public interface MemberService {
 	public void modifyMember(MemberDTO memberDTO);
 
 	public void deleteMember(String id);
+
+	public SupplierDTO getSupplierBy(Map<String, String> map);
 
 }

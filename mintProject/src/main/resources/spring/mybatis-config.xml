@@ -3,6 +3,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="mint.member.bean.MemberDTO" alias="member"/>
+		<typeAlias type="mint.member.bean.SupplierDTO" alias="supplier"/>
 		<typeAlias type="mint.faqBoard.bean.FAQBoardDTO" alias="faqBoard"/>
 		<typeAlias type="mint.qnaBoard.bean.QnaBoardDTO" alias="qnaBoard"/>
 		<typeAlias type="mint.noticeBoard.bean.NoticeBoardDTO" alias="noticeBoard"/>

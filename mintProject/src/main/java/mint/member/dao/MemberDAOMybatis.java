@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import mint.member.bean.MemberDTO;
+import mint.member.bean.SupplierDTO;
 
 @Transactional
 @Repository("memberDAO")
@@ -16,9 +17,12 @@ public class MemberDAOMybatis implements MemberDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public void writeMember(MemberDTO memberDTO) {
-		sqlSession.insert("memberSQL.writeMember", memberDTO);
-		
+	public void writeMember(Object object) {
+		if(object instanceof MemberDTO) { // 받아온 객체의 클래스타입이 MemberDTO => 회원가입
+			sqlSession.insert("memberSQL.writeMember", object);	
+		} else if(object instanceof SupplierDTO) { // 받아온 객체의 클래스타입이 SupplierDTO => 판매자 등록
+			sqlSession.insert("memberSQL.writeSupplier", object);			
+		}		
 	}
 
 	@Override
@@ -66,4 +70,11 @@ public class MemberDAOMybatis implements MemberDAO {
 		sqlSession.delete("memberSQL.deleteMember",id);
 		
 	}
+
+	@Override
+	public SupplierDTO getSupplierBy(Map<String, String> map) {
+		return sqlSession.selectOne("memberSQL.getSupplierBy", map);	
+	}
+
+
 }

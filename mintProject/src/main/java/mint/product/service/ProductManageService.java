@@ -12,6 +12,8 @@ public interface ProductManageService {
 
 	public List<ProductDTO> getProductList(Map<String, String> map);
 
-	public List<OrderAndSalesDTO> getSalesData();
+	public List<Map<String, String>> getSalesData();
+
+	public List<Map<String, String>> getProductData();
 
 }

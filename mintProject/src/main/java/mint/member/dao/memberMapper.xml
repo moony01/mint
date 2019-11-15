@@ -3,10 +3,11 @@
 
 <mapper namespace="memberSQL">
 	<insert id="writeMember" parameterType="member">
-		insert into member(name,id,pwd,email,tel,addr1,addr2,gender,birthday,point,isAgreedSMS,memLevel,logtime) values (#{name}, #{id}, #{pwd}, #{email}, #{tel}, #{addr1}, #{addr2}, #{gender}, 
+		insert into member(name, id, pwd, email, tel, addr1, addr2, gender, birthday, point, isAgreedSMS, memLevel, logtime) 
+		values (#{name}, #{id}, #{pwd}, #{email}, #{tel}, #{addr1}, #{addr2}, #{gender}, 
 								#{birthday}, #{point}, #{isAgreedSMS}, #{memLevel}, sysdate)
 	</insert>
-	
+
 	<select id="getUserBy" parameterType="java.util.Map" resultType="member">
 		select * from member where ${key} = #{value}
 	</select>
@@ -50,4 +51,13 @@
 	<delete id="deleteMember">
 		delete from member where id = #{id}
 	</delete>
+	
+	<!-- 판매자 ================================================================================================================ -->
+	<insert id="writeSupplier" parameterType="supplier">
+		insert into supplier values (#{supplierCode}, #{supplierId}, #{category}, #{tel}, #{addr1}, #{addr2}, #{description}, #{status}, sysdate)
+	</insert>
+	
+	<select id="getSupplierBy" parameterType="java.util.Map" resultType="supplier">
+		select * from supplier where ${key} = #{value}
+	</select>
 </mapper>

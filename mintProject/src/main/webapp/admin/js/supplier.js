@@ -1,4 +1,6 @@
-const addrBtn = document.querySelector(".btn-addr");   
+const addrBtn = document.querySelector(".btn-addr"); 
+const writeBtn = document.querySelector("#write-btn");
+
 // 다음 우편번호
 addrBtn.addEventListener("click", function(){
    daum.postcode.load(function(){
@@ -47,3 +49,52 @@ addrBtn.addEventListener("click", function(){
         }).open();
     });
 })
+
+//판매자 중복확인
+$('input[name=supplierCode]').blur(function(){
+	getIsDuplicated()
+	.then(printIsDuplicated)
+	.catch(printError)
+});
+
+
+function getIsDuplicated(){
+	return $.ajax({
+		type: 'post',
+		url: '/mintProject/admin/member/isDuplicated',
+		data: {"supplierCode": document.getElementsByName("supplierCode")[0].value},
+		dataType: 'json',
+	});
+}
+
+function printIsDuplicated(result){
+	if(result){
+		alert('이미 등록된 사업자 입니다! ');
+		document.getElementsByName("supplierCode")[0].focus;
+	}
+}
+
+function printError(err){
+	console.log(err);
+}
+
+//판매자 등록
+writeBtn.addEventListener("click", function(){
+	document.supplierForm.method= 'post';
+	document.supplierForm.action= '/mintProject/admin/member/writeSupplier';
+	document.supplierForm.submit();
+});
+
+//ajax로 처음 로드했을 때 list 가져옴. 
+/*$().ready(function(){
+	getSuggestBoard()
+	.then(printgetSuggestBoard)
+	.catch();
+});
+
+//ajax로 옵션에 따라 list 가져옴. 
+function getSuggestBoardByOption(pg){	
+	getSuggestBoard(pg)
+	.then(printgetSuggestBoard)
+	.catch();	
+}*/

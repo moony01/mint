@@ -10,8 +10,12 @@
 	padding-bottom: 5px; 
 	border: 1px solid black;
 }
+.join-title{
+    line-height: 40px;
+    width: 120px;
+}
 </style>   
-<form name="" method="" action="" >
+<form name="supplierForm" method="" action="" >
 	<div class="main__title">
 	    <h2 class="out">회원 관리</h2>
 	    <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>회원</span></a>
@@ -25,7 +29,7 @@
 	        <tr>
 	            <th>대분류</th>
 	            <td class="table--left">
-	                <select name="mainCategory" id="mainCategory" class="main-category">
+	                <select name="category" id="category" class="main-category">
 	                    <option value="" id="none">선택</option>
 	                    <option value="101" id="farmFood">농산물</option>
 	                    <option value="102" id="seaFood">수산물</option>
@@ -53,7 +57,7 @@
 	        <tr>
 	            <th>연락처</th>
 	            <td class="table--left">
-	            <input type="number" name="tel">
+	            <input type="text" name="tel">
 	            </td>
 	        </tr>
 	        
@@ -70,7 +74,7 @@
 	        
 	        <tr>
 	            <th>설명</th>
-	            <td class="table--left"><textarea name="replyContent" id="summernote"></textarea></td>
+	            <td class="table--left"><textarea name="description" id="summernote"></textarea></td>
 	        </tr>
 	        
 	    </table>

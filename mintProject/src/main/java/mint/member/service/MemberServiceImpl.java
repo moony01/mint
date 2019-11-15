@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mint.member.bean.MemberDTO;
+import mint.member.bean.SupplierDTO;
 import mint.member.dao.MemberDAO;
 
 @Service("memberService")
@@ -14,7 +15,7 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO memberDAO; 
 
 	@Override
-	public void writeMember(MemberDTO memberDTO) {
+	public void writeMember(Object memberDTO) {
 		memberDAO.writeMember(memberDTO);
 		
 	}
@@ -55,6 +56,11 @@ public class MemberServiceImpl implements MemberService {
 	public void deleteMember(String id) {
 		memberDAO.deleteMember(id);
 		
+	}
+
+	@Override
+	public SupplierDTO getSupplierBy(Map<String, String> map) {
+		return memberDAO.getSupplierBy(map);
 	}
 
 

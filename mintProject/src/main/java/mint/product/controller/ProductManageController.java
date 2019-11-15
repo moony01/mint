@@ -89,18 +89,24 @@ public class ProductManageController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("display","/shop/product/productList.jsp");
+		mav.addObject("list",list);
 		mav.setViewName("/shop/main/index");
 		return mav;
 	}
 	
-	@RequestMapping(value="/admin/sales_getData", method = RequestMethod.GET)
+	@RequestMapping(value="/admin/sales_getTotalSales", method = RequestMethod.GET)
 	@ResponseBody
-	public JSONArray getDataForChart() {
-		List<OrderAndSalesDTO> list = productManageService.getSalesData();
-		System.out.println("list : "+list);
+	public JSONArray getTotalSalesForChart() {
+		List<Map<String, String>> list = productManageService.getSalesData();
 		JSONArray jsonArray = JSONArray.fromObject(list);
-		System.out.println("jsonArray : "+jsonArray);
 		return jsonArray;
-		
+	}
+	
+	@RequestMapping(value="/admin/sales_getProductSales", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONArray getProductSalesForChart() {
+		List<Map<String, String>> list = productManageService.getProductData();
+		JSONArray jsonArray = JSONArray.fromObject(list);
+		return jsonArray;
 	}
 }

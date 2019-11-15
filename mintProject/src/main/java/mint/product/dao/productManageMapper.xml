@@ -20,8 +20,16 @@
 	</select>
 	
 	<!-- 매출 -->
-	<select id="getSalesData" resultType="orderAndSales">
-	select price, qty, to_char(logtime,'YYYY-MM-DD') as logtime from orderandsales where status=3
+	<select id="getSalesData" resultType="java.util.Map">
+	<!-- select price, qty, to_char(logtime,'YYYY-MM-DD') as logtime from orderandsales where status=3 -->
+		select sum(price*qty) as sales, to_char(logtime,'YYYY-MM-DD') as logtime from orderandsales where status=3 group by to_char(logtime,'YYYY-MM-DD') order by logtime
+	</select>
+	<select id="getProductData" resultType="java.util.Map">
+		select count(*) as count, mainSubject from orderandsales 
+		join product using(productCode)
+		where status=3 
+		group by mainSubject
+		order by count desc
 	</select>
 </mapper>
 

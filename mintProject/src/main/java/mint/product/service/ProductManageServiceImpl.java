@@ -28,8 +28,13 @@ public class ProductManageServiceImpl implements ProductManageService{
 	}
 
 	@Override
-	public List<OrderAndSalesDTO> getSalesData() {
+	public List<Map<String, String>> getSalesData() {
 		return productManageDAO.getSalesData();
+	}
+
+	@Override
+	public List<Map<String, String>> getProductData() {
+		return productManageDAO.getProductData();
 	}
 
 }

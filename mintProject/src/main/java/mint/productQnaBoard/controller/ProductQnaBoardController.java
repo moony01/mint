@@ -109,4 +109,57 @@ public class ProductQnaBoardController {
 //		productQnaBoardService.modifyProductQnaBoard(map);
 	}
 	
+	
+	
+	//=====================================================================================
+	// 관리자
+	
+	// 상뭄문의 관리 페이지 로드
+	@RequestMapping(value="/admin/service/productQna", method=RequestMethod.GET)
+	public ModelAndView getProductQnaBoardListForm() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("display","/admin/service/productQna.jsp");
+		mav.setViewName("/admin/main/admin");
+		return mav;
+	}
+	
+	@RequestMapping("/admin/service/getProductQna")
+	public ModelAndView getProductQnaBoardList(@RequestParam(required = false, defaultValue = "1") String pg, 
+													@RequestParam(required = false, defaultValue = "2") String replyStatus, 
+													ModelAndView mav) {
+		int totalArticle = 0;
+		int status = Integer.parseInt(replyStatus);
+		List<ProductQnaBoardDTO> list = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(status == 2) { // 전체선택
+			totalArticle = productQnaBoardService.getAllProductQnaBoardTotArticle();
+			setPagingNumber(pg,map);
+			list = productQnaBoardService.getAllProductQnaBoardList(map);
+		} else {
+			map.put("key","replyStatus"); map.put("value",status);
+			totalArticle = productQnaBoardService.getProductQnaBoardTotArticle(map);
+			setPagingNumber(pg,map); 
+			list = productQnaBoardService.getProductQnaBoardList(map);
+		}
+		//페이징 처리를 script에서 처리하기 위해 pg, totalArticle, addr 를 함께 싣어 보내준다. 
+		mav.addObject("pg", pg);
+		mav.addObject("totalArticle", totalArticle);
+		mav.addObject("addr", "/admin/service/getProductQna");
+		mav.addObject("list", list);
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
+	
+	// [사용자, 관리자 페이지 공통 함수] ==================================================================================================
+		public  void setPagingNumber(String pg, Map<String, Object> map) {
+			int endNum = Integer.parseInt(pg) *5;
+			int startNum = endNum -4; 
+			
+			map.put("endNum", endNum);
+			map.put("startNum", startNum);
+		}
+	
+	
 }

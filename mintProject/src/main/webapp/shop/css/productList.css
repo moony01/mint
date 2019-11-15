@@ -60,7 +60,7 @@
     display: inline-block;
     width: 10px;
     height: 10px;
-    background: url(../image/up-arrow.png) no-repeat;
+    background: url(/mintProject/shop/storage/mint/icon/up-arrow.png) no-repeat;
     background-size: 10px;
     margin-left: 5px;
 }
@@ -69,7 +69,7 @@
     display: inline-block;
     width: 10px;
     height: 10px;
-    background: url(../image/down-arrow.png) no-repeat;
+    background: url(/mintProject/shop/storage/mint/icon/down-arrow.png) no-repeat;
     background-size: 10px;
     margin-left: 5px;
 }
@@ -188,7 +188,7 @@
     width: 50px;
     height: 50px;
     border-radius: 25px;
-    background-color: #81ecec;
+    background-color: #58BFB2;
     color: #666;
     display: flex;
     justify-content: center;

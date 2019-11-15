@@ -83,14 +83,27 @@ public class ProductManageController {
 	@RequestMapping(value = "/productList/getProductList", method = RequestMethod.GET) 
 	public ModelAndView getProductList(@RequestParam Map<String,String> map ) {
 		
-		List<ProductDTO> list =  productManageService.getProductList(map);
-		
-		System.out.println(list); 
-		
+		System.out.println(map);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("display","/shop/product/productList.jsp");
-		mav.addObject("list",list);
-		mav.setViewName("/shop/main/index");
+		
+		//gubun이 1 또는 2일때
+		if(map.get("gubun").equals("1")||map.get("gubun").equals("2")) {
+			List<ProductDTO> list =  productManageService.getProductList(map);
+			
+			mav.addObject("display","/shop/product/productList.jsp");
+			mav.addObject("list",list);
+			mav.addObject("gubun",map.get("gubun"));
+//			mav.addObject("selectGubun",map.get("selectGubun"));
+			mav.setViewName("/shop/main/index");
+			
+			System.out.println("list : " + list);
+			System.out.println("gubun : " + map.get("gubun"));
+			
+			//gubun이 3일 떄	
+		}else {
+			
+			
+		}
 		return mav;
 	}
 	

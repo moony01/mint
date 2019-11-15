@@ -17,6 +17,13 @@ public class EventController {
 	@RequestMapping(value="/admin/service/event", method=RequestMethod.GET)
 	public String eventAdmin(Model model) {
 		model.addAttribute("display", "/admin/service/event.jsp");
-		return "/admin/service/event";
+		return "/admin/main/admin";
+	}
+	
+	/* 이벤트 등록 페이지 이동 */
+	@RequestMapping(value="/admin/service/eventWriteForm", method=RequestMethod.GET)
+	public String eventWriteForm(Model model) {
+		model.addAttribute("display", "/admin/service/eventWrite.jsp");
+		return "/admin/main/admin";
 	}
 }

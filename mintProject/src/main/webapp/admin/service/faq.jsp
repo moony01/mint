@@ -57,8 +57,8 @@
 	                </div>
 	            </div>
 	        <div>
-	            <button type="button" id="faqDeleteBtn" class="btn btn-primary">선택 삭제</button>
-	            <button type="button" id="faqWriteFormBtn" class="btn btn-danger">게시판 등록</button>
+	            <button type="button" id="faqDeleteBtn" class="btn btn-danger">선택 삭제</button>
+	            <button type="button" id="faqWriteFormBtn" class="btn btn-primary">게시판 등록</button>
 	        </div>
 	    </div>
 	</form>

@@ -1,31 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<style>
 
+<style>
 </style>
 <form id="eventWriteForm">
 	<div class="main__title">
 	    <h2 class="out">이벤트 관리</h2>
 	    <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>게시판</span></a>
 	    <span class="ar-title">></span>        
-	    <a href="">상품 관리</a>
+	    <a href="" class="pa-title">이벤트 관리</a>   
 	    <span class="ar-title">></span>
-	    <a href="" class="now-title">상품 등록</a>                
+	    <a href="" class="now-title">이벤트 등록/수정</a>                
 	</div>
 	<div class="container">
 	    <table class="table table-bordered write-tb">
 	        <tr>
-	            <th>대분류</th>
+	            <th>진행여부</th>
 	            <td class="table--left">
-	                <select name="mainCategory" id="mainCategory" class="main-category">
-	                    <option value="" id="none">선택</option>
-	                    <option value="101" id="farmFood">농산물</option>
-	                    <option value="102" id="seaFood">수산물</option>
-	                    <option value="103" id="meat">축산물</option>
-	                    <option value="104" id="general">일반식품</option>
-	                    <option value="105" id="sideDish">반찬류</option>
-	                </select>
+	                <input type="checkbox" checked data-toggle="toggle" data-on="예" data-off="아니오" data-onstyle="success" data-offstyle="danger">
 	            </td>
 	        </tr>
 	        <tr>

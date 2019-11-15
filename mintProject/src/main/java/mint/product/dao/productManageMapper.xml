@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="productManageSQL">
+	<!-- 상품등록 -->
 	<insert id="productWrite" parameterType="product">
-		insert into product values(seq_product.nextval,#{mainCategory},#{subCategory},#{supplierId},#{stock},#{mainSubject},#{subSubject},#{thumbnail},#{price},#{unit},#{weight},#{packageType},#{information},#{description},#{productImage},#{details},0,0,0)
+		insert into product values(seq_product.nextval,#{mainCategory},#{subCategory},#{supplierId},#{stock},#{mainSubject},#{subSubject},#{thumbnail},#{price},#{unit},#{weight},#{packageType},#{information},#{description},#{productImage},#{details},#{productStatus},0,#{discountRate})
 	</insert>
 	
 	<!-- 상품 리스트 조회 -->

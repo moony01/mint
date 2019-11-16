@@ -13,7 +13,6 @@ $(document).ready(function(){
 				.then(printCartList)
 				.catch(printError);
 			
-			
 			function getCartList() {
 				return $.ajax({
 					url: '/mintProject/shop/goods/getCartList',
@@ -28,19 +27,6 @@ $(document).ready(function(){
 			}
 			
 			function printCartList(data) {
-
-				
-				/* DB 쿼리문이 수정됩니다. (사유: member 테이블의 memLevel을 가져와야 적립금 적용할 수 있음 => id를 사용하여 member 테이블 join )
-					const {} 템플릿 리터럴로 받는 값에 memLevel도 추가 후, level에 따라 적립률 계산하여 hidden value = ${pointRate} 로 넣어놨다가 적립금 계산 시에만 사용하면 될 듯 합니다. 
-					ex) if(memLevel == '0') pointRate = 0.05; 
-					
-					select productCode, thumbNail, mainSubject, price, stock, discountRate, memLevel from product
-					join cart using(productCode)
-					join member using(id) where id='hong';
-
-					단, 이 경우 resultType = product 가 불가하여...., java.util.Map으로 변경해서 받을 수 있을지 확인 필요. (지수님 한거같던데? 일욜에 물어봅시다)
-				*/
-				
 				let cart = data.list;
 				let $frag = $(document.createDocumentFragment());
 				for (let i=0; i<cart.length; i++){
@@ -97,7 +83,6 @@ $(document).ready(function(){
 				
 				var lastPrice = 0;//총상품금액 계
 				
-				//fnPrice();//상품금액계산
 				fnck();//체크박스
 				seldel();//상품삭제
 				total_calcul();//총상품금액
@@ -152,6 +137,7 @@ function fnck() {
 	}
 }
 
+//수량 +버튼
 function fnUp(btn) {
 	let quan = btn.prev().text(); // span의 text (수량) 가져오기
 	quan++; // 값을 1 증가
@@ -164,6 +150,7 @@ function fnUp(btn) {
 	total_calcul();
 }
 
+//수량 -버튼
 function fnDn(btn) {
 	let quan = btn.next().text();
 	quan--;
@@ -180,6 +167,7 @@ function fnDn(btn) {
 	total_calcul();
 }
 
+//상품 delete버튼
 function seldel() {
 	$('.btn_delete').click(function(){
 		let rowDeleteSel = $(this).parents().prev().prev().children('span').attr('id');
@@ -207,10 +195,6 @@ function total_calcul() {
 	let originalTotPrice = 0;
 	let discountTotPrice =0;
 	
-	//for문을 돌면서.. 
-	//$('span.price1').eq(i).text(): 상품의 정가를 하나씩 가져옴 ex) 3000
-	//$('span.clk_count').eq(i).text(): 상품의 수량을 하나씩 가져옴  ex) 2
-	//$('span.price2').eq(i).text(): 상품의 할인가를 하나씩 가져옴 ex) 2700
 	for(var i=0; i<prdCnt; i++){
 		originalArr[i] = parseInt($('span.price1').eq(i).text() * $('span.clk_count').eq(i).text()); // 정가의 수량 * 갯수 (3000*2)를 각각 배열에 넣는다.  
 		discountArr[i] = parseInt($('span.price2').eq(i).text() * $('span.clk_count').eq(i).text());// 할인가의 수량 * 갯수 (2700*2)를 각각 배열에 넣는다. 
@@ -231,18 +215,16 @@ function total_calcul() {
 
 }
 
+//상품 체크해제시 총계산
 function chMinusPrice(check){
-	console.log("chMinusPrice");
 	var fileData = new Array(prdCnt);
-
 	lastPrice=0;
+	
 	for(var i=0; i<prdCnt; i++){
 		fileData[i] = parseInt($('.prd_price').eq(i).text());
-		console.log("for loop; "+fileData[i]);
 		
 		if($("input[name=prdCheck]").eq(i).prop("checked")){
 			lastPrice += fileData[i];
-			console.log("when checked: "+lastPrice);
 		}
 	}
 	

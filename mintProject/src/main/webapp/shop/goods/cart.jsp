@@ -75,7 +75,7 @@
 
 </section>
 
-<script type="text/javascript" src="/mintProject/shop/js/cart_thdus.js"></script>
+<script type="text/javascript" src="/mintProject/shop/js/cart.js"></script>
 
 
 

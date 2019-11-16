@@ -49,18 +49,22 @@
 				상품금액 <span>0</span>원
 			</div>
 			<p>-</p>
-			<div>
+			<div id="totalDiscountPrice">
 				상품할인금액 <span>0</span>원
 			</div>
 			<p>+</p>
-			<div>
+			<div id="DeliveryPrice">
 				배송비 <span>0</span>원
 			</div>
 			<p>=</p>
-			<div>
-				<div>결제예정금액</div>
-				<div>0</div>원
-				<div>구매시 <span>0</span>원 적립예정</div>
+			<div id="totalSumPrice">
+				<div>결제예정금액
+					<span>0</span>원
+				</div>
+			</div>
+			<div id="totalPoint">	
+				<div>구매시
+				 	<span>0</span>원 적립예정</div>
 			</div>
 		</div>
 		
@@ -71,7 +75,7 @@
 
 </section>
 
-<script type="text/javascript" src="/mintProject/shop/js/cart.js"></script>
+<script type="text/javascript" src="/mintProject/shop/js/cart_thdus.js"></script>
 
 
 

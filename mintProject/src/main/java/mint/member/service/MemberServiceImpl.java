@@ -1,5 +1,6 @@
 package mint.member.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public SupplierDTO getSupplierBy(Map<String, String> map) {
 		return memberDAO.getSupplierBy(map);
+	}
+
+	@Override
+	public List<Map<String, String>> getList(Map<String, String> map) {
+		return memberDAO.getList(map);
 	}
 
 

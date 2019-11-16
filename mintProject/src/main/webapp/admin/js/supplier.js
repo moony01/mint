@@ -1,6 +1,7 @@
 const addrBtn = document.querySelector(".btn-addr"); 
 const writeBtn = document.querySelector("#write-btn");
 
+//판매자 등록 ==========================================================================
 // 다음 우편번호
 addrBtn.addEventListener("click", function(){
    daum.postcode.load(function(){
@@ -84,17 +85,3 @@ writeBtn.addEventListener("click", function(){
 	document.supplierForm.action= '/mintProject/admin/member/writeSupplier';
 	document.supplierForm.submit();
 });
-
-//ajax로 처음 로드했을 때 list 가져옴. 
-/*$().ready(function(){
-	getSuggestBoard()
-	.then(printgetSuggestBoard)
-	.catch();
-});
-
-//ajax로 옵션에 따라 list 가져옴. 
-function getSuggestBoardByOption(pg){	
-	getSuggestBoard(pg)
-	.then(printgetSuggestBoard)
-	.catch();	
-}*/

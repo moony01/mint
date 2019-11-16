@@ -1,5 +1,6 @@
 package mint.member.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -74,6 +75,11 @@ public class MemberDAOMybatis implements MemberDAO {
 	@Override
 	public SupplierDTO getSupplierBy(Map<String, String> map) {
 		return sqlSession.selectOne("memberSQL.getSupplierBy", map);	
+	}
+
+	@Override
+	public List<Map<String, String>> getList(Map<String, String> map) {
+		return sqlSession.selectList("memberSQL.getList", map);
 	}
 
 

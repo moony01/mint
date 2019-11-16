@@ -56,11 +56,13 @@
                     		<img alt="" src="/mintProject/shop/storage/${suggestBoardDTO.imgName}" width="400px" height="300px"><br>
                     	</c:if>
                     	<pre><p>${suggestBoardDTO.content }</p></pre>
-                    	<div style="display: flex;  flex-direction:row-reverse;" >
-                    		<input type="button" class="btnDelete" value="삭제" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;">
-                    		<input type="button" value="수정" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;"
-                    		onclick="location.href='/mintProject/shop/service/offerModify?pg=${pg}&seq=${suggestBoardDTO.seq }'"> 
-                    	</div>
+                    	<c:if test="${suggestBoardDTO.replyStatus == 0 }">
+	                    	<div style="display: flex;  flex-direction:row-reverse;" >
+	                    		<input type="button" class="btnDelete" value="삭제" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;">
+	                    		<input type="button" value="수정" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;"
+	                    		onclick="location.href='/mintProject/shop/service/offerModify?pg=${pg}&seq=${suggestBoardDTO.seq }'"> 
+	                    	</div>
+	                    </c:if>
                     </td>       	
 	           </tr>   	
 	           
@@ -88,7 +90,7 @@ let totalArticle = ${totalArticle};
 let currentPage = ${pg};
 let addr = '${addr}';
 
-window.onload = function(){ paging(totalArticle, currentPage, addr);}
+paging(totalArticle, currentPage, addr);
 
 </script> 
 <script src='/mintProject/shop/js/qna.js'></script>

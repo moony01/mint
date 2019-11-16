@@ -46,7 +46,7 @@ function printgetSuggestBoard(result){
 		}
 		let suggestBoard = `<tr>
 								<td><input type="checkbox" name="" id=""></td>
-					            <td class="aaa">${seq}</td>
+					            <td>${seq}</td>
 					            <td>${category}</td>
 					            <td class="table--left"><a href="/mintProject/admin/service/offerAnswer?pg=${pg}&seq=${seq}">${subject}</a></td>
 					            <td>${logtimeQ}</td>
@@ -61,24 +61,8 @@ function printgetSuggestBoard(result){
 	}
 	$('.table-offer').append($frag);
 	paging(totalArticle, currentPage, addr);
-	
-	let leng = $('.aaa').length; 
-	let text = $('.aaa').text();
-	console.log('leng: '+leng);
-	console.log('text: '+text);
-	
-	let data = [];
-	
-	for (let i = 0; i < leng; i++) {
-		data.push($('.aaa').eq(i).text());
-		console.log('data: ' + data[i]);
-	}
-	console.log('tot: '+ data);
 
 }
-
-
-
 
 $('.btn-reply').click(function(){
 	let seq = $('#seq').val();

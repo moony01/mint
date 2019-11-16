@@ -112,7 +112,7 @@ public class SuggestBoardController {
 		//페이징 처리를 script에서 처리하기 위해 pg, totalArticle, addr 를 함께 싣어 보내준다. 
 		mav.addObject("pg", pg);
 		mav.addObject("totalArticle", totalArticle);
-		mav.addObject("addr", "/shop/service/offer");
+		mav.addObject("addr", "/mintProject/shop/service/offer");
 		mav.addObject("list", list);
 		mav.addObject("display", "/shop/service/offer.jsp");
 		mav.setViewName("/shop/main/index");

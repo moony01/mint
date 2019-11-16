@@ -62,7 +62,7 @@
         </form>
         <!-- <div>
             <button type="button" class="btn btn-primary">선택 삭제</button>
-        </div> -->
-    </div>
+        </div>-->
+    </div> 
 </div>
 <script src="/mintProject/admin/js/offer.js"></script>

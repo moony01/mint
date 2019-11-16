@@ -8,4 +8,6 @@ import mint.product.bean.ProductDTO;
 public interface CartDAO {
 
 	public List<ProductDTO> getCartList(Map<String, String> map);
+
+	public void cartListDelete(Map<String, String> map);
 }

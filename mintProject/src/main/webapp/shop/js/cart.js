@@ -171,6 +171,36 @@ function fnDn(btn) {
 function seldel() {
 	$('.btn_delete').click(function(){
 		let rowDeleteSel = $(this).parents().prev().prev().children('span').attr('id');
+		
+		//특정product 삭제
+		$(function() {
+			
+			cartListDelete()
+				.then(printCartListDelete)
+				.catch(printError);
+			
+			function cartListDelete() {
+				return $.ajax({
+					url: '/mintProject/shop/goods/cartListDelete',
+					type: 'POST',
+					data: 'memId='+memId+'&productCode='+rowDeleteSel,
+					dataType: 'json'
+				});
+			}
+			
+			function printError(error) {
+				console.error(error);
+			}
+			
+			function printCartListDelete(result) {
+				console.log(result);
+			}
+			
+			
+		});
+		
+		
+		
 		$('#'+rowDeleteSel).parents().parents('.viewDel').remove();
 		
 		chk_total_obj = document.getElementsByName('prdCheck');

@@ -7,4 +7,10 @@
 		select productCode, thumbNail, mainSubject, price, stock, discountRate from product
 		join cart using(productCode) where id=#{id}
 	</select>
+	
+	<delete id="cartListDelete" parameterType="java.util.Map">
+		delete from cart where id=#{id} and productCode=#{productCode}
+	</delete>
+	
+	
 </mapper>

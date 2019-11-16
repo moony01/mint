@@ -19,4 +19,9 @@ public class CartServiceImpl implements CartService {
 		return cartDAO.getCartList(map);
 	}
 
+	@Override
+	public void cartListDelete(Map<String, String> map) {
+		cartDAO.cartListDelete(map);
+	}
+
 }

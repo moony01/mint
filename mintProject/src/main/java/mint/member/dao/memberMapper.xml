@@ -60,4 +60,12 @@
 	<select id="getSupplierBy" parameterType="java.util.Map" resultType="supplier">
 		select * from supplier where ${key} = #{value}
 	</select>
+	
+	<select id="getList" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from ${table} order by ${orderbyValue} 
+		<if test="orderbyValue == 'supplierId' || orderbyValue == 'id'">
+		asc </if>
+		<if test="orderbyValue != 'supplierId' || orderbyValue != 'id'">
+		desc </if>
+	</select>
 </mapper>

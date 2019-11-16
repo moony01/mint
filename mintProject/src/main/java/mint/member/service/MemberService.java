@@ -1,5 +1,6 @@
 package mint.member.service;
 
+import java.util.List;
 import java.util.Map;
 
 import mint.member.bean.MemberDTO;
@@ -24,5 +25,7 @@ public interface MemberService {
 	public void deleteMember(String id);
 
 	public SupplierDTO getSupplierBy(Map<String, String> map);
+
+	public List<Map<String, String>> getList(Map<String, String> map);
 
 }

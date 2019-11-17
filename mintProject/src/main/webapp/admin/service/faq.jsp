@@ -20,7 +20,7 @@
 	        </select>
 	    </div>
 	    
-	    <table class="table table-bordered">
+	    <table id="faqListTable" class="table table-bordered">
 	        <tr class="th--dark">
 	            <th class="col-md-1"><input type="checkbox" name="" id="chkAll"></th>
 	            <th class="col-md-1">번호</th>

@@ -9,7 +9,7 @@
     <form name="member">
 	    <div class="container">
 	        <div class="main__select" style="display:inline-block; justify-content: flex-start;">
-	            <select name="" id="" class="select-box" onchange="">
+	            <select name="" id="" class="select-box" onchange="getListByOption($(this))">
 	                <option value="0">전체</option>
 	                <option value="1">아이디 오름차순</option>
 	                <option value="2">회원레벨 내림차순</option>
@@ -36,13 +36,7 @@
 	                <th class="col-md-1">가입일</th>
 	            </tr>
 	
-	            <tr>
-	                <td><input type="checkbox" name="" id=""></td>
-	                <td class="table--left"><a href="">hong</a></td>
-	                <td>일반</td>
-	                <td>Y</td>
-	                <td>19.11.12</td>
-	            </tr>
+	           <!-- 여기에 컬럼 추가 -->
 	    
 	        </table>
 	        <div class="paging">
@@ -73,8 +67,8 @@ $(function() {
 	    opens: 'left'
 	  }, function(start, end, label) {
 		  console.log(start);
-		  from = start.format('YYYY.MM.DD');
-		  to = end.format('YYYY.MM.DD')
+		  from = start.format('YY/MM/DD');
+		  to = end.format('YY/MM/DD')
 	    console.log(from + '~' + to);
 	  });
 });

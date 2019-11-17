@@ -21,11 +21,10 @@
 	        </div>
 	        
 	        <div class="searches" style="float: right; display:flex; justify-content: flex-end;">
-	            <input type="text" name="daterange"> <br>
+	            <input type="text" name="daterange">
 	            <div class="search">
-	                <button type="submit" class="searchButton">
-	                    <i class="fa fa-search"></i>
-	                </button>
+	                <input type="button" class="searchButton" onclick="getListBySearch($(this))">
+	                <i class="fa fa-search"></i>
 	            </div>
 	        </div>
 	        
@@ -39,14 +38,7 @@
 	                <th class="col-md-1">상태</th>
 	            </tr>
 	
-	            <tr>
-	                <td><input type="checkbox" name="" id=""></td>
-	                <td>수산물</td>
-	                <td class="table--left"><a href="">연어상회</a></td>
-	                <td>4.5</td>
-	                <td>19.11.12</td>
-	                <td>판매중</td>
-	            </tr>
+	      		<!-- 여기에 컬럼 추가 -->
 	    
 	        </table>
 	        <div class="paging">
@@ -56,17 +48,15 @@
 	            </ul>
 	        </div>
 	        <div class="main__btns">
-	            <form action="" id="searchForm">
 	                <div class="searches">
-	                	<label style="text-align: center;">상호명 검색</label> &emsp; <input type="text" placeholder="검색 해주세요"> <br>
+	                	<label style="text-align: center;">상호명 검색</label> &emsp; 
+	                	<input type="text" name="searchValue" placeholder="검색 해주세요">
 	                    <div class="search">
-	                        <button type="submit" class="searchButton">
+	                        <input type="button" class="searchButton" onclick="getListBySearch($(this))">
 	                            <i class="fa fa-search"></i>
-	                        </button>
+	                        </input>
 	                    </div>
 	                </div>
-	                
-	            </form>
 	            <div>
 	                <button type="button" class="btn btn-primary">상태 변경</button>
 	            </div>
@@ -85,12 +75,13 @@ let to;
 
 $(function() {
 	  $('input[name="daterange"]').daterangepicker({
-	    opens: 'left'
+	   // opens: 'left',
+		locale: {
+	        format: 'YY/MM/DD'
+	    }
 	  }, function(start, end, label) {
-		  console.log(start);
-		  from = start.format('YYYY.MM.DD');
-		  to = end.format('YYYY.MM.DD')
-	    console.log(from + '~' + to);
+		  from = start.format('YY/MM/DD');
+		  to = end.format('YY/MM/DD');
 	  });
 });
 

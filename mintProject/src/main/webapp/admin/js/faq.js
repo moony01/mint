@@ -69,7 +69,7 @@ $('.searchButton').click(function(){
 
 
 function getAdminFAQList(result){
-	const $table = $('.table-bordered');
+	const $table = $('#faqListTable');
 	let faqs = result.list;
 	let $frag = $(document.createDocumentFragment());
 	

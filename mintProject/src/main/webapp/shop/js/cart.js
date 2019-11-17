@@ -42,6 +42,7 @@ $(document).ready(function(){
 					let price2 = parseInt(price - discoutPrice);
 					let customCart = `
 						<tr class="viewDel">
+						<input type="hidden" name="stock" class="stock" value="${stock }">
 							<input type="hidden" class="prd_price_fix" value="${price2 }">
 							<td><input type="checkbox" name="prdCheck" class="ico_check" checked onchange="chMinusPrice($(this))"></td>
 							<td><img src="../storage/cartTest/${thumbnail }" style="width: 30px;"> </td>
@@ -60,7 +61,7 @@ $(document).ready(function(){
 							</td>
 							<td class="prd_price">${price2 }</td>
 							<td>
-								<button type="button" class="btn btn_delete"></button>
+								<button type="button" class="btn btn_delete_point" onclick="seldel($(this))"></button>
 							</td>
 						</tr>
 					`;
@@ -83,9 +84,12 @@ $(document).ready(function(){
 				
 				var lastPrice = 0;//총상품금액 계
 				
+				let stock = 0;
+				
 				fnck();//체크박스
-				seldel();//상품삭제
 				total_calcul();//총상품금액
+				hide_stock();//품절처리
+				selectDelete();//선택삭제
 			}
 			
 		});
@@ -96,6 +100,34 @@ $(document).ready(function(){
 	}
 	
 });
+
+//품절처리
+function hide_stock() {
+	var stock = new Array(); //정가의 배열을 담을 객체
+	$(".stock").each(function(index, item) {
+		stock.push(parseInt($(item).val()));
+	});
+	
+	for(i=0; i<prdCnt; i++) {
+		if(stock[i] == 0) {
+			$(".stock").eq(i).parents(".viewDel").css("background", "red").addClass("soldOut");
+		}
+	}
+}
+
+//선택삭제 이벤트
+function selectDelete() {
+	$(".selectBtn").click(function(){
+		
+		for(i=0; i<prdCnt; i++){
+			if($('input:checkbox[name=prdCheck]').eq(i).prop('checked') == true){
+				$('input:checkbox[name=prdCheck]').eq(i).parents().next().next().next().next().next().children('.btn_delete_point').trigger('click','trigger');
+			}
+		}
+		
+		
+	});
+}
 
 //총 체크 개수 카운트, 상품채크
 function fnck() {
@@ -112,7 +144,6 @@ function fnck() {
 			chCount();
 		}else{
 			$(".ico_check").prop("checked", false);
-			//5800
 			chCount();
 		}
 	});
@@ -168,48 +199,40 @@ function fnDn(btn) {
 }
 
 //상품 delete버튼
-function seldel() {
-	$('.btn_delete').click(function(){
-		let rowDeleteSel = $(this).parents().prev().prev().children('span').attr('id');
+function seldel(deleteBtn) {
+	let rowDeleteSel = deleteBtn.parents().prev().prev().children('span').attr('id');
+	
+	//특정product 삭제
+	$(function() {
 		
-		//특정product 삭제
-		$(function() {
-			
-			cartListDelete()
-				.then(printCartListDelete)
-				.catch(printError);
-			
-			function cartListDelete() {
-				return $.ajax({
-					url: '/mintProject/shop/goods/cartListDelete',
-					type: 'POST',
-					data: 'memId='+memId+'&productCode='+rowDeleteSel,
-					dataType: 'json'
-				});
-			}
-			
-			function printError(error) {
-				console.error(error);
-			}
-			
-			function printCartListDelete(result) {
-				console.log(result);
-			}
-			
-			
-		});
+		cartListDelete()
+			.then(printCartListDelete)
+			.catch(printError);
 		
+		function cartListDelete() {
+			return $.ajax({
+				url: '/mintProject/shop/goods/cartListDelete',
+				type: 'POST',
+				data: 'memId='+memId+'&productCode='+rowDeleteSel,
+				dataType: 'json'
+			});
+		}
 		
+		function printError(error) {
+			console.console(error);
+		}
 		
-		$('#'+rowDeleteSel).parents().parents('.viewDel').remove();
-		
-		chk_total_obj = document.getElementsByName('prdCheck');
-		chk_total_leng = chk_total_obj.length;
-		$('.prd_total_count').text(chk_total_leng);
-		
-		total_calcul();
-		$('.prd_count').text(chk_total_leng);//상품체크박스 선택한것만 카운트
-		$('.prd_total_count').text(chk_total_leng);//상품체크박스 개수 카운트
+		function printCartListDelete(result) {
+			$('#'+rowDeleteSel).parents().parents('.viewDel').remove();
+			
+			chk_total_obj = document.getElementsByName('prdCheck');
+			chk_total_leng = chk_total_obj.length;
+			$('.prd_total_count').text(chk_total_leng);
+			
+			total_calcul();
+			$('.prd_count').text(chk_total_leng);//상품체크박스 선택한것만 카운트
+			$('.prd_total_count').text(chk_total_leng);//상품체크박스 개수 카운트
+		}
 	});
 }
 

@@ -40,8 +40,8 @@
 		<div class="">
 			<label class="label_check"><input type="checkbox" name="allCheck" class="ico_check" onchange="chMinusPrice($(this))" checked></label>
 			<span class="tit"> 전체선택 (<span class="prd_count">0</span>/<span class="prd_total_count">0</span>) </span>
-			<button type="button" class="btn_delete">선택 삭제</button>
-			<button type="button" class="btn_delete">품절 상품 삭제</button>
+			<button type="button" class="btn_delete selectBtn">선택 삭제</button>
+			<button type="button" class="btn_delete soldOutBtn">품절 상품 삭제</button>
 		</div>
 		
 		<div>

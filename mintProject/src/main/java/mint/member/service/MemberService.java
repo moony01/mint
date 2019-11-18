@@ -5,6 +5,7 @@ import java.util.Map;
 
 import mint.member.bean.MemberDTO;
 import mint.member.bean.SupplierDTO;
+import mint.product.bean.ProductDTO;
 
 public interface MemberService {
 
@@ -28,6 +29,6 @@ public interface MemberService {
 
 	public List<Map<String, String>> getList(Map<String, String> map);
 
-	public List<Map<String, String>> getSupplierView(Map<String, String> map);
+	public List<ProductDTO> getProductList(Map<String, String> map);
 
 }

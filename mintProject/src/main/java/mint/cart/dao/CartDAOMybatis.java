@@ -15,7 +15,7 @@ public class CartDAOMybatis implements CartDAO {
 	private SqlSession sqlSession;
 
 	@Override
-	public List<ProductDTO> getCartList(Map<String, String> map) {
+	public List<Map<String,String>> getCartList(Map<String, String> map) {
 		return sqlSession.selectList("cartSQL.getCartList", map);
 	}
 

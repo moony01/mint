@@ -89,11 +89,10 @@
 		desc </if>
 	</select>
 	
-	<select id="getSupplierView" parameterType="java.util.Map" resultType="java.util.Map">
-		select suppliercode, supplier.id, category, tel, addr1, addr2, status, productcode, mainsubject, trunc(sum(star)/count(*)) as 상품별점평균 from reviewboard
-		left join product using(productcode)
+	<select id="getProductList" parameterType="java.util.Map" resultType="product">
+		select productcode, mainsubject, trunc(sum(star)/count(*)) as star from product
 		left join supplier on(supplier.id= product.supplierId)
-		group by(suppliercode, supplier.id, category, tel, addr1, addr2, status, productcode, mainsubject)
+		group by(supplier.id, productcode, mainsubject)
 		having supplier.id= #{value}
 	</select>
 </mapper>

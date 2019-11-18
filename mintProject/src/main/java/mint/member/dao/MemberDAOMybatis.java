@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mint.member.bean.MemberDTO;
 import mint.member.bean.SupplierDTO;
+import mint.product.bean.ProductDTO;
 
 @Transactional
 @Repository("memberDAO")
@@ -91,8 +92,8 @@ public class MemberDAOMybatis implements MemberDAO {
 	}
 
 	@Override
-	public List<Map<String, String>> getSupplierView(Map<String, String> map) {
-		return sqlSession.selectList("memberSQL.getSupplierView", map);
+	public List<ProductDTO> getProductList(Map<String, String> map) {
+		return sqlSession.selectList("memberSQL.getProductList", map);
 	}
 
 

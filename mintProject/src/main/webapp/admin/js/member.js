@@ -70,8 +70,7 @@ function printList(result){
 			let supplier = `<tr>
 				<td><input type="checkbox" name="" id=""></td>
 	            <td>${CATEGORY}</td>
-	            <td><a href="/mintProject/admin/member/supplierView/${ID}">${ID}</a></td>
-	            <td>${STAR}</td>
+	            <td><a href="/mintProject/admin/member/supplierView?id=${ID}">${ID}</a></td>
 	            <td>${parseDate}</td>
 	            <td>${STATUS}</td>
 	        </tr>`;

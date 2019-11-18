@@ -41,8 +41,8 @@ public class ProductDTO {
 	private String details;
 	// 상품 판매상황 0:판매중 1:판매중지
 	private int productStatus;
-	// 상품 추천수
-	private int recommend;
+	// 상품 추천수 => 별점
+	private int star;
 	// 할인률
 	private int discountRate;
 }

@@ -27,4 +27,6 @@ public interface MemberDAO {
 
 	public List<Map<String, String>> getList(Map<String, String> map);
 
+	public List<Map<String, String>> getSupplierView(Map<String, String> map);
+
 }

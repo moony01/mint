@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import mint.member.bean.MemberDTO;
 import mint.member.bean.SupplierDTO;
 import mint.member.service.MemberService;
 
@@ -77,21 +78,35 @@ public class MemberAdminController {
 	}
 	
 	// [회원, 판매자] ajax로 리스트 불러오기 ==================================================
-	@RequestMapping("/admin/member/{table}/{dateId}/{option}")
+	@RequestMapping("/admin/member/{table}/{searchValue}/{option}")
 	public ModelAndView getList(@PathVariable String table, 
-						@PathVariable String dateId, 
+						@PathVariable String searchValue, 
 						@PathVariable String option, ModelAndView mav) {
 		
-		System.out.println(table + "/ " + dateId + "/ " + option);
+		System.out.println(table + "/ " + searchValue + "/ " + option);
 		String orderbyValue = null; 
 		
 		Map<String, String> map = new HashMap<String, String>();
+		
 		orderbyValue = setMapValues(table, option, orderbyValue);
+		
+		if(searchValue.contains("-")) { // 날짜로 검색 
+			searchValue = searchValue.replace('.', '/');
+			map.put("searchOption", "logtime");
+			map.put("from", searchValue.substring(0, 8));
+			map.put("to", searchValue.substring(11));
+			
+		} else if(!searchValue.equals("undefined")){ // 아이디로 검색
+			map.put("searchOption", "id");
+			map.put("searchValue", searchValue);
+		}
 		
 		map.put("table", table);
 		map.put("orderbyValue", orderbyValue);
-		
-		List<Map<String, String>> list = memberService.getList(map);
+	
+		System.out.println(map);
+
+		List<Map<String, String>> list = memberService.getList(map); // member
 		System.out.println("list<Map>: " + list);
 		
 		//페이징 처리를 script에서 처리하기 위해 pg, totalArticle, addr 를 함께 싣어 보내준다. 
@@ -102,40 +117,21 @@ public class MemberAdminController {
 		mav.setViewName("jsonView");
 		
 		return mav; 
-		/* 기본 
-		 * <select id="aa" parameterType="java.util.Map" resultType="">
-		 * select * from ${table} order by ${orderbyValue} 
-		 * <if test="#{orderbyValue } == '1'">
-		 * asc </if>
-		 * <if test="#{orderbyValue } == '2'">
-		 * desc </if>
-		 * 
-		 * SMS 동의(Y):
-		 * select * from ${table} where ${orderbyValue} = 1;
-		 * 
-		 * date / id로 검색 조건 추가 시: 
-		 * 1) 날짜 검색
-		 * select * from ${table} where ${searchOption} in (#{from}, #{to}) order by ${orderbyValue} 
-		 * 2) 아이디 검색
-		 * select * from ${table} where ${searchOption} like '%'||#{searchValue}||'%' order by ${orderbyValue} 
-		 *  
-		 * 
-		 */
 
-		
 		
 	}
 
 	private String setMapValues(String table, String option, String orderbyValue) {
+
 		if(table.equals("member")) { 
-			if(option.equals("1")) { orderbyValue = "id"; //1 supplierId / id 오름차순
+			if(option.equals("1")) { orderbyValue = "id"; //1 id 오름차순
 			} else if(option.equals("2")) { orderbyValue = "memLevel"; // 별점 / 회원레벨 내림차순
 			} else if(option.equals("3")) { orderbyValue = "isAgreedSMS"; // SMS 동의(Y)인 사람만
 			} else if(option.equals("0") || option.equals("4")) {orderbyValue = "logtime";
 			}
 			
 		} else if(table.equals("supplier")) {
-			if(option.equals("1")) { orderbyValue = "supplierId";
+			if(option.equals("1")) { orderbyValue = "id";
 			} else if(option.equals("2")) { orderbyValue = "star";
 			} else if(option.equals("3")) {	orderbyValue = "status"; //status 내림차순 
 			} else if(option.equals("0") || option.equals("4")) {	orderbyValue = "logtime"; //logtime 내림차순
@@ -144,6 +140,30 @@ public class MemberAdminController {
 		
 		return orderbyValue;
 		
+	}
+	
+	@RequestMapping("/admin/member/memberView/{id}")
+	public void getView(String id) {
+		System.out.println("m_id: " + id);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key", "id");
+		map.put("value", id);
+		MemberDTO memberDTO = memberService.getUserBy(map);
+		
+		
+		
+	}
+	
+	@RequestMapping(value="/admin/member/supplierView/{id}", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public void getSupplierView(String id) {
+		System.out.println("s_id: " + id);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key", "id");
+		map.put("value", id);
+		//List<Map<String, String>> list = memberService.getSupplierView(map);
+		//System.out.println(list);
+	
 	}
 	
 }

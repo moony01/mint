@@ -50,7 +50,7 @@
 	        <tr>
 	            <th>상호명</th>
 	            <td class="table--left">
-	                <input type="text" name="supplierId" width="100px">
+	                <input type="text" name="id" width="100px">
 	            </td>
 	        </tr>
 	        

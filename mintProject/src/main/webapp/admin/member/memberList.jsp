@@ -9,7 +9,7 @@
     <form name="member">
 	    <div class="container">
 	        <div class="main__select" style="display:inline-block; justify-content: flex-start;">
-	            <select name="" id="" class="select-box" onchange="">
+	            <select name="" id="" class="select-box" onchange="getListByOption($(this))">
 	                <option value="0">전체</option>
 	                <option value="1">아이디 오름차순</option>
 	                <option value="2">회원레벨 내림차순</option>
@@ -19,11 +19,10 @@
 	        </div>
 	        
 	        <div class="searches" style="float: right; display:flex; justify-content: flex-end;">
-	            <input type="text" name="daterange"> <br>
+	            <input type="text" name="daterange">
 	            <div class="search">
-	                <button type="submit" class="searchButton">
-	                    <i class="fa fa-search"></i>
-	                </button>
+	                <input type="button" class="searchButton" onclick="getListBySearch($(this))">
+	                <i class="fa fa-search"></i>
 	            </div>
 	        </div>
 	        
@@ -36,13 +35,7 @@
 	                <th class="col-md-1">가입일</th>
 	            </tr>
 	
-	            <tr>
-	                <td><input type="checkbox" name="" id=""></td>
-	                <td class="table--left"><a href="">hong</a></td>
-	                <td>일반</td>
-	                <td>Y</td>
-	                <td>19.11.12</td>
-	            </tr>
+	           <!-- 여기에 컬럼 추가 -->
 	    
 	        </table>
 	        <div class="paging">
@@ -70,12 +63,12 @@ let to;
 
 $(function() {
 	  $('input[name="daterange"]').daterangepicker({
-	    opens: 'left'
+	    opens: 'left',
+	    locale: {
+	        format: 'YY.MM.DD'
+	    }
 	  }, function(start, end, label) {
-		  console.log(start);
-		  from = start.format('YYYY.MM.DD');
-		  to = end.format('YYYY.MM.DD')
-	    console.log(from + '~' + to);
+		  
 	  });
 });
 

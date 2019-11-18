@@ -12,7 +12,7 @@ import lombok.Data;
 @Component
 public class SupplierDTO {
 	private String supplierCode; 
-	private String supplierId; 
+	private String id; 
 	private String category; 
 	private String tel; 
 	private String addr1; 

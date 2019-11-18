@@ -20,7 +20,7 @@ public class ProductQnaBoardServiceImpl implements ProductQnaBoardService {
 	}
 
 	@Override
-	public List<ProductQnaBoardDTO> getAllProductQnaBoardList(Map<String, Object> map) {
+	public List<Map<String, Object>> getAllProductQnaBoardList(Map<String, Object> map) {
 		return productQnaBoardDAO.getAllProductQnaBoardList(map);
 	}
 
@@ -30,7 +30,7 @@ public class ProductQnaBoardServiceImpl implements ProductQnaBoardService {
 	}
 
 	@Override
-	public List<ProductQnaBoardDTO> getProductQnaBoardList(Map<String, Object> map) {
+	public List<Map<String, Object>> getProductQnaBoardList(Map<String, Object> map) {
 		return productQnaBoardDAO.getProductQnaBoardList(map);
 	}
 

@@ -29,6 +29,7 @@
 .tb-subject{
 	cursor: pointer;
 }
+
 .tb-row{
 	
 }
@@ -96,7 +97,7 @@
 		
 		<%-- 이벤트 목록 --%>
 		<p class="subtitle">이벤트 목록</p>
-		 <table class="table table-bordered">
+		 <table id="eventListTable" class="table table-bordered">
 	        <tr class="th--dark">
 	            <th class="col-md-1"><input type="checkbox" name="" id="chkAll"></th>
 	            <th class="col-md-1">진행여부</th>

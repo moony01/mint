@@ -6,7 +6,7 @@
 <div id="main">
 	<div id="content" style="width: 100%;">
 	<div class="section_cart">
-		<form id="" name="" method="post" action="">
+		<form id="cartList" name="cartList" action="/mintProject/shop/goods/order">
 		
 		<div class="cart_goods">
 			<table class="" style="width: 100%;">
@@ -68,6 +68,8 @@
 			</div>
 		</div>
 		
+		<input type="button" id="placeAnOrder" value="주문하기">
+		
 		</form>
 	</div>
 	</div>
@@ -76,7 +78,20 @@
 </section>
 
 <script type="text/javascript" src="/mintProject/shop/js/cart.js"></script>
-
+<script type="text/javascript">
+document.getElementById('placeAnOrder').onclick = function(){
+	var passPrice = parseInt($('#totalSumPrice span').text());
+	console.log(passPrice);
+	
+	if(passPrice==0) {
+		alert("결제할 항목을 선택하세요");
+	}else {
+		if(confirm("결제를 진행하시겠습니까?")) {
+			$('#cartList').submit();
+		}
+	}
+};
+</script>
 
 
 

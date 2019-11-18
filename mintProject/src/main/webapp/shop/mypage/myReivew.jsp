@@ -47,6 +47,24 @@
                     </button>
                 </div>
             </li>
+            <li class="review-item">
+                <div class="review-item__tit">
+                    주문번호 1573031047379
+                </div>
+                <div class="review-item__content">
+                    <img src="https://img-cf.kurly.com/shop/data/goods/1573629656399l0.jpg" alt="" class="review-item__thumb">
+                    <div class="review-item__desc">
+                        <div class="review-item__name">클랙식 초당 옥수수</div>
+                        <div class="reivew-item__count">1개 구매</div>
+                    </div>
+                    <div class="review-item__delivery-day">
+                        11월07일 배송완료
+                    </div>
+                    <button class="reivew-item__write-btn">
+                        후기쓰기
+                    </button>
+                </div>
+            </li>
         </ul>
     </div>
 </seciton>

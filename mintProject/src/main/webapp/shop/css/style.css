@@ -337,6 +337,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 300;
 }
 .notice-modal__overlay {
     background-color: rgba(0, 0, 0, 0.6);
@@ -401,4 +402,22 @@
 
 .hidden{
     display: none;
+}
+
+.check-label{
+    display: inline-block;
+    width: 16px;
+    height: 20px;
+    background: #fff url("https://res.kurly.com/pc/service/order/1908/ico_checkbox_off.png") no-repeat 0 2px;
+    font-size: 14px;
+    color: #000;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.check-label input{
+    position: relative;
+    z-index: -1;
+}
+.checked{
+    background:url("/mintProject/shop/storage/mint/icon/checkbox.png") no-repeat 0 2px !important;
 }

@@ -498,3 +498,85 @@
     color: #333;
     letter-spacing: -0.6px;
 }
+.note-editor{
+    z-index: 0;
+}
+
+/* 글쓰기 */
+.product-write__tit{
+    font-size: 16px;
+    line-height: 20px;
+    font-family: "Noto Sans";
+    font-weight: 700;
+    color: #333;
+    letter-spacing: -0.6px;
+    margin-bottom: 14px;
+}
+
+.write-tb{
+    width: 100%;
+    border-top: #00666b 1px solid;
+}
+.write-tb tr{
+    height: 63px;
+    border-bottom: 1px solid #ddd;
+}
+.write-tb th{
+    padding-left: 20px;
+    background-color: #f7f5f8;
+    font-size: 14px;
+    color: #4c4c4c;
+}
+.write-tb td{
+    padding-left: 7px;
+}
+
+.write-tb input[type="text"]{
+    width: 200px;
+    height: 40px;
+    padding: 10px;
+    border: 1px solid #dddfe1;
+    font-size: 14px;
+    color: #949296;
+    line-height: 20px;
+}
+.write-tb input[type="text"]:read-only{
+    background-color: #f9f9f9;
+
+}
+
+.subject input[type="text"] {
+    width: 100%;
+}
+
+.content td{
+    padding-top: 15px;
+} 
+
+.re-btn-group{
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+
+}
+.btn-exit,.btn-write{
+    all: unset;
+    width: 150px;
+    height: 42px;
+    margin-right: 5px;
+    border: 1px solid #00666b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+.btn-exit{
+    background-color: #fff;
+    color: #00666b;
+}
+.btn-write{
+    color: white;
+    background: #00666b;
+}

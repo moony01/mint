@@ -60,7 +60,7 @@
     display: inline-block;
     width: 10px;
     height: 10px;
-    background: url(/mintProject/shop/storage/mint/icon/up-arrow.png) no-repeat;
+    background: url("/mintProject/shop/storage/mint/icon/up-arrow.png") no-repeat;
     background-size: 10px;
     margin-left: 5px;
 }
@@ -69,7 +69,7 @@
     display: inline-block;
     width: 10px;
     height: 10px;
-    background: url(/mintProject/shop/storage/mint/icon/down-arrow.png) no-repeat;
+    background: url("/mintProject/shop/storage/mint/icon/down-arrow.png") no-repeat;
     background-size: 10px;
     margin-left: 5px;
 }

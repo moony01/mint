@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="/mintProject/shop/css/join.css">
     <link rel="stylesheet" href="/mintProject/shop/css/notice.css">
     <link rel="stylesheet" href="/mintProject/shop/css/productList.css">
+    <link rel="stylesheet" href="/mintProject/shop/css/productView.css">
     
        
     <script src="/mintProject/shop/js/index.js"></script>

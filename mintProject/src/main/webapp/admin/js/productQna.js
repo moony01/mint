@@ -40,18 +40,62 @@ function printProductQnaBoard(result){
 		} else {
 			reply = '답변완료';
 		}
-		let productQnaBoard  = `<tr>
+		let productQnaBoard  = `<tr class="subject_wrap" style="cursor : pointer" id="qna_${i}">
 									<td>${seq}</td>
 									<td>${productCode}</td>
 									<td>${subject}</td>
 									<td>${logtimeQ}</td>
 									<td>${id}</td>
-									<td>${reply}</td>
+									<td>${reply}</td>	
 								</tr>`;
+		if(reply=='답변완료'){
+			productQnaBoard = productQnaBoard+`<tr class="content_wrap qna_${i}">
+													<td colspan="6" style="text-align:left;"><pre>${content}</pre></td>
+												</tr>
+												<tr class="content_wrap qna_${i}">
+													<td colspan="6" style="text-align:left;"><pre>${replyContent}</pre></td>
+												</tr>`;
+		} else if(reply='답변대기'){
+			productQnaBoard = productQnaBoard+`<tr class="content_wrap qna_${i}">
+													<td colspan="6" style="text-align:left;"><pre>${content}</pre></td>
+												</tr>
+												<tr class="content_wrap qna_${i}">
+													<td colspan="6">
+														<textarea style="width:1140px; height:195px; resize:none;"></textarea><input type='button' value="답변등록" id="reply_btn" style="margin-top:10px;">
+													</td>
+												</tr>`;
+		}
+		
 		$frag.append($(productQnaBoard));
 	}
 	$('.table-productQna').append($frag);
 	paging(totalArticle,currentPage,addr);
+	
+	$('.content_wrap').hide();
+	
+	$('.subject_wrap').on({
+		click : function(){
+			var aaa = $(this).attr('id');
+			$('.'+aaa).slideToggle();
+		}
+	})
+	
+	$('#reply_btn').click(function(){
+		var seq = $(this).parent().parent().prev().prev().children(':first').text();
+		var replyContent = $(this).prev().val();	
+		$.ajax({
+			type : 'post',
+			url : '/mintProject/admin/service/productQna_reply',
+			data : {'replyContent' : replyContent, 'seq' : seq},
+			success : function(){
+				swal('답변 등록');
+				location.href="/mintProject/admin/service/productQna";
+			},
+			error : function(err){
+				console.log(err);
+			}
+		});
+	});
 	
 }
 

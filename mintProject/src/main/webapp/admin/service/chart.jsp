@@ -111,6 +111,4 @@
 			console.log(err);
 		}
 	});
-	
-	
 </script>

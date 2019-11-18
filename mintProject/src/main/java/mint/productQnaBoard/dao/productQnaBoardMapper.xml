@@ -24,4 +24,8 @@
 		(select * from productQnaBoard where ${key} = #{value} order by seq desc) temp) 
 		where rn between #{startNum} and #{endNum}
 	</select>
+	<!-- 관리자 - 문의글에 답변 달기 -->
+	<update id="reply" parameterType="java.util.Map">
+		update productQnaBoard set replyStatus=1, replyContent=#{replyContent} where seq=#{seq}
+	</update>
 </mapper>

@@ -15,4 +15,6 @@ public interface ProductQnaBoardDAO {
 
 	public List<ProductQnaBoardDTO> getProductQnaBoardList(Map<String, Object> map);
 
+	public void reply(Map<String, String> map);
+
 }

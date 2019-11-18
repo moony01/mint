@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import mint.member.bean.MemberDTO;
 import mint.member.bean.SupplierDTO;
 import mint.member.dao.MemberDAO;
+import mint.product.bean.ProductDTO;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
@@ -70,8 +71,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Map<String, String>> getSupplierView(Map<String, String> map) {
-		return memberDAO.getSupplierView(map);
+	public List<ProductDTO> getProductList(Map<String, String> map) {
+		return memberDAO.getProductList(map);
 	}
 
 

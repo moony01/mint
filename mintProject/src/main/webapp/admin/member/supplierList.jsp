@@ -14,7 +14,6 @@
 	            <select name="" id="" class="select-box" onchange="getListByOption($(this))">
 	                <option value="0">전체</option>
 	                <option value="1">상호명 오름차순</option>
-	                <option value="2">별점 내림차순</option>
 	                <option value="3">상태</option>
 	                <option value="4">계약일 내림차순</option>
 	            </select>
@@ -33,7 +32,6 @@
 	                <th class="col-md-1"><input type="checkbox" name="" id=""></th>
 	                <th class="col-md-1">카테고리</th>
 	                <th class="col-md-6">상호명</th>
-	                <th class="col-md-1">평균 별점</th>
 	                <th class="col-md-1">계약 시작일</th>
 	                <th class="col-md-1">상태</th>
 	            </tr>

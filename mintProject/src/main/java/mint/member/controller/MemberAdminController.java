@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import mint.member.bean.MemberDTO;
 import mint.member.bean.SupplierDTO;
 import mint.member.service.MemberService;
+import mint.product.bean.ProductDTO;
 
 @Controller
 public class MemberAdminController {
@@ -154,16 +156,26 @@ public class MemberAdminController {
 		
 	}
 	
-	@RequestMapping(value="/admin/member/supplierView/{id}", produces = "application/json; charset=UTF-8")
-	@ResponseBody
-	public void getSupplierView(String id) {
+	@RequestMapping(value="/admin/member/supplierView", produces = "application/json; charset=UTF-8")
+	public ModelAndView getSupplierView(String id, ModelAndView mav) {
 		System.out.println("s_id: " + id);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key", "id");
 		map.put("value", id);
-		//List<Map<String, String>> list = memberService.getSupplierView(map);
-		//System.out.println(list);
-	
+		
+		SupplierDTO supplierDTO = memberService.getSupplierBy(map);
+		List<ProductDTO> list = memberService.getProductList(map);
+		
+		System.out.println("DTO: " + supplierDTO);
+		System.out.println("list: "+ list);
+		
+		mav.addObject("supplierDTO", supplierDTO);
+		mav.addObject("list", list);
+		
+		mav.addObject("display", "/admin/member/supplierView.jsp");
+		mav.setViewName("/admin/main/admin");
+		
+		return mav;
 	}
 	
 }

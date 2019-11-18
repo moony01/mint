@@ -10,10 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import mint.cart.bean.CartDTO;
 import mint.cart.service.CartService;
+import mint.noticeBoard.bean.NoticeBoardDTO;
 import mint.product.bean.ProductDTO;
 
 @Controller
@@ -35,12 +38,52 @@ public class CartController {
 		String id = (String)session.getAttribute("memId");
 		map.put("id", id);
 		
-		List<ProductDTO> list = cartService.getCartList(map);
-		System.out.println("list : "+list);
+		List<Map<String,String>> list = cartService.getCartList(map);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
 		mav.setViewName("jsonView");
 		return mav;
 	}
+	
+	@RequestMapping(value="/shop/goods/cartListDelete", method=RequestMethod.POST)
+	@ResponseBody
+	public void cartListDelete(@RequestParam Map<String,String>map,
+							   Model model,
+							   HttpSession session) {
+		String id = (String)session.getAttribute("memId");
+		map.put("id", id);
+		
+		System.out.println("load map : "+map);
+		cartService.cartListDelete(map);
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

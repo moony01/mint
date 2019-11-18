@@ -3,9 +3,10 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cartSQL">
 	<!-- cart list 가져오기 -->
-	<select id="getCartList" parameterType="java.util.Map" resultType="product">
-		select productCode, thumbNail, mainSubject, price, stock, discountRate from product
-		join cart using(productCode) where id=#{id}
+	<select id="getCartList" parameterType="java.util.Map" resultType="java.util.Map">
+		select productCode, thumbNail, mainSubject, price, stock, discountRate, memLevel from product
+		join cart using(productCode) 
+		join member using(id) where id=#{id}
 	</select>
 	
 	<delete id="cartListDelete" parameterType="java.util.Map">

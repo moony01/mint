@@ -57,8 +57,14 @@
 	                </div>
 	            </div>
 	        <div>
-	            <button type="button" id="faqDeleteBtn" class="btn btn-danger">선택 삭제</button>
-	            <button type="button" id="faqWriteFormBtn" class="btn btn-primary">게시판 등록</button>
+	            <button type="button" id="faqDeleteBtn" class="btn btn-danger">
+	            	<i class="fa fa-times" aria-hidden="true"></i>
+	            	선택 삭제
+	            </button>
+	            <button type="button" id="faqWriteFormBtn" class="btn btn-primary">
+	            	<i class="fa fa-pen" aria-hidden="true"></i> 
+	            	게시판 등록
+	            </button>
 	        </div>
 	    </div>
 	</form>

@@ -3,18 +3,36 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="eventSQL">
 
-	<!-- 
-	<select id="getFAQBoardList" parameterType="java.util.Map" resultType="faqBoard">
+	<insert id="eventWrite" parameterType="java.util.Map" >
+		<choose>
+		<when test='isPeriodOn == "0"'>
+			insert into event values(#{subject},to_date(#{startDate},'yyyy-MM-dd HH24:mi'),to_date(#{endDate},'yyyy-MM-dd HH24:mi'),sysdate,#{productCode},#{eventStatus},SEQ_EVENT.nextval)
+		</when>
+		<otherwise>
+			insert into event values(#{subject},sysdate,#{productCode},#{eventStatus},SEQ_EVENT.nextval)
+		</otherwise>
+		</choose>
+	</insert>
+
+	<select id="getEventList" parameterType="java.util.Map" resultType="event">
 		<![CDATA[
 			select * from (select rownum rn, tt.* from
-		 (select * from faqboard order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
+		 (select * from event order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
 		]]>  
 	</select>
 
-
-	<select id="getFAQTotalArticle" resultType="Integer">
-		select count(*) from faqboard
+	<select id="getTotalEvent" resultType="Integer">
+		select count(*) from event
 	</select>
+
+	<delete id="eventDelete" parameterType="java.util.Map">
+		delete event where seq in 
+		<foreach collection="array" item="seq" index="i" open="(" separator="," close=")">
+			#{seq}
+		</foreach>
+	</delete>
+
+	<!-- 
 
 	<select id="faqCategorySearchList" parameterType="java.util.Map" resultType="faqBoard">
 		<![CDATA[
@@ -89,22 +107,13 @@
 	
 	
 
-	<insert id="faqBoardWrite" parameterType="java.util.Map">
-		insert into faqboard values(SEQ_FAQBOARD.nextval,#{id},#{subject},#{content},#{category},sysdate)
-	</insert>	
+		
 	
 
 	<select id="getFAQArticle" parameterType="Integer" resultType="faqBoard">
 		select * from faqboard where seq=#{seq}
 	</select>
 	
-
-	<delete id="faqDelete" parameterType="java.util.Map">
-		delete faqboard where seq in 
-		<foreach collection="array" item="seq" index="i" open="(" separator="," close=")">
-			#{seq}
-		</foreach>
-	</delete>
 	
 
 	<update id="faqModify" parameterType="java.util.Map">

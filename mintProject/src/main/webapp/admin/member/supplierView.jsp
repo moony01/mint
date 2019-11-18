@@ -9,6 +9,7 @@
         <a href="" class="ch-title now-title">판매자 상세보기</a> 
     </div>
 		 <div class="container">	
+		  	<h2 class="main__title">판매자 상세정보</h2>
 	        <table class="table table-bordered table-member">
 	            <tr class="th--dark">
 	                <th class="col-md-1">사업자 번호</th>
@@ -22,7 +23,12 @@
 	            
 	            <tr class="th--dark">
 	                <th class="col-md-1">카테고리</th>
-	                <td colspan="2">${supplierDTO.category}</td>
+	                <c:if test="${supplierDTO.category == '101'}"><td colspan="2">농산물</td></c:if>
+	                <c:if test="${supplierDTO.category == '102'}"><td colspan="2">수산물</td></c:if>
+	                <c:if test="${supplierDTO.category == '103'}"><td colspan="2">축산물</td></c:if>
+	                <c:if test="${supplierDTO.category == '104'}"><td colspan="2">일반식품</td></c:if>
+	                <c:if test="${supplierDTO.category == '105'}"><td colspan="2">반찬류</td></c:if>
+	                
 	            </tr>
 	            
 	            <tr class="th--dark">
@@ -37,24 +43,31 @@
 	            
 	            <tr class="th--dark">
 	                <th class="col-md-1">상태</th>
-	                <td colspan="2">${supplierDTO.status}</td>
+	                <c:if test="${supplierDTO.status == '0'}"><td colspan="2">판매중</td></c:if>
+	                <c:if test="${supplierDTO.status == '1'}"><td colspan="2">판매중지</td></c:if>
+	                <c:if test="${supplierDTO.status == '2'}"><td colspan="2">계약종료</td></c:if>
 	            </tr>
-	            
-	            <tr class="th--dark">
-	                <th colspan="3" class="col-md-1" >판매중인 상품</th>
-	            </tr>
-	            <tr class="th--dark">
-	                <th class="col-md-1" >상품코드</th>
-	                <th class="col-md-1" >상품명</th>
-	                <th class="col-md-1" >평균별점</th>
-	            </tr>
-	            
-                <c:forEach items="${list }" var="product">
-	                <tr class="th--dark">
-	                	<td class="col-md-1">${product.productCode }</td>
-	                	<td class="col-md-1">${product.mainSubject }</td>
-	                	<td class="col-md-1">${product.star }</td>
-                	</tr>
-                </c:forEach>
 	        </table>
+	        </div> 
+	       
+	        <div class="container">
+			    <h2 class="main__title">판매 중인 상품 </h2>   
+		        <table class="table table-bordered table-member">
+		            <tr class="th--dark">
+		                <th class="col-md-1" >상품코드</th>
+		                <th class="col-md-1" >상품명</th>
+		                <th class="col-md-1" >평균별점</th>
+		            </tr>
+			            
+	                <c:forEach items="${list }" var="product">
+		                <tr class="th--dark">
+		                	<td class="col-md-1">${product.productCode }</td>
+		                	<td class="col-md-1">${product.mainSubject }</td>
+		                	<td class="col-md-1">${product.star }</td>
+	                	</tr>
+	                </c:forEach>
+		        </table>
+	        <div class="container">
+	      	  <h2 class="main__title">매출 차트 </h2>   
+	      	</div>
 		  </div> 

@@ -526,9 +526,11 @@
     background-color: #f7f5f8;
     font-size: 14px;
     color: #4c4c4c;
+    vertical-align: middle;
 }
 .write-tb td{
     padding-left: 7px;
+    vertical-align: middle;
 }
 
 .write-tb input[type="text"]{

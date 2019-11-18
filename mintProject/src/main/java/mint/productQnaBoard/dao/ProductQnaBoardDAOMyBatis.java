@@ -35,4 +35,10 @@ public class ProductQnaBoardDAOMyBatis implements ProductQnaBoardDAO {
 	public List<ProductQnaBoardDTO> getProductQnaBoardList(Map<String, Object> map) {
 		return sqlSession.selectList("productQnaBoardSQL.getProductQnaBoardList", map);
 	}
+
+	@Override
+	public void reply(Map<String, String> map) {
+		sqlSession.update("productQnaBoardSQL.reply",map);
+		
+	}
 }

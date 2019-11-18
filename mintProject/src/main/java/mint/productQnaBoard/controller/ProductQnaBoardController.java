@@ -132,17 +132,17 @@ public class ProductQnaBoardController {
 		List<ProductQnaBoardDTO> list = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		if(status == 2) { // 전체선택
+		if(status == 2) { // 전체
 			totalArticle = productQnaBoardService.getAllProductQnaBoardTotArticle();
 			setPagingNumber(pg,map);
 			list = productQnaBoardService.getAllProductQnaBoardList(map);
-		} else {
+		} else { // 답변대기, 답변완료
 			map.put("key","replyStatus"); map.put("value",status);
 			totalArticle = productQnaBoardService.getProductQnaBoardTotArticle(map);
 			setPagingNumber(pg,map); 
 			list = productQnaBoardService.getProductQnaBoardList(map);
 		}
-		//페이징 처리를 script에서 처리하기 위해 pg, totalArticle, addr 를 함께 싣어 보내준다. 
+		//페이징 처리를 script에서 처리하기 위해 pg, totalArticle, addr
 		mav.addObject("pg", pg);
 		mav.addObject("totalArticle", totalArticle);
 		mav.addObject("addr", "/admin/service/getProductQna");
@@ -150,6 +150,15 @@ public class ProductQnaBoardController {
 		mav.setViewName("jsonView");
 		
 		return mav;
+	}
+	
+	@RequestMapping(value="/admin/service/productQna_reply")
+	@ResponseBody
+	public void productQna_reply(@RequestParam String replyContent, String seq, Map<String, String> map) {
+		System.out.println(seq+" "+replyContent);
+		map.put("seq", seq);
+		map.put("replyContent", replyContent);
+		productQnaBoardService.reply(map);
 	}
 	
 	// [사용자, 관리자 페이지 공통 함수] ==================================================================================================
@@ -160,6 +169,4 @@ public class ProductQnaBoardController {
 			map.put("endNum", endNum);
 			map.put("startNum", startNum);
 		}
-	
-	
 }

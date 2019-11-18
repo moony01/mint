@@ -3,11 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<style>
+pre {
+	overflow: auto;
+	white-space: pre-line;
+	word-break: break-all;
+	width:1142px; 
+	background-color:white;
+}
+</style>
+
 <div class="main__title">
-    <h2 class="out">상품제안 관리</h2>
+    <h2 class="out">상품문의 관리</h2>
     <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>게시판</span></a>
     <span class="ar-title">></span>        
-    <a href="" class="ch-title now-title">상품제안 관리</a>        
+    <a href="" class="ch-title now-title">상품문의 관리</a>        
 </div>
 <div class="container">
     <div class="main__select">
@@ -26,9 +36,8 @@
             <th class="col-md-6">제목</th>
             <th class="col-md-1">작성일</th>
             <th class="col-md-1">작성자</th>
-            <th class="col-md-1">상태</th>
+            <th class="col-md-1">답변상태</th>
         </tr>
-
     </table>
     <div class="paging">
         <ul class="pagination">
@@ -43,7 +52,7 @@
             <li class="page-item"><a class="page-link" href="#">&raquo;</a></li> -->
         </ul>
     </div>
-    <div class="main__btns">
+    <!-- <div class="main__btns">
         <form action="" id="searchForm">
             <div class="searches">
                 <select name="" id="" class="select-box">
@@ -63,6 +72,7 @@
         <div>
             <button type="button" class="btn btn-primary">선택 삭제</button>
         </div>
-    </div>
+    </div> -->
 </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/mintProject/admin/js/productQna.js"></script>

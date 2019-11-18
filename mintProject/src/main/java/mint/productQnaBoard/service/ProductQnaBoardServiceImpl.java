@@ -33,4 +33,10 @@ public class ProductQnaBoardServiceImpl implements ProductQnaBoardService {
 	public List<ProductQnaBoardDTO> getProductQnaBoardList(Map<String, Object> map) {
 		return productQnaBoardDAO.getProductQnaBoardList(map);
 	}
+
+	@Override
+	public void reply(Map<String, String> map) {
+		productQnaBoardDAO.reply(map);
+		
+	}
 }

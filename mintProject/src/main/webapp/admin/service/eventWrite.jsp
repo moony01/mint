@@ -34,30 +34,22 @@
 	        <tr>
 	            <th>진행여부</th>
 	            <td class="table--left">
-	            	<input type="radio" name="isOngoing" value="0" /> 진행중
-					<input type="radio" name="isOngoing" value="1" checked="checked" /> 진행안함
+	            	<input type="radio" name="eventStatus" value="1" /> 진행중
+					<input type="radio" name="eventStatus" value="0" checked="checked" /> 진행안함
 				</td>
 	        </tr>
 	        <tr>
 	            <th>이벤트명</th>
 	            <td class="table--left">
-	                <input type="text" name="subject">
-	            </td>
-	        </tr>
-	        <tr>
-	            <th>상품명</th>
-	            <td class="table--left">
-	                <input type="text" name="supplierId">
+	                <input type="text" id="eventSubject" name="subject">
 	            </td>
 	        </tr>
 	        <tr>
 	            <th>기간설정</th>
 	            <td class="table--left">
-	            	<input type="radio" class="isPeriodOn" name="swPeriod" value="0" checked="checked"/> 설정
-					<input type="radio" class="isPeriodOn" name="swPeriod" value="1" /> 설정안함
-			
+	            	<input type="radio" class="isPeriodOn" name="isPeriodOn" value="0" checked="checked"/> 설정
+					<input type="radio" class="isPeriodOn" name="isPeriodOn" value="1" /> 설정안함
 					<br>
-		           
 		            <input type="text" name="startDate" id="datetimepickerStart">
 		            <button type="button" id="dateStartBtn" class="dateButton">
 		            	<i class="fa fa-calendar" aria-hidden="true"></i>
@@ -69,23 +61,16 @@
 		            </button>
 	            </td>
 	        </tr>
-	         <tr>
-	            <th>할인율</th>
-	            <td class="table--left">
-	                <input type="text" name="discountRate">% 할인
-					<br>
-	                <input type="text" name="roundDigit">번째 자릿수에서 반올림
-	            </td>
-	        </tr>
 	    </table>
-	</form>
 	    
 	    <span class="subtitle">상품선택</span>
-	    <button type="button" id="addEventProductBtn" class="btn btn-primary btn-sm">추가</button>
-	    <button type="button" id="deleteEventProductBtn" class="btn btn-danger btn-sm">삭제</button>
+	    <button type="button" id="addEventProductBtn" class="btn btn-primary btn-sm">
+	    	<i class="fa fa-angle-double-down" aria-hidden="true"></i>
+	    	일괄추가
+	    </button>
 	    <table id="eventProductTable" class="table table-bordered">
 	        <tr class="th--dark">
-	            <th class="col-md-1"><input type="checkbox" name="" id="chkAll"></th>
+	            <th class="col-md-1"><input type="checkbox" id="chkAll"></th>
 	            <th class="col-md-1">미리보기</th>
 	            <th class="col-md-1">상품코드</th>
 	            <th class="col-md-3">상품명</th>
@@ -93,7 +78,62 @@
 	            <th class="col-md-1"></th>
 	        </tr>
 	    </table>
+	    <div class="paging">
+	        <ul class="pagination">
+	            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+	            <li class="page-item"><a class="page-link" href="#">&lsaquo;</a></li>
+	
+	            <li class="page-item"><a class="page-link" href="#">&rsaquo;</a></li>
+	            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+	        </ul>
+	    </div>
 	    
+	    
+	    
+	    <span class="subtitle">이벤트 설정</span>
+	    <table id="eventProductTable" class="table table-bordered">
+	         <tr>
+	            <th>일괄처리</th>
+	            <td class="table--left">
+	                <input type="text" id="eventRate">% 할인
+	            </td>
+	            <th>일괄삭제</th>
+	            <td>
+	    			<button type="button" id="deleteEventProductBtn" class="btn btn-danger btn-sm">
+	    			<i class="fa fa-times" aria-hidden="true"></i>
+	    			일괄삭제
+	    			</button>
+	    		</td>
+	        </tr>
+	        <tr class="th--dark">
+	            <th class="col-md-1"><input type="checkbox" id="chkAll"></th>
+	            <th class="col-md-1">미리보기</th>
+	            <th class="col-md-1">상품코드</th>
+	            <th class="col-md-3">상품명</th>
+	            <th class="col-md-1">가격</th>
+	            <th class="col-md-1"></th>
+	        </tr>
+	       	<tr>
+	       		<td><input type="checkbox"></td>
+				<td>미리보기</td>
+				<td>[닥터브로너스] 오가닉 립밤</td>
+				<td class="productCode">PX03004</td>
+				<td>5000원</td>
+				<td>4000원</td>
+				<td>20%</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"></td>
+				<td>미리보기</td>
+				<td>[파우트] 노우즈1 공기청정기</td>
+				<td class="productCode">EC220033</td>
+				<td>30000원</td>
+				<td>26000원</td>
+				<td>20%</td>
+			</tr>
+	    </table>
+	    
+	</form>
 	    
 	    <div class="write-tb__btns">
 	        <button type="button" id="eventWriteBtn" class="btn btn-primary btn-lg">글쓰기</button>
@@ -102,6 +142,16 @@
 	</div>
 <script>
 $(function(){
+	// modify일시 type이 mod로 넘어옴
+	let type = '"${type}"';
+
+	
+	// 수정시 가져오기
+	if(type === '"mod"'){
+		
+	}
+	
+	
 	// datetimepicker locale
 	$.datetimepicker.setLocale('ko');
 	$('#datetimepickerStart').datetimepicker({
@@ -119,7 +169,6 @@ $(function(){
 		},
 	});	
 
-	
 	// 날짜선택 막아주는 기능인데 날짜/시간 한꺼번에 안되는듯
 	// 날짜, 시간 따로 input text 받아서 따로 조절할지 고민
 	$('#dateStartBtn').click(function(){
@@ -152,9 +201,44 @@ $('.isPeriodOn').change(function(){
 	}
 });
 
-// 이벤트 작성
+//글쓰기 버튼 클릭시
+/* 유효성 검사 alert로 해놓긴 했는데 div나 다른 방식으로 바꿀 수 있음  */
 $('#eventWriteBtn').click(function(){
-	$('#eventWriteForm').submit();
-});
+	let type = '"${type}"';
+	if($('#eventSubject').val() === '') alert('이벤트명을 입력 해주세요');
 
+
+	else {
+		if(type === '"mod"'){
+			$.ajax({
+				type:'post',
+				url:'/mintProject/admin/service/eventModify',
+				data: $('#eventWriteForm').serialize(),
+				success: function(){
+					alert('수정 완료!');
+					location.href='/mintProject/admin/service/event';
+				},
+				error: function(error){
+					alert('수정 실패!');
+					console.error(error);
+				}
+			});
+		} else {
+			$.ajax({
+				type:'post',
+				url:'/mintProject/admin/service/eventWrite',
+				data: $('#eventWriteForm').serialize(),
+				success: function(){
+					alert('작성 완료!');
+					location.href='/mintProject/admin/service/event';
+				},
+				error: function(error){
+					alert('작성 실패!');
+					console.error(error);
+				}
+			
+			});
+		}
+	}
+});
 </script>

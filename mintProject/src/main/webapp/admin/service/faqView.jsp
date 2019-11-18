@@ -33,8 +33,14 @@
       
     </table>
     <div class="write-tb__btns">
-        <button type="button" id="faqModifyBtn" class="btn btn-primary btn-lg">수정하기</button>
-        <button type="button" id="faqListBtn" class="btn btn-success btn-lg">목록으로</button>
+        <button type="button" id="faqModifyBtn" class="btn btn-primary btn-lg">
+			<i class="fa fa-edit" aria-hidden="true"></i>
+       		 수정하기
+        </button>
+        <button type="button" id="faqListBtn" class="btn btn-success btn-lg">
+       		 <i class="fa fa-list-alt" aria-hidden="true"></i>
+       		 목록으로
+        </button>
     </div>   
 </div>
 <script type="text/javascript">
@@ -52,6 +58,7 @@ $(function(){
 			$('#faqSubject').append($('<p/>',{text:dto.subject}));
 			$('#faqId').append($('<p/>',{text:dto.id}));
 			$('#faqContent').append('<p>'+dto.content+'</p>');
+			$('#faqLogtime').append('<p>'+dto.logtime+'</p>');
 			
 			/* 
 			if(result.memId == result.dto.id){

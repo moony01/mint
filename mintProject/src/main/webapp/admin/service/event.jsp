@@ -46,7 +46,9 @@
 
 </style>
 
-<form id="eventWriteForm">
+<form id="eventListForm">
+	<input type="hidden" id="pg" name="pg" value="${pg}">
+
 	<div class="main__title">
 	    <h3 class="out">이벤트</h3>
 	    <a href="" class="pa-title"><i class="fas fa-gift"></i><span>이벤트</span></a>
@@ -92,7 +94,10 @@
 	        </tr>
 	    </table>
 		<div class="center_button">
-			<button type="button" class="btn btn-info">검색</button>
+			<button type="button" class="btn btn-info">
+				<i class="fa fa-search" aria-hidden="true"></i>
+				검색
+			</button>
 		</div>
 		
 		<%-- 이벤트 목록 --%>
@@ -106,70 +111,28 @@
 	            <th class="col-md-2">종료일</th>
 	            <th class="col-md-1"></th>
 	        </tr>
-			<tr class="tb-row" onclick="eventRow(this)">
-				<td><input type="checkbox" name="" class="chk" value="1"></td>
-				<td>진행함</td>
-				<td class="tb-subject">[기획특가전] 환절기 대비 특가</td>
-				<td>2019/11/10 00:00</td>
-				<td>2019/12/01 00:00</td>
-				<td><button type="button" id="eventModifyBtn" class="btn btn-success btn-sm">수정</button></td>
-			</tr>
-			<tr class="tb-view">
-				<td colspan="6">
-					<div class="subtitle">
-						<i class="fas fa-list"></i>
-						<span>이벤트 상품 목록</span>
-					</div>
-					<table class="table event-table">
-						<tr>
-							<th class="col-md-2">미리보기</th>
-							<th class="col-md-3">상품명</th>
-							<th class="col-md-3">상품코드</th>
-							<th class="col-md-1">정상가</th>
-							<th class="col-md-1">할인가</th>
-							<th class="col-md-1">할인률</th>
-						</tr>
-						<tr>
-							<td>미리보기</td>
-							<td>[닥터브로너스] 오가닉 립밤</td>
-							<td>PX03004</td>
-							<td>5000원</td>
-							<td>4000원</td>
-							<td>20%</td>
-						</tr>
-						<tr>
-							<td>미리보기</td>
-							<td>[파우트] 노우즈1 공기청정기</td>
-							<td>EC220033</td>
-							<td>30000원</td>
-							<td>26000원</td>
-							<td>20%</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" name="" class="chk" value="1"></td>
-				<td>진행안함</td>
-				<td>[계절특가] 새학기 준비 특가</td>
-				<td>2019/02/01 08:00</td>
-				<td>2019/03/28 23:00</td>
-				<td><button type="button" id="eventModifyBtn" class="btn btn-success btn-sm">수정</button></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" name="" class="chk" value="1"></td>
-				<td>진행함</td>
-				<td>[상시특가] 일부 브랜드 창고 정리!</td>
-				<td>상시이벤트</td>
-				<td>상시이벤트</td>
-				<td><button type="button" id="eventModifyBtn" class="btn btn-success btn-sm">수정</button></td>
-			</tr>
-			
+	    	<%-- 이벤트 목록 리스트로 들어오는 곳 --%>
 	    </table>
-		
+	    
+	    <div class="paging">
+	        <ul class="pagination">
+	            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+	            <li class="page-item"><a class="page-link" href="#">&lsaquo;</a></li>
+	
+	            <li class="page-item"><a class="page-link" href="#">&rsaquo;</a></li>
+	            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+	        </ul>
+	    </div>
+	    		
 	    <div class="write-tb__btns">
-	        <button type="button" id="eventDeleteBtn" class="btn btn-danger">이벤트삭제</button>
-	        <button type="button" id="eventWriteBtn" class="btn btn-primary">이벤트등록</button>
+	        <button type="button" id="eventDeleteBtn" class="btn btn-danger">
+	    		<i class="fa fa-calendar-times" aria-hidden="true"></i>    
+	        	이벤트삭제
+	        </button>
+	        <button type="button" id="eventWriteBtn" class="btn btn-primary">
+	        	<i class="fa fa-calendar-plus" aria-hidden="true"></i>
+	        	이벤트등록
+	        </button>
 	    </div>   
 	</div>
 </form>

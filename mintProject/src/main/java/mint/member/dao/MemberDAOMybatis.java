@@ -79,13 +79,20 @@ public class MemberDAOMybatis implements MemberDAO {
 
 	@Override
 	public List<Map<String, String>> getList(Map<String, String> map) {
-		if(map.containsKey("searchOption")) {
+		if(map.containsKey("searchOption")) { // 검색 조건(날짜 / 이름) 이 있을 때
 			return sqlSession.selectList("memberSQL.getListBysearchOption", map);
 			
-		} else if(map.get("orderbyValue").equals("isAgreedSMS")) {
+		} else if(map.get("orderbyValue").equals("isAgreedSMS")) { // 기본 sorting - sms 동의 여부일 때 
 			return sqlSession.selectList("memberSQL.getListBySMS", map);
+		} else {
+			return sqlSession.selectList("memberSQL.getList", map); // 기본 sorting만 해서 리스트 뿌리기
+			
 		}
-		return sqlSession.selectList("memberSQL.getList", map);
+	}
+
+	@Override
+	public List<Map<String, String>> getSupplierView(Map<String, String> map) {
+		return sqlSession.selectList("memberSQL.getSupplierView", map);
 	}
 
 

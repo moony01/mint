@@ -19,11 +19,10 @@
 	        </div>
 	        
 	        <div class="searches" style="float: right; display:flex; justify-content: flex-end;">
-	            <input type="text" name="daterange"> <br>
+	            <input type="text" name="daterange">
 	            <div class="search">
-	                <button type="submit" class="searchButton">
-	                    <i class="fa fa-search"></i>
-	                </button>
+	                <input type="button" class="searchButton" onclick="getListBySearch($(this))">
+	                <i class="fa fa-search"></i>
 	            </div>
 	        </div>
 	        
@@ -64,12 +63,12 @@ let to;
 
 $(function() {
 	  $('input[name="daterange"]').daterangepicker({
-	    opens: 'left'
+	    opens: 'left',
+	    locale: {
+	        format: 'YY.MM.DD'
+	    }
 	  }, function(start, end, label) {
-		  console.log(start);
-		  from = start.format('YY/MM/DD');
-		  to = end.format('YY/MM/DD')
-	    console.log(from + '~' + to);
+		  
 	  });
 });
 

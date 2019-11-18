@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
+import mint.member.bean.MemberDTO;
 import mint.member.bean.SupplierDTO;
 import mint.member.service.MemberService;
 
@@ -85,8 +84,6 @@ public class MemberAdminController {
 						@PathVariable String option, ModelAndView mav) {
 		
 		System.out.println(table + "/ " + searchValue + "/ " + option);
-		//System.out.println(searchValue.substring(0, 8));
-		//System.out.println(searchValue.substring(14));
 		String orderbyValue = null; 
 		
 		Map<String, String> map = new HashMap<String, String>();
@@ -94,9 +91,10 @@ public class MemberAdminController {
 		orderbyValue = setMapValues(table, option, orderbyValue);
 		
 		if(searchValue.contains("-")) { // 날짜로 검색 
+			searchValue = searchValue.replace('.', '/');
 			map.put("searchOption", "logtime");
 			map.put("from", searchValue.substring(0, 8));
-			map.put("to", searchValue.substring(14));
+			map.put("to", searchValue.substring(11));
 			
 		} else if(!searchValue.equals("undefined")){ // 아이디로 검색
 			map.put("searchOption", "id");
@@ -105,9 +103,9 @@ public class MemberAdminController {
 		
 		map.put("table", table);
 		map.put("orderbyValue", orderbyValue);
-		
+	
 		System.out.println(map);
-		
+
 		List<Map<String, String>> list = memberService.getList(map); // member
 		System.out.println("list<Map>: " + list);
 		
@@ -142,6 +140,30 @@ public class MemberAdminController {
 		
 		return orderbyValue;
 		
+	}
+	
+	@RequestMapping("/admin/member/memberView/{id}")
+	public void getView(String id) {
+		System.out.println("m_id: " + id);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key", "id");
+		map.put("value", id);
+		MemberDTO memberDTO = memberService.getUserBy(map);
+		
+		
+		
+	}
+	
+	@RequestMapping(value="/admin/member/supplierView/{id}", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public void getSupplierView(String id) {
+		System.out.println("s_id: " + id);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key", "id");
+		map.put("value", id);
+		//List<Map<String, String>> list = memberService.getSupplierView(map);
+		//System.out.println(list);
+	
 	}
 	
 }

@@ -77,11 +77,10 @@ $(function() {
 	  $('input[name="daterange"]').daterangepicker({
 	   // opens: 'left',
 		locale: {
-	        format: 'YY/MM/DD'
+	        format: 'YY.MM.DD'
 	    }
 	  }, function(start, end, label) {
-		  from = start.format('YY/MM/DD');
-		  to = end.format('YY/MM/DD');
+		 
 	  });
 });
 

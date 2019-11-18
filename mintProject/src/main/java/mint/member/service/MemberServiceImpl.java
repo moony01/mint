@@ -69,5 +69,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.getList(map);
 	}
 
+	@Override
+	public List<Map<String, String>> getSupplierView(Map<String, String> map) {
+		return memberDAO.getSupplierView(map);
+	}
+
 
 }

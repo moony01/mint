@@ -20,14 +20,15 @@ function getListByOption(select){
 
 function getListBySearch(btn){
 	searchValue = btn.parent().prev().val();
-	console.log(searchValue);
+	alert(searchValue);
 	getList(option, searchValue)
 	.then(printList)
 	.catch();
 }
 
 
-function getList(option, searchValue){		
+function getList(option, searchValue){
+	if(searchValue == '') searchValue = 'undefined'; // 검색어가 입력되어 있지 않으면 'undefined'로 설정. 
 	return $.ajax({
 		type: 'post',
 		url: '/mintProject/admin/member/' +table+ '/' +searchValue+ '/' +option,
@@ -38,8 +39,6 @@ function getList(option, searchValue){
 }
 
 function printList(result){
-	console.log(result.list);
-	
 	let pg = result.pg;
 	let list = result.list;
 	let totalArticle = result.totalArticle;
@@ -50,7 +49,7 @@ function printList(result){
 	$('.pagination li').remove();
 	let $frag = $(document.createDocumentFragment());
 	for (let i = 0; i < list.length; i++) {
-		if(table == 'supplier'){
+		if(table == 'supplier'){ // 판매자 목록 
 			let {CATEGORY, ID, STAR, LOGTIME, STATUS} = list[i];	
 			
 			let date = JSON.parse(LOGTIME);
@@ -71,7 +70,7 @@ function printList(result){
 			let supplier = `<tr>
 				<td><input type="checkbox" name="" id=""></td>
 	            <td>${CATEGORY}</td>
-	            <td><a href="#">${ID}</a></td>
+	            <td><a href="/mintProject/admin/member/supplierView/${ID}">${ID}</a></td>
 	            <td>${STAR}</td>
 	            <td>${parseDate}</td>
 	            <td>${STATUS}</td>
@@ -82,7 +81,7 @@ function printList(result){
 			$frag.append($(supplier));
 		}
 		
-		else if(table == 'member'){
+		else if(table == 'member'){ //회원 목록 
 			let {ID, MEMLEVEL, ISAGREEDSMS, LOGTIME} = list[i];		
 			
 			let date = JSON.parse(LOGTIME);
@@ -101,7 +100,7 @@ function printList(result){
 			let member = `<tr>
 				<td><input type="checkbox" name="" id=""></td>
 	            <td>${MEMLEVEL}</td>
-	            <td><a href="#">${ID}</a></td>
+	            <td><a href="/mintProject/admin/member/memberView/${ID}">${ID}</a></td>
 	            <td>${ISAGREEDSMS}</td>
 	            <td>${parseDate}</td>
 	        </tr>`;

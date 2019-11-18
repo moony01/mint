@@ -32,32 +32,32 @@ function printProductQnaBoard(result){
 	
 	let $frag = $(document.createDocumentFragment());
 	for(let i=0; i<list.length; i++){
-		const {seq,productCode,subject,content,id,logtimeQ,replyStatus,replyContent} = list[i]; 
+		const {SEQ,MAINSUBJECT,SUBJECT,CONTENT,ID,LOGTIMEQ,REPLYSTATUS,REPLYCONTENT} = list[i]; 
 		
 		let reply;
-		if(replyStatus == '0'){
+		if(REPLYSTATUS == '0'){
 			reply = '답변대기';
 		} else {
 			reply = '답변완료';
 		}
 		let productQnaBoard  = `<tr class="subject_wrap" style="cursor : pointer" id="qna_${i}">
-									<td>${seq}</td>
-									<td>${productCode}</td>
-									<td>${subject}</td>
-									<td>${logtimeQ}</td>
-									<td>${id}</td>
+									<td>${SEQ}</td>
+									<td>${MAINSUBJECT}</td>
+									<td>${SUBJECT}</td>
+									<td>${LOGTIMEQ}</td>
+									<td>${ID}</td>
 									<td>${reply}</td>	
 								</tr>`;
 		if(reply=='답변완료'){
 			productQnaBoard = productQnaBoard+`<tr class="content_wrap qna_${i}">
-													<td colspan="6" style="text-align:left;"><pre>${content}</pre></td>
+													<td colspan="6" style="text-align:left;"><pre>${CONTENT}</pre></td>
 												</tr>
 												<tr class="content_wrap qna_${i}">
-													<td colspan="6" style="text-align:left;"><pre>${replyContent}</pre></td>
+													<td colspan="6" style="text-align:left;"><pre>${REPLYCONTENT}</pre></td>
 												</tr>`;
 		} else if(reply='답변대기'){
 			productQnaBoard = productQnaBoard+`<tr class="content_wrap qna_${i}">
-													<td colspan="6" style="text-align:left;"><pre>${content}</pre></td>
+													<td colspan="6" style="text-align:left;"><pre>${CONTENT}</pre></td>
 												</tr>
 												<tr class="content_wrap qna_${i}">
 													<td colspan="6">

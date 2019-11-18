@@ -111,8 +111,7 @@ public class ProductQnaBoardController {
 	
 	
 	
-	//=====================================================================================
-	// 관리자
+	//=======관리자=====================================================================================
 	
 	// 상뭄문의 관리 페이지 로드
 	@RequestMapping(value="/admin/service/productQna", method=RequestMethod.GET)
@@ -129,7 +128,7 @@ public class ProductQnaBoardController {
 													ModelAndView mav) {
 		int totalArticle = 0;
 		int status = Integer.parseInt(replyStatus);
-		List<ProductQnaBoardDTO> list = null;
+		List<Map<String, Object>> list = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		if(status == 2) { // 전체

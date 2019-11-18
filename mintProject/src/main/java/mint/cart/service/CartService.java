@@ -7,7 +7,7 @@ import mint.product.bean.ProductDTO;
 
 public interface CartService {
 	
-	public List<ProductDTO> getCartList(Map<String, String> map);
+	public List<Map<String,String>> getCartList(Map<String, String> map);
 
 	public void cartListDelete(Map<String, String> map);
 

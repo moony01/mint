@@ -15,7 +15,7 @@ public class CartServiceImpl implements CartService {
 	private CartDAO cartDAO;
 	
 	@Override
-	public List<ProductDTO> getCartList(Map<String, String> map) {
+	public List<Map<String,String>> getCartList(Map<String, String> map) {
 		return cartDAO.getCartList(map);
 	}
 

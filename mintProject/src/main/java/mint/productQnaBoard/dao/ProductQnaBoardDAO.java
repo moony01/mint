@@ -9,11 +9,11 @@ public interface ProductQnaBoardDAO {
 
 	public int getAllProductQnaBoardTotArticle();
 
-	public List<ProductQnaBoardDTO> getAllProductQnaBoardList(Map<String, Object> map);
+	public List<Map<String, Object>> getAllProductQnaBoardList(Map<String, Object> map);
 
 	public int getProductQnaBoardTotArticle(Map<String, Object> map);
 
-	public List<ProductQnaBoardDTO> getProductQnaBoardList(Map<String, Object> map);
+	public List<Map<String, Object>> getProductQnaBoardList(Map<String, Object> map);
 
 	public void reply(Map<String, String> map);
 

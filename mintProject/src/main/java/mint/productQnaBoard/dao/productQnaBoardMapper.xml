@@ -8,20 +8,20 @@
 	<select id="getAllProductQnaBoardTotArticle" resultType="int">
 		select count(*) from productQnaBoard
 	</select>
-	<select id="getAllProductQnaBoardList" parameterType="java.util.Map" resultType="productQnaBoard">
+	<select id="getAllProductQnaBoardList" parameterType="java.util.Map" resultType="java.util.Map">
 		select * from 
 		(select rownum rn, temp.* from 
-		(select * from productQnaBoard order by seq desc) temp) 
+		(select seq, mainSubject,subject, content, id, to_char(logtimeQ,'yyyy-mm-DD') as logtimeQ, replyStatus, replyContent from productQnaBoard join product using (productCode) order by seq desc) temp) 
 		where rn between #{startNum} and #{endNum}
 	</select>
 	<!-- 답변여부로 나누어 보기 -->
 	<select id="getProductQnaBoardTotArticle" parameterType="java.util.Map" resultType="int">
 		select count(*) from productQnaBoard where ${key}=#{value}
 	</select>
-	<select id="getProductQnaBoardList" parameterType="java.util.Map" resultType="productQnaBoard">
+	<select id="getProductQnaBoardList" parameterType="java.util.Map" resultType="java.util.Map">
 		select * from 
 		(select rownum rn, temp.* from 
-		(select * from productQnaBoard where ${key} = #{value} order by seq desc) temp) 
+		(select seq, mainSubject,subject, content, id, to_char(logtimeQ,'yyyy-mm-DD') as logtimeQ, replyStatus, replyContent from productQnaBoard join product using (productCode) where ${key} = #{value} order by seq desc) temp) 
 		where rn between #{startNum} and #{endNum}
 	</select>
 	<!-- 관리자 - 문의글에 답변 달기 -->

@@ -67,8 +67,6 @@
             </div>
             <div class="goods-total__btns">
                 <!-- 벨류는 자동으로 변경됨 -->
-                <input type="hidden" value="" id="total">
-                <input type="hidden" value="" id="point">
                 <!-- btn-off 이벤트 설정 못하게 하는 클래스 -->
                 <div class="g-btn btn-alaram btn-off">재입고 알림</div>
                 <div class="g-btn btn-always">늘 사는 것</div>

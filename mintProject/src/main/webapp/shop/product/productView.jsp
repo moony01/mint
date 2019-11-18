@@ -447,18 +447,18 @@
 </section>
 
 <!-- 모달 -->
-<div class="modal hidden">
-    <div class="modal__overlay"></div>
-    <div class="modal__content">
-        <div class="modal__header">
-            <span class="modal__tit">알림메시지</span>
-            <button class="modal__close-btn"></button>
+<div class="notice-modal hidden">
+    <div class="notice-modal__overlay"></div>
+    <div class="notice-modal__content">
+        <div class="notice-modal__header">
+            <span class="notice-modal__tit">알림메시지</span>
+            <button class="notice-modal__close-btn"></button>
         </div>
-        <div class="modal__message">
+        <div class="notice-modal__message">
             <span>이미 동일한 상품이 장바구니에 존재합니다.</span>
         </div>
-        <div class="modal__footer">
-            <button class="modal__yes-btn">
+        <div class="notice-modal__footer">
+            <button class="notice-modal__yes-btn">
                 확인
             </button>
         </div>

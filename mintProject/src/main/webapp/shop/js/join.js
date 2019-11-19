@@ -106,7 +106,7 @@ certiAuthBtn.addEventListener("click", function(){
 	getAuthConfirmPage()
 	.then(function(result){
 		if(result == 'true') alert("인증이 완료되었습니다. ");
-		else alert('인증번호가 잘못되었거나, 시간이 만료되었습니다.');
+		else alert('인증번호가 잘못되었습니다. ');
 	})
 	.catch(printError);
 		

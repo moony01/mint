@@ -1,7 +1,6 @@
 let table = document.forms[0].name;
 let option = $('.select-box option:selected').val();
 let searchValue;
-let cbxOne;
 
 //회원 & 판매자 목록 =====================================================================================
 //ajax로 처음 로드했을 때 list 가져옴. 
@@ -51,7 +50,7 @@ function printList(result){
 	let $frag = $(document.createDocumentFragment());
 	for (let i = 0; i < list.length; i++) {
 		if(table == 'supplier'){ // 판매자 목록 
-			let {SUPPLIERCODE, CATEGORY, ID, STAR, LOGTIME, STATUS} = list[i];	
+			let {CATEGORY, ID, STAR, LOGTIME, STATUS} = list[i];	
 			
 			let date = JSON.parse(LOGTIME);
 			let parseDate = new Date(date).toISOString().slice(0,10);
@@ -69,7 +68,7 @@ function printList(result){
 			}
 			
 			let supplier = `<tr>
-				<td><input type="checkbox" class="checkbox-one" value="${ID}"></td>
+				<td><input type="checkbox" name="" id=""></td>
 	            <td>${CATEGORY}</td>
 	            <td><a href="/mintProject/admin/member/supplierView?id=${ID}">${ID}</a></td>
 	            <td>${parseDate}</td>
@@ -98,9 +97,9 @@ function printList(result){
 			}
 			
 			let member = `<tr>
-				<td><input type="checkbox" class="checkbox-one" value="${ID}"></td>
+				<td><input type="checkbox" name="" id=""></td>
 	            <td>${MEMLEVEL}</td>
-	            <td><a href="/mintProject/admin/member/memberView?id=${ID}">${ID}</a></td>
+	            <td><a href="/mintProject/admin/member/memberView/${ID}">${ID}</a></td>
 	            <td>${ISAGREEDSMS}</td>
 	            <td>${parseDate}</td>
 	        </tr>`;
@@ -115,56 +114,3 @@ function printList(result){
 
 }
 
-//전체선택
-$('.checkbox-all').on('change', function cbxChecked(){
-	let cbxOne  = $('.checkbox-one');
-	if(this.checked) {
-		for (var i = 0; i < cbxOne.length; i++) {
-			cbxOne.eq(i).prop('checked', true);
-		}
-	} else {
-		for (var i = 0; i < cbxOne.length; i++) {
-			cbxOne.eq(i).prop('checked', false);
-		}
-	}
-	
-});
-
-//상태변경 or 포인트지급
-$('.btn-update').click(function(){
-	$('input[name=id]').remove();
-	let check = $('.checkbox-one:checked');
-	
-	if(check.length == 0){
-		alert('선택된 항목이 없습니다 !! ');
-	} else {
-		let form = document.forms[1];
-		let data = document.createElement('input'); 
-		let data2 = document.createElement('input'); 
-		data.name = 'id';
-		data.type = 'hidden';
-		
-		data2.name = 'value';
-		data2.type = 'hidden';
-		
-		if(table == 'member') {
-			data2.value = document.getElementsByName("point")[0].value ;
-		} else if(table == 'supplier') {
-			data2.value = document.getElementsByName("status")[0].value ;
-		}
-		let checkValue = [];
-		for (var i = 0; i < check.length; i++) {
-			let value = $('.checkbox-one:checked').eq(i).val();
-			checkValue.push("'"+value+"'");
-		}
-		data.value = checkValue;
-		form.appendChild(data);
-		form.appendChild(data2);
-		form.method = 'post';
-		form.action = '/mintProject/admin/member/update/'+table;
-		console.log(form);
-		console.log(table);
-		
-		form.submit();
-	}
-});

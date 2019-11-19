@@ -421,3 +421,53 @@
 .checked{
     background:url("/mintProject/shop/storage/mint/icon/checkbox.png") no-repeat 0 2px !important;
 }
+
+/* 카운트 버튼 */
+.goods-count{
+    display: inline-block;
+    height: 24px;
+    border: 1px solid #dddfe1;
+    border-radius: 3px;
+}
+.qty{
+    width: 42px;
+    height: 24px;
+    border: 0 none;
+    background-color: #fff;
+    font-size: 14px;
+    outline: none;
+    line-height: 18px;
+    text-align: center;
+    bottom: 6px;
+    z-index: -1;
+    position: relative;
+}
+.goods-count > button{
+    position: relative;
+    width: 22px;
+    height: 24px;
+    outline: none;
+    border: 0 none;
+    padding: 0;
+    
+    
+}
+.minus::before{
+    content: "-";
+    position: absolute;
+    bottom: 6px;
+    left: 5px;
+    color: #00666b;
+    font-size: 40px;
+    line-height:20px;
+}
+.plus::before{
+    content: "+";
+    position: absolute;
+    right: 4px;
+    bottom: 2px;
+    color: #00666b;
+    font-size: 22px;
+    font-weight: 900;
+    line-height:20px;
+}

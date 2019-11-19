@@ -48,9 +48,9 @@
                 <dt>구매수량</dt>
                 <dd>
                     <span class="goods-count">
-                        <button class="minus"><span class="out">마이너스</span></button>
+                        <button class="minus"></button>
                         <input type="text" value="1" class="qty" readonly>
-                        <button class="plus"><span class="out">플러스</span></button>
+                        <button class="plus"></button>
                     </span>
                 </dd>
             </dl>

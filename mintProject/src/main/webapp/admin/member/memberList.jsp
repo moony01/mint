@@ -28,7 +28,7 @@
 	        
 	        <table class="table table-bordered table-member">
 	            <tr class="th--dark">
-	                <th class="col-md-1"><input type="checkbox" name="" id=""></th>
+	                <th class="col-md-1"><input type="checkbox" class="checkbox-all"></th>
 	                <th class="col-md-1">회원레벨</th>
 	                <th class="col-md-4">아이디</th>
 	                <th class="col-md-1">SMS 동의여부</th>
@@ -46,11 +46,37 @@
 	        </div>
 	        <div class="main__btns">
 	            <div>
-	                <button type="button" class="btn btn-primary">상태 변경</button>
+	                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">포인트 지급</button>
+	                <button type="button" class="btn btn-primary">SMS 발송</button>
 	            </div>
 	        </div>
 	    </div>
     </form>
+    
+    <!-- Modal -->
+   
+    <form id="memberUpdate">
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h2 class="modal-title" id="exampleModalLabel">회원 포인트 지급</h2>
+	       	  <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button> -->
+	      </div>
+	      <div class="modal-body">
+	        	해당 회원에게 <input type="text" name="point" class="select-box">
+	        	포인트를 지급합니다. 
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="button" class="btn btn-primary btn-update">변경하기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</form>
     
 <script src="/mintProject/admin/js/member.js"></script>    
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

@@ -138,10 +138,10 @@ reivewInit();
 
 (function(){
     const saveBtn = document.querySelector(".btn-save"),
-            modal = document.querySelector(".modal"),
-            overlay = modal.querySelector(".modal__overlay"),
-            closeBtn = modal.querySelector(".modal__close-btn"),
-            yesBtn = modal.querySelector(".modal__yes-btn");
+          modal = document.querySelector(".notice-modal"),
+          overlay = modal.querySelector(".notice-modal__overlay"),
+          closeBtn = modal.querySelector(".notice-modal__close-btn"),
+          yesBtn = modal.querySelector(".notice-modal__yes-btn");
 
     function closeModal(){
         modal.classList.add("hidden")

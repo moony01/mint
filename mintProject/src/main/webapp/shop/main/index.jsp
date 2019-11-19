@@ -25,8 +25,18 @@
 	
 	
 	 <!-- 다음 우편번호 -->
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
+    <!-- swiper api -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
 
+    <script src="https://unpkg.com/swiper/js/swiper.js"></script>
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
+    
     <link rel="stylesheet" href="/mintProject/shop/css/style.css">
     <link rel="stylesheet" href="/mintProject/shop/css/reset.css">
     <link rel="stylesheet" href="/mintProject/shop/css/service.css">

@@ -10,9 +10,6 @@
 
     const pointCount = document.querySelector(".point");
 
-    const totalInput = document.querySelector("#total");
-    const pointInput = document.querySelector("#point");
-
     let qtyCount = qty.value;
 
     
@@ -31,10 +28,6 @@
     const price = removeComma(goodsPrice.innerText);
     const point = removeComma(gradePoint.innerText);
 
-    totalInput.value = price;
-    pointInput.value = point;
-
-        
     pointCount.innerText = makeComma(point);
     total.innerText = makeComma(price);
     
@@ -42,13 +35,11 @@
     plusBtn.addEventListener("click",function(){
         let curPoint = removeComma(pointCount.innerText);
         pointCount.innerText = makeComma(curPoint+point);
-        totalInput.value = removeComma(pointCount.innerText);
         
 
         qtyCount++;
         qty.value = qtyCount;   
         total.innerText = makeComma(price*qtyCount);
-        pointInput.value = removeComma(total.innerText);
 
     });
 
@@ -57,12 +48,10 @@
         if(qtyCount <= 0) return;
         let curPoint = removeComma(pointCount.innerText);
         pointCount.innerText = makeComma(curPoint-point);
-        totalInput.value = removeComma(pointCount.innerText);
 
         qtyCount--;
         qty.value =qtyCount
         total.innerText = makeComma(price*qtyCount);
-        pointInput.value = removeComma(total.innerText);
         
     })
 

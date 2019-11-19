@@ -17,4 +17,6 @@ public interface ProductQnaBoardService {
 
 	public void reply(Map<String, String> map);
 
+	public void writeProductQna(Map<String, String> map);
+
 }

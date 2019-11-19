@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import mint.member.bean.MemberDTO;
+import mint.member.service.MemberService;
 import mint.productQnaBoard.bean.ProductQnaBoardDTO;
 import mint.productQnaBoard.service.ProductQnaBoardService;
 
@@ -27,19 +29,27 @@ import mint.productQnaBoard.service.ProductQnaBoardService;
 public class ProductQnaBoardController {
 	@Autowired
 	private ProductQnaBoardService productQnaBoardService;
+	@Autowired
+	private MemberService memberService;
 	
+	// 상품 문의글 작성 페이지
 	@RequestMapping(value="/shop/service/productQnaWriteForm", method = RequestMethod.GET)
-	public String productQnaWriteForm(@RequestParam String productCode, Model model, HttpSession session) {
+	public String productQnaWriteForm(@RequestParam(defaultValue = "100", required = false) String productCode, Model model, HttpSession session, Map<String, String> map) {
+		map.put("key", "id");
+		map.put("value", (String) session.getAttribute("memId"));
+		MemberDTO memberDTO = memberService.getUserBy(map);
 		model.addAttribute("productCode", productCode);
 		model.addAttribute("memId", (String) session.getAttribute("memId"));
-		model.addAttribute("display","/shop/service/productQnaWriteForm.jsp");
+		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("display","/shop/product/productQnaWrite.jsp");
 		return "/shop/main/index";
 	}
 	
+	// 상품 문의글 작성 페이지에서 summernote에 이미지가 올라오면 sotrage에 저장
 	@RequestMapping(value="/shop/service/imageUpload", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String handleFileUpload(@RequestParam("uploadFile") MultipartFile multiPartFile) {
-		String filePath = "/mintProject/src/main/wepapp/storage";
+		String filePath = "C:/Users/Jisu/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/member/productQna";
 		String fileName = multiPartFile.getOriginalFilename();
 		File file = new File (filePath, fileName);
 		try {
@@ -50,38 +60,32 @@ public class ProductQnaBoardController {
 		return fileName;
 	}
 	
+	// 상품 문의글 작성
 	@RequestMapping(value="/shop/service/productQnaWrite", method = RequestMethod.POST)
-	@ResponseBody // ajax쓰지말까 고민
-	public void productQnaWrite(@RequestParam Map<String, String> map) { // @ModelAttribute
-		if(map.get("secretStatusBox")==null) {
-			map.put("secretStatusBox","0");
-		}
-//		productQnaBoardService.writeProductQnaBoard(map);
+	@ResponseBody 
+	public void productQnaWrite(@RequestParam Map<String, String> map) { 
+		if(map.get("secretStatus")==null) { map.put("secretStatus","0"); }
+		productQnaBoardService.writeProductQna(map);
 	}
 	
-	@RequestMapping(value="/shop/service/productQnaBoardList")
-	public ModelAndView productQnaBoardList(@RequestParam (required = false, defaultValue = "1")String pg, String productCode, HttpSession session) {
-		// 1페이지당 5개씩
-		int endNum = Integer.parseInt(pg)*5;
-		int startNum = endNum-4;
-		
+	@RequestMapping(value="/shop/product/productQnaBoardList")
+	public String productQnaBoardList(@RequestParam (required = false, defaultValue = "1")String pg, String productCode, HttpSession session, Model model) {
+		int totalArticle = 0;
+		List<Map<String, Object>> list = null;
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("startNum", startNum);
-		map.put("endNum", endNum);
-		map.put("productCode", productCode);
 		
-//		List<ProductQnaBoardDTO> list = productQnaBoardService.getProductQnaBoardList(map);
+		map.put("key", "productCode");
+		map.put("value", productCode);
+		totalArticle = productQnaBoardService.getProductQnaBoardTotArticle(map);
+		setPagingNumber(pg, map);
+		list = productQnaBoardService.getProductQnaBoardList(map);
 		
-		// 페이징 처리 ... 나중에
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("pg",pg);
-//		mav.addObject("list",list);
-//		mav.addObject("",); 페이징
-		mav.addObject("display", "/shop/service/productQnaBoardList.jsp");
-		mav.setViewName("/shop/main/index");
-		
-		return mav;
+		model.addAttribute("pg", pg);
+		model.addAttribute("totalArticle", totalArticle);
+		model.addAttribute("addr", "/shop/product/productQnaBoardList");
+		model.addAttribute("list", list);
+		model.addAttribute("memId",(String)session.getAttribute("memId"));
+		return "/shop/product/productView_productQna";
 	}
 	
 	@RequestMapping(value="/shop/service/productQnaBoardModifyForm")
@@ -141,6 +145,7 @@ public class ProductQnaBoardController {
 			setPagingNumber(pg,map); 
 			list = productQnaBoardService.getProductQnaBoardList(map);
 		}
+		
 		//페이징 처리를 script에서 처리하기 위해 pg, totalArticle, addr
 		mav.addObject("pg", pg);
 		mav.addObject("totalArticle", totalArticle);

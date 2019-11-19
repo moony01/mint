@@ -418,7 +418,7 @@
 }
 
 .qna-tb__answer td:nth-of-type(1){
-    text-align: center;
+    text-align: left;
     vertical-align: middle;
 }
 .qna-tb__view i{

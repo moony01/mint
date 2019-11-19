@@ -2,18 +2,19 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="eventSQL">
-
+	
+	<!-- 이벤트 등록 -->
 	<insert id="eventWrite" parameterType="java.util.Map" >
-		<choose>
-		<when test='isPeriodOn == "0"'>
-			insert into event values(#{subject},to_date(#{startDate},'yyyy-MM-dd HH24:mi'),to_date(#{endDate},'yyyy-MM-dd HH24:mi'),sysdate,#{productCode},#{eventStatus},SEQ_EVENT.nextval)
-		</when>
-		<otherwise>
-			insert into event values(#{subject},sysdate,#{productCode},#{eventStatus},SEQ_EVENT.nextval)
-		</otherwise>
-		</choose>
+		<if test='isPeriodOn == 1'>
+			insert into event values(SEQ_EVENT.nextval,#{subject},to_date(#{startDate},'yyyy-MM-dd HH24:mi'),to_date(#{endDate},'yyyy-MM-dd HH24:mi'),sysdate,#{productCode},#{eventStatus})
+		</if>
+		<if test='isPeriodOn == 0'>
+			insert into event(seq,subject,logtime,productcode,eventstatus)
+						 values(SEQ_EVENT.nextval,#{subject},sysdate,#{productCode},#{eventStatus})
+		</if>
 	</insert>
 
+	<!-- 이벤트 리스트 가져오기 -->
 	<select id="getEventList" parameterType="java.util.Map" resultType="event">
 		<![CDATA[
 			select * from (select rownum rn, tt.* from
@@ -21,10 +22,12 @@
 		]]>  
 	</select>
 
+	<!-- 이벤트 총 개수 구하기 -->
 	<select id="getTotalEvent" resultType="Integer">
 		select count(*) from event
 	</select>
 
+	<!-- 이벤트 삭제 -->
 	<delete id="eventDelete" parameterType="java.util.Map">
 		delete event where seq in 
 		<foreach collection="array" item="seq" index="i" open="(" separator="," close=")">
@@ -32,6 +35,22 @@
 		</foreach>
 	</delete>
 
+	<!-- 이벤트 정보 가져오기 -->
+	<select id="getEvent" parameterType="Integer" resultType="event">
+		select * from event where seq=#{seq}
+	</select>
+	
+	<!-- 이벤트 수정 -->
+	<update id="eventModify" parameterType="java.util.Map">
+		<if test='isPeriodOn == 1'>
+			update event set subject=#{subject}, startDate=(to_date(#{startDate},'yyyy-MM-dd HH24:mi')), endDate=(to_date(#{endDate},'yyyy-MM-dd HH24:mi')), logtime=sysdate, productCode=#{productCode}, eventStatus=#{eventStatus} where seq=#{seq}
+		</if>
+		<if test='isPeriodOn == 0'>
+			update event set subject=#{subject}, startDate=null, endDate=null, logtime=sysdate, productCode=#{productCode}, eventStatus=#{eventStatus} where seq=#{seq}
+		</if>	
+	</update>
+	
+	
 	<!-- 
 
 	<select id="faqCategorySearchList" parameterType="java.util.Map" resultType="faqBoard">
@@ -104,20 +123,5 @@
 		</if>
 	</select>
 	
-	
-	
-
-		
-	
-
-	<select id="getFAQArticle" parameterType="Integer" resultType="faqBoard">
-		select * from faqboard where seq=#{seq}
-	</select>
-	
-	
-
-	<update id="faqModify" parameterType="java.util.Map">
-		update faqboard set subject=#{subject}, content=#{content}, logtime=sysdate where seq=#{seq}
-	</update>
 	-->
 </mapper>

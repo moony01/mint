@@ -73,20 +73,14 @@
 	            </td>
 	        </tr>
 	        <tr>
-	            <th>상품명</th>
-	            <td class="table--left">
-	                <input type="text" name="supplierId">
-	            </td>
-	        </tr>
-	        <tr>
 	            <th>진행기간</th>
 	            <td class="table--left">
-	            <input type="text" name="startDate" id="datetimepickerStart" readonly>
+	            <input type="text" name="startDate" id="datetimepickerStart" autocomplete="off" readonly>
 	            <button type="button" id="dateStartBtn" class="dateButton">
 	            	<i class="fa fa-calendar" aria-hidden="true"></i>
 	            </button>
 				~
-	            <input type="text" name="endDate" id="datetimepickerEnd" readonly>
+	            <input type="text" name="endDate" id="datetimepickerEnd" autocomplete="off" readonly>
 	            <button type="button" id="dateEndBtn" class="dateButton">
 	            	<i class="fa fa-calendar" aria-hidden="true"></i>
 	            </button>
@@ -95,9 +89,7 @@
 	    </table>
 		<div class="center_button">
 			<button type="button" class="btn btn-info">
-				<i class="fa fa-search" aria-hidden="true"></i>
-				검색
-			</button>
+				<i class="fa fa-search" aria-hidden="true"></i>검색</button>
 		</div>
 		
 		<%-- 이벤트 목록 --%>
@@ -126,13 +118,9 @@
 	    		
 	    <div class="write-tb__btns">
 	        <button type="button" id="eventDeleteBtn" class="btn btn-danger">
-	    		<i class="fa fa-calendar-times" aria-hidden="true"></i>    
-	        	이벤트삭제
-	        </button>
+	    		<i class="fa fa-calendar-times" aria-hidden="true"></i>이벤트삭제</button>
 	        <button type="button" id="eventWriteBtn" class="btn btn-primary">
-	        	<i class="fa fa-calendar-plus" aria-hidden="true"></i>
-	        	이벤트등록
-	        </button>
+	        	<i class="fa fa-calendar-plus" aria-hidden="true"></i>이벤트등록</button>
 	    </div>   
 	</div>
 </form>

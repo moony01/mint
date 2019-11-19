@@ -13,6 +13,13 @@ public interface EventService {
 
 	public int getTotalEvent();
 
+	public void eventModify(Map<String, Object> map);
+
 	public void eventDelete(Map<String, String[]> map);
+
+	public EventDTO getEvent(int parseInt);
+
+	
+
 
 }

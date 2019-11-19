@@ -28,9 +28,19 @@ public class EventServiceImpl implements EventService {
 	public int getTotalEvent() {
 		return eventDAO.getTotalEvent();
 	}
-
+	
 	@Override
 	public void eventDelete(Map<String, String[]> map) {
 		eventDAO.eventDelete(map);
+	}
+
+	@Override
+	public EventDTO getEvent(int seq) {
+		return eventDAO.getEvent(seq);
+	}
+
+	@Override
+	public void eventModify(Map<String, Object> map) {
+		eventDAO.eventModify(map);
 	}
 }

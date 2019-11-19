@@ -21,7 +21,7 @@ $(function(){
 	});
 });
 
-// 카테고리 선택시 게시판 리스트 불러오기
+/* 카테고리 선택시 게시판 리스트 불러오기 */
 $('#categorySelect').change(function(){
 	// 기존 테이블 비우기
 	$('.faqRow').remove();
@@ -41,7 +41,7 @@ $('#categorySelect').change(function(){
 	});
 });
 
-// 검색시 게시판 리스트 불러오기
+/* 검색시 게시판 리스트 불러오기 */
 $('.searchButton').click(function(){
 	if(!$('.searchTerm').val()){
 		alert('검색어를 입력해주세요');
@@ -66,8 +66,7 @@ $('.searchButton').click(function(){
 	
 });
 
-
-
+/* FAQ 템플릿 */
 function getAdminFAQList(result){
 	const $table = $('#faqListTable');
 	let faqs = result.list;

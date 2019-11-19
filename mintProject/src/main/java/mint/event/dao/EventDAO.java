@@ -15,4 +15,8 @@ public interface EventDAO {
 
 	public void eventDelete(Map<String, String[]> map);
 
+	public EventDTO getEvent(int seq);
+
+	public void eventModify(Map<String, Object> map);
+
 }

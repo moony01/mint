@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="main__title">
-    <h2 class="out">faq 관리</h2>
+    <h2 class="out">FAQ 관리</h2>
     <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>게시판</span></a>
     <span class="ar-title">></span>        
-    <a href="">faq 관리</a>
+    <a href="">FAQ 관리</a>
     <span class="ar-title">></span>
     <a href="" class="now-title">게시판 등록/수정</a>                
 </div>

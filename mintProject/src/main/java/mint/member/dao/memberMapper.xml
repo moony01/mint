@@ -95,4 +95,15 @@
 		group by(supplier.id, productcode, mainsubject)
 		having supplier.id= #{value}
 	</select>
+	
+	<update id="updateByAdmin" parameterType="java.util.Map">
+		update ${table} set ${updateKey}
+		<if test="updateKey == 'point'">
+		= point + ${updateValue}
+		</if>
+		<if test="updateKey == 'status'">
+		= ${updateValue} 
+		</if>
+		where ${key} in (${value})
+	</update>
 </mapper>

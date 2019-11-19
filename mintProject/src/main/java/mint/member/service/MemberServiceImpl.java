@@ -75,5 +75,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.getProductList(map);
 	}
 
+	@Override
+	public void updateByAdmin(Map<String, Object> map) {
+		memberDAO.updateByAdmin(map);
+		
+	}
+
 
 }

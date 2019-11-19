@@ -30,4 +30,6 @@ public interface MemberDAO {
 
 	public List<ProductDTO> getProductList(Map<String, String> map);
 
+	public void updateByAdmin(Map<String, Object> map);
+
 }

@@ -1,5 +1,6 @@
 package mint.member.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,15 +145,21 @@ public class MemberAdminController {
 		
 	}
 	
-	@RequestMapping("/admin/member/memberView/{id}")
-	public void getView(String id) {
+	@RequestMapping("/admin/member/memberView")
+	public ModelAndView getMemberView(String id, ModelAndView mav) {
 		System.out.println("m_id: " + id);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key", "id");
 		map.put("value", id);
 		MemberDTO memberDTO = memberService.getUserBy(map);
 		
+		mav.addObject("memberDTO", memberDTO);
+		//mav.addObject("list", list);
 		
+		mav.addObject("display", "/admin/member/memberView.jsp");
+		mav.setViewName("/admin/main/admin");
+		
+		return mav;
 		
 	}
 	
@@ -178,4 +185,48 @@ public class MemberAdminController {
 		return mav;
 	}
 	
+	@RequestMapping("/admin/member/test")
+	public String test(@RequestParam String id, Model model) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key", "id");
+		map.put("value", id);
+		MemberDTO memberDTO = memberService.getUserBy(map);
+		
+		model.addAttribute("memberDTO", memberDTO);
+		
+		return "/admin/member/test2";
+	}
+	
+	@RequestMapping("/admin/member/update/{table}")
+	public ModelAndView updateMember(@PathVariable String table, String id, String value) {
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println(table + "/ " + id + "/ " + value);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(table.equals("member")) {
+			map.put("updateKey", "point");
+			map.put("updateValue", Integer.parseInt(value));
+			
+		} else if(table.equals("supplier")) {
+			map.put("updateKey", "status");
+			map.put("updateValue", value);
+		}
+		map.put("table", table);
+		map.put("key", "id");
+		map.put("value", id);
+		
+		System.out.println(map);
+		memberService.updateByAdmin(map);
+		
+		if(table.equals("member")) {
+			return getMemberList(mav);
+			
+		} 
+		
+		return getSupplierList(mav);
+		
+		
+	}
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <section class="product-view">
+	<input type="hidden" id="sessionId" value="${memId }">
     <div class="goods-info">
         <div class="goods-info__thumb">
             <img src="https://img-cf.kurly.com/shop/data/goods/big/201510/529_shop1_411001.jpg" alt="">
@@ -205,7 +206,7 @@
                 <li><a href="#image">상품이미지</a></li>
                 <li><a href="#info">상세정보</a></li>
                 <li><a href="#review">고객후기(?)</a></li>
-                <li><a href="#qna">상품문의(?)</a></li>
+                <li><a href="#qna" class="qna_cnt"></a></li>
             </ul>
         
             <div class="goods-detail__content">
@@ -220,7 +221,7 @@
                 <li><a href="#image">상품이미지</a></li>
                 <li><a href="#info">상세정보</a></li>
                 <li><a href="#review">고객후기(?)</a></li>
-                <li><a href="#qna">상품문의(?)</a></li>
+                <li><a href="#qna" class="qna_cnt"></a></li>
             </ul>
             <div class="goods-detail__content">
                 <img src="/mintProject/shop/storage/mint/icon/aa.jpg" alt="">
@@ -233,10 +234,10 @@
                 <li><a href="#image">상품이미지</a></li>
                 <li><a href="#info">상세정보</a></li>
                 <li><a href="#review">고객후기(?)</a></li>
-                <li><a href="#qna">상품문의(?)</a></li>
+                <li><a href="#qna" class="qna_cnt"></a></li>
             </ul>
             <div class="goods-detail__content">
-                <img src="/mintProject/shop/storage/mint/icon//image/aa.jpg" alt="">
+                <img src="/mintProject/shop/storage/mint/icon/aa.jpg" alt="">
             </div>
         </div>
 
@@ -246,7 +247,7 @@
                 <li><a href="#image">상품이미지</a></li>
                 <li><a href="#info">상세정보</a></li>
                 <li><a href="#review">고객후기(?)</a></li>
-                <li><a href="#qna">상품문의(?)</a></li>
+                <li><a href="#qna" class="qna_cnt"></a></li>
             </ul>
             <div class="review__wrap">
                 <div class="review__total-container">
@@ -364,83 +365,7 @@
 
         </div>
 
-        <div id="qna">
-            <ul class="goods-detail__tab">
-                <li><a href="#description">상품설명</a></li>
-                <li><a href="#image">상품이미지</a></li>
-                <li><a href="#info">상세정보</a></li>
-                <li><a href="#review">고객후기(?)</a></li>
-                <li><a href="#qna">상품문의(?)</a></li>
-            </ul>
-            <div class="reivew__view-hedaer">
-                <div class="reivew__view-title">
-                    상품 문의
-                </div>
-                <div class="review__view-btns">
-                    <div class="review__write-btn">
-                        상품문의
-                    </div>
-                </div>
-            </div>
-            <table class="qna-tb">
-                <tr class="qna-tb__head">
-                    <th class="size-1">번호</th>
-                    <th class="size-1">답변상태</th>
-                    <th class="size-7">제목</th>
-                    <th class="size-1">작성자</th>
-                    <th class="size-1">작성일</th>
-                </tr>
-                <tr class="qna-tb__view">
-                    <td>12</td>
-                    <td>답변완료</td>
-                    <td><i class="fas fa-lock"></i>배송이 왜이렇게 늦는거죠??</td>
-                    <td>김마켓</td>     
-                    <td>2019-11-18</td>
-                </tr>
-                <tr class="qna-tb__content">
-                    <td colspan="5">
-                        너무 늦네요 빨리좀<br>
-                        너무 늦네요 빨리좀?<br>
-                        너무 늦네요 빨리좀
-                    </td>
-                </tr>
-                <tr class="qna-tb__answer">
-                    <td colspan="2">민트</td>
-                    <td colspan="3">
-                        좀만 기달려주세요<br>
-                        좀만 기달려주세요<br>
-                        좀만 기달려주세요
-                    </td>
-                </tr>
-                <tr class="qna-tb__view">
-                    <td>12</td>
-                    <td>대기중</td>
-                    <td>배송이 왜이렇게 늦는거죠??</td>
-                    <td>김마켓</td>     
-                    <td>2019-11-18</td>
-                </tr>
-                <tr class="qna-tb__content">
-                    <td colspan="5">
-                        너무 늦네요 빨리좀<br>
-                        너무 늦네요 빨리좀?<br>
-                        너무 늦네요 빨리좀
-                    </td>
-                </tr>
-                
-            </table>
-            <div class="paging-wrap">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                    <li class="page-item"><a class="page-link" href="#">&lsaquo;</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">&rsaquo;</a></li>
-                    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
-            </div>
-            
-        </div>   
+        <div id="qna"></div>   
     </section>
 </section>
 

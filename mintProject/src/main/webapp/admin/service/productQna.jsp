@@ -32,7 +32,7 @@ pre {
         <tr class="th--dark">
            <!--  <th class="col-md-1"><input type="checkbox" name="" id=""></th> -->
             <th class="col-md-1">번호</th>
-            <th class="col-md-1">상품이름</th>
+            <th class="col-md-2">상품이름</th>
             <th class="col-md-6">제목</th>
             <th class="col-md-1">작성일</th>
             <th class="col-md-1">작성자</th>

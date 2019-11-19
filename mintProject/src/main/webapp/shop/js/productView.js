@@ -1,4 +1,5 @@
 (function (){
+	
     const minusBtn =document.querySelector(".minus");
     const plusBtn = document.querySelector(".plus");
 
@@ -43,7 +44,6 @@
 
     });
 
-
     minusBtn.addEventListener("click",function(){
         if(qtyCount <= 0) return;
         let curPoint = removeComma(pointCount.innerText);
@@ -54,8 +54,77 @@
         total.innerText = makeComma(price*qtyCount);
         
     })
-
+    
+    // 상품문의
+    getProductQnaList()
+    .then(printProductQnaList)
+    .catch();
+    
 })();
+
+// 상품문의 - 페이지 이동
+function getProductQnaListByPage(pg){
+	getProductQnaList(pg)
+	.then(printProductQnaList)
+	.catch();
+}
+
+// 상품문의 - 데이터 불러오기
+function getProductQnaList(pg){
+	return $.ajax({
+		type : 'post',
+    	url : '/mintProject/shop/product/productQnaBoardList',
+    	data : {'productCode' : 1, 'pg' : pg},
+    	dataType : 'text',
+	});
+}
+
+// 상품문의 - 화면에 뿌리기 + 이벤트
+function printProductQnaList(result){
+	
+	$('#qna-tb').remove();
+	$('.pagination qna li').remove();
+	
+	$('#qna').html(result.trim());
+	  
+	/*$('#qna_cnt').text('상품문의');*/
+	
+	$('.qna_cnt').text('상품문의('+$('#totalArticle').val()+')');
+	
+	let pg = $('#pg').val();
+	let totalArticle = parseInt($('#totalArticle').val());
+	let currentPage = pg;
+	let addr = $('#addr').val(); 
+	
+	$('#qna_write_btn').on('click', function(){
+		location.href='/mintProject/shop/service/productQnaWriteForm?productCode=1';
+	});
+	
+    const qnaViewList = document.querySelectorAll(".qna-tb__view"),
+          qnaContentList = document.querySelectorAll(".qna-tb__content");
+
+    for(let i=0; i<qnaViewList.length; i++){
+        qnaViewList[i].addEventListener("click",function(){
+        	var writer = $(this).children(':first').next().next().next().text();
+        	var lock = $(this).children(':first').next().next().children(':first').attr('class');
+        	
+        	if(lock == null || writer==$('#sessionId').val()){
+        		qnaContentList[i].classList.toggle("tb-on");
+		            
+		            const answer = qnaContentList[i].nextElementSibling;
+		            const isAnswer = answer.className.includes("qna-tb__answer");
+		            
+		            if(isAnswer){
+		                answer.classList.toggle("tb-on");
+		            }
+        	} else {
+        		alert('비밀글입니다');
+        	}
+        });
+    }
+    qnaPaging(totalArticle,currentPage,addr);
+	
+}
 
 function initSwiper(){
     const swiper = new Swiper('.swiper-container', {
@@ -160,27 +229,53 @@ reivewInit();
 })();
 
 
-function qnaInit(){
-    const qnaViewList = document.querySelectorAll(".qna-tb__view"),
-          qnaContentList = document.querySelectorAll(".qna-tb__content");
+// 상품문의 - 페이징
+function qnaPaging(totalArticle, currentPage, addr){
+	let pageBlock = 5;
+	let pageSize = 5;
+	let temp = Math.ceil(currentPage / pageBlock);
+	let totalPage = Math.floor((totalArticle+pageSize-1) / pageSize);
+	let startPage = Math.ceil((temp-1)/pageBlock) * pageBlock +1; 
+	let endPage = startPage + pageBlock -1;
+	
+	if(endPage > totalPage){
+		endPage = totalPage;
+	}
 
+	if(startPage > pageBlock){
+		$('.prev').append($('<a/>', {
+			class: 'page-link', 
+			href: 'javascript:void(0)',
+			onclick: 'getProductQnaListByPage(' +(startPage-1)+ ')',
+			text: '<'
+		})).appendTo('#qna_pagination');
+	}
 
-    for(let i=0; i<qnaViewList.length; i++){
-        qnaViewList[i].addEventListener("click",function(){
-            qnaContentList[i].classList.toggle("tb-on");
-            
-            const answer = qnaContentList[i].nextElementSibling;
-            const isAnswer = answer.className.includes("qna-tb__answer");
-            
-            if(isAnswer){
-                answer.classList.toggle("tb-on");
-            }
-        });
-    }
+	for(i = startPage; i <= endPage ; i++) {
+		$('<li/>').attr('class', 'page-item pg').append($('<a/>', {
+			class: 'page-link', 
+			href: 'javascript:void(0)',
+			onclick: 'getProductQnaListByPage('+i+')',
+			text: i
+		})).appendTo('#qna_pagination');
+		
+ 		if(i == currentPage) {
+ 			$('.pg').attr('class', 'page-item active');
+		} else {
+			$('.pg').removeAttr('class', 'active');
+		}	
+	}
+	
+	if(endPage < totalPage) {
+		$('.next').append($('<a/>', {
+			class: 'page-link', 
+			href: 'javascript:void(0)',
+			onclick: 'getProductQnaListByPage('+(endPage+1)+')',
+			text: '>'
+		})).appendTo('#qna_pagination');
+	}
 
 }
-qnaInit();
-
 
 
 

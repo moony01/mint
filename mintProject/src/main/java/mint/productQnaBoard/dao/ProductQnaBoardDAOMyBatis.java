@@ -41,4 +41,10 @@ public class ProductQnaBoardDAOMyBatis implements ProductQnaBoardDAO {
 		sqlSession.update("productQnaBoardSQL.reply",map);
 		
 	}
+
+	@Override
+	public void writeProductQna(Map<String, String> map) {
+		sqlSession.insert("productQnaBoardSQL.writeProductQna",map);
+		
+	}
 }

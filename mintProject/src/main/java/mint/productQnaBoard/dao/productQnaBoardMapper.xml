@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="productQnaBoardSQL">
-
 	<!-- 관리자 페이지 -->
 	<!-- 전체보기 -->
 	<select id="getAllProductQnaBoardTotArticle" resultType="int">
@@ -14,18 +13,24 @@
 		(select seq, mainSubject,subject, content, id, to_char(logtimeQ,'yyyy-mm-DD') as logtimeQ, replyStatus, replyContent from productQnaBoard join product using (productCode) order by seq desc) temp) 
 		where rn between #{startNum} and #{endNum}
 	</select>
-	<!-- 답변여부로 나누어 보기 -->
+	<!-- 관리자 : 답변여부로 나누어 보기 | 회원: 상품코드별로 나누어 보기-->
 	<select id="getProductQnaBoardTotArticle" parameterType="java.util.Map" resultType="int">
 		select count(*) from productQnaBoard where ${key}=#{value}
 	</select>
 	<select id="getProductQnaBoardList" parameterType="java.util.Map" resultType="java.util.Map">
 		select * from 
 		(select rownum rn, temp.* from 
-		(select seq, mainSubject,subject, content, id, to_char(logtimeQ,'yyyy-mm-DD') as logtimeQ, replyStatus, replyContent from productQnaBoard join product using (productCode) where ${key} = #{value} order by seq desc) temp) 
+		(select seq, mainSubject, productCode, subject, content, id, to_char(logtimeQ,'yyyy-mm-DD') as logtimeQ, replyStatus, secretStatus, replyContent from productQnaBoard join product using (productCode) where ${key} = #{value} order by seq desc) temp) 
 		where rn between #{startNum} and #{endNum}
 	</select>
-	<!-- 관리자 - 문의글에 답변 달기 -->
+	<!-- 문의글에 답변 달기 -->
 	<update id="reply" parameterType="java.util.Map">
 		update productQnaBoard set replyStatus=1, replyContent=#{replyContent} where seq=#{seq}
 	</update>
+	
+	<!-- 회원 -->
+	<!-- 문의글 작성 -->
+	<insert id="writeProductQna">
+		insert into productQnaBoard(seq,productCode,id,subject,content,secretStatus,logtimeQ)values(seq_productQnaBoard.nextval,#{productCode},#{id},#{subject},#{summernote},#{secretStatus},sysdate)
+	</insert>
 </mapper>

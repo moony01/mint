@@ -107,6 +107,15 @@ public class ProductManageController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/shop/product/productView")
+	public ModelAndView productView(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("display","/shop/product/productView.jsp");
+		mav.setViewName("/shop/main/index");
+		mav.addObject("memId", (String) session.getAttribute("memId"));
+		return mav;
+	}
+	
 	@RequestMapping(value="/admin/sales_getTotalSales", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONArray getTotalSalesForChart() {

@@ -39,4 +39,10 @@ public class ProductQnaBoardServiceImpl implements ProductQnaBoardService {
 		productQnaBoardDAO.reply(map);
 		
 	}
+
+	@Override
+	public void writeProductQna(Map<String, String> map) {
+		productQnaBoardDAO.writeProductQna(map);
+		
+	}
 }

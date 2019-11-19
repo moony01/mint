@@ -31,8 +31,8 @@ import net.sf.json.JSONArray;
 public class ProductManageController {
 	@Autowired
 	private ProductManageService productManageService;
-	
-	//상품등록 페이지 이동
+
+	// 상품등록 페이지 이동
 //	@RequestMapping(value = "/qnaboard/getQnaBoardList")
 //	public ModelAndView ProductManageWriteForm(HttpSession session) {
 //		
@@ -40,69 +40,105 @@ public class ProductManageController {
 //		
 //		return null;
 //	}
-	
-	//써머노트 
-	@RequestMapping(value="/admin/imageUpload", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
+
+	// 써머노트
+	@RequestMapping(value = "/admin/imageUpload", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
 	@ResponseBody
-	public String handleFileUpload(@RequestParam("uploadFile") MultipartFile multiPartFile){
-		String filePath = "../mintProject/src/main/webapp/storage"; // 원하는 위치 (storage로 잡아주세요)
+	public String handleFileUpload(@RequestParam("uploadFile") MultipartFile multiPartFile) {
+		String filePath = "C:/Spring/workSTS/springProject/src/main/webapp/storage"; // 원하는 위치 (storage로 잡아주세요)
 		String fileName = multiPartFile.getOriginalFilename();
-		File file = new File (filePath, fileName);
+		File file = new File(filePath, fileName);
 		try {
 			FileCopyUtils.copy(multiPartFile.getInputStream(), new FileOutputStream(file)); // spring저장소에서 storage로 복사
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return fileName;
-	} 
-	
-	@RequestMapping(value = "/productManage/productWriteForm", method = RequestMethod.GET) 
+	}
+
+	@RequestMapping(value = "/productManage/productWriteForm", method = RequestMethod.GET)
 	public ModelAndView productManageWrite() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("display","/admin/service/productWrite.jsp");
+		mav.addObject("display", "/admin/service/productWrite.jsp");
 		mav.setViewName("/admin/main/admin");
 		return mav;
 	}
-	
-	@RequestMapping(value="/productManage/productWrite", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/productManage/productWrite", method = RequestMethod.POST)
 	@ResponseBody
-	public void productWrite(@ModelAttribute ProductDTO productDTO, @RequestParam MultipartFile product_img, @RequestParam MultipartFile thumbnail_img) {
-		String filePath = "../mintProject/src/main/webapp/storage"; // 원하는 위치
+	public void productWrite(@ModelAttribute ProductDTO productDTO, @RequestParam MultipartFile product_img,
+			@RequestParam MultipartFile thumbnail_img) {
+		String filePath = "C:/Spring/workSTS/springProject/src/main/webapp/storage"; // 원하는 위치
 		try {
-			FileCopyUtils.copy(thumbnail_img.getInputStream(), new FileOutputStream(new File(filePath, thumbnail_img.getOriginalFilename()))); 
-			FileCopyUtils.copy(product_img.getInputStream(), new FileOutputStream(new File(filePath, product_img.getOriginalFilename()))); 
+			FileCopyUtils.copy(thumbnail_img.getInputStream(),
+					new FileOutputStream(new File(filePath, thumbnail_img.getOriginalFilename())));
+			FileCopyUtils.copy(product_img.getInputStream(),
+					new FileOutputStream(new File(filePath, product_img.getOriginalFilename())));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		productDTO.setThumbnail(thumbnail_img.getOriginalFilename());
 		productDTO.setProductImage(product_img.getOriginalFilename());
-		
+
 		productManageService.productWrite(productDTO);
 	}
-	
-	@RequestMapping(value = "/productList/getProductList", method = RequestMethod.GET) 
-	public ModelAndView getProductList(@RequestParam Map<String,String> map ) {
-		
-		System.out.println(map);
+
+	@RequestMapping(value = "/productList/getProductList", method = RequestMethod.GET)
+	public ModelAndView getProductList(@RequestParam Map<String, String> map) {
+		System.out.println("map : " + map);
 		ModelAndView mav = new ModelAndView();
-		
-		//gubun이 1 또는 2일때
-		if(map.get("gubun").equals("1")||map.get("gubun").equals("2")) {
-			List<ProductDTO> list =  productManageService.getProductList(map);
-			
-			mav.addObject("display","/shop/product/productList.jsp");
-			mav.addObject("list",list);
-			mav.addObject("gubun",map.get("gubun"));
-//			mav.addObject("selectGubun",map.get("selectGubun"));
+
+		// gubun이 1 또는 2일때
+		if (map.get("gubun").equals("1") || map.get("gubun").equals("2")) {
+			// 총 갯수 구하기
+			int totalArticle = productManageService.getCntProductList(map);
+			// 시작페이지와 끝 설정
+			setPagingNumber(map);
+
+			List<ProductDTO> list = productManageService.getProductList(map);
+
+			if (list != null) {
+				mav.addObject("list", list);
+			}
+			// mainCategory : 1 //subCategory : 2 //headerGubun
+			mav.addObject("gubun", map.get("gubun"));
+			// 신상품 : 1 //별점순 : 2 // 낮은 가격순 : 3 // 높은 가격순 : 4
+			mav.addObject("selectGubun", map.get("selectGubun"));
+			//
+			mav.addObject("headGubun", map.get("headGubun"));
+			// 페이지
+			mav.addObject("pg", map.get("pg"));
+			// 조건에 따른 상품리스트 총 갯수
+			mav.addObject("totalArticle", totalArticle);
+			mav.addObject("addr", "/mintProject/productList/getProductList");
+			mav.addObject("display", "/shop/product/productList.jsp");
 			mav.setViewName("/shop/main/index");
-			
-			System.out.println("list : " + list);
-			System.out.println("gubun : " + map.get("gubun"));
-			
-			//gubun이 3일 떄	
-		}else {
-			
-			
+
+			// gubun이 3일 떄
+		} else {
+			System.out.println("gubun이 3일 때....");
+			System.out.println("map : " + map);
+			// 총 갯수 ..일단 100개로만 한정함...
+			// 시작페이지와 끝 설정
+			setPagingNumber(map);
+			List<ProductDTO> list = productManageService.getHeaderProductList(map);
+
+			if (list != null) {
+				mav.addObject("list", list);
+			}
+			// mainCategory : 1 //subCategory : 2 //headerGubun
+			mav.addObject("gubun", map.get("gubun"));
+			// 신상품 : 1 //별점순 : 2 // 낮은 가격순 : 3 // 높은 가격순 : 4
+			mav.addObject("selectGubun", map.get("selectGubun"));
+			//
+			mav.addObject("headGubun", map.get("headGubun"));
+			// 페이지
+			mav.addObject("pg", map.get("pg"));
+			// 조건에 따른 상품리스트 총 갯수
+			mav.addObject("totalArticle", 6);
+			mav.addObject("addr", "/mintProject/productList/getProductList");
+			mav.addObject("display", "/shop/product/productList.jsp");
+			mav.setViewName("/shop/main/index");
 		}
 		return mav;
 	}
@@ -116,19 +152,32 @@ public class ProductManageController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/admin/sales_getTotalSales", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/admin/sales_getTotalSales", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONArray getTotalSalesForChart() {
 		List<Map<String, String>> list = productManageService.getSalesData();
 		JSONArray jsonArray = JSONArray.fromObject(list);
 		return jsonArray;
 	}
-	
-	@RequestMapping(value="/admin/sales_getProductSales", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/admin/sales_getProductSales", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONArray getProductSalesForChart() {
 		List<Map<String, String>> list = productManageService.getProductData();
 		JSONArray jsonArray = JSONArray.fromObject(list);
 		return jsonArray;
 	}
+
+	// [사용자, 관리자 페이지 공통 함수]
+	// ==================================================================================================
+	public void setPagingNumber(Map<String, String> map) {
+		int endNum = Integer.parseInt((String) map.get("pg")) * 3;
+		int startNum = endNum - 2;
+
+		map.put("endNum", endNum + "");
+		map.put("startNum", startNum + "");
+
+	}
+
 }

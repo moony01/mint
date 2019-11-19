@@ -80,57 +80,57 @@
                 <a href=""><span><i class="fas fa-bars"></i>전체 카테고리</span></a>
                 <div class="gnb__category">
                     <ul class="gnb__menu">
-                        <li><a href="/mintProject/productList/getProductList?mainCategory=101&gubun=1">농산물</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=211&gubun=2">과일</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=212&gubun=2">기본채소</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=213&gubun=2">쌈채소</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=214&gubun=2">브로콜리·특수채소</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=215&gubun=2">피망·고추</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=216&gubun=2">곡류</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=217&gubun=2">버섯류</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=218&gubun=2">견과류</a></li>
+                        <li><a href="/mintProject/productList/getProductList?mainCategory=101&gubun=1&pg=1">농산물</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=211&gubun=2&pg=1">과일</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=212&gubun=2&pg=1">기본채소</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=213&gubun=2&pg=1">쌈채소</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=214&gubun=2&pg=1">브로콜리·특수채소</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=215&gubun=2&pg=1">피망·고추</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=216&gubun=2&pg=1">곡류</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=217&gubun=2&pg=1">버섯류</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=218&gubun=2&pg=1">견과류</a></li>
                     </ul>
                     <ul class="gnb__menu">
-                        <li><a href="/mintProject/productList/getProductList?mainCategory=102&gubun=1">수산물</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=221&gubun=2">생선류</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=222&gubun=2">조개류</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=223&gubun=2">갑각류</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=224&gubun=2">해조류</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=225&gubun=2">건어물</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=226&gubun=2">오징어</a></li>
+                        <li><a href="/mintProject/productList/getProductList?mainCategory=102&gubun=1&pg=1">수산물</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=221&gubun=2&pg=1">생선류</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=222&gubun=2&pg=1">조개류</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=223&gubun=2&pg=1">갑각류</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=224&gubun=2&pg=1">해조류</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=225&gubun=2&pg=1">건어물</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=226&gubun=2&pg=1">오징어</a></li>
                     </ul>
                     <ul class="gnb__menu">
-                        <li><a href="/mintProject/productList/getProductList?mainCategory=103&gubun=1">축산물</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=231&gubun=2">소고기</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=232&gubun=2">돼지고기</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=233&gubun=2">닭고기</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=234&gubun=2">계란류</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=235&gubun=2">오리고기</a></li>
+                        <li><a href="/mintProject/productList/getProductList?mainCategory=103&gubun=1&pg=1">축산물</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=231&gubun=2&pg=1">소고기</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=232&gubun=2&pg=1">돼지고기</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=233&gubun=2&pg=1">닭고기</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=234&gubun=2&pg=1">계란류</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=235&gubun=2&pg=1">오리고기</a></li>
                     </ul>
                     <ul class="gnb__menu">
-                        <li><a href="/mintProject/productList/getProductList?mainCategory=104gubun=1">일반식품</a></li>
-                        <li><a href="/mintProject/productList/getProductListm?subCategory=241&gubun=2">유제품</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=242&gubun=2">만두류</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=243&gubun=2">라면</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=244&gubun=2">과자</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=245&gubun=2">국수</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=246&gubun=2">어묵</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=247&gubun=2">햄</a></li>
+                        <li><a href="/mintProject/productList/getProductList?mainCategory=104gubun=1&pg=1">일반식품</a></li>
+                        <li><a href="/mintProject/productList/getProductListm?subCategory=241&gubun=2&pg=1">유제품</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=242&gubun=2&pg=1">만두류</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=243&gubun=2&pg=1">라면</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=244&gubun=2&pg=1">과자</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=245&gubun=2&pg=1">국수</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=246&gubun=2&pg=1">어묵</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=247&gubun=2&pg=1">햄</a></li>
                     </ul>
                     <ul class="gnb__menu">
-                        <li><a href="/mintProject/productList/getProductList?mainCategory=105&gubun=1">반찬류</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=251&gubun=2">김치</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=252&gubun=2">국·찌개</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=253&gubun=2">전·부침</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=254&gubun=2">간편식</a></li>
-                        <li><a href="/mintProject/productList/getProductList?subCategory=255&gubun=2">통조림</a></li>
+                        <li><a href="/mintProject/productList/getProductList?mainCategory=105&gubun=1&pg=1">반찬류</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=251&gubun=2&pg=1">김치</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=252&gubun=2&pg=1">국·찌개</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=253&gubun=2&pg=1">전·부침</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=254&gubun=2&pg=1">간편식</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=255&gubun=2&pg=1">통조림</a></li>
                     </ul>
                 </div>
             </li>
-            <li class="gnb__item"><a href="/mintProject/productList/getProductList?selectGubun=1&gubun=3"><span>신상품</span></a></li>
-            <li class="gnb__item"><a href="/mintProject/productList/getProductList?selectGubun=1&gubun=3"><span>베스트</span></a></li>
-            <li class="gnb__item"><a href="/mintProject/productList/getProductList?selectGubun=1&gubun=3"><span>알뜰쇼핑</span></a></li>
-            <li class="gnb__item"><a href="/mintProject/productList/getProductList?selectGubun=1&gubun=3"><span>이벤트</span></a></li>
+            <li class="gnb__item"><a href="/mintProject/productList/getProductList?gubun=3&headGubun=1&pg=1"><span>신상품</span></a></li>
+            <li class="gnb__item"><a href="/mintProject/productList/getProductList?gubun=3&headGubun=2&pg=1"><span>베스트</span></a></li>
+            <li class="gnb__item"><a href="/mintProject/productList/getProductList?gubun=3&headGubun=3&pg=1"><span>알뜰쇼핑</span></a></li>
+            <li class="gnb__item"><a href="/mintProject/productList/getProductList?gubun=3&headGubun=4&pg=1"><span>이벤트</span></a></li>
         </ul>
         <div class="cart_count">
         	<a class="btn_cart" href="/mintProject/shop/goods/cart"><img src="https://res.kurly.com/pc/ico/1908/ico_cart_x2_v2.png" alt="장바구니"></a>

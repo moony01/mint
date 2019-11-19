@@ -1,6 +1,5 @@
 package mint.order.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -34,11 +33,13 @@ public class OrderController {
 		String id = (String)session.getAttribute("memId");
 		map.put("id", id);
 		
-		MemberDTO list = orderService.getUserData(map);
-		System.out.println(list);
 		
-		//model.addAttribute("memlevel", memlevel); 필요함
+		MemberDTO memberDTO = orderService.getUserData(map);
+		System.out.println(memberDTO);
+		System.out.println(productDTO);
+		
 		model.addAttribute("productDTO", productDTO);
+		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("discountPrice", discountPrice);
 		model.addAttribute("price2", price2);
 		model.addAttribute("savingPrice", savingPrice);

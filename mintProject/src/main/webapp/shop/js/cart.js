@@ -39,25 +39,29 @@ $(document).ready(function(){
 						DISCOUNTRATE,//할인율
 						MEMLEVEL//회원등급
 					} = cart[i];
-					let discoutPrice = PRICE*(DISCOUNTRATE/100);//상품할인율
+					let discoutPrice = PRICE*(DISCOUNTRATE/100);//상품할인된금액
 					let price2 = parseInt(PRICE - discoutPrice);//상품할인적용가
 					let savingPrice = 0;//적립금
-					console.log(savingPrice);
 					let customCart = `
 						<tr class="viewDel">
-							<input type="hidden" name="productCode" value="${PRODUCTCODE }">
-							<input type="hidden" name="thumbnail" value="${THUMBNAIL }">
-							<input type="hidden" name="mainSubject" value="${MAINSUBJECT }">
-							<input type="hidden" name="price" value="${PRICE }">
-							<input type="hidden" name="discountRate" value="${DISCOUNTRATE }">
-							<input type="hidden" name="discountPrice" value="${discoutPrice }">
-							<input type="hidden" name="stock" class="stock" value="${STOCK }">
-							<input type="hidden" name="savingPrice" class="savingPrice" value="${savingPrice }">
+						
+						<input type="hidden" class="mainSubject" value="${MAINSUBJECT }">
+						<input type="hidden" class="productCode" value="${PRODUCTCODE }">
+						<input type="hidden" class="thumbnail" value="${THUMBNAIL }">
+						<input type="hidden" class="price" value="${PRICE }">
+						<input type="hidden" class="discountRate" value="${DISCOUNTRATE }">
+						
+						
+						
+						
+						
+							<input type="hidden" class="stock" value="${STOCK }">
+							<input type="hidden" class="savingPrice" value="${savingPrice }">
 						
 							<input type="hidden" class="memlevel" value="${MEMLEVEL }">
 							<input type="hidden" name="price2" class="prd_price_fix" value="${price2 }">
 							<td><input type="checkbox" class="prdCheck ico_check" checked onchange="total_calcul()"></td>
-							<td><img src="../storage/cartTest/${THUMBNAIL }" style="width: 30px;"></td>
+							<td><img src="../storage/product/thumb/${THUMBNAIL }" style="width: 100px;"></td>
 							<td>
 								<div>${MAINSUBJECT }</div>
 								<div class="price_Box">
@@ -92,6 +96,7 @@ $(document).ready(function(){
 				total_calcul();//총상품금액
 				hide_stock();//품절처리
 				selectDelete();//선택삭제
+				dataProcess();//데이터가공
 			}
 			
 		});
@@ -263,19 +268,45 @@ function total_calcul() {
 	$('#totalSumPrice span').text(originalTotPrice - discountTotPrice + deliveryPrice); // 최종 [결제예정금액 div]
 
 	memlevel = $('.memlevel').eq(0).val();
-	console.log(memlevel);
 	if(memlevel == 0) {
 		 $('#totalPoint span').text((originalTotPrice - discountTotPrice + deliveryPrice) * 0.05); // 적립금 : 최종 결제 예정 금액 * 적립금 비율(memLevel에 따라 달라짐: pointRate의 값 가져옴)
 		savingPrice = $('#totalPoint span').text();
 		$('.savingPrice').eq(0).val(savingPrice);
-		console.log(savingPrice);
 	}else if(memlevel == 1) {
 		console.log("memlevel : 1");
 	}
 
 }
 
-
+//데이터 가공
+function dataProcess() {
+	var form = document.createElement("form");
+	
+	form.setAttribute("id", "process");
+	form.setAttribute("charset", "UTF-8");
+	form.setAttribute("method", "POST");
+	form.setAttribute("action", "/mintProject/shop/goods/order");
+	
+	//상품이름
+	var input = document.createElement("input");
+	input.name = 'mainSubject';
+	input.type = 'hidden';
+	let checkValue = [];
+	for(var i=0; i<prdCnt; i++) {
+		let value = $('.mainSubject').eq(i).val();
+		checkValue.push(value);
+	}
+	input.value = checkValue;
+	form.appendChild(input);
+	document.body.appendChild(form);
+	console.log(form);
+	
+	//데이터셋팅
+//	let mainSubject = document.querySelectorAll('.mainSubject');
+//	for(var i=0; i<prdCnt; i++) {
+//		form.append("mainSubject", mainSubject.item(i).value);
+//	}
+}
 
 
 

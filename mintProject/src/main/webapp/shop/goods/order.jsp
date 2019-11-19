@@ -19,27 +19,35 @@
 	3.주문자 이메일
 	3.주문자 회원등급
  -->
-<input type="hidden" name="productCode" value="${productCode }">
-<input type="hidden" name="thumbnail" value="${thumbnail }">
-<input type="hidden" name="mainSubject" value="${mainSubject }">
-<input type="hidden" name="price" value="${price }">
-<input type="hidden" name="discountRate" value="${discountRate }">
-<input type="hidden" name="discountPrice" value="${discoutPrice }">
-<input type="hidden" name="stock" class="stock" value="${stock }">
+<input type="hidden" name="mainSubject" value="${productDTO.mainSubject }">
+<input type="hidden" name="productCode" value="${productDTO.productCode }">
+<input type="hidden" name="thumbnail" value="${productDTO.thumbnail }">
+<input type="hidden" name="price" value="${productDTO.price }">
+<input type="hidden" name="discountRate" value="${productDTO.discountRate }">
+<input type="hidden" name="discountPrice" value="${discountPrice }">
 <input type="hidden" name="price2" class="prd_price_fix" value="${price2 }">
+<input type="hidden" name="stock" class="stock" value="${productDTO.stock }">
 <input type="hidden" name="savingPrice" value="${savingPrice }">
 <section class="cart">
 <div class="user_form">
 	<div id="dataBox" style="background: #eaeaea;">
-		<div>${productCode }</div>
-		<div>${thumbnail }</div>
-		<div>${mainSubject }</div>
-		<div>${price }</div>
-		<div>${discountRate }</div>
-		<div>${discoutPrice }</div>
-		<div>${stock }</div>
-		<div>${price2 }</div>
-		<div>${savingPrice }</div>
+		<div>상품 데이터</div>
+		<div>상품이름 : ${productDTO.mainSubject }</div>
+		<div>상품코드 : ${productDTO.productCode }</div>
+		<div>상품썸네일 :  ${productDTO.thumbnail }</div>
+		<div>상품정가 : ${productDTO.price }</div>
+		<div>상품할인율 : ${productDTO.discountRate }</div>
+		<div>상품할인된금액 : ${discountPrice }</div>
+		<div>상품할인적용가 : ${price2 }</div>
+		<div>상품수량 : ${productDTO.stock }</div>
+		
+		<div>주문자 정보</div>
+		<div>주문자 이름 : ${memberDTO.name }</div>
+		<div>주문자 휴대폰번호 : ${memberDTO.tel }</div>
+		<div>주문자 이메일 : ${memberDTO.email }</div>
+		<div>주문자 회원등급 : ${memberDTO.memLevel }</div>
+		
+		<div>적립금 : ${savingPrice }</div>
 	</div>
 	<div class="titleArea2"><h2>상품 정보</h2></div>
 	<div class="page_aticle order_goodslist">

@@ -35,4 +35,14 @@ public class EventDAOMybatis implements EventDAO{
 	public void eventDelete(Map<String, String[]> map) {
 		sqlSession.delete("eventSQL.eventDelete", map);
 	}
+
+	@Override
+	public EventDTO getEvent(int seq) {
+		return sqlSession.selectOne("eventSQL.getEvent", seq);
+	}
+
+	@Override
+	public void eventModify(Map<String, Object> map) {
+		sqlSession.update("eventSQL.eventModify", map);
+	}
 }

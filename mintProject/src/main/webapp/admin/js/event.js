@@ -27,7 +27,6 @@ $(function(){
 	$('#dateStartBtn').click(function(){
 		$('#datetimepickerStart').datetimepicker('toggle');
 	});
-	
 	$('#dateEndBtn').click(function(){
 		$('#datetimepickerEnd').datetimepicker('toggle');
 	});
@@ -76,29 +75,32 @@ function getEventList(result){
 			eventStatus
 		} = events[i];
 	
+		let sd = new Date(events[i].startDate);
+		let ed = new Date(events[i].endDate);
+		
 		let eventRow = `
 			<tr class="tb-row" onclick="eventRow(this)">
 				<td><input type="checkbox" name="check" class="check" value=${seq}></td>
 				<td>${
 					(() => {
-						if(events[i].eventStatus === '0') return '진행안함';
-						else return '진행중';
+						if(events[i].eventStatus === 1) return '진행중';
+						else return '진행안함';
 					})()}</td>
 				<td class="tb-subject">${subject}</td>
 				<td>${
 					(() => {
-						if(events[i].startDate === '') return '상시진행';
-						else return events[i].startDate;
+						if(events[i].startDate === null) return '상시진행';
+						else return moment(sd).format('YYYY/MM/DD hh:mm');
 					})()
 				}</td>
 				<td>${
 					(() => {
-						if(events[i].endDate === '') return '상시진행';
-						else return events[i].endDate;
+						if(events[i].endDate === null) return '상시진행';
+						else return moment(ed).format('YYYY/MM/DD hh:mm');
 					})()
 				}</td>
 				<td>
-					<button type="button" class="btn btn-success btn-sm" onclick="eventDelete(this)">
+					<button type="button" class="btn btn-success btn-sm" onclick="eventModify(this)">
 					<i class="fa fa-edit" aria-hidden="true"></i>
 					수정
 					</button>
@@ -119,22 +121,6 @@ function getEventList(result){
 						<th class="col-md-1">할인가</th>
 						<th class="col-md-1">할인률</th>
 					</tr>
-					<tr>
-						<td>미리보기</td>
-						<td>[닥터브로너스] 오가닉 립밤</td>
-						<td>PX03004</td>
-						<td>5000원</td>
-						<td>4000원</td>
-						<td>20%</td>
-					</tr>
-					<tr>
-						<td>미리보기</td>
-						<td>[파우트] 노우즈1 공기청정기</td>
-						<td>EC220033</td>
-						<td>30000원</td>
-						<td>26000원</td>
-						<td>20%</td>
-					</tr>
 				</table>
 			</td>
 			</tr>
@@ -144,26 +130,45 @@ function getEventList(result){
 	$table.append($frag);
 }
 
-// 이벤트 등록 페이지 이동
+/* 이벤트 검색 */
+$('.searchButton').click(function(){
+	// 기존 테이블 비우기
+	$('.faqRow').remove();
+	
+	$.ajax({
+		type:'post',
+		url:'/mintProject/admin/service/eventSearch',
+		data: $('#faqBoardForm').serialize(),
+		dataType:'json',
+		success: function(result){
+			getEventList(result);
+			$('.pagination').html(result.faqBoardPaging.pagingHTML);
+		},
+		error: function(error){
+			console.error(error);
+		}
+	});
+});
+
+/* 이벤트 등록 페이지 이동 */
 $('#eventWriteBtn').click(function(){
 	location.href='/mintProject/admin/service/eventWriteForm';
 });
 
-// 이벤트 수정 페이지 이동
-function eventDelete(content){
-	let seq = $(content).parent().parent().children().val();
+/* 이벤트 수정 페이지 이동 */
+function eventModify(content){
+	let seq = $(content).parent().prev().prev().prev().prev().prev().children().val();
 	let pg = $('#pg').val();
-	console.log(seq+', '+pg)
-	// location.href='/mintProject/admin/service/eventModifyForm?seq='+seq+'&pg='+pg;	
+	location.href='/mintProject/admin/service/eventModifyForm?seq='+seq+'&pg='+pg+'&type=mod';	
 }
 
-//체크박스 컨트롤
+/* 체크박스 컨트롤 */
 $('#chkAll').click(function(){
 	if($('#chkAll').prop('checked')) $('.check').prop('checked', true);
 	else $('.check').prop('checked', false);
 });
 
-// 이벤트 삭제 
+/* 이벤트 삭제 */
 $('#eventDeleteBtn').click(function(){
 	var cnt = $('.check:checked').length; // 체크된 항목 갯수 구하기
 	if(cnt===0) alert('삭제할 항목을 먼저 선택하세요');

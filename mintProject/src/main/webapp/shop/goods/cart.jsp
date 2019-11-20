@@ -32,6 +32,7 @@
 			</tr>
 			</thead>
 			
+			<!-- DB에서 cart 데이터 불러오는 곳 -->
 			<tbody class="viewGoods">
 				
 			</tbody>

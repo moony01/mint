@@ -85,6 +85,8 @@
         <div class="service__write-btn" onclick="location.href='/mintProject/shop/service/offerWrite'">글쓰기</div>
     </div>
 </section>
+<script src='/mintProject/shop/js/qna.js'></script> <!-- 제목 클릭 시 내용 toggle 되는 부분만 qna.js에서 사용 -->
+<script src='/mintProject/shop/js/offer.js'></script> <!-- 이외 이벤트 처리는 offer.js 의 함수 이용  -->
 <script>
 let totalArticle = ${totalArticle};
 let currentPage = ${pg};
@@ -93,5 +95,3 @@ let addr = '${addr}';
 paging(totalArticle, currentPage, addr);
 
 </script> 
-<script src='/mintProject/shop/js/qna.js'></script>
-<script src='/mintProject/shop/js/offer.js'></script>

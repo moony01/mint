@@ -133,17 +133,29 @@ public class ProductManageController {
 		}
 		return mav;
 	}
-	
-	@RequestMapping(value="/shop/product/productView")
-	public ModelAndView productView(HttpSession session) {
+
+	@RequestMapping(value = "/shop/product/productView")
+	public ModelAndView productView(HttpSession session, @RequestParam Map<String, String> map) {
+		System.out.println("productView 메서드");
+		System.out.println("map : " + map);
+		
+		//상품 1개 정보들
+		ProductDTO productDTO =  productManageService.getProductInfo(map);
+		// 상품 상세 뷰 페이지 아래 같은 subCategory 상품 10개  최신순으로 불러오기 
+		List<ProductDTO> list  = productManageService.getSameSubcategoryProductList(map);
+		System.out.println("list : " + list); 
+		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("display","/shop/product/productView.jsp");
+		
+		mav.addObject("productDTO", productDTO);
+		mav.addObject("list", list);
+		mav.addObject("display", "/shop/product/productView.jsp");
 		mav.setViewName("/shop/main/index");
 		mav.addObject("memId", (String) session.getAttribute("memId"));
+		
 		return mav;
 	}
-	
-	
+
 	@RequestMapping(value = "/admin/sales_getTotalSales", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONArray getTotalSalesForChart() {

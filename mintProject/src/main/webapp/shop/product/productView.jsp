@@ -1,27 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    
 <section class="product-view">
 	<input type="hidden" id="sessionId" value="${memId }">
     <div class="goods-info">
         <div class="goods-info__thumb">
-            <img src="https://img-cf.kurly.com/shop/data/goods/big/201510/529_shop1_411001.jpg" alt="">
+            <img src="/mintProject/shop/storage/mint/product/${productDTO.thumbnail}" alt="">
         </div>
         <div class="goods-info__contents">
             <div class="goods-name">
-                유기농 고구마 (달수)
+                ${productDTO.mainSubject}
             </div>
             <div class="goods-desc">
-                고구마의 달콤한 변신(1박스 1.5kg)
+                ${productDTO.subSubject}
             </div>
-            <div class="goods-price">
-                <span>12,500</span>
-                <span class="won">원</span>
-                <span class="goods-price__dc">30%</span>
-            </div>
-
-            <div class="goods-original-price">
-                8,750
-            </div>
+            
+            <c:if test="${productDTO.discountRate != 0}">
+            	<div class="goods-price">
+                	<span>
+                		<fmt:formatNumber type="currency" value = "${productDTO.price - (productDTO.price * (productDTO.discountRate * (1/100)))}" currencyCode="KRW" pattern="#,###"/>
+                	</span>
+                	<span class="won">원</span>
+                	<span class="goods-price__dc">${productDTO.discountRate}%</span>
+            	</div>
+            	<!-- 원가 -->
+            	<div class="goods-original-price">
+                	${productDTO.price}원
+            	</div>
+            </c:if>
+             <c:if test="${productDTO.discountRate == 0}">
+             	<div class="goods-price">
+                	<span>
+                		<fmt:formatNumber type="currency" value = "${productDTO.price}" currencyCode="KRW" pattern="#,###"/>
+                	</span>
+                	<span class="won">원</span>
+                	<span class="goods-price__dc"></span>
+            	</div>
+             </c:if>
+			
 
             <div class="goods-grade">
                 <span class="grade-icon">웰컴 5%</span>
@@ -29,20 +47,20 @@
             </div>
             <dl class="goods-col">
                 <dt>판매 단위</dt>
-                <dd>1개</dd>
+                <dd>${productDTO.unit}</dd>
             </dl>
             <dl class="goods-col">
                 <dt>중량/용량</dt>
-                <dd>20g</dd>
+                <dd>${productDTO.weight}</dd>
             </dl>
-            <dl class="goods-col">
+           <!--  <dl class="goods-col">
                 <dt>원산지</dt>
                 <dd>국내산</dd>
-            </dl>
+            </dl> -->
             <dl class="goods-col">
                 <dt>안내사항</dt>
                 <dd>
-                    유기농 인증을 받은 고구마로 농약 및 화학비료를 전혀 사용하지 않았습니다. 따라서 아무런 화학처리가 되지 않은 고구마이기 때문에 배송중 온도변화로 인하여 양 끝 부분 등에 곰팡이 또는 아주 작은 흰색의 균사들이 생길 수 있습니다. 이는 숨을 쉬고 있는 고구마의 정상적인 현상이며, 물로 씻고 섭취하시면 전혀 문제가 되지 않습니다. 구매시 꼭 참고 부탁드리겠습니다.
+                    ${productDTO.information}
                 </dd>
             </dl>
             <dl class="goods-col">

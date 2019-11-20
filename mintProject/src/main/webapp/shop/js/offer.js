@@ -8,13 +8,13 @@ $('.board-write__write-btn').click(function(){
 	else if($('#content').val() == '') alert('내용을 입력하세요. ');
 	else {
 		let formData = new FormData($('#offerWriteForm')[0]);
-		getOfferBoardWrite();
+		getOfferBoardWrite(formData);
 		
 	}
 	
 });
 
-function getOfferBoardWrite(){
+function getOfferBoardWrite(formData){
 	$.ajax({
 		type: 'post',
 		url: '/mintProject/shop/service/offerWriteOk',

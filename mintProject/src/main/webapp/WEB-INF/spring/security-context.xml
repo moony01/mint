@@ -31,11 +31,12 @@
 		<security:form-login login-page="/shop/member/login?status=need"
 							login-processing-url="/shop/member/loginOk" 
 							default-target-url="/shop/main/index"
+							authentication-success-handler-ref="memberLoginSuccessHandler"
 							authentication-failure-url="/shop/member/login?status=fail"
 							username-parameter="id" password-parameter="pwd"
-							always-use-default-target="true"/> 
+							/> 
 							
-		<!-- 중복 로그인 
+		<!-- 중복 로그인  always-use-default-target="true"
 			● max-sessions: 최대 허용 가능한 세션 수 
 			● expired-url: 중복 로그인 발생 시 이동 URL(처음 접속한 세션이 invalidate 되고, 다음 요청 시 invalid-session-url 으로 이동) 
 			● error-if-maximum-exceeded: max-sessions 을 넘었을 때 접속한 세션을 실패 처리할 지 여부. 
@@ -68,6 +69,7 @@
 	<!-- 비밀번호 암호화 -->
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	
+	<bean id="memberLoginSuccessHandler" class="mint.member.service.MemberLoginSuccessHandler"></bean>
 </beans>
 
 <!-- * 1. Spring security References:

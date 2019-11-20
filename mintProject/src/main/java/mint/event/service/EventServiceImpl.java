@@ -43,4 +43,14 @@ public class EventServiceImpl implements EventService {
 	public void eventModify(Map<String, Object> map) {
 		eventDAO.eventModify(map);
 	}
+
+	@Override
+	public List<EventDTO> eventSearch(Map<String, Object> map) {
+		return eventDAO.eventSearch(map);
+	}
+
+	@Override
+	public int getSearchTotalEvent(Map<String, Object> map) {
+		return eventDAO.getSearchTotalEvent(map);
+	}
 }

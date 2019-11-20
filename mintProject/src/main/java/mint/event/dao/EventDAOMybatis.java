@@ -45,4 +45,14 @@ public class EventDAOMybatis implements EventDAO{
 	public void eventModify(Map<String, Object> map) {
 		sqlSession.update("eventSQL.eventModify", map);
 	}
+
+	@Override
+	public List<EventDTO> eventSearch(Map<String, Object> map) {
+		return sqlSession.selectList("eventSQL.eventSearch", map);
+	}
+
+	@Override
+	public int getSearchTotalEvent(Map<String, Object> map) {
+		return sqlSession.selectOne("eventSQL.getSearchTotalEvent", map);
+	}
 }

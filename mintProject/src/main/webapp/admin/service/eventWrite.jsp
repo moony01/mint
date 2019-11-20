@@ -7,7 +7,7 @@
 	font-size: 1.5em;
 }
 
-.dateButton{
+.date-button{
 	width: 22px;
     height: 22px;
     border: 1px solid #333;
@@ -55,12 +55,12 @@
 					<input type="radio" class="isPeriodOn" name="isPeriodOn" value="0" /> 설정안함
 					<br>
 		            <input type="text" name="startDate" id="datetimepickerStart" autocomplete="off">
-		            <button type="button" id="dateStartBtn" class="dateButton">
+		            <button type="button" id="dateStartBtn" class="date-button">
 		            	<i class="fa fa-calendar" aria-hidden="true"></i>
 		            </button>
 					~
 		            <input type="text" name="endDate" id="datetimepickerEnd" autocomplete="off">
-		            <button type="button" id="dateEndBtn" class="dateButton">
+		            <button type="button" id="dateEndBtn" class="date-button">
 		            	<i class="fa fa-calendar" aria-hidden="true"></i>
 		            </button>
 	            </td>
@@ -128,7 +128,7 @@
 	    	<tr>
 	            <th>일괄처리</th>
 	            <td class="table--left">
-	                <input type="text" id="eventRate">% 할인
+	                <input type="text" size="2" id="eventRate">% 할인
 	            </td>
 	    		<th>일괄삭제</th>
 	    		<td></td>
@@ -154,7 +154,7 @@ let type = '"${type}"';
 
 $(function(){
 	let sd = new Date('${dto.startDate}');
-	let ed = new Date('${dto.endDate}');
+	let ed = Date.parse('${dto.endDate}');
 	let time = new Date();
 	console.log(sd);
 	console.log(ed);

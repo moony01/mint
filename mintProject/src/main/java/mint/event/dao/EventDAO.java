@@ -19,4 +19,8 @@ public interface EventDAO {
 
 	public void eventModify(Map<String, Object> map);
 
+	public List<EventDTO> eventSearch(Map<String, Object> map);
+
+	public int getSearchTotalEvent(Map<String, Object> map);
+
 }

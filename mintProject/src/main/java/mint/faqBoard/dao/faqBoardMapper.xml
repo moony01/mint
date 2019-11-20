@@ -61,12 +61,12 @@
 
 		<if test='searchOption != null and category == 9'>
 			<![CDATA[
-				select * from (select rownum rn, tt.* from (select * from faqboard where #{searchOption} like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
+				select * from (select rownum rn, tt.* from (select * from faqboard where ${searchOption} like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
 			]]> 
 		</if>
 		<if test='searchOption != null and category != 9'>
 			<![CDATA[
-				select * from (select rownum rn, tt.* from (select * from faqboard where #{searchOption} like '%'||#{keyword}||'%' and category like #{category} order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
+				select * from (select rownum rn, tt.* from (select * from faqboard where ${searchOption} like '%'||#{keyword}||'%' and category like #{category} order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
 			]]> 
 		</if>
 	</select>
@@ -80,10 +80,10 @@
 			select count(*) from faqboard where subject like '%'||#{keyword}||'%' and category like #{category}
 		</if>
 		<if test='searchOption != null and category == 9'>
-			select count(*) from faqboard where #{searchOption} like '%'||#{keyword}||'%'
+			select count(*) from faqboard where ${searchOption} like '%'||#{keyword}||'%'
 		</if>
 		<if test='searchOption != null and category != 9'>
-			select count(*) from faqboard where category like #{category} and #{searchOption} like '%'||#{keyword}||'%'
+			select count(*) from faqboard where category like #{category} and ${searchOption} like '%'||#{keyword}||'%'
 		</if>
 	</select>
 	

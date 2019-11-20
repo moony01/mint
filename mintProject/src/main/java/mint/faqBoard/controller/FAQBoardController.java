@@ -23,16 +23,14 @@ import mint.faqBoard.service.FAQBoardService;
  *	FAQBoardController
  * 	자주 묻는 질문 게시판 컨트롤러
  * 
- * @version 1.6
+ * @version 1.7
  * @author LimChangHyun 
  *
  *	구현된 기능 : 사용자 기능 모두 완료 (리스트 가져오기, 페이징 처리, 카테고리 선택, 검색 기능, 답변 Display)
- *			    관리자 기능 (리스트 가져오기, 페이징 처리, 등록, 게시물 열람, 수정, 카테고리 선택, 체크박스 일괄 삭제)
- *	불완전 기능 : 관리자 페이지 검색 기능
+ *			    관리자 기능 (리스트 가져오기, 페이징 처리, 등록, 게시물 열람, 수정, 카테고리 선택, 필터 검색, 체크박스 일괄 삭제)
  *	
  *	유의 : faq.jsp에서 카테고리 select option '선택'시 임의 value를 9로 두었음
  *	문제 : 1. summernote로 미디어 요소(이미지, 표 등) 추가시 사용자 측에서 전체적인 레이아웃이 깨져버림
- *		  2. 관리자 페이지 검색 기능 작동 안함(SQL-DB를 거치면 값을 들고오지 않음)
  */
 
 @Controller

@@ -16,4 +16,8 @@ public interface ProductManageDAO {
 
 	public List<Map<String, String>> getProductData();
 
+	public int getCntProductList(Map<String, String> map);
+
+	public List<ProductDTO> getHeaderProductList(Map<String, String> map);
+
 }

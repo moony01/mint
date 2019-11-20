@@ -32,15 +32,6 @@ public class ProductManageController {
 	@Autowired
 	private ProductManageService productManageService;
 
-	// 상품등록 페이지 이동
-//	@RequestMapping(value = "/qnaboard/getQnaBoardList")
-//	public ModelAndView ProductManageWriteForm(HttpSession session) {
-//		
-//		
-//		
-//		return null;
-//	}
-
 	// 써머노트
 	@RequestMapping(value = "/admin/imageUpload", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
 	@ResponseBody

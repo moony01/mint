@@ -111,7 +111,7 @@
 				<td class="productCode">PX03004</td>
 				<td>[닥터브로너스] 오가닉 립밤</td>
 				<td>5000원</td>
-				<td><input type="text" name="discountRate">%</td>
+				<td><input type="text" size="2" name="discountRate">%</td>
 				<td>4000원</td>
 			</tr>
 			<tr>
@@ -120,7 +120,7 @@
 				<td class="productCode">EC220033</td>
 				<td>[파우트] 노우즈1 공기청정기</td>
 				<td>30000원</td>
-				<td><input type="text" name="discountRate">%</td>
+				<td><input type="text" size="2" name="discountRate">%</td>
 				<td>26000원</td>
 			</tr>
 	    </table>

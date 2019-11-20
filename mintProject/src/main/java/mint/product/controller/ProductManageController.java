@@ -159,6 +159,20 @@ public class ProductManageController {
 		JSONArray jsonArray = JSONArray.fromObject(list);
 		return jsonArray;
 	}
+	
+	//상품 전체검색
+	@RequestMapping(value="/shop/product/productSearch", method = RequestMethod.GET)
+	public ModelAndView productSearch(@RequestParam String sword) {
+		List<ProductDTO> list = productManageService.productSearch(sword);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list",list);
+		mav.addObject("resultCnt", list.size());
+		mav.addObject("sword",sword);
+		mav.addObject("display","/shop/product/productSearch.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
+	}
+	
 
 	// [사용자, 관리자 페이지 공통 함수]
 	// ==================================================================================================

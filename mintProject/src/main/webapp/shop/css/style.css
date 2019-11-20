@@ -471,3 +471,39 @@
     font-weight: 900;
     line-height:20px;
 }
+
+/* 상품검색 */
+.search_box {
+	display: flex;
+	justify-content: center;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	overflow: hidden;
+	border-top: 2px solid #45b8ac;
+	border-bottom: 1px solid #45b8ac;
+}
+.search_box .inp {
+	float: left;
+	width : 603px;
+	height: 45px;
+	margin-right: 20px;
+	padding-left: 20px;
+	border: 1px solid #ccc;
+	font-size: 14px;
+	color : #333;
+	/* letter-spacing: -1px; */
+}
+
+.search_box .search_btn {
+	float : left;
+	width: 175px;
+	height: 45px;
+	line-height: 45px;
+	font-size: 15px;
+}
+
+.search_wrap {
+	padding-top: 80px;
+	width: 1050px;
+	margin: 0 auto;
+}

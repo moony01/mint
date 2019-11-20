@@ -80,7 +80,7 @@ function printProductQnaBoard(result){
 		}
 	})
 	
-	$('#reply_btn').click(function(){
+	$('#reply_btn').on('click', function(){
 		var seq = $(this).parent().parent().prev().prev().children(':first').text();
 		var replyContent = $(this).prev().val();	
 		$.ajax({

@@ -46,5 +46,10 @@ public class ProductManageServiceImpl implements ProductManageService{
 	public List<ProductDTO> getHeaderProductList(Map<String, String> map) {
 		return productManageDAO.getHeaderProductList(map);
 	}
+	
+	@Override
+	public List<ProductDTO> productSearch(String sword) {
+		return productManageDAO.productSearch(sword);
+	}
 
 }

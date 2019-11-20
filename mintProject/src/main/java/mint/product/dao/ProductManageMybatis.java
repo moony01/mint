@@ -20,7 +20,6 @@ public class ProductManageMybatis implements ProductManageDAO {
 	@Override
 	public void productWrite(ProductDTO productDTO) {
 		sqlSession.insert("productManageSQL.productWrite", productDTO);
-
 	}
 
 	// 상품 리스트 조회
@@ -37,6 +36,16 @@ public class ProductManageMybatis implements ProductManageDAO {
 	@Override
 	public List<Map<String, String>> getProductData() {
 		return sqlSession.selectList("productManageSQL.getProductData");
+	}
+
+	@Override
+	public int getCntProductList(Map<String, String> map) {
+		return sqlSession.selectOne("productManageSQL.getCntProductList", map);
+	}
+
+	@Override
+	public List<ProductDTO> getHeaderProductList(Map<String, String> map) {
+		return sqlSession.selectList("productManageSQL.getHeaderProductList", map);
 	}
 
 }

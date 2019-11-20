@@ -50,78 +50,42 @@
 		</if>	
 	</update>
 	
-	
-	<!-- 
-
-	<select id="faqCategorySearchList" parameterType="java.util.Map" resultType="faqBoard">
-		<![CDATA[
-		select * from (select rownum rn, tt.* from
-		 (select * from faqboard
-		 ]]> 
-		 
-		<if test='category != 9'>
-			<![CDATA[
-				where category like #{category} order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
-			]]>  
-		</if>
-		<if test='category == 9'>
-			<![CDATA[
-				order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
-			]]> 
-		</if>
+	<!-- 이벤트 검색 -->
+	<select id="eventSearch" parameterType="java.util.Map" resultType="event">
+	 	select * from event 
+	 	<where>
+		 	<if test='eventStatus != 9'>
+			 	eventStatus=#{eventStatus}
+		 	</if>
+		 	<if test='subject != null'>
+		 		and subject = #{subject}
+		 	</if>
+		 	<if test='endDate == null'>
+		 		and startDate &gt;= #{startDate}
+		 	</if>
+		 	<if test='startDate == null'>
+		 		and endDate &lt;= #{endDate}
+		 	</if>
+	 	</where>
 	</select>
 	
 
-	<select id="getFAQCategoryTotalArticle" parameterType="java.util.Map" resultType="Integer">
-		<if test='category != 9'>
-			select count(*) from faqboard where category like #{category}
-		</if>
-		<if test='category == 9'>
-			select count(*) from faqboard
-		</if>
+	<select id="getSearchTotalEvent" parameterType="java.util.Map" resultType="Integer">
+	 	select count(*) from event
+	 	<where>
+		 	<if test='eventStatus != 9'>
+			 	eventStatus=#{eventStatus}
+		 	</if>
+		 	<if test='subject != null'>
+		 		and subject = #{subject}
+		 	</if>
+		 	<if test='startDate != null'>
+		 		and startDate &gt;= #{startDate}
+		 	</if>
+		 	<if test='endDate != null'>
+		 		and endDate &lt;= #{endDate}
+		 	</if>
+		 </where>
 	</select>
-	
-	
 
-	<select id="faqBoardSearch" parameterType="java.util.Map" resultType="faqBoard">
-	 	<if test='searchOption == null and category == 9'>
-			<![CDATA[
-				select * from (select rownum rn, tt.* from (select * from faqboard where subject like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
-			]]> 
-		</if>
-		<if test='searchOption == null and category != 9'>
-			<![CDATA[
-				select * from (select rownum rn, tt.* from (select * from faqboard where subject like '%'||#{keyword}||'%' and category like #{category} order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
-			]]> 
-		</if>
-
-		<if test='searchOption != null and category == 9'>
-			<![CDATA[
-				select * from (select rownum rn, tt.* from (select * from faqboard where #{searchOption} like '%'||#{keyword}||'%' order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
-			]]> 
-		</if>
-		<if test='searchOption != null and category != 9'>
-			<![CDATA[
-				select * from (select rownum rn, tt.* from (select * from faqboard where #{searchOption} like '%'||#{keyword}||'%' and category like #{category} order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
-			]]> 
-		</if>
-	</select>
-	
-
-	<select id="getSearchTotalArticle" parameterType="java.util.Map" resultType="Integer">
-		<if test='searchOption == null and category == 9'>
-			select count(*) from faqboard where subject like '%'||#{keyword}||'%'
-		</if>
-		<if test='searchOption == null and category != 9'>
-			select count(*) from faqboard where subject like '%'||#{keyword}||'%' and category like #{category}
-		</if>
-		<if test='searchOption != null and category == 9'>
-			select count(*) from faqboard where #{searchOption} like '%'||#{keyword}||'%'
-		</if>
-		<if test='searchOption != null and category != 9'>
-			select count(*) from faqboard where category like #{category} and #{searchOption} like '%'||#{keyword}||'%'
-		</if>
-	</select>
-	
-	-->
 </mapper>

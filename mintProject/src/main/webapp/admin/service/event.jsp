@@ -8,7 +8,11 @@
 	font-size: 1.5em;
 }
 
-.dateButton{
+.select-box{
+    height: 32px;
+}
+
+.date-button{
 	width: 22px;
     height: 22px;
     border: 1px solid #333;
@@ -62,8 +66,11 @@
 	        <tr>
 	            <th>진행여부</th>
 	            <td class="table--left">
-	            	<input type="radio" name="isOngoing" value="0" /> 진행중
-					<input type="radio" name="isOngoing" value="1" checked="checked" /> 진행안함
+	            <select name="eventStatus" id="eventStatus" class="select-box">
+		            <option value="9">전체</option>
+		            <option value="1">진행함</option>
+		            <option value="0">진행안함</option>
+				</select>
 				</td>
 	        </tr>
 	        <tr>
@@ -76,19 +83,19 @@
 	            <th>진행기간</th>
 	            <td class="table--left">
 	            <input type="text" name="startDate" id="datetimepickerStart" autocomplete="off" readonly>
-	            <button type="button" id="dateStartBtn" class="dateButton">
+	            <button type="button" id="dateStartBtn" class="date-button">
 	            	<i class="fa fa-calendar" aria-hidden="true"></i>
 	            </button>
 				~
 	            <input type="text" name="endDate" id="datetimepickerEnd" autocomplete="off" readonly>
-	            <button type="button" id="dateEndBtn" class="dateButton">
+	            <button type="button" id="dateEndBtn" class="date-button">
 	            	<i class="fa fa-calendar" aria-hidden="true"></i>
 	            </button>
 	            </td>
 	        </tr>
 	    </table>
 		<div class="center_button">
-			<button type="button" class="btn btn-info">
+			<button type="button" id="searchButton" class="btn btn-info">
 				<i class="fa fa-search" aria-hidden="true"></i>검색</button>
 		</div>
 		

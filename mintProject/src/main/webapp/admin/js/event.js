@@ -47,14 +47,12 @@ $(function(){
 	});
 });
 
-
-
 /* 제목 클릭시 내용 나타나기/사라지기 */
 function eventRow(content){
-    if($(content).next().css('display') === 'none'){
+    if($(content).parent().next().css('display') === 'none'){
 		$('.tb-view').css('display', 'none');
-		$(content).next().css('display', 'table-row');
-	} else if($(content).next().css('display') === 'table-row'){
+		$(content).parent().next().css('display', 'table-row');
+	} else if($(content).parent().next().css('display') === 'table-row'){
 		$('.tb-view').css('display', 'none');
 	}
 }
@@ -79,14 +77,14 @@ function getEventList(result){
 		let ed = new Date(events[i].endDate);
 		
 		let eventRow = `
-			<tr class="tb-row" onclick="eventRow(this)">
+			<tr class="tb-row">
 				<td><input type="checkbox" name="check" class="check" value=${seq}></td>
 				<td>${
 					(() => {
 						if(events[i].eventStatus === 1) return '진행중';
 						else return '진행안함';
 					})()}</td>
-				<td class="tb-subject">${subject}</td>
+				<td class="tb-subject" onclick="eventRow(this)">${subject}</td>
 				<td>${
 					(() => {
 						if(events[i].startDate === null) return '상시진행';
@@ -131,18 +129,18 @@ function getEventList(result){
 }
 
 /* 이벤트 검색 */
-$('.searchButton').click(function(){
+$('#searchButton').click(function(){
 	// 기존 테이블 비우기
-	$('.faqRow').remove();
+	$('.tb-row').remove();
 	
 	$.ajax({
 		type:'post',
 		url:'/mintProject/admin/service/eventSearch',
-		data: $('#faqBoardForm').serialize(),
+		data: $('#eventListForm').serialize(),
 		dataType:'json',
 		success: function(result){
 			getEventList(result);
-			$('.pagination').html(result.faqBoardPaging.pagingHTML);
+			$('.pagination').html(result.eventPaging.pagingHTML);
 		},
 		error: function(error){
 			console.error(error);

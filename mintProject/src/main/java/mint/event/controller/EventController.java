@@ -24,18 +24,16 @@ import mint.event.service.EventService;
  *	EventController
  * 	이벤트 컨트롤러
  * 
- * @version 1.2
+ * @version 1.3
  * @author LimChangHyun 
  *
  *	구현된 기능 : 이벤트 등록, 페이징 처리, 리스트 처리, 이벤트 삭제
  *	불완전 기능 : 이벤트 수정, 이벤트 검색
- *	앞으로 구현되어야 하는 것 : 관리자페이지
- *						연동 이벤트 적용, 일일특가
+ *	앞으로 구현되어야 하는 것 : 연동 이벤트 적용, 일일특가
  *						상품 검색(상품관리쪽과 겹침), 상품 추가, 상품 삭제
  *	이슈    1. 수정시 startDate, endDate 적용 안됨
  *		 2. 기간설정 없는 상시이벤트를 수정하려는 경우 startDate endDate 입력 input이 disabled 되지 않음
  *		 3. 기간설정 여부에 따라 startDate endDate input값 유무 체크 필요
- *		 4. 이벤트 검색 작업 시작함
  */
 
 @Controller
@@ -148,7 +146,7 @@ public class EventController {
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
 		System.out.println("페이지에서 넘어오는 패러미터"+map);
-		/*
+		
 		List<EventDTO> list = eventService.eventSearch(map);
 		System.out.println("SQL거쳐서 온 리스트 : "+list);
 		// 게시판 페이징 처리
@@ -160,10 +158,10 @@ public class EventController {
 		eventPaging.setPageSize(15);
 		eventPaging.setTotalEvent(totalEvent);
 		eventPaging.makePagingHTML();
-		// Response		
-		 */
+		
+		// Response
 		ModelAndView mav = new ModelAndView();
-//		mav.addObject("list", list);
+		mav.addObject("list", list);
 		mav.addObject("eventPaging", eventPaging);
 		mav.setViewName("jsonView");
 		return mav;

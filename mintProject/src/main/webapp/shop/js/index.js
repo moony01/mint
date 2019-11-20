@@ -32,3 +32,15 @@ function checkMemId(memId, memName){
 	
 }
 
+
+function search_from_main(){
+	location.href="/mintProject/shop/product/productSearch?sword="+$('#sword_m').val();
+}
+
+function search_from_spage(){
+	location.href="/mintProject/shop/product/productSearch?sword="+$('#sword_spg').val();
+}
+
+
+
+

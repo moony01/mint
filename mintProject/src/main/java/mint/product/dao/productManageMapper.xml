@@ -152,5 +152,9 @@
 		group by mainSubject
 		order by count desc
 	</select>
+	<!-- 전체검색 -->
+	<select id="productSearch" parameterType="String" resultType="product">
+		select * from product where mainSubject like '%'||'${sword}'||'%'
+	</select>
 </mapper>
 

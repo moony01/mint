@@ -19,5 +19,7 @@ public interface ProductManageDAO {
 	public int getCntProductList(Map<String, String> map);
 
 	public List<ProductDTO> getHeaderProductList(Map<String, String> map);
+	
+	public List<ProductDTO> productSearch(String sword);
 
 }

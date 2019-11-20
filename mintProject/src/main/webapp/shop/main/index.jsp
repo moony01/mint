@@ -131,6 +131,8 @@
             <li class="gnb__item"><a href="/mintProject/productList/getProductList?gubun=3&headGubun=2&pg=1"><span>베스트</span></a></li>
             <li class="gnb__item"><a href="/mintProject/productList/getProductList?gubun=3&headGubun=3&pg=1"><span>알뜰쇼핑</span></a></li>
             <li class="gnb__item"><a href="/mintProject/productList/getProductList?gubun=3&headGubun=4&pg=1"><span>이벤트</span></a></li>
+            <li><input type="text" class="gnb__item" id="sword_m" name="sword"></li>
+        	<li><input type="image" src="https://res.kurly.com/pc/service/common/1908/ico_search_x2.png" onclick="search_from_main()" width="40px;" height="40px;"></li>
         </ul>
         <div class="cart_count">
         	<a class="btn_cart" href="/mintProject/shop/goods/cart"><img src="https://res.kurly.com/pc/ico/1908/ico_cart_x2_v2.png" alt="장바구니"></a>

@@ -37,32 +37,22 @@ $(document).ready(function(){
 						PRICE,//가격
 						STOCK,//재고,수량
 						DISCOUNTRATE,//할인율
-						MEMLEVEL//회원등급
+						MEMLEVEL,//회원등급
+						CTCOUNT//카드수량
 					} = cart[i];
 					let discoutPrice = PRICE*(DISCOUNTRATE/100);//상품할인된금액
 					let price2 = parseInt(PRICE - discoutPrice);//상품할인적용가
 					let savingPrice = 0;//적립금
 					let customCart = `
 						<tr class="viewDel">
-						
-						<input type="hidden" class="mainSubject" value="${MAINSUBJECT }">
-						<input type="hidden" class="productCode" value="${PRODUCTCODE }">
-						<input type="hidden" class="thumbnail" value="${THUMBNAIL }">
-						<input type="hidden" class="price" value="${PRICE }">
-						<input type="hidden" class="discountRate" value="${DISCOUNTRATE }">
-						
-						
-						
-						
-						
+							<input type="hidden" class="productCode" value="${PRODUCTCODE }">
 							<input type="hidden" class="stock" value="${STOCK }">
-							<input type="hidden" class="savingPrice" value="${savingPrice }">
 						
 							<input type="hidden" class="memlevel" value="${MEMLEVEL }">
 							<input type="hidden" name="price2" class="prd_price_fix" value="${price2 }">
 							<td class="cart-tb__check">
-							 <label for="" class="" onclick="total_calcul()">
-							 	<input type="checkbox" class="check-box prdCheck ico_check" checked>
+							 <label for="" class="">
+							 	<input type="checkbox" class="prdCheck ico_check" checked onchange="total_calcul()">
 							 </label>
 							 </td>
 							<td class="cart-tb__thumb"><img src="../storage/product/thumb/${THUMBNAIL }" style="width: 100px;"></td>
@@ -76,7 +66,7 @@ $(document).ready(function(){
 							<td class="cart-tb__count">
 							 <span class="goods-count">
 									<button class="minus" onClick="fnDn($(this))"></button>
-									<input type="text" value="1" id="${PRODUCTCODE }" class="qty clk_count" readonly>
+									<input type="text" value="${CTCOUNT }" id="${PRODUCTCODE }" class="qty clk_count" readonly>
 									<button type="button" class="plus up_btn" onClick="fnUp($(this))"></button>
 								</span>
 							</td>
@@ -104,10 +94,6 @@ $(document).ready(function(){
 				total_calcul();//총상품금액
 				hide_stock();//품절처리
 				selectDelete();//선택삭제
-				dataProcess();//데이터가공
-
-
-				
 			}
 			
 		});
@@ -117,7 +103,6 @@ $(document).ready(function(){
 		history.back();
 	}
 });
-
 
 //품절처리
 function hide_stock() {
@@ -145,8 +130,8 @@ function selectDelete() {
 }
 
 
-const checkLabel = document.querySelector("label.allCheck");
-let checkLabelBox = document.querySelector("input.allCheck");
+//const checkLabel = document.querySelector("label.allCheck");
+//let checkLabelBox = document.querySelector("input.allCheck");
 
 
 //총 체크 개수 카운트, 상품채크
@@ -156,9 +141,9 @@ function fnck() {
 	$('.prd_count').text(chk_total_leng);//상품체크박스 선택한것만 카운트
 	$('.prd_total_count').text(chk_total_leng);//상품체크박스 개수 카운트
 	
-	
 	//상품 전체선택
-	$('label.allCheck').on('click', function(){
+	$('.allCheck').on('click', function(){
+		console.log("click");
 		if($(this).children().prop('checked') == true) {
 			$(".prdCheck").prop("checked", true);
 			chCount();
@@ -272,7 +257,6 @@ function total_calcul() {
 	
 	for(var i=0; i<prdCnt; i++){
 		if($(".prdCheck").eq(i).prop("checked")){
-			console.log(i);
 			originalArr[i] = parseInt($('span.price1').eq(i).text() * $('.clk_count').eq(i).val()); // 정가의 수량 * 갯수 (3000*2)를 각각 배열에 넣는다.  
 			discountArr[i] = parseInt($('span.price2').eq(i).text() * $('.clk_count').eq(i).val());// 할인가의 수량 * 갯수 (2700*2)를 각각 배열에 넣는다. 
 			
@@ -292,45 +276,14 @@ function total_calcul() {
 
 	memlevel = $('.memlevel').eq(0).val();
 	if(memlevel == 0) {
-		 $('#totalPoint span').text((originalTotPrice - discountTotPrice + deliveryPrice) * 0.05); // 적립금 : 최종 결제 예정 금액 * 적립금 비율(memLevel에 따라 달라짐: pointRate의 값 가져옴)
-		savingPrice = $('#totalPoint span').text();
-		$('.savingPrice').eq(0).val(savingPrice);
+		$('#totalPoint span').text((originalTotPrice - discountTotPrice + deliveryPrice) * 0.05); // 적립금 : 최종 결제 예정 금액 * 적립금 비율(memLevel에 따라 달라짐: pointRate의 값 가져옴)
+		//savingPrice = $('#totalPoint span').text();
+		//$('.savingPrice').eq(0).val(savingPrice);
 	}else if(memlevel == 1) {
 		console.log("memlevel : 1");
 	}
 
 }
-
-//데이터 가공
-function dataProcess() {
-	var form = document.createElement("form");
-	
-	form.setAttribute("id", "process");
-	form.setAttribute("charset", "UTF-8");
-	form.setAttribute("method", "POST");
-	form.setAttribute("action", "/mintProject/shop/goods/order");
-	
-	//상품이름
-	var input = document.createElement("input");
-	input.name = 'mainSubject';
-	input.type = 'hidden';
-	let checkValue = [];
-	for(var i=0; i<prdCnt; i++) {
-		let value = $('.mainSubject').eq(i).val();
-		checkValue.push(value);
-	}
-	input.value = checkValue;
-	form.appendChild(input);
-	document.body.appendChild(form);
-	console.log(form);
-	
-	//데이터셋팅
-//	let mainSubject = document.querySelectorAll('.mainSubject');
-//	for(var i=0; i<prdCnt; i++) {
-//		form.append("mainSubject", mainSubject.item(i).value);
-//	}
-}
-
 
 
 

@@ -16,7 +16,17 @@ public class OrderDAOMybatis implements OrderDAO {
 	private SqlSession sqlSession;
 
 	@Override
-	public MemberDTO getUserData(Map<String, String> map) {
+	public MemberDTO getUserData(Map<String, Object> map) {
 		return sqlSession.selectOne("orderSQL.getUserData", map);
+	}
+
+	@Override
+	public Object updateCartCount(Map<String, Object> map) {
+		return sqlSession.update("orderSQL.updateCartCount", map);
+	}
+
+	@Override
+	public Map<String, Object> getProductCartData(Map<String, Object> map) {
+		return sqlSession.selectOne("orderSQL.getProductCartData", map);
 	}
 }

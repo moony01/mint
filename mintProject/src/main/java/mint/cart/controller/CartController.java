@@ -27,7 +27,7 @@ public class CartController {
 	
 	@RequestMapping(value="/shop/goods/cart", method=RequestMethod.GET)
 	public String cartList(Model model) {
-		model.addAttribute("display", "/shop/mypage/myCart.jsp");
+		model.addAttribute("display", "/shop/goods/cart.jsp");
 		return "/shop/main/index";
 	}
 	

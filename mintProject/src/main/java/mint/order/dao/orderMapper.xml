@@ -7,4 +7,16 @@
 	<select id="getUserData" parameterType="java.util.Map" resultType="member">
 		select * from member where id=#{id}
 	</select>
+	
+	<!-- 수량수정 -->
+	<update id="updateCartCount" parameterType="java.util.Map">
+		update cart set ctCount=#{ctCount} where productCode=#{productCode} and id=#{id}
+	</update>
+	
+	<!-- 카트 및 주문상품정보 가져오기  -->
+	<select id="getProductCartData" parameterType="java.util.Map" resultType="java.util.Map">
+		select productCode, thumbNail, mainSubject, price, ctCount, discountRate from product
+		join cart using(productCode)
+		join member using(id) where id=#{id} and productCode=#{productCode}
+	</select>
 </mapper>

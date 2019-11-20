@@ -15,7 +15,17 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDAO orderDAO;
 
 	@Override
-	public MemberDTO getUserData(Map<String, String> map) {
+	public MemberDTO getUserData(Map<String, Object> map) {
 		return orderDAO.getUserData(map);
+	}
+
+	@Override
+	public void updateCartCount(Map<String, Object> map) {
+		orderDAO.updateCartCount(map);
+	}
+
+	@Override
+	public Map<String, Object> getProductCartData(Map<String, Object> map) {
+		return orderDAO.getProductCartData(map);
 	}
 }

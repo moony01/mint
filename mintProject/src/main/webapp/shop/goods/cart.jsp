@@ -83,7 +83,55 @@
 
 //데이터 전송
 document.getElementById('placeAnOrder').onclick = function(){
-
+	//전송전 데이터 가공
+	var form = document.createElement("form");
+	form.setAttribute("id", "process");
+	form.setAttribute("charset", "UTF-8");
+	form.setAttribute("action", "/mintProject/shop/goods/order");
+	
+	//상품코드
+	var input1 = document.createElement("input");
+	input1.name = 'productCode';
+	input1.type = 'hidden';
+	let productCode = [];
+	for(var i=0; i<prdCnt; i++) {
+		let value = $('.productCode').eq(i).val();
+		productCode.push(value);
+	}
+	input1.value = productCode;
+	form.appendChild(input1);
+	
+	//수량
+	var input2 = document.createElement("input");
+	input2.name = 'ctCount';
+	input2.type = 'hidden';
+	let ctCount = [];
+	for(var i=0; i<prdCnt; i++) {
+		let value = $('.clk_count').eq(i).text();
+		ctCount.push(value);
+	}
+	input2.value = ctCount;
+	form.appendChild(input2);
+	
+	//적립금
+	var input3 = document.createElement("input");
+	input3.name = 'totalPoint';
+	input3.type = 'hidden';
+	let point = $('#totalPoint span').text();
+	input3.value = point;
+	form.appendChild(input3);
+	
+	document.body.appendChild(form);
+	
+	var passPrice = parseInt($('#totalPrdPrice span').text());
+	if(passPrice==0) {
+		alert("결제할 항목을 선택하세요");
+	}else {
+		if(confirm("결제를 진행하시겠습니까?")) {
+			$('#process').submit();
+			console.log(form);
+		}
+	}
 };
 </script>
 

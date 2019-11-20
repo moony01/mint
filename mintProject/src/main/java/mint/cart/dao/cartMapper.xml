@@ -4,7 +4,7 @@
 <mapper namespace="cartSQL">
 	<!-- cart list 가져오기 -->
 	<select id="getCartList" parameterType="java.util.Map" resultType="java.util.Map">
-		select productCode, thumbNail, mainSubject, price, stock, discountRate, memLevel from product
+		select productCode, thumbNail, mainSubject, price, stock, discountRate, memLevel, ctCount from product
 		join cart using(productCode) 
 		join member using(id) where id=#{id}
 	</select>
@@ -12,6 +12,4 @@
 	<delete id="cartListDelete" parameterType="java.util.Map">
 		delete from cart where id=#{id} and productCode=#{productCode}
 	</delete>
-	
-	
 </mapper>

@@ -228,7 +228,9 @@
             </ul>
         
             <div class="goods-detail__content">
-                <img src="/mintProject/shop/storage/mint/icon/bb.jpg" alt="">
+                <%-- <img src="/mintProject/shop/storage/mint/product/${productDTO.description }" alt=""> --%>
+               <%--  ${productDTO.description } --%>
+               ${productDTO.description }
             </div>
         </div>
         
@@ -242,7 +244,8 @@
                 <li><a href="#qna" class="qna_cnt"></a></li>
             </ul>
             <div class="goods-detail__content">
-                <img src="/mintProject/shop/storage/mint/icon/aa.jpg" alt="">
+               <!--  <img src="/mintProject/shop/storage/mint/icon/aa.jpg" alt=""> -->
+               	<img src="/mintProject/shop/storage/mint/product/${productDTO.productImage }" alt="">
             </div>
         </div>
 
@@ -255,7 +258,7 @@
                 <li><a href="#qna" class="qna_cnt"></a></li>
             </ul>
             <div class="goods-detail__content">
-                <img src="/mintProject/shop/storage/mint/icon/aa.jpg" alt="">
+                ${productDTO.details }
             </div>
         </div>
 

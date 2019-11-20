@@ -20,6 +20,8 @@
 	<resources location="/admin/js/" mapping="/admin/js/**"/>
 	<resources mapping="/shop/image/**" location="/shop/image/"/>
 	<resources mapping="/shop/storage/**" location="/shop/storage/"/>
+	<resources mapping="/shop/storage/mint/**" location="/shop/storage/mint"/>
+	<resources mapping="/shop/storage/mint/product/**" location="/shop/storage/mint/product"/>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

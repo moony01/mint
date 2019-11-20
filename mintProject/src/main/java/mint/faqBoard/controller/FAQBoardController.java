@@ -118,14 +118,14 @@ public class FAQBoardController {
 		
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
-		System.out.println("관리자 FAQ게시판 검색 페이지에서 넘어오는 패러미터"+map);
+		// System.out.println("관리자 FAQ게시판 검색 페이지에서 넘어오는 패러미터"+map);
 		
 		List<FAQBoardDTO> list = faqBoardService.faqBoardSearch(map);
-		System.out.println("SQL거쳐서 온 리스트 : "+list);
+		// System.out.println("SQL거쳐서 온 리스트 : "+list);
 		// 게시판 페이징 처리
 		// 총 글수
 		int totalArticle = faqBoardService.getSearchTotalArticle(map);
-		System.out.println("SQL거쳐서 온 조건 부합 게시물 개수 : "+totalArticle);
+		// System.out.println("SQL거쳐서 온 조건 부합 게시물 개수 : "+totalArticle);
 		faqBoardPaging.setCurrentPage(Integer.parseInt((String) map.get("pg")));
 		faqBoardPaging.setPageBlock(5);
 		faqBoardPaging.setPageSize(15);

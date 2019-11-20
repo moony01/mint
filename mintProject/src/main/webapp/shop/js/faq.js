@@ -10,7 +10,7 @@
 
 $(function(){
 	/* AJAX */
-	// 페이지 로딩시 게시판 리스트 불러오기
+	/* 페이지 로딩시 게시판 리스트 불러오기 */
 	$.ajax({
 		type:'post',
 		url:'/mintProject/shop/service/faq/getBoardList',
@@ -27,7 +27,7 @@ $(function(){
 	
 });
 
-// 카테고리 선택시
+/* 카테고리 선택시 */
 $('#categorySelect').change(function(){
 	// 기존 테이블 비우기
 	$('.tb-content').remove();
@@ -48,8 +48,13 @@ $('#categorySelect').change(function(){
 	});
 });
 
-// 검색시 ()
-$('.service__seach-btn').click(function(){
+/* 검색어에 변화 있을 때 검색 버튼에 포커스 */
+$('#searchTerm').change(function(){
+	$('#searchButton').focus();	
+});
+
+/* 검색 기능 */
+$('#searchButton').click(function(){
 	// 기존 테이블 비우기
 	$('.tb-content').remove();
 	$('.tb-view').remove();
@@ -81,15 +86,12 @@ $('.service__seach-btn').click(function(){
 });
 
 
-
-    
-    
 /* FAQ게시물 리스트 테이블에 붙여넣기 */
 function getFAQList(result){
 	const $table = $('.tb-fqa');
 	let faqs = result.list;
 	let $frag = $(document.createDocumentFragment());
-// 구조분해할당, 템플릿 리터럴
+	// 구조분해할당, 템플릿 리터럴
 	for(let i=0; i<faqs.length; i++){
 		const {
 			seq,

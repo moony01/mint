@@ -50,7 +50,7 @@
 	                </select>
 	                <div class="search">
 	                	<input type="hidden" id="pg" name="pg" value="${pg}">
-	                    <input type="text" name="keyword" class="searchTerm" placeholder="검색 해주세요!!">
+	                    <input type="text" name="keyword" class="searchTerm" placeholder="검색어 입력">
 	                    <button type="button" class="searchButton">
 	                        <i class="fa fa-search"></i>
 	                    </button>

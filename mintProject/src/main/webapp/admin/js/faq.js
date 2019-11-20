@@ -1,11 +1,7 @@
 
 
 $(function(){
-	
-	// 검색 버튼에 포커스
-	$('.searchTerm').focus();
-	
-	// 게시판 리스트 가져오기 
+	/* 게시판 리스트 가져오기 */ 
 	$.ajax({
 		type:'post',
 		url:'/mintProject/shop/service/faq/getBoardList',
@@ -40,6 +36,13 @@ $('#categorySelect').change(function(){
 		}
 	});
 });
+
+/* 검색어 입력시 작동으로 버튼에 포커스 */
+$('.searchTerm').change(function(){
+	// 검색 버튼에 포커스
+	$('.searchButton').focus();
+});
+
 
 /* 검색시 게시판 리스트 불러오기 */
 $('.searchButton').click(function(){

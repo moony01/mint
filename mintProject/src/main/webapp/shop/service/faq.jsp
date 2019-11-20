@@ -6,10 +6,10 @@
     <div class="snb">
         <h2 class="snb__title">고객센터</h2>
         <ul class="snb__list">
-            <li class="snb__item"><a href="/mintProject/service/notice">공지사항</a></li>
-            <li class="snb__item current"><a href="/mintProject/service/faq">자주하는 질문</a></li>
-            <li class="snb__item"><a href="/mintProject/service/qna">1:1 문의</a></li>
-            <li class="snb__item"><a href="/mintProject/service/offer">상품 제안</a></li>
+            <li class="snb__item"><a href="/mintProject/shop/service/notice">공지사항</a></li>
+            <li class="snb__item current"><a href="/mintProject/shop/service/faq">자주하는 질문</a></li>
+            <li class="snb__item"><a href="/mintProject/shop/service/qna">1:1 문의</a></li>
+            <li class="snb__item"><a href="/mintProject/shop/service/offer">상품 제안</a></li>
         </ul>
     </div>
     <div class="service__main">
@@ -44,8 +44,8 @@
 	            <div class="service__sel-box">
 	            </div>
 	            <div class="service__serch-box">
-	                <input type="text" name="keyword">
-	                <div class="service__seach-btn">
+	                <input type="text" name="keyword" id="searchTerm">
+	                <div id="searchButton" class="service__seach-btn">
 	                    <i class="fas fa-search"></i>
 	                </div>
 	            </div>

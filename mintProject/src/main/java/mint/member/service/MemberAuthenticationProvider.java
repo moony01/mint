@@ -41,6 +41,8 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 			throw new BadCredentialsException("cannot match password");		
 		}
 		
+		
+		
 		//권한 부여: memberDTO의 getAuthorities() 메소드에서 담당. 
 		List<GrantedAuthority> authorities = (List<GrantedAuthority>) memberDTO.getAuthorities();
 		return new UsernamePasswordAuthenticationToken(memberDTO, memberDTO.getPwd(), authorities);

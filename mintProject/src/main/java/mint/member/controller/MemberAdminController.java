@@ -1,6 +1,5 @@
 package mint.member.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +7,6 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -124,6 +122,7 @@ public class MemberAdminController {
 		
 	}
 
+	//getList() 함수 수행 시 파라미터 값에 따라 value 값 설정
 	private String setMapValues(String table, String option, String orderbyValue) {
 
 		if(table.equals("member")) { 
@@ -145,17 +144,16 @@ public class MemberAdminController {
 		
 	}
 	
+	//회원 상세보기 
 	@RequestMapping("/admin/member/memberView")
 	public ModelAndView getMemberView(String id, ModelAndView mav) {
-		System.out.println("m_id: " + id);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key", "id");
 		map.put("value", id);
+		
 		MemberDTO memberDTO = memberService.getUserBy(map);
 		
 		mav.addObject("memberDTO", memberDTO);
-		//mav.addObject("list", list);
-		
 		mav.addObject("display", "/admin/member/memberView.jsp");
 		mav.setViewName("/admin/main/admin");
 		
@@ -163,15 +161,15 @@ public class MemberAdminController {
 		
 	}
 	
+	//판매자 상세보기 
 	@RequestMapping(value="/admin/member/supplierView", produces = "application/json; charset=UTF-8")
 	public ModelAndView getSupplierView(String id, ModelAndView mav) {
-		System.out.println("s_id: " + id);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("key", "id");
 		map.put("value", id);
 		
-		SupplierDTO supplierDTO = memberService.getSupplierBy(map);
-		List<ProductDTO> list = memberService.getProductList(map);
+		SupplierDTO supplierDTO = memberService.getSupplierBy(map); //판매자 기본정보
+		List<ProductDTO> list = memberService.getProductList(map); //판매자 판매정보
 		
 		System.out.println("DTO: " + supplierDTO);
 		System.out.println("list: "+ list);
@@ -185,12 +183,10 @@ public class MemberAdminController {
 		return mav;
 	}
 	
+	//회원 & 판매자 업데이트: (회원: 포인트 적립, 판매자: 판매상태)
 	@RequestMapping("/admin/member/update/{table}")
 	public ModelAndView updateMember(@PathVariable String table, String id, String value) {
 		ModelAndView mav = new ModelAndView();
-		
-		System.out.println(table + "/ " + id + "/ " + value);
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		if(table.equals("member")) {

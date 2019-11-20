@@ -36,7 +36,7 @@ public class ProductManageController {
 	@RequestMapping(value = "/admin/imageUpload", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String handleFileUpload(@RequestParam("uploadFile") MultipartFile multiPartFile) {
-		String filePath = "C:/Spring/workSTS/springProject/src/main/webapp/storage"; // 원하는 위치 (storage로 잡아주세요)
+		String filePath = "C:/Spring/workSTS/springProject/src/main/webapp/storage/mint/product"; // 원하는 위치 (storage로 잡아주세요)
 		String fileName = multiPartFile.getOriginalFilename();
 		File file = new File(filePath, fileName);
 		try {
@@ -59,7 +59,7 @@ public class ProductManageController {
 	@ResponseBody
 	public void productWrite(@ModelAttribute ProductDTO productDTO, @RequestParam MultipartFile product_img,
 			@RequestParam MultipartFile thumbnail_img) {
-		String filePath = "C:/Spring/workSTS/springProject/src/main/webapp/storage"; // 원하는 위치
+		String filePath = "C:/Spring/workSTS/springProject/src/main/webapp/storage/mint/product"; // 원하는 위치
 		try {
 			FileCopyUtils.copy(thumbnail_img.getInputStream(),
 					new FileOutputStream(new File(filePath, thumbnail_img.getOriginalFilename())));

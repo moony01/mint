@@ -35,6 +35,7 @@
 		</foreach>
 	</delete>
 
+
 	<!-- 이벤트 정보 가져오기 -->
 	<select id="getEvent" parameterType="Integer" resultType="event">
 		select * from event where seq=#{seq}
@@ -55,37 +56,38 @@
 	 	select * from event 
 	 	<where>
 		 	<if test='eventStatus != 9'>
-			 	eventStatus=#{eventStatus}
-		 	</if>
-		 	<if test='subject != null'>
-		 		and subject = #{subject}
-		 	</if>
-		 	<if test='endDate == null'>
-		 		and startDate &gt;= #{startDate}
-		 	</if>
-		 	<if test='startDate == null'>
-		 		and endDate &lt;= #{endDate}
-		 	</if>
-	 	</where>
-	</select>
-	
-
-	<select id="getSearchTotalEvent" parameterType="java.util.Map" resultType="Integer">
-	 	select count(*) from event
-	 	<where>
-		 	<if test='eventStatus != 9'>
-			 	eventStatus=#{eventStatus}
+			 	eventStatus = #{eventStatus}
 		 	</if>
 		 	<if test='subject != null'>
 		 		and subject = #{subject}
 		 	</if>
 		 	<if test='startDate != null'>
-		 		and startDate &gt;= #{startDate}
+		 		and startDate &gt;= to_date(#{startDate},'yyyy-MM-dd')
 		 	</if>
 		 	<if test='endDate != null'>
-		 		and endDate &lt;= #{endDate}
+		 		and endDate &lt;= to_date(#{endDate},'yyyy-MM-dd')
+		 	</if>
+	 	</where>
+	</select>
+	
+	<!-- 이벤트 검색 결과 총 개수 -->
+	<select id="getSearchTotalEvent" parameterType="java.util.Map" resultType="Integer">
+	 	select count(*) from event
+	 	<where>
+		 	<if test='eventStatus != 9'>
+			 	eventStatus = #{eventStatus}
+		 	</if>
+		 	<if test='subject != null'>
+		 		and subject = #{subject}
+		 	</if>
+		 	<if test='startDate != null'>
+		 		and startDate &gt;= to_date(#{startDate},'yyyy-MM-dd')
+		 	</if>
+		 	<if test='endDate != null'>                                                                                                                                                                                                                                                        
+		 		and endDate &lt;= to_date(#{endDate},'yyyy-MM-dd')
 		 	</if>
 		 </where>
 	</select>
 
+	
 </mapper>

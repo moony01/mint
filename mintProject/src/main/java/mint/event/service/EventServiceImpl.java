@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import mint.event.bean.EventDTO;
 import mint.event.dao.EventDAO;
+import mint.product.bean.ProductDTO;
 
 @Service(value="eventService")
 public class EventServiceImpl implements EventService {
@@ -52,5 +53,15 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public int getSearchTotalEvent(Map<String, Object> map) {
 		return eventDAO.getSearchTotalEvent(map);
+	}
+
+	@Override
+	public List<ProductDTO> getProductList(Map<String, Integer> map) {
+		return eventDAO.getProductList(map);
+	}
+
+	@Override
+	public int getTotalProduct() {
+		return eventDAO.getTotalProduct();
 	}
 }

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import mint.event.bean.EventDTO;
 import mint.event.bean.EventPaging;
 import mint.event.service.EventService;
+import mint.product.bean.ProductDTO;
 
 /**
  *	EventController
@@ -30,7 +31,7 @@ import mint.event.service.EventService;
  *	구현된 기능 : 이벤트 등록, 페이징 처리, 리스트 처리, 이벤트 삭제
  *	불완전 기능 : 이벤트 수정, 이벤트 검색
  *	앞으로 구현되어야 하는 것 : 연동 이벤트 적용, 일일특가
- *						상품 검색(상품관리쪽과 겹침), 상품 추가, 상품 삭제
+ *						이벤트 상품 리스트, 상품 검색(상품관리쪽과 겹침), 상품 추가, 상품 삭제
  *	이슈    1. 수정시 startDate, endDate 적용 안됨
  *		 2. 기간설정 없는 상시이벤트를 수정하려는 경우 startDate endDate 입력 input이 disabled 되지 않음
  *		 3. 기간설정 여부에 따라 startDate endDate input값 유무 체크 필요
@@ -71,8 +72,40 @@ public class EventController {
 	
 	/* 이벤트 리스트 가져오기 */
 	@RequestMapping(value="/admin/service/getEventList", method=RequestMethod.POST)
-	public ModelAndView getEventList(@RequestParam(required=false, defaultValue="1") String pg) {
-		// 1페이지당 15개씩
+	public ModelAndView getEventList(@RequestParam(required=false, defaultValue="1") String pg
+									) {
+		// 1페이지당 10개씩
+		int endNum = Integer.parseInt(pg)*10;
+		int startNum = endNum-9;
+		// 게시물 리스트 가져오기
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		// event seq가져가서 각각의 productCode를 가져와야함 HashMap?
+		
+		List<EventDTO> list = eventService.getEventList(map);
+		
+		// 게시판 페이징 처리
+		// 총 이벤트 수
+		int totalEvent = eventService.getTotalEvent();
+		eventPaging.setCurrentPage(Integer.parseInt(pg));
+		eventPaging.setPageBlock(5);
+		eventPaging.setPageSize(10);
+		eventPaging.setTotalEvent(totalEvent);
+		eventPaging.makePagingHTML();
+		
+		// Response
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.addObject("eventPaging", eventPaging);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	/* 이벤트 상품 리스트 가져오기 */
+	@RequestMapping(value="/admin/service/getProductList", method=RequestMethod.POST)
+	public ModelAndView getProductList(@RequestParam(required=false, defaultValue="1") String pg) {
+		// 1페이지당 10개씩
 		int endNum = Integer.parseInt(pg)*10;
 		int startNum = endNum-9;
 		// 게시물 리스트 가져오기
@@ -80,11 +113,18 @@ public class EventController {
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
 		
-		List<EventDTO> list = eventService.getEventList(map);
+		List<ProductDTO> list = eventService.getProductList(map);
 		
-		// 게시판 페이징 처리
-		// 총 이벤트 수
-		int totalEvent = eventService.getTotalEvent();
+		// 상품 페이징 처리
+		// 총 상품 수
+		int totalEvent = eventService.getTotalProduct();
+		/*
+		 * 이벤트 관리 페이지에서의 상품 관련 페이징 처리 안함.
+		 * 
+		 * 수정페이지에서의 페이징 처리
+		 * 상품 검색/선택은 productPaging 처리
+		 * 이벤트 상품 관리는 eventPaging 처리
+		 */
 		eventPaging.setCurrentPage(Integer.parseInt(pg));
 		eventPaging.setPageBlock(5);
 		eventPaging.setPageSize(10);

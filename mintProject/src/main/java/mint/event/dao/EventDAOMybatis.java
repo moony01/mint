@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import mint.event.bean.EventDTO;
+import mint.product.bean.ProductDTO;
 
 @Transactional
 @Repository("eventDAO")
@@ -54,5 +55,15 @@ public class EventDAOMybatis implements EventDAO{
 	@Override
 	public int getSearchTotalEvent(Map<String, Object> map) {
 		return sqlSession.selectOne("eventSQL.getSearchTotalEvent", map);
+	}
+
+	@Override
+	public List<ProductDTO> getProductList(Map<String, Integer> map) {
+		return sqlSession.selectList("eventSQL.getProductList", map);
+	}
+
+	@Override
+	public int getTotalProduct() {
+		return sqlSession.selectOne("eventSQL.getTotalProduct");
 	}
 }

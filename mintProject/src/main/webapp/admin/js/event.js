@@ -32,7 +32,7 @@ $(function(){
 	});
 	
 	
-	/* 게시판 리스트 가져오기 */
+	/* 이벤트 리스트 가져오기 */
 	$.ajax({
 		type:'post',
 		url:'/mintProject/admin/service/getEventList',
@@ -45,13 +45,32 @@ $(function(){
 			console.error(error);
 		}
 	});
+	
 });
+
+/* 이벤트 해당 상품 목록 가져오기 */
+function getProdutList(productCode){
+	$.ajax({
+		type:'post',
+		url:'/mintProject/admin/service/getProductList',
+		dataType:'json',
+		success: function(result){
+			alert('불러오기 성공');
+			// $('.pagination').html(result.eventPaging.pagingHTML);
+		},
+		error: function(error){
+			console.error(error);
+		}
+	});
+}
 
 /* 제목 클릭시 내용 나타나기/사라지기 */
 function eventRow(content){
     if($(content).parent().next().css('display') === 'none'){
 		$('.tb-view').css('display', 'none');
 		$(content).parent().next().css('display', 'table-row');
+		console.log($(content).prev().children().val());
+		// getProductList();
 	} else if($(content).parent().next().css('display') === 'table-row'){
 		$('.tb-view').css('display', 'none');
 	}
@@ -112,7 +131,7 @@ function getEventList(result){
 				</div>
 				<table class="table event-table">
 					<tr>
-						<th class="col-md-2">미리보기</th>
+						<th class="col-md-1">미리보기</th>
 						<th class="col-md-3">상품명</th>
 						<th class="col-md-3">상품코드</th>
 						<th class="col-md-1">정상가</th>
@@ -132,6 +151,7 @@ function getEventList(result){
 $('#searchButton').click(function(){
 	// 기존 테이블 비우기
 	$('.tb-row').remove();
+	$('.tb-view').remove();
 	
 	$.ajax({
 		type:'post',

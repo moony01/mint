@@ -60,22 +60,27 @@ $(document).ready(function(){
 						
 							<input type="hidden" class="memlevel" value="${MEMLEVEL }">
 							<input type="hidden" name="price2" class="prd_price_fix" value="${price2 }">
-							<td><input type="checkbox" class="prdCheck ico_check" checked onchange="total_calcul()"></td>
-							<td><img src="../storage/product/thumb/${THUMBNAIL }" style="width: 100px;"></td>
-							<td>
-								<div>${MAINSUBJECT }</div>
+							<td class="cart-tb__check">
+							 <label for="" class="" onclick="total_calcul()">
+							 	<input type="checkbox" class="check-box prdCheck ico_check" checked>
+							 </label>
+							 </td>
+							<td class="cart-tb__thumb"><img src="../storage/product/thumb/${THUMBNAIL }" style="width: 100px;"></td>
+							<td class="cart-tb__desc">
+								<div class="cart-tb__name">${MAINSUBJECT }</div>
 								<div class="price_Box">
-									할인가격: <span class="price2">${price2}</span>
-									정가: <span class="price1">${PRICE }</span>
+									할인가격: <span class="product__dc cart-tb__num price2">${price2}</span>
+									정가: <span class="product__price cart-tb__num price1">${PRICE }</span>
 								</div>
 							</td>
-							<td>
-								<button type="button" class="dwn_btn" onClick="fnDn($(this))">-</button>
-								<span id="${PRODUCTCODE }" class="clk_count">1</span>
-								
-								<button type="button" class="up_btn" onClick="fnUp($(this))">+</button>
+							<td class="cart-tb__count">
+							 <span class="goods-count">
+									<button class="minus" onClick="fnDn($(this))"></button>
+									<input type="text" value="1" id="${PRODUCTCODE }" class="qty clk_count" readonly>
+									<button type="button" class="plus up_btn" onClick="fnUp($(this))"></button>
+								</span>
 							</td>
-							<td class="prd_price">${price2 }</td>
+							<td class="cart-tb__total prd_price">${price2 }</td>
 							<td>
 								<button type="button" class="btn btn_delete_point" onclick="seldel($(this))"></button>
 							</td>
@@ -92,11 +97,17 @@ $(document).ready(function(){
 				let checked = 0;//상품 for문에 쓸 변수
 				var lastPrice = 0;//총상품금액 계
 				
+				console.log($('.check-box:checked'));
+				$('.check-label').attr('class', 'check-label checked');
+				
 				fnck();//체크박스
 				total_calcul();//총상품금액
 				hide_stock();//품절처리
 				selectDelete();//선택삭제
 				dataProcess();//데이터가공
+
+
+				
 			}
 			
 		});
@@ -106,6 +117,7 @@ $(document).ready(function(){
 		history.back();
 	}
 });
+
 
 //품절처리
 function hide_stock() {
@@ -132,6 +144,11 @@ function selectDelete() {
 	});
 }
 
+
+const checkLabel = document.querySelector("label.allCheck");
+let checkLabelBox = document.querySelector("input.allCheck");
+
+
 //총 체크 개수 카운트, 상품채크
 function fnck() {
 	chk_total_obj = document.getElementsByClassName('prdCheck');//상품채크박스
@@ -139,16 +156,21 @@ function fnck() {
 	$('.prd_count').text(chk_total_leng);//상품체크박스 선택한것만 카운트
 	$('.prd_total_count').text(chk_total_leng);//상품체크박스 개수 카운트
 	
+	
 	//상품 전체선택
-	$('.allCheck').on('click', function(){
-		if($(this).prop('checked') == true) {
+	$('label.allCheck').on('click', function(){
+		if($(this).children().prop('checked') == true) {
 			$(".prdCheck").prop("checked", true);
 			chCount();
 		}else{
 			$(".prdCheck").prop("checked", false);
 			chCount();
 		}
+		
+		total_calcul();
 	});
+
+	
 	
 	//상품 각각 카운트
 	$('.prdCheck').on("click", function(){
@@ -172,22 +194,22 @@ function fnck() {
 
 //수량 +버튼
 function fnUp(btn) {
-	let quan = btn.prev().text(); // span의 text (수량) 가져오기
+	let quan = btn.prev().val(); // span의 text (수량) 가져오기
 	quan++; // 값을 1 증가
-	let discountPrice = btn.parent().prev().prev().prev().prev().val(); // 할인가 (fix) 1개 당 가격: [상품금액] column에 들어가는 값이 할인가 * 수량 이길래 수정해서 받았습니다. 
+	let discountPrice = btn.parent().parent().prev().prev().prev().prev().val(); // 할인가 (fix) 1개 당 가격: [상품금액] column에 들어가는 값이 할인가 * 수량 이길래 수정해서 받았습니다. 
 	let discountTotPrice = discountPrice * quan; // 할인가 total = 가격 * 수량 
 	
-	btn.prev().text(quan); // 1 증가한 수를 span 의 text 에 넣고
-	btn.parent().next().text(discountTotPrice); // [상품금액] column에 계산된 할인가를 넣는다. 
+	btn.prev().val(quan); // 1 증가한 수를 span 의 text 에 넣고
+	btn.parent().parent().next().text(discountTotPrice); // [상품금액] column에 계산된 할인가를 넣는다. 
 	
 	total_calcul();
 }
 
 //수량 -버튼
 function fnDn(btn) {
-	let quan = btn.next().text();
+	let quan = btn.next().val();
 	quan--;
-	let discountPrice = btn.parent().prev().prev().prev().prev().val(); // 1개 가격 - 할인가 
+	let discountPrice = btn.parent().parent().prev().prev().prev().prev().val(); // 1개 가격 - 할인가 
 	let discountTotPrice = discountPrice * quan; 
 	
 	if(quan == '0') {
@@ -195,8 +217,8 @@ function fnDn(btn) {
 		return;
 	}
 	
-	btn.next().text(quan);
-	btn.parent().next().text(discountTotPrice);
+	btn.next().val(quan);
+	btn.parent().parent().next().text(discountTotPrice);
 	total_calcul();
 }
 
@@ -250,8 +272,9 @@ function total_calcul() {
 	
 	for(var i=0; i<prdCnt; i++){
 		if($(".prdCheck").eq(i).prop("checked")){
-			originalArr[i] = parseInt($('span.price1').eq(i).text() * $('span.clk_count').eq(i).text()); // 정가의 수량 * 갯수 (3000*2)를 각각 배열에 넣는다.  
-			discountArr[i] = parseInt($('span.price2').eq(i).text() * $('span.clk_count').eq(i).text());// 할인가의 수량 * 갯수 (2700*2)를 각각 배열에 넣는다. 
+			console.log(i);
+			originalArr[i] = parseInt($('span.price1').eq(i).text() * $('.clk_count').eq(i).val()); // 정가의 수량 * 갯수 (3000*2)를 각각 배열에 넣는다.  
+			discountArr[i] = parseInt($('span.price2').eq(i).text() * $('.clk_count').eq(i).val());// 할인가의 수량 * 갯수 (2700*2)를 각각 배열에 넣는다. 
 			
 			originalTotPrice += parseInt(originalArr[i]); // [상품금액 div]의 값: 각 배열을 더하여 정가의 총 합 계산
 			discountTotPrice += parseInt(originalArr[i] - discountArr[i]); // [상품할인금액 div]의 값: 정가(3000*2) - 할인가(2700*2) = 할인금액
@@ -262,10 +285,10 @@ function total_calcul() {
 		deliveryPrice = 3000;
 	}
 	
-	$('#totalPrdPrice span').text(originalTotPrice); // 정가의 총 합 > [상품금액 div] - span 에 담기
-	$('#totalDiscountPrice span').text(discountTotPrice); // 할인금액 총 합 > [상품할인금액 div] - span에 담기
-	$('#DeliveryPrice span').text(deliveryPrice); // 배송비
-	$('#totalSumPrice span').text(originalTotPrice - discountTotPrice + deliveryPrice); // 최종 [결제예정금액 div]
+	$('#amountPrice').text(originalTotPrice); // 정가의 총 합 > [상품금액 div] - span 에 담기
+	$('#amountSale').text(discountTotPrice); // 할인금액 총 합 > [상품할인금액 div] - span에 담기
+	$('#amountCourier').text(deliveryPrice); // 배송비
+	$('#amountTotal').text(originalTotPrice - discountTotPrice + deliveryPrice); // 최종 [결제예정금액 div]
 
 	memlevel = $('.memlevel').eq(0).val();
 	if(memlevel == 0) {

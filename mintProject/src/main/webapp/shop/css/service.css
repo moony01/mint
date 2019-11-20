@@ -358,7 +358,7 @@
 }
 .service__write-btn{
     cursor: pointer;
-    background-color: #795C90;
+    background-color: teal;
     display: flex;
     justify-content: center;
     align-items: center;

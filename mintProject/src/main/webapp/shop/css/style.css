@@ -39,12 +39,12 @@
     display: flex;
     justify-content: center;
     position: relative;
-    height: 67px;
+    height: 63px;
 }
 .header__main-logo {
     position: absolute;
     width: 99px;
-    height: 92px;
+    height: 79px;
     top: -20px;
     left: 480px;
 }

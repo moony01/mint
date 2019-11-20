@@ -6,68 +6,41 @@
 	<insert id="productWrite" parameterType="product">
 		insert into product values(seq_product.nextval,#{mainCategory},#{subCategory},#{supplierId},#{stock},#{mainSubject},#{subSubject},#{thumbnail},#{price},#{unit},#{weight},#{packageType},#{information},#{description},#{productImage},#{details},#{productStatus},0,#{discountRate})
 	</insert>
-	
-	<!-- 상품 리스트 조회 -->
-	<!-- <select id="getProductList" parameterType="java.util.Map" resultType="product">
-		select * 
-		  from product
-		 where 
-		 <if test="mainCategory!=null">
-			   mainCategory = #{mainCategory}
-		 </if>
-		 <if test="subCategory!=null">
-			   subCategory = #{subCategory}
-		 </if>
-		 신상품 : 1   별점순 : 2    낮은 가격순 : 3   높은 가격순 : 4
-		 <choose>
-		 	<when test="selectGubun==null||selectGubun==1">
-		 		order by productCode desc
-		 	</when>
-		 	<when test="selectGubun==2">
-		 		order by RECOMMEND desc
-		 	</when>
-		 	<when test="selectGubun==3">
-		 		order by price
-		 	</when>
-		 	<otherwise>
-		 		order by price desc
-		 	</otherwise>
-		 </choose> -->
 		 
-		<!-- 상품 리스트 조회 -->
-		<select id="getProductList" parameterType="java.util.Map" resultType="product"> 
-		 		select *
-		 		  from (
-		 		       select rownum rn
-		 		            , tt.*
-		 		         from (    
-		 		              select * 
-		  	                    from product
-		                       where 
-		 		<if test="mainCategory!=null">
-			   		                 mainCategory = #{mainCategory}
-		        </if>
-		        <if test="subCategory!=null">
-			                         subCategory = #{subCategory}
-		        </if>
-				<!-- 신상품 : 1   인기상품순 : 2    낮은 가격순 : 3   높은 가격순 : 4 -->
-		 		<choose>
-		 	    	<when test="selectGubun==null||selectGubun==1">
-		 	                    order by productCode desc
-		 		    </when>
-		 	        <when test="selectGubun==2">
-		 		                order by STAR desc
-		 	   		</when>	
-		 	   		<when test="selectGubun==3">
-			                   order by price
-			 		</when>
-				 	<otherwise>
-				               order by price desc
-				 	</otherwise>
-		 	    </choose>
-		 	    	           ) tt
-		 	    	    )
-		 	     where rn between #{startNum} and #{endNum}           	
+	<!-- 상품 리스트 조회 -->
+	<select id="getProductList" parameterType="java.util.Map" resultType="product"> 
+ 		select *
+ 		  from (
+ 		       select rownum rn
+ 		            , tt.*
+ 		         from (    
+ 		              select * 
+  	                    from product
+                       where 
+ 		<if test="mainCategory!=null">
+	   		                 mainCategory = #{mainCategory}
+        </if>
+        <if test="subCategory!=null">
+	                         subCategory = #{subCategory}
+        </if>
+		<!-- 신상품 : 1   인기상품순 : 2    낮은 가격순 : 3   높은 가격순 : 4 -->
+ 		<choose>
+ 	    	<when test="selectGubun==null||selectGubun==1">
+ 	                    order by productCode desc
+ 		    </when>
+ 	        <when test="selectGubun==2">
+ 		                order by STAR desc
+ 	   		</when>	
+ 	   		<when test="selectGubun==3">
+	                   order by price
+	 		</when>
+		 	<otherwise>
+		               order by price desc
+		 	</otherwise>
+ 	    </choose>
+ 	    	           ) tt
+ 	    	    )
+ 	     where rn between #{startNum} and #{endNum}           	
 	</select>
 	
 	<!-- 조건별 상품리스트 갯수 조회 -->
@@ -138,6 +111,24 @@
  	     	</when>
  	     
  	     </choose>                
+	</select>
+	
+	<!-- 상품 1개 정보 조회 -->
+	<select id="getProductInfo" parameterType="java.util.Map" resultType="product">
+		select *
+		  from product
+		 where productCode = #{productCode}
+	</select>
+	
+	<!-- 상품 상세 뷰 페이지 아래 같은 subCategory 상품 10개  최신순으로 불러오기 -->
+	<select id="getSameSubcategoryProductList" parameterType="java.util.Map" resultType="product">
+		<![CDATA[
+			select * 
+		      from product
+		     where subCategory = #{subCategory}
+               and rownum <=10 
+		     order by productCode desc
+		]]>
 	</select>
 	
 	<!-- 매출 -->

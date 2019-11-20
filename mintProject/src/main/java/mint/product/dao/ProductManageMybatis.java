@@ -53,4 +53,14 @@ public class ProductManageMybatis implements ProductManageDAO {
 		return sqlSession.selectList("productManageSQL.productSearch", sword);
 	}
 
+	@Override
+	public ProductDTO getProductInfo(Map<String, String> map) {
+		return sqlSession.selectOne("productManageSQL.getProductInfo",map);
+	}
+
+	@Override
+	public List<ProductDTO> getSameSubcategoryProductList(Map<String, String> map) {
+		return sqlSession.selectList("productManageSQL.getSameSubcategoryProductList",map);
+	}
+
 }

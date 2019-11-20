@@ -22,4 +22,9 @@ public interface ProductManageService {
 	
 	public List<ProductDTO> productSearch(String sword);
 
+	public ProductDTO getProductInfo(Map<String, String> map);
+
+	public List<ProductDTO> getSameSubcategoryProductList(Map<String, String> map);
+
+
 }

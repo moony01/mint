@@ -52,4 +52,14 @@ public class ProductManageServiceImpl implements ProductManageService{
 		return productManageDAO.productSearch(sword);
 	}
 
+	@Override
+	public ProductDTO getProductInfo(Map<String, String> map) {
+		return productManageDAO.getProductInfo(map);
+	}
+
+	@Override
+	public List<ProductDTO> getSameSubcategoryProductList(Map<String, String> map) {
+		return productManageDAO.getSameSubcategoryProductList(map);
+	}
+
 }

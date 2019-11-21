@@ -89,7 +89,7 @@
  		              order by STAR desc
  	   		</when>	
  	   		<when test="headGubun==3">
-	                  where DISCOUNTRATE >= 20 
+	                  where DISCOUNTRATE >= 10 
 	                  order by price
 	 		</when>
  	    </choose>

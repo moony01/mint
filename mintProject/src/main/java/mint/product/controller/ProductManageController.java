@@ -84,12 +84,13 @@ public class ProductManageController {
 		if (map.get("gubun").equals("1") || map.get("gubun").equals("2")) {
 			// 총 갯수 구하기
 			int totalArticle = productManageService.getCntProductList(map);
+			System.out.println("totalArticle: " + totalArticle);
 			// 시작페이지와 끝 설정
 			setPagingNumber(map);
 
 			List<ProductDTO> list = productManageService.getProductList(map);
 
-			if (list != null) {
+			if (list != null|| list.equals("")) {
 				mav.addObject("list", list);
 			}
 			// mainCategory : 1 //subCategory : 2 //headerGubun
@@ -115,7 +116,7 @@ public class ProductManageController {
 			setPagingNumber(map);
 			List<ProductDTO> list = productManageService.getHeaderProductList(map);
 
-			if (list != null) {
+			if (list != null || list.equals("")) {
 				mav.addObject("list", list);
 			}
 			// mainCategory : 1 //subCategory : 2 //headerGubun
@@ -190,8 +191,8 @@ public class ProductManageController {
 	// [사용자, 관리자 페이지 공통 함수]
 	// ==================================================================================================
 	public void setPagingNumber(Map<String, String> map) {
-		int endNum = Integer.parseInt((String) map.get("pg")) * 3;
-		int startNum = endNum - 2;
+		int endNum = Integer.parseInt((String) map.get("pg")) * 9;
+		int startNum = endNum - 8;
 
 		map.put("endNum", endNum + "");
 		map.put("startNum", startNum + "");

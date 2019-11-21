@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    
+ 
 <section class="product-view">
 	<input type="hidden" id="sessionId" value="${memId }">
     <div class="goods-info">
@@ -40,10 +40,9 @@
             	</div>
              </c:if>
 			
-
             <div class="goods-grade">
                 <span class="grade-icon">웰컴 5%</span>
-                <span class="grade-txt">개당 <span class="grade-point">2,250</span>원 적립</span>
+                <span class="grade-txt">개당 <span class="grade-point"><fmt:formatNumber type="currency" value = "${productDTO.price * 0.05}" currencyCode="KRW" pattern="#,###"/></span>원 적립</span>
             </div>
             <dl class="goods-col">
                 <dt>판매 단위</dt>
@@ -95,128 +94,52 @@
         </div>
     </div>
 
-    <div class="goods-rel">
-        <div class="goods-rel__title">
-            관련된 상품들
-        </div>
-        
-        <div class="swiper-container">
-            <ul class="swiper-wrapper">
-                <!-- swiper-slide안에 총 5개 관련된 상품 뿌릴 수 있음! -->
-                <li class="swiper-slide">
-                    <div class="goods-rel__slide-group">
-                        <div class="goods-rel__slide-item">
-                            <div class="goods-rel__img">
-                                <a href=""><img src="//img-cf.kurly.com/shop/data/goods/1566450993163m0.jpg" alt=""></a>
-                            </div>
-                            <div class="goods-rel__content">
-                                <span class="goods-rel__tit">무농약 무순</span>
-                                <span class="goods-rel__price">3000원</span>
-                            </div>
-                        </div>
-
-                        <div class="goods-rel__slide-item">
-                            <div class="goods-rel__img">
-                                <a href=""><img src="//img-cf.kurly.com/shop/data/goods/1573440047406m0.jpg" alt=""></a>
-                            </div>
-                            <div class="goods-rel__content">
-                                <span class="goods-rel__tit">무농약 무순</span>
-                                <span class="goods-rel__price">3000원</span>
-                            </div>
-                        </div>
-                        
-                        <div class="goods-rel__slide-item">
-                            <div class="goods-rel__img">
-                                <a href=""><img src="//img-cf.kurly.com/shop/data/goods/1456402054237m0.jpg" alt=""></a>
-                            </div>
-                            <div class="goods-rel__content">
-                                <span class="goods-rel__tit">[ITAL LEMON] 애호박</span>
-                                <span class="goods-rel__price">1400원</span>
-                            </div>
-                        </div>
-                        
-                        <div class="goods-rel__slide-item">
-                            <div class="goods-rel__img">
-                                <a href=""><img src="//img-cf.kurly.com/shop/data/goods/1566885907615m0.jpg" alt=""></a>
-                            </div>
-                            <div class="goods-rel__content">
-                                <span class="goods-rel__tit">무농약 무순</span>
-                                <span class="goods-rel__price">3000원</span>
-                            </div>
-                        </div>
-
-                        <div class="goods-rel__slide-item">
-                            <div class="goods-rel__img">
-                                <a href=""><img src="//img-cf.kurly.com/shop/data/goods/1566450993163m0.jpg" alt=""></a>
-                            </div>
-                            <div class="goods-rel__content">
-                                <span class="goods-rel__tit">무농약 무순</span>
-                                <span class="goods-rel__price">3000원</span>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="swiper-slide">
-                    <div class="goods-rel__slide-group">
-                        <div class="goods-rel__slide-item">
-                            <div class="goods-rel__img">
-                                <a href=""><img src="//img-cf.kurly.com/shop/data/goods/1569318091105m0.jpg" alt=""></a>
-                            </div>
-                            <div class="goods-rel__content">
-                                <span class="goods-rel__tit">무농약 무순</span>
-                                <span class="goods-rel__price">3000원</span>
-                            </div>
-                        </div>
-
-                        <div class="goods-rel__slide-item">
-                            <div class="goods-rel__img">
-                                <a href=""><img src="//img-cf.kurly.com/shop/data/goods/1544168857382m0.jpg" alt=""></a>
-                            </div>
-                            <div class="goods-rel__content">
-                                <span class="goods-rel__tit">무농약 무순</span>
-                                <span class="goods-rel__price">3000원</span>
-                            </div>
-                        </div>
-                        
-                        <div class="goods-rel__slide-item">
-                            <div class="goods-rel__img">
-                                <a href=""><img src="//img-cf.kurly.com/shop/data/goods/1547538505593m0.jpg" alt=""></a>
-                            </div>
-                            <div class="goods-rel__content">
-                                <span class="goods-rel__tit">[ITAL LEMON] 피오디 레몬즙 (캡슐)</span>
-                                <span class="goods-rel__price">1400원</span>
-                            </div>
-                        </div>
-                        
-                        <div class="goods-rel__slide-item">
-                            <div class="goods-rel__img">
-                                <a href=""><img src="//img-cf.kurly.com/shop/data/goods/1566450993163m0.jpg" alt=""></a>
-                            </div>
-                            <div class="goods-rel__content">
-                                <span class="goods-rel__tit">무농약 무순</span>
-                                <span class="goods-rel__price">3000원</span>
-                            </div>
-                        </div>
-
-                        <div class="goods-rel__slide-item">
-                            <div class="goods-rel__img">
-                                <a href=""><img src="//img-cf.kurly.com/shop/data/goods/1566450993163m0.jpg" alt=""></a>
-                            </div>
-                            <div class="goods-rel__content">
-                                <span class="goods-rel__tit">무농약 무순</span>
-                                <span class="goods-rel__price">3000원</span>
-                            </div>
-                        </div>
-                    </div>
-                </li>               
-            </ul>
-            
-            <div class="swiper-button-prev"><i class=xi-angle-left></i></div>
-            <div class="swiper-button-next"><i class="xi-angle-right"></i></div>  
-        </div>
-    </div>
-
+	<c:if test="${list.size() == 10 }">
+	    <div class="goods-rel">
+	        <div class="goods-rel__title">
+	            관련된 상품들
+	        </div>
+	        <div class="swiper-container">
+	            <ul class="swiper-wrapper">
+	                <!-- swiper-slide안에 총 5개 관련된 상품 뿌릴 수 있음! -->
+	                <li class="swiper-slide">
+	                    <div class="goods-rel__slide-group">
+	                    	<c:forEach var="i" begin="0" end="4" step="1">
+								<div class="goods-rel__slide-item">
+		                            <div class="goods-rel__img">
+		                                <a href="/mintProject/shop/product/productView?productCode=${list.get(i).getProductCode()}&subCategory=${list.get(i).getSubCategory()}"><img src="/mintProject/shop/storage/mint/product/${list.get(i).getThumbnail()}" alt=""></a>
+		                            </div>
+		                            <div class="goods-rel__content">
+		                                <span class="goods-rel__tit">${list.get(i).getMainSubject()}</span>
+		                                <span class="goods-rel__price">${list.get(i).getPrice()}원</span>
+		                            </div>
+	                        	</div>
+							</c:forEach>
+	                    </div>
+	                </li>
+	               <li class="swiper-slide">
+	                    <div class="goods-rel__slide-group">
+	                    	<c:forEach var="i" begin="5" end="9" step="1">
+								<div class="goods-rel__slide-item">
+		                            <div class="goods-rel__img">
+		                                <a href="/mintProject/shop/product/productView?productCode=${list.get(i).getProductCode()}&subCategory=${list.get(i).getSubCategory()}"><img src="/mintProject/shop/storage/mint/product/${list.get(i).getThumbnail()}" alt=""></a>
+		                            </div>
+		                            <div class="goods-rel__content">
+		                                <span class="goods-rel__tit">${list.get(i).getMainSubject()}</span>
+		                                <span class="goods-rel__price">${list.get(i).getPrice()}원</span>
+		                            </div>
+	                        	</div>
+							</c:forEach>
+	                    </div>
+	                </li>
+	            </ul>
+	            
+	            <div class="swiper-button-prev"><i class=xi-angle-left></i></div>
+	            <div class="swiper-button-next"><i class="xi-angle-right"></i></div>  
+	        </div>
+	    </div>
+	</c:if>
+	
     <section class="goods-detail">
         <div id="description">
             <ul class="goods-detail__tab">

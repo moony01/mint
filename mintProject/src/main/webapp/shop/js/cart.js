@@ -57,7 +57,7 @@ $(document).ready(function(){
 								<input type="checkbox" class="prdCheck ico_check" checked onchange="total_calcul()">
 						 	</label>
 							 </td>
-							<td class="cart-tb__thumb"><img src="../storage/product/thumb/${THUMBNAIL }" style="width: 100px;"></td>
+							<td class="cart-tb__thumb"><img src="/mintProject/shop/storage/mint/product/${THUMBNAIL }"></td>
 							<td class="cart-tb__desc">
 								<div class="cart-tb__name">${MAINSUBJECT }</div>
 								<div class="price_Box">

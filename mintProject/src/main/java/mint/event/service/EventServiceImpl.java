@@ -56,12 +56,8 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public List<ProductDTO> getProductList(Map<String, Integer> map) {
+	public List<ProductDTO> getProductList(Map<String, Object> map) {
 		return eventDAO.getProductList(map);
 	}
 
-	@Override
-	public int getTotalProduct() {
-		return eventDAO.getTotalProduct();
-	}
 }

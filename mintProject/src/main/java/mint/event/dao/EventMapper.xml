@@ -90,4 +90,13 @@
 	</select>
 
 	
+	<!-- 이벤트 삭제 -->
+	<select id="getProductList" parameterType="java.util.Map" resultType="product">
+		select * from product where productCode in
+		<foreach collection="array" item="productCode" index="i" open="(" separator="," close=")">
+			#{productCode}
+		</foreach>
+	</select>
+	
+	
 </mapper>

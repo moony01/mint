@@ -24,11 +24,6 @@ public interface EventService {
 
 	public int getSearchTotalEvent(Map<String, Object> map);
 
-	public List<ProductDTO> getProductList(Map<String, Integer> map);
-
-	public int getTotalProduct();
-
-	
-
+	public List<ProductDTO> getProductList(Map<String, Object> map);
 
 }

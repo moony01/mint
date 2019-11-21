@@ -29,6 +29,10 @@
 	padding-bottom: 30px;
 }
 
+.thumb{
+	width: 50px;
+}
+
 /* 테이블 */
 .tb-subject{
 	cursor: pointer;
@@ -96,7 +100,7 @@
 	    </table>
 		<div class="center_button">
 			<button type="button" id="searchButton" class="btn btn-info">
-				<i class="fa fa-search" aria-hidden="true"></i>검색</button>
+				<i class="fa fa-search" aria-hidden="true"></i>&nbsp;검색</button>
 		</div>
 		
 		<%-- 이벤트 목록 --%>
@@ -125,9 +129,9 @@
 	    		
 	    <div class="write-tb__btns">
 	        <button type="button" id="eventDeleteBtn" class="btn btn-danger">
-	    		<i class="fa fa-calendar-times" aria-hidden="true"></i>이벤트삭제</button>
+	    		<i class="fa fa-calendar-times" aria-hidden="true"></i>&nbsp;이벤트삭제</button>
 	        <button type="button" id="eventWriteBtn" class="btn btn-primary">
-	        	<i class="fa fa-calendar-plus" aria-hidden="true"></i>이벤트등록</button>
+	        	<i class="fa fa-calendar-plus" aria-hidden="true"></i>&nbsp;이벤트등록</button>
 	    </div>   
 	</div>
 </form>

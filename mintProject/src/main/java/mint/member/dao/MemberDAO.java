@@ -32,4 +32,6 @@ public interface MemberDAO {
 
 	public void updateByAdmin(Map<String, Object> map);
 
+	public void updateProductStatus(Map<String, Object> map);
+
 }

@@ -35,9 +35,12 @@ public class MemberLoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		SavedRequest savedRequest = requestCache.getRequest(request, response); // savedRequest 가져옴 
 		
-		if(savedRequest != null) {
+		
+		if(memberDTO.getId().equals("admin")) { //관리자로 로그인 시 바로 관리자 메인 페이지로 이동
+			redirectStrategy.sendRedirect(request, response, "/admin/main/admin");
+		} else if(savedRequest != null) {
 			String targetUrl = savedRequest.getRedirectUrl(); // 브라우저 세션에 저장된 url을 가져옴
-			redirectStrategy.sendRedirect(request, response, targetUrl); // 인증에 성공하면 해당 url로  돌려보내주고 (redirect)
+			redirectStrategy.sendRedirect(request, response, targetUrl); // 인증에 성공하면 해당 url로  돌려보내주고 (redirect)	
 		} else { 
 			redirectStrategy.sendRedirect(request, response, "/shop/main/index"); //그렇지 않다면 default 로 메인 인덱스로 보냄 
 		}

@@ -23,4 +23,8 @@ public class AdminController {
 		return mav;
 	}
 	
+	@RequestMapping("/admin/main/denied")
+	public String denied() {
+		return "/admin/main/denied";
+	}
 }

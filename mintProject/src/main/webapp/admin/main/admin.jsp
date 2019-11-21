@@ -46,8 +46,8 @@
             관리자 페이지
         </h1>
         <div class="admin-info">
-            <span>MinT 님</span>
-            <span><i class="fas fa-sign-out-alt"></i>로그아웃</span>
+            <span>${memName } 님</span>
+            <span onclick="location.href='/mintProject/shop/member/logout'" style="cursor: pointer;"><i class="fas fa-sign-out-alt"></i>로그아웃</span>
         </div>
     </header>
     <div class="admin-page">

@@ -51,7 +51,7 @@
 	        </div> 
 	       
 	        <div class="container">
-			    <h2 class="main__title">판매 중인 상품 </h2>   
+			    <h2 class="main__title">판매 등록 상품 </h2>   
 		        <table class="table table-bordered table-member">
 		            <tr class="th--dark">
 		                <th class="col-md-3" >상품코드</th>

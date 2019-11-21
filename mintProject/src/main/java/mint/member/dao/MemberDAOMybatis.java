@@ -102,5 +102,10 @@ public class MemberDAOMybatis implements MemberDAO {
 		
 	}
 
+	@Override
+	public void updateProductStatus(Map<String, Object> map) {
+		sqlSession.update("memberSQL.updateProductStatus", map);
+	}
+
 
 }

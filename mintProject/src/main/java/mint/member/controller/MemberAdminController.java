@@ -84,18 +84,16 @@ public class MemberAdminController {
 						@PathVariable String searchValue, 
 						@PathVariable String option, ModelAndView mav) {
 		
-		System.out.println(table + "/ " + searchValue + "/ " + option);
 		String orderbyValue = null; 
 		
 		Map<String, String> map = new HashMap<String, String>();
-		
 		orderbyValue = setMapValues(table, option, orderbyValue);
 		
 		if(searchValue.contains("-")) { // 날짜로 검색 
-			searchValue = searchValue.replace('.', '/');
+			searchValue = searchValue.replace(".", "");
 			map.put("searchOption", "logtime");
-			map.put("from", searchValue.substring(0, 8));
-			map.put("to", searchValue.substring(11));
+			map.put("from", searchValue.substring(0, 6));
+			map.put("to", searchValue.substring(9));
 			
 		} else if(!searchValue.equals("undefined")){ // 아이디로 검색
 			map.put("searchOption", "id");
@@ -105,11 +103,8 @@ public class MemberAdminController {
 		map.put("table", table);
 		map.put("orderbyValue", orderbyValue);
 	
-		System.out.println(map);
 
 		List<Map<String, String>> list = memberService.getList(map); // member
-		System.out.println("list<Map>: " + list);
-		
 		//페이징 처리를 script에서 처리하기 위해 pg, totalArticle, addr 를 함께 싣어 보내준다. 
 		//mav.addObject("pg", pg);
 		//mav.addObject("totalArticle", totalArticle);
@@ -163,16 +158,13 @@ public class MemberAdminController {
 	
 	//판매자 상세보기 
 	@RequestMapping(value="/admin/member/supplierView", produces = "application/json; charset=UTF-8")
-	public ModelAndView getSupplierView(String id, ModelAndView mav) {
+	public ModelAndView getSupplierView(String supplierCode, ModelAndView mav) {
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("key", "id");
-		map.put("value", id);
+		map.put("key", "supplierCode");
+		map.put("value", supplierCode);
 		
 		SupplierDTO supplierDTO = memberService.getSupplierBy(map); //판매자 기본정보
 		List<ProductDTO> list = memberService.getProductList(map); //판매자 판매정보
-		
-		System.out.println("DTO: " + supplierDTO);
-		System.out.println("list: "+ list);
 		
 		mav.addObject("supplierDTO", supplierDTO);
 		mav.addObject("list", list);
@@ -185,29 +177,33 @@ public class MemberAdminController {
 	
 	//회원 & 판매자 업데이트: (회원: 포인트 적립, 판매자: 판매상태)
 	@RequestMapping("/admin/member/update/{table}")
-	public ModelAndView updateMember(@PathVariable String table, String id, String value) {
+	public ModelAndView updateMember(@PathVariable String table, 
+									String id, String supplierCode, String value) {
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		if(table.equals("member")) {
 			map.put("updateKey", "point");
 			map.put("updateValue", Integer.parseInt(value));
+			map.put("key", "id");
+			map.put("value", id);
 			
 		} else if(table.equals("supplier")) {
 			map.put("updateKey", "status");
 			map.put("updateValue", value);
+			map.put("key", "supplierCode");
+			map.put("value", supplierCode);
 		}
-		map.put("table", table);
-		map.put("key", "id");
-		map.put("value", id);
 		
-		System.out.println(map);
+		map.put("table", table);
 		memberService.updateByAdmin(map);
 		
 		if(table.equals("member")) {
 			return getMemberList(mav);
 			
-		} 
+		} else if(table.equals("supplier")) { 
+			memberService.updateProductStatus(map); // supplier 의 상태가 변경되면 해당 판매자의 상품들의 판매상태도 변경된다. 
+		}
 		
 		return getSupplierList(mav);
 		

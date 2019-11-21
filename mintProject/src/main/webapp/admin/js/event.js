@@ -31,14 +31,13 @@ $(function(){
 		$('#datetimepickerEnd').datetimepicker('toggle');
 	});
 	
-	
-	/* 이벤트 리스트 가져오기 */
+		/* 이벤트 리스트 가져오기 */
 	$.ajax({
 		type:'post',
 		url:'/mintProject/admin/service/getEventList',
 		dataType:'json',
 		success: function(result){
-			getEventList(result);
+			eventListTemp(result);
 			$('.pagination').html(result.eventPaging.pagingHTML);
 		},
 		error: function(error){
@@ -48,15 +47,28 @@ $(function(){
 	
 });
 
+/* 제목 클릭시 내용 나타나기/사라지기 */
+function eventRow(content){
+	if($(content).parent().next().css('display') === 'none'){
+		$('.tb-view').css('display', 'none');
+		$(content).parent().next().css('display', 'table-row');
+		getProductList($(content).prev().prev().children().val());
+	} else if($(content).parent().next().css('display') === 'table-row'){
+		$('.tb-view').css('display', 'none');
+	}
+}
+
 /* 이벤트 해당 상품 목록 가져오기 */
-function getProdutList(productCode){
+function getProductList(seq){
+	$('.productRow').remove();
+	
 	$.ajax({
 		type:'post',
 		url:'/mintProject/admin/service/getProductList',
+		data:'seq='+seq,
 		dataType:'json',
 		success: function(result){
-			alert('불러오기 성공');
-			// $('.pagination').html(result.eventPaging.pagingHTML);
+			productListTemp(result);
 		},
 		error: function(error){
 			console.error(error);
@@ -64,21 +76,10 @@ function getProdutList(productCode){
 	});
 }
 
-/* 제목 클릭시 내용 나타나기/사라지기 */
-function eventRow(content){
-    if($(content).parent().next().css('display') === 'none'){
-		$('.tb-view').css('display', 'none');
-		$(content).parent().next().css('display', 'table-row');
-		console.log($(content).prev().children().val());
-		// getProductList();
-	} else if($(content).parent().next().css('display') === 'table-row'){
-		$('.tb-view').css('display', 'none');
-	}
-}
 
 /* 이벤트 목록 템플릿 */
-function getEventList(result){
-	const $table = $('#eventListTable');
+function eventListTemp(result){
+	const $eventTable = $('#eventListTable');
 	let events = result.list;
 	let $frag = $(document.createDocumentFragment());
 	
@@ -124,28 +125,77 @@ function getEventList(result){
 				</td>
 			</tr>
 			<tr class="tb-view">
-			<td colspan="6">
-				<div class="subtitle">
-					<i class="fas fa-list"></i>
-					<span>이벤트 상품 목록</span>
-				</div>
-				<table class="table event-table">
-					<tr>
-						<th class="col-md-1">미리보기</th>
-						<th class="col-md-3">상품명</th>
-						<th class="col-md-3">상품코드</th>
-						<th class="col-md-1">정상가</th>
-						<th class="col-md-1">할인가</th>
-						<th class="col-md-1">할인률</th>
-					</tr>
-				</table>
-			</td>
+				<td colspan="6">
+					<div class="subtitle">
+						<i class="fas fa-list"></i>
+						<span>이벤트 상품 목록</span>
+					</div>
+					<table class="table event-table">
+						<tr>
+							<th class="col-md-1">미리보기</th>
+							<th class="col-md-1">판매상태</th>
+							<th class="col-md-2">상품명</th>
+							<th class="col-md-1">상품코드</th>
+							<th class="col-md-1">재고</th>
+							<th class="col-md-1">평점</th>
+							<th class="col-md-1">정상가</th>
+							<th class="col-md-1">할인률</th>
+							<th class="col-md-1">할인가</th>
+						</tr>
+					</table>
+				</td>
 			</tr>
 			`;
 		$frag.append($(eventRow));
 	}
-	$table.append($frag);
+	$eventTable.append($frag);
 }
+
+
+/* 이벤트 해당 상품 목록 템플릿 */
+function productListTemp(result){
+	const $productTable = $('.event-table');
+	let products = result.list;
+	let $pfrag = $(document.createDocumentFragment());
+	
+	// 구조분해할당, 템플릿 리터럴
+	for(let i=0; i<products.length; i++){
+		const {
+			productstatus,
+			thumbnail,
+			mainSubject,
+			productCode,
+			stock,
+			discountRate,
+			price,
+			star
+		} = products[i];
+		
+		// 할인가 계산
+		let eventPrice = products[i].price-((products[i].price)/100*products[i].discountRate);
+
+		let productRow = `
+			<tr class="productRow">
+				<td><img class="thumb" src="/mintProject/shop/storage/mint/product/${thumbnail}" alt=""></td>
+				<td class="productstatus${productstatus}">${
+					(() => {
+						if(products[i].productStatus === 0) return '판매중';
+						else return '판매중지';
+					})()}</td>
+				<td>${mainSubject}</td>
+				<td>${productCode}</td>
+				<td>${stock}</td>
+				<td>${star}</td>
+				<td>${price}</td>
+				<td>${discountRate}%</td>
+				<td>${eventPrice}</td>
+			</tr>
+			`;
+		$pfrag.append($(productRow));
+	}
+	$productTable.append($pfrag);
+}
+
 
 /* 이벤트 검색 */
 $('#searchButton').click(function(){
@@ -159,7 +209,7 @@ $('#searchButton').click(function(){
 		data: $('#eventListForm').serialize(),
 		dataType:'json',
 		success: function(result){
-			getEventList(result);
+			eventListTemp(result);
 			$('.pagination').html(result.eventPaging.pagingHTML);
 		},
 		error: function(error){

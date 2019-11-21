@@ -39,6 +39,11 @@ public class ProductManageMybatis implements ProductManageDAO {
 	}
 
 	@Override
+	public List<Map<String, String>> getCategoryData() {
+		return sqlSession.selectList("productManageSQL.getCategoryData");
+	}
+	
+	@Override
 	public int getCntProductList(Map<String, String> map) {
 		return sqlSession.selectOne("productManageSQL.getCntProductList", map);
 	}

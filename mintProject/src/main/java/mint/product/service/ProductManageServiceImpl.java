@@ -36,6 +36,11 @@ public class ProductManageServiceImpl implements ProductManageService{
 	public List<Map<String, String>> getProductData() {
 		return productManageDAO.getProductData();
 	}
+	
+	@Override
+	public List<Map<String, String>> getCategoryData() {
+		return productManageDAO.getCategoryData();
+	}
 
 	@Override
 	public int getCntProductList(Map<String, String> map) {
@@ -61,5 +66,4 @@ public class ProductManageServiceImpl implements ProductManageService{
 	public List<ProductDTO> getSameSubcategoryProductList(Map<String, String> map) {
 		return productManageDAO.getSameSubcategoryProductList(map);
 	}
-
 }

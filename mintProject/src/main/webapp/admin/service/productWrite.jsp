@@ -291,7 +291,8 @@ function sendFile(file, editor){
 		processData : false,
 		dataType : 'text',
 		success : function(data){
-			$(editor).summernote('editor.insertImage', '../shop/storage/mint/product/'+data);
+			$(editor).summernote('editor.insertImage', '/mintProject/shop/storage/mint/product/'+data);
+/* 			$(editor).summernote('editor.insertImage', '../shop/storage/mint/product/'+data); */
 		},
 		error : function(err){
 			console.log(err);

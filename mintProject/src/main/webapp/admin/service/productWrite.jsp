@@ -93,7 +93,7 @@
 	        <tr>
 	            <th>사업자 아이디</th>
 	            <td class="table--left">
-	                <input type="text" name="supplierId">
+	                <input type="text" name="supplierCode">
 	            </td>
 	        </tr>
 	        <tr>

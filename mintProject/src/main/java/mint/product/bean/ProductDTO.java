@@ -13,8 +13,8 @@ public class ProductDTO {
 	private int mainCategory;
 	// 소분류
 	private int subCategory;
-	// 사업자 아이디
-	private String supplierId;
+	// 사업자 코드
+	private String supplierCode;
 	// 재고/수량
 	private int stock;
 	// 큰제목

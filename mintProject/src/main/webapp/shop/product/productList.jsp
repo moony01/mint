@@ -21,7 +21,7 @@
             <div class="product__sort">
                 <span class="sort up">신상품순</span>
                 <ul class="sort__list">
-                	<c:if test="${list != null }">
+                	<c:if test="${list.size() != 0 }">
                 		<c:if test="${gubun == 1}">
 	                		<li><a href="/mintProject/productList/getProductList?mainCategory=${list.get(0).getMainCategory()}&selectGubun=1&gubun=${gubun}&pg=1">신상품순</a></li>
 		                    <li><a href="/mintProject/productList/getProductList?mainCategory=${list.get(0).getMainCategory()}&selectGubun=2&gubun=${gubun}&pg=1">인기상품순</a></li>
@@ -46,7 +46,7 @@
         </div>
     </div>
     <div class="product__main">
-    	<c:if test="${list != null}">
+    	<c:if test="${list.size() != 0}">
     		<c:forEach var="list" items="${list}">
 		        <div class="product__item">
 		            <div class="product__thumb">
@@ -139,7 +139,7 @@ paging(totalArticle, currentPage, addr);
 //페이징 처리
 function paging(totalArticle, currentPage, addr){
 	let pageBlock = 3;
-	let pageSize = 3;
+	let pageSize = 9;
 	let temp = Math.ceil(currentPage / pageBlock);
 	let totalPage = Math.floor((totalArticle+pageSize-1) / pageSize);
 	let startPage = Math.ceil((temp-1)/pageBlock) * pageBlock +1; 
@@ -149,19 +149,19 @@ function paging(totalArticle, currentPage, addr){
 	let href = "";
 	
 	if(gubun == 1 ){
-		if(selectGubun == null){
+		if(selectGubun == null||selectGubun == "" ){
 			href = "&mainCategory="+mainCategory+"&gubun="+gubun;
 		}else{
 			href = "&mainCategory="+mainCategory+"&gubun="+gubun+"&selectGubun="+selectGubun;
 		}
 	}else if(gubun == 2){
-		if(selectGubun == null){
+		if(selectGubun == null||selectGubun == ""){
 			href = "&subCategory="+subCategory+"&gubun="+gubun;
 		}else{
 			href = "&subCategory="+subCategory+"&gubun="+gubun+"&selectGubun="+selectGubun;
 		}
 	}else{
-		if(selectGubun == null){
+		if(selectGubun == null||selectGubun == ""){
 			href = "&headGubun="+headGubun+"&gubun="+gubun;
 		}else{
 			href = "&headGubun="+headGubun+"&gubun="+gubun+"&selectGubun="+selectGubun;

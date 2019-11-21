@@ -49,7 +49,7 @@
 	            <div>
 	                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">상태 변경</button>
 	            </div>
-                <div class="searches">
+                <div class="searches" style="float: right; display:flex; justify-content: flex-end;">
                 	<label style="text-align: center;">상호명 검색</label> &emsp; 
                 	<input type="text" name="searchValue" placeholder="검색 해주세요">
                     <div class="search">
@@ -100,7 +100,6 @@
 //date picker 적용
 $(function() {
 	  $('input[name="daterange"]').daterangepicker({
-	   // opens: 'left',
 		locale: {
 	        format: 'YY.MM.DD'
 	    }

@@ -33,4 +33,6 @@ public interface MemberService {
 
 	public void updateByAdmin(Map<String, Object> map);
 
+	public void updateProductStatus(Map<String, Object> map);
+
 }

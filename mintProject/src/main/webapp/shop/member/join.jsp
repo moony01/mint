@@ -82,7 +82,7 @@
                     <div class="join__birth-col">
                         <input type="text" class="join-input input--sm" name="month" placeholder="월" maxlength="2">
                     </div>
-                    <div class="join__birth-col">2
+                    <div class="join__birth-col">
                         <input type="text" class="join-input input--sm" name="day" placeholder="일" maxlength="2">
                     </div>
                 </div>

@@ -81,5 +81,11 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	@Override
+	public void updateProductStatus(Map<String, Object> map) {
+		memberDAO.updateProductStatus(map);
+		
+	}
+
 
 }

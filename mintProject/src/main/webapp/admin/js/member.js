@@ -21,7 +21,6 @@ function getListByOption(select){
 
 function getListBySearch(btn){
 	searchValue = btn.parent().prev().val();
-	alert(searchValue);
 	getList(option, searchValue)
 	.then(printList)
 	.catch();
@@ -69,9 +68,9 @@ function printList(result){
 			}
 			
 			let supplier = `<tr>
-				<td><input type="checkbox" class="checkbox-one" value="${ID}"></td>
+				<td><input type="checkbox" class="checkbox-one" value="${SUPPLIERCODE}"></td>
 	            <td>${CATEGORY}</td>
-	            <td><a href="/mintProject/admin/member/supplierView?id=${ID}">${ID}</a></td>
+	            <td><a href="/mintProject/admin/member/supplierView?supplierCode=${SUPPLIERCODE}">${ID}</a></td>
 	            <td>${parseDate}</td>
 	            <td>${STATUS}</td>
 	        </tr>`;
@@ -133,6 +132,7 @@ $('.checkbox-all').on('change', function cbxChecked(){
 //상태변경 or 포인트지급
 $('.btn-update').click(function(){
 	$('input[name=id]').remove();
+	$('input[name=supplierCode]').remove();
 	let check = $('.checkbox-one:checked');
 	
 	if(check.length == 0){
@@ -141,15 +141,17 @@ $('.btn-update').click(function(){
 		let form = document.forms[1];
 		let data = document.createElement('input'); 
 		let data2 = document.createElement('input'); 
-		data.name = 'id';
-		data.type = 'hidden';
 		
 		data2.name = 'value';
 		data2.type = 'hidden';
 		
 		if(table == 'member') {
+			data.name = 'id';
+			data.type = 'hidden';
 			data2.value = document.getElementsByName("point")[0].value ;
 		} else if(table == 'supplier') {
+			data.name = 'supplierCode';
+			data.type = 'hidden';
 			data2.value = document.getElementsByName("status")[0].value ;
 		}
 		let checkValue = [];

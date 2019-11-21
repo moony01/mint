@@ -62,9 +62,10 @@
 	</select>
 	
 	<select id="getListBysearchOption" parameterType="java.util.Map" resultType="java.util.Map">
+		
 		select * from ${table} where ${searchOption} 
 		<if test="from != null">
-		between #{from} and #{to} 
+		between to_date(#{from}, 'YYMMDDHH') and to_date(#{to}, 'YYMMDDHH') + 0.99999 
 		</if>
 		<if test="searchValue != null">
 		like '%'||#{searchValue}||'%'
@@ -77,7 +78,7 @@
 	</select>
 	
 	<select id="getListBySMS" parameterType="java.util.Map" resultType="java.util.Map">
-		select * from ${table} where ${orderbyValue} = 1;
+		select * from ${table} where ${orderbyValue} = 1
 	</select>
 	
 	<select id="getList" parameterType="java.util.Map" resultType="java.util.Map">
@@ -91,9 +92,9 @@
 	
 	<select id="getProductList" parameterType="java.util.Map" resultType="product">
 		select productcode, mainsubject, trunc(sum(star)/count(*)) as star from product
-		left join supplier on(supplier.id= product.supplierId)
-		group by(supplier.id, productcode, mainsubject)
-		having supplier.id= #{value}
+		left join supplier using(supplierCode)
+		group by(supplierCode, productcode, mainsubject)
+		having supplierCode= #{value}
 	</select>
 	
 	<update id="updateByAdmin" parameterType="java.util.Map">
@@ -105,5 +106,9 @@
 		= ${updateValue} 
 		</if>
 		where ${key} in (${value})
+	</update>
+	
+	<update id="updateProductStatus" parameterType="java.util.Map">
+		update product set productStatus = ${updateValue} where ${key} in (${value})
 	</update>
 </mapper>

@@ -16,6 +16,8 @@ public interface ProductManageService {
 
 	public List<Map<String, String>> getProductData();
 
+	public List<Map<String, String>> getCategoryData();
+	
 	public int getCntProductList(Map<String, String> map);
 
 	public List<ProductDTO> getHeaderProductList(Map<String, String> map);

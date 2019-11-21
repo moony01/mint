@@ -174,6 +174,14 @@ public class ProductManageController {
 		return jsonArray;
 	}
 	
+	@RequestMapping(value = "/admin/sales_getCategorySales", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONArray getCategorySalesForChart() {
+		List<Map<String, String>> list = productManageService.getCategoryData();
+		JSONArray jsonArray = JSONArray.fromObject(list);
+		return jsonArray;
+	}
+	
 	//상품 전체검색
 	@RequestMapping(value="/shop/product/productSearch", method = RequestMethod.GET)
 	public ModelAndView productSearch(@RequestParam String sword) {

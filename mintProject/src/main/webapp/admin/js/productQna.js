@@ -88,8 +88,10 @@ function printProductQnaBoard(result){
 			url : '/mintProject/admin/service/productQna_reply',
 			data : {'replyContent' : replyContent, 'seq' : seq},
 			success : function(){
-				swal('답변 등록');
-				location.href="/mintProject/admin/service/productQna";
+				swal('답변 등록')
+				.then((values) =>{
+					location.href="/mintProject/admin/service/productQna";
+				});
 			},
 			error : function(err){
 				console.log(err);

@@ -29,7 +29,7 @@
 <c:if test="${list != null }">
 <c:forEach var="data" items="${list }">
 <tr class="qna-tb__view">
-    <td>${data.SEQ }</td>
+    <td>${totalArticle - data.RN + 1}</td>
     <td><c:if test="${data.REPLYSTATUS == '0' }">답변대기</c:if><c:if test="${data.REPLYSTATUS == '1' }">답변완료</c:if></td>
     <td><c:if test="${data.SECRETSTATUS == '1' }"><i class="fas fa-lock"></i></c:if>${data.SUBJECT }</td>
     <td>${data.ID }</td>     

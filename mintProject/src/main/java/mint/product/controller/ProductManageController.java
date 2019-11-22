@@ -158,6 +158,7 @@ public class ProductManageController {
 		return mav;
 	}
 
+	// 차트
 	@RequestMapping(value = "/admin/sales_getTotalSales", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONArray getTotalSalesForChart() {

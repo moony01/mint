@@ -153,7 +153,7 @@ function createCategorySalesChart(categories,seriesData){
 	        type: 'pie'  
 	    },
 	    title: {
-	        text: '2019년 11월 카테고리별 판매율'
+	        text: '이번달 카테고리별 판매율'
 	    },
 	    xAxis: {
 	    	categories: categories,

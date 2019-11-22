@@ -34,11 +34,12 @@ public class ProductQnaBoardController {
 	
 	// 상품 문의글 작성 페이지
 	@RequestMapping(value="/shop/service/productQnaWriteForm", method = RequestMethod.GET)
-	public String productQnaWriteForm(@RequestParam(defaultValue = "100", required = false) String productCode, Model model, HttpSession session, Map<String, String> map) {
+	public String productQnaWriteForm(@RequestParam String productCode,@RequestParam String subCategory, Model model, HttpSession session, Map<String, String> map) {
 		map.put("key", "id");
 		map.put("value", (String) session.getAttribute("memId"));
 		MemberDTO memberDTO = memberService.getUserBy(map);
 		model.addAttribute("productCode", productCode);
+		model.addAttribute("subCategory", subCategory);
 		model.addAttribute("memId", (String) session.getAttribute("memId"));
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("display","/shop/product/productQnaWrite.jsp");
@@ -62,10 +63,11 @@ public class ProductQnaBoardController {
 	
 	// 상품 문의글 작성
 	@RequestMapping(value="/shop/service/productQnaWrite", method = RequestMethod.POST)
-	@ResponseBody 
-	public void productQnaWrite(@RequestParam Map<String, String> map) { 
+	public String productQnaWrite(@RequestParam Map<String, String> map) { 
 		if(map.get("secretStatus")==null) { map.put("secretStatus","0"); }
 		productQnaBoardService.writeProductQna(map);
+		
+		return "redirect:/shop/product/productView?productCode="+map.get("productCode")+"&subCategory="+map.get("subCategory");
 	}
 	
 	@RequestMapping(value="/shop/product/productQnaBoardList")

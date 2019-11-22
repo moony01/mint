@@ -225,7 +225,7 @@ reivewInit();
     		dataType : "json",
     		success : function(data){
     			if(data.gubun=='1'){
-    				$('.notice-modal__message').text("상품이 이미 카트에 담겨져 있습니다.");
+    				$('.notice-modal__message').text("이미 동일한 상품이 장바구니에 존재합니다.");
     				
     			} else {
     				console.log('떠라');
@@ -234,7 +234,7 @@ reivewInit();
     					src : $('#thumbImg').prop('src'),
     					height : "70px",
     					width : "70px"
-    				})).append("&emsp;&emsp;상품이 카드에 오오");
+    				})).append("&emsp;&emsp;장바구니에 담겼습니다.");
 
     			}
     		},

@@ -1,5 +1,7 @@
 package mint.event.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import mint.event.bean.EventDTO;
 import mint.event.bean.EventPaging;
+import mint.event.bean.EventProductDTO;
 import mint.event.service.EventService;
 import mint.product.bean.ProductDTO;
 
@@ -25,16 +28,17 @@ import mint.product.bean.ProductDTO;
  *	EventController
  * 	이벤트 컨트롤러
  * 
- * @version 1.4
+ * @version 1.5
  * @author LimChangHyun 
  *
  *	구현된 기능 : 이벤트 등록, 페이징 처리, 리스트 처리, 이벤트 삭제
  *			     이벤트 상품 리스트
- *	불완전 기능 : 이벤트 수정, 이벤트 검색
- *	앞으로 구현되어야 하는 것 : 연동 이벤트 적용, 일일특가
- *						상품 검색(상품관리쪽과 겹침), 상품 추가, 상품 삭제
+ *	불완전 기능 : 이벤트 수정, 이벤트 검색, 이벤트 연동, 일일특가
+ *	앞으로 구현되어야 하는 것 : 상품 검색(상품관리쪽과 겹침), 상품 추가, 상품 삭제
  *	이슈    1. 기간설정 없는 상시이벤트를 수정하려는 경우 startDate endDate 입력 input이 disabled 되지 않음
  *		 2. 이벤트 검색 기능 작동 안함(sql구문 문제인듯)
+ *		 3. 이벤트 적용 상품이 두개 이상일 때 이벤트 수정 기능 작동 안함
+ *
  */
 
 @Controller
@@ -43,6 +47,8 @@ public class EventController {
 	private EventService eventService;
 	@Autowired
 	private EventPaging eventPaging;
+	@Autowired
+	private EventProductDTO eventProductDTO;
 	
 	/* 이벤트 관리 페이지 이동 */
 	@RequestMapping(value="/admin/service/event", method=RequestMethod.GET)
@@ -66,14 +72,13 @@ public class EventController {
 	public void eventWrite(@RequestParam Map<String, Object> map) {
 		
 		// 임시 (나중에 productCode 가져올 수 있으면 지울 것)
-		map.put("productCode", "PX004");
+		map.put("productCode", "125");
 		eventService.eventWrite(map);
 	}
 	
 	/* 이벤트 리스트 가져오기 */
 	@RequestMapping(value="/admin/service/getEventList", method=RequestMethod.POST)
-	public ModelAndView getEventList(@RequestParam(required=false, defaultValue="1") String pg
-									) {
+	public ModelAndView getEventList(@RequestParam(required=false, defaultValue="1") String pg) {
 		// 1페이지당 10개씩
 		int endNum = Integer.parseInt(pg)*10;
 		int startNum = endNum-9;
@@ -153,8 +158,19 @@ public class EventController {
 	@RequestMapping(value="/admin/service/eventModify", method=RequestMethod.POST)
 	@ResponseBody
 	public void eventModify(@RequestParam Map<String, Object> map) {
-		System.out.println(map);
-		// eventService.eventModify(map);
+		// event 정보 수정(subject, eventStatus, startDate, endDate)
+		eventService.eventModify(map);
+		
+		// product관련 수정(productCode, discountRate)
+		Map<String, String[]> map2 = new HashMap<String, String[]>();
+		
+		String[] productCode = ((String)map.get("productCode")).split(",");
+		String[] discountRate = ((String)map.get("discountRate")).split(",");
+		System.out.println(productCode[0]);
+		System.out.println(discountRate[0]);
+		map2.put("productCode", productCode);
+		map2.put("discountRate", discountRate);
+		// eventService.eventProductModify(map2);
 	}
 	
 	/* 이벤트 삭제 기능 */

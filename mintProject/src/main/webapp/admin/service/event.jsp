@@ -56,7 +56,6 @@
 
 <form id="eventListForm">
 	<input type="hidden" id="pg" name="pg" value="${pg}">
-
 	<div class="main__title">
 	    <h3 class="out">이벤트</h3>
 	    <a href="" class="pa-title"><i class="fas fa-gift"></i><span>이벤트</span></a>
@@ -64,6 +63,16 @@
 	    <a href="" class="now-title">이벤트 관리</a>            
 	</div>
 	<div class="container">
+		<%-- 일일특가 임시 카운트다운 --%>
+		<div class="countdown" id="dscd">
+		  <span class="timeel hours">00</span>
+		  <span class="timeel timeRefHours">:</span>
+		  <span class="timeel minutes">00</span>
+		  <span class="timeel timeRefMinutes">:</span>
+		  <span class="timeel seconds">00</span>
+		  <span class="timeel timeLeft">남음</span>
+		</div>
+		
 		<%-- 이벤트 검사 --%>
 		<span class="subtitle">이벤트 검색</span>
 	    <table class="table table-bordered write-tb">

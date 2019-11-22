@@ -185,7 +185,7 @@ $('#eventWriteBtn').click(function(){
 // cart.jsp의 javascript 로직을 가져옴
 function dataManufacturing(){
 	let form = document.getElementById('eventWriteForm');
-	let amount = $('#productTable').length-1;
+	let amount = $('.productRow').length;
 	
 	// productCode
 	var input1 = document.createElement("input");
@@ -224,12 +224,12 @@ function ajax(type){
 			url:'/mintProject/admin/service/eventModify',
 			data: $('#eventWriteForm').serialize(),
 			success: function(){
-				//alert('수정 완료!');
-				//location.href='/mintProject/admin/service/event';
+				alert('수정 완료!');
+				location.href='/mintProject/admin/service/event';
 			},
 			error: function(error){
-				//alert('수정 실패!');
-				//console.error(error);
+				alert('수정 실패!');
+				console.error(error);
 			}
 		});
 	} else {
@@ -239,7 +239,7 @@ function ajax(type){
 			data: $('#eventWriteForm').serialize(),
 			success: function(){
 				alert('작성 완료!');
-				location.href='/mintProject/admin/service/event';
+				location.href='/mintProject/admin/service/event?pg='+pg;
 			},
 			error: function(error){
 				alert('작성 실패!');

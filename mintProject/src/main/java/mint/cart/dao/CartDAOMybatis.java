@@ -23,4 +23,14 @@ public class CartDAOMybatis implements CartDAO {
 	public void cartListDelete(Map<String, String> map) {
 		sqlSession.delete("cartSQL.cartListDelete", map);
 	}
+
+	@Override
+	public int getSameCart(Map<String, String> map) {
+		return sqlSession.selectOne("cartSQL.getSameCart", map);
+	}
+
+	@Override
+	public void addCartProduct(Map<String, String> map) {
+		sqlSession.insert("cartSQL.addCartProduct", map);
+	}
 }

@@ -11,4 +11,8 @@ public interface CartService {
 
 	public void cartListDelete(Map<String, String> map);
 
+	public int getSameCart(Map<String, String> map);
+
+	public void addCartProduct(Map<String, String> map);
+
 }

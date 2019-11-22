@@ -24,4 +24,15 @@ public class CartServiceImpl implements CartService {
 		cartDAO.cartListDelete(map);
 	}
 
+	@Override
+	public int getSameCart(Map<String, String> map) {
+		return cartDAO.getSameCart(map);
+	}
+
+	@Override
+	public void addCartProduct(Map<String, String> map) {
+		cartDAO.addCartProduct(map);
+		
+	}
+
 }

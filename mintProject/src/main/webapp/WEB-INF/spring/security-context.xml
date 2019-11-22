@@ -22,6 +22,7 @@
 		<security:intercept-url pattern="/shop/mypage/**" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/shop/service/offer*" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/shop/service/productQnaWrite*" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/shop/goods/addCartList" access="hasRole('ROLE_USER')"/>
 		<security:access-denied-handler ref="memberDeniedHandler"/>
 		
 		<!-- 로그인 

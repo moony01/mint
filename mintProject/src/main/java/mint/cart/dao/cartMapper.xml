@@ -12,4 +12,21 @@
 	<delete id="cartListDelete" parameterType="java.util.Map">
 		delete from cart where id=#{id} and productCode=#{productCode}
 	</delete>
+	
+	<select id="getSameCart" parameterType="java.util.Map" resultType="Integer">
+		select count(*)
+		  from cart
+		 where productCode = #{productCode} 
+	</select>
+	
+	<insert id="addCartProduct" parameterType="java.util.Map">
+		insert into 
+		  cart values
+		     ( 
+		       #{id} 
+		     , #{productCode}
+		     , sysdate
+		     , #{ctCount}  
+	         )
+	</insert>
 </mapper>

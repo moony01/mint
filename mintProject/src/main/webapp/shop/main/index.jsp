@@ -108,8 +108,8 @@
                         <li><a href="/mintProject/productList/getProductList?subCategory=235&gubun=2&pg=1">오리고기</a></li>
                     </ul>
                     <ul class="gnb__menu">
-                        <li><a href="/mintProject/productList/getProductList?mainCategory=104gubun=1&pg=1">일반식품</a></li>
-                        <li><a href="/mintProject/productList/getProductListm?subCategory=241&gubun=2&pg=1">유제품</a></li>
+                        <li><a href="/mintProject/productList/getProductList?mainCategory=104&gubun=1&pg=1">일반식품</a></li>
+                        <li><a href="/mintProject/productList/getProductList?subCategory=241&gubun=2&pg=1">유제품</a></li>
                         <li><a href="/mintProject/productList/getProductList?subCategory=242&gubun=2&pg=1">만두류</a></li>
                         <li><a href="/mintProject/productList/getProductList?subCategory=243&gubun=2&pg=1">라면</a></li>
                         <li><a href="/mintProject/productList/getProductList?subCategory=244&gubun=2&pg=1">과자</a></li>

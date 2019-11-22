@@ -6,7 +6,8 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style>
 	.cart span, .cart td{vertical-align: middle;}
-	#dataBoxBtn{position: fixed; top: 20px; right: 0;}
+	#getDataBoxBtn{position: fixed; top: 20px; right: 0;}
+	#postDataBoxBtn{position: fixed; top: 20px; right: 90px;}
 </style>
 
 <!-- 
@@ -20,9 +21,10 @@
 	할인적용가, 적립금, 배송비, 최종결제금액
  -->
  
-<input type="button" id="dataBoxBtn" value="dataBoxClick">
+<input type="button" id="getDataBoxBtn" value="getDataBox">
+<input type="button" id="postDataBoxBtn" value="postDataBox">
  
-<div id="dataBox" style="background: #eaeaea; display: none;">
+<div id="getDataBox" style="background: #eaeaea; display: none;">
 	<div>상품 데이터</div>
 	<c:if test="${list != null }">
 		<c:forEach var="product" items="${list }">
@@ -36,7 +38,6 @@
 		</c:forEach>
 	</c:if>
 	
-	<br />
 	<div>주문자 정보</div>
 	<div>주문자 이름 : <span id="memberName">${memberDTO.name }</span></div>
 	<div>주문자 휴대폰번호 :<span id="memberTel"> ${memberDTO.tel }</span></div>
@@ -48,6 +49,11 @@
 	<br />
 	<div>적립금 : ${totalPoint }</div>
 	<div>최종결제금액 : <span id="lastPrice"></span></div>
+</div>
+
+<div id="postDataBox" style="background: #eaeaea; display: none;">
+	<div>보낼 데이터</div>
+	
 </div>
 
 <section class="cart">
@@ -127,14 +133,14 @@
 	</div>
 	
 	<div class="delivery_form" style="border: 1px solid #08088A; margin-top: 30px;">
-		
 		<div class="delevery_addr_form">
 			<input type="text" id="delivery_addr1" value="${memberDTO.addr1 }" />
 			<input type="text" id="delivery_addr2" value="${memberDTO.addr2 }" />
 			<input type="button" class="btn-addr" value="주소 변경하기" />
 		</div>
-		
 	</div>
+	
+	
 	
 	<input type="button" id="btnPayment" value="결제하기" />
 </section>
@@ -142,24 +148,16 @@
 <script type="text/javascript" src="/mintProject/shop/js/order.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-
-//hide된 데이터박스
-$('#dataBoxBtn').click(function(){
-	$('#dataBox').slideToggle();
+	//GET DATA BOX
+	$('#getDataBoxBtn').click(function(){
+		$('#getDataBox').slideToggle();
+	});
+	
+	//주문상품 리스트
+	$('.btn_show').click(function(){
+		$('#orderGoodsList').slideToggle();
+	});
 });
-
-//주문상품 리스트
-$('.btn_show').click(function(){
-	$('#orderGoodsList').slideToggle();
-});
-
-
-
-});
-
-
-
-
 </script>
 
 

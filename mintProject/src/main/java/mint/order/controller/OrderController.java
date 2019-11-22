@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import mint.member.bean.MemberDTO;
 import mint.order.service.OrderService;
@@ -56,4 +57,47 @@ public class OrderController {
 		model.addAttribute("display", "/shop/goods/order.jsp");
 		return "/shop/main/index";
 	}
+	
+	@RequestMapping(value="/shop/goods/redirectServer", method= RequestMethod.GET)
+	@ResponseBody
+	public void redirectSuccess(@RequestParam String imp_uid,
+								Model model,
+								HttpSession session) {
+		
+		String id = (String)session.getAttribute("memId");
+		
+		System.out.println(id);
+		System.out.println(imp_uid);
+		
+		model.addAttribute("imp_uid", imp_uid);
+		System.out.println("model : " +model);
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

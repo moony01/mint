@@ -156,10 +156,12 @@
     border: 1px solid #ddd;
     padding: 9px 0 9px 9px;
     width: 102px;
+    background-color: #fff;
 }
 .my-page__menu li, .qna__menu li{
     margin-bottom: 12px;
 }
+
 .my-page__menu li:last-child, .qna__menu li:last-child{
     margin-bottom: 0px;
 }
@@ -503,7 +505,7 @@
 }
 
 .search_wrap {
-	padding-top: 80px;
-	width: 1050px;
-	margin: 0 auto;
+	height : 180px;
+	padding-top: 55px;
+	padding-bottom : 50px;
 }

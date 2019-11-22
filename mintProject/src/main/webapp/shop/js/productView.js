@@ -216,6 +216,33 @@ reivewInit();
 
 
     function openModal(){
+		$.ajax({
+    		type : "post",
+    		url : "/mintProject/shop/goods/addCartList",
+    		data : {'productCode' : $('#productCode').val(),
+    			    'ctCount' : $('.qty').val()		
+    				},
+    		dataType : "json",
+    		success : function(data){
+    			if(data.gubun=='1'){
+    				$('.notice-modal__message').text("상품이 이미 카트에 담겨져 있습니다.");
+    				
+    			} else {
+    				console.log('떠라');
+    				console.log($('#thumbImg').prop('src'));
+    				$('.notice-modal__message').append($('<img>',{
+    					src : $('#thumbImg').prop('src'),
+    					height : "70px",
+    					width : "70px"
+    				})).append("&emsp;&emsp;상품이 카드에 오오");
+
+    			}
+    		},
+    		error : function(error){
+    			
+    		}
+    		
+    	});
         modal.classList.remove("hidden");
     }
 

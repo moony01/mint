@@ -58,6 +58,32 @@ public class CartController {
 		cartService.cartListDelete(map);
 	}
 	
+	@RequestMapping(value="/shop/goods/addCartList", method=RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView addCartList(@RequestParam Map<String,String>map,HttpSession session) {
+		System.out.println("addCartList map : " + map);
+		ModelAndView mav = new ModelAndView();
+		
+		//카드 담을때 같은 상품이 있나 확인
+		int cnt  = cartService.getSameCart(map);
+		
+		if(cnt > 0) {
+			mav.addObject("gubun", 1);
+			mav.setViewName("jsonView");
+		}else {
+			String id = (String)session.getAttribute("memId");
+			map.put("id", id);
+			
+			cartService.addCartProduct(map);
+			System.out.println("---- addCartProduct 성공 ----");
+			
+			mav.addObject("gubun", 2);
+			mav.setViewName("jsonView");
+		}
+		
+		return mav;
+	}
+	
 }
 
 

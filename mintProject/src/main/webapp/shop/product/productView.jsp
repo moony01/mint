@@ -9,7 +9,7 @@
 	<input type="hidden" id="sessionId" value="${memId }">
     <div class="goods-info">
         <div class="goods-info__thumb">
-            <img src="/mintProject/shop/storage/mint/product/${productDTO.thumbnail}" alt="">
+            <img id="thumbImg" src="/mintProject/shop/storage/mint/product/${productDTO.thumbnail}" alt="">
         </div>
         <div class="goods-info__contents">
             <div class="goods-name">
@@ -324,7 +324,7 @@
             <button class="notice-modal__close-btn"></button>
         </div>
         <div class="notice-modal__message">
-            <span>이미 동일한 상품이 장바구니에 존재합니다.</span>
+            <span></span>
         </div>
         <div class="notice-modal__footer">
             <button class="notice-modal__yes-btn">

@@ -60,4 +60,9 @@ public class EventServiceImpl implements EventService {
 		return eventDAO.getProductList(map);
 	}
 
+	@Override
+	public void eventProductModify(Map<String, String[]> map2) {
+		eventDAO.eventProductModify(map2);
+	}
+
 }

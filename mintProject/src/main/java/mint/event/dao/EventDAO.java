@@ -26,4 +26,6 @@ public interface EventDAO {
 
 	public List<ProductDTO> getProductList(Map<String, Object> map);
 
+	public void eventProductModify(Map<String, String[]> map2);
+
 }

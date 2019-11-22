@@ -20,6 +20,9 @@
     cursor: pointer;
     font-size: 13px;
 }
+.table td, .table th{
+	vertical-align: middle !important;
+}
 </style>
 	<div class="main__title">
 	    <h2 class="out">이벤트</h2>

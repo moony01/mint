@@ -10,6 +10,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import mint.member.bean.MemberDTO;
 
+/**
+ * 191108
+ * 홍소연(@hhhongso)
+ */
+
 public class MemberAuthServiceImpl implements UserDetailsService {
 	@Autowired
 	private MemberService memberService;

@@ -1,4 +1,7 @@
-
+/**
+ * 191113
+ * 홍소연(@hhhongso)
+ */
 //ajax로 처음 로드했을 때 list 가져옴. 
 $().ready(function(){
 	getSuggestBoard()

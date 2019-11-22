@@ -15,6 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import mint.member.bean.MemberDTO;
 
+/**
+ * 191108
+ * 홍소연(@hhhongso)
+ */
 public class MemberAuthenticationProvider implements AuthenticationProvider{
 	@Autowired
 	private UserDetailsService memberAuthServiceImpl;

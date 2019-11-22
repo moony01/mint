@@ -7,7 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-
+/**
+ * 191106
+ * 홍소연(@hhhongso)
+ */
 @Configuration
 public class MailAuthConfiguration {
 	@Bean(name="mailSender")

@@ -1,3 +1,8 @@
+/**
+ * 191115
+ * 홍소연(@hhhongso)
+ */
+
 let table = document.forms[0].name;
 let option = $('.select-box option:selected').val();
 let searchValue;
@@ -25,7 +30,6 @@ function getListBySearch(btn){
 	.then(printList)
 	.catch();
 }
-
 
 function getList(option, searchValue){
 	if(searchValue == '') searchValue = 'undefined'; // 검색어가 입력되어 있지 않으면 'undefined'로 설정. 
@@ -89,7 +93,7 @@ function printList(result){
 			if(MEMLEVEL == 0) { MEMLEVEL = '일반';
 			} else if(MEMLEVEL == 1) { MEMLEVEL = '우수';
 			} else if(MEMLEVEL == 2) { MEMLEVEL = '최우수';
-			} else if(MEMLEVEL == 3) { MEMLEVEL = '웽..';
+			} else if(MEMLEVEL == 5) { MEMLEVEL = '관리자';
 			}
 			
 			if(ISAGREEDSMS == 0) { ISAGREEDSMS = '수신거부';

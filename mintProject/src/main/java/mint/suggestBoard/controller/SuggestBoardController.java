@@ -21,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import mint.member.bean.MemberDTO;
 import mint.suggestBoard.bean.SuggestBoardDTO;
 import mint.suggestBoard.service.SuggestBoardService;
 
+/**
+ * 191101
+ * 홍소연(@hhhongso)
+ */
 @Controller
 public class SuggestBoardController {
 	@Autowired

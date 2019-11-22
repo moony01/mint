@@ -12,6 +12,7 @@
             <li class="snb__item"><a href="">상품 후기</a></li>
             <li class="snb__item"><a href="">적림금</a></li>
             <li class="snb__item current"><a href="">개인 정보 수정</a></li>
+            <li class="snb__item"><a href="">출석체크</a></li>
         </ul>
     </div>
     <div class="service__main">

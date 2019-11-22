@@ -16,7 +16,7 @@ function checkMemId(memId, memName){
 		$('ul.my-page >:first-child').attr('class', 'my-page__item my-page__mypage').append(
 										`<a href="#"> ${memName} 님 </a>
 										 <ul class="my-page__menu">
-								            <li><a href="#">주문내역</a></li>
+								            <li><a href="/mintProject/shop/mypage/myOrderList">주문내역</a></li>
 								            <li><a href="#">위시 리스트</a></li>
 								            <li><a href="#">상품 후기</a></li>
 								            <li><a href="/mintProject/shop/mypage/myinfo_pwd">개인정보 수정</a></li>

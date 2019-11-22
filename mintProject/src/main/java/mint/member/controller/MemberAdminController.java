@@ -19,6 +19,10 @@ import mint.member.bean.SupplierDTO;
 import mint.member.service.MemberService;
 import mint.product.bean.ProductDTO;
 
+/**
+ * 191113
+ * 홍소연(@hhhongso)
+ */
 @Controller
 public class MemberAdminController {
 	@Autowired 
@@ -28,16 +32,13 @@ public class MemberAdminController {
 	public ModelAndView getSupplierForm(ModelAndView mav) {
 		mav.addObject("display", "/admin/member/supplierForm.jsp");
 		mav.setViewName("/admin/main/admin");
-		
 		return mav;
 	}
 	
 	@RequestMapping("/admin/member/writeSupplier")
-	public ModelAndView writeSupplier(@ModelAttribute SupplierDTO supplierDTO, ModelAndView mav) {
-		memberService.writeMember(supplierDTO);
-		mav.addObject("display", "/admin/main/main.jsp");
-		mav.setViewName("/admin/main/admin");
-		return mav; 
+	public String writeSupplier(@ModelAttribute SupplierDTO supplierDTO) {
+		memberService.writeMember(supplierDTO);	
+		return "redirect:/admin/main/admin"; 
 	}
 	
 	@RequestMapping("/admin/member/isDuplicated")
@@ -78,14 +79,13 @@ public class MemberAdminController {
 		return mav;
 	}
 	
-	// [회원, 판매자] ajax로 리스트 불러오기 ==================================================
+	// [회원, 판매자] ajax로 리스트 불러오기 ==========================================================================================
 	@RequestMapping("/admin/member/{table}/{searchValue}/{option}")
 	public ModelAndView getList(@PathVariable String table, 
 						@PathVariable String searchValue, 
 						@PathVariable String option, ModelAndView mav) {
 		
 		String orderbyValue = null; 
-		
 		Map<String, String> map = new HashMap<String, String>();
 		orderbyValue = setMapValues(table, option, orderbyValue);
 		
@@ -119,7 +119,6 @@ public class MemberAdminController {
 
 	//getList() 함수 수행 시 파라미터 값에 따라 value 값 설정
 	private String setMapValues(String table, String option, String orderbyValue) {
-
 		if(table.equals("member")) { 
 			if(option.equals("1")) { orderbyValue = "id"; //1 id 오름차순
 			} else if(option.equals("2")) { orderbyValue = "memLevel"; // 별점 / 회원레벨 내림차순

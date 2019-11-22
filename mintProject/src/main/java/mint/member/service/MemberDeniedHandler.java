@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
+/**
+ * 191121
+ * 홍소연(@hhhongso)
+ */
 public class MemberDeniedHandler implements AccessDeniedHandler {
 
 	@Override

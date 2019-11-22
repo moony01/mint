@@ -1,3 +1,8 @@
+/**
+ * 191114
+ * 홍소연(@hhhongso)
+ */
+
 const addrBtn = document.querySelector(".btn-addr"); 
 const writeBtn = document.querySelector("#write-btn");
 

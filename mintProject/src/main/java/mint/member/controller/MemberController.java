@@ -27,6 +27,10 @@ import mint.member.bean.MemberDTO;
 import mint.member.service.MemberMailSendService;
 import mint.member.service.MemberService;
 
+/**
+ * 191106
+ * 홍소연(@hhhongso)
+ */
 @Controller
 public class MemberController {
 	@Autowired //이메일 인증 구현을 위한 클래스.

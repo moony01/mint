@@ -18,6 +18,10 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 
 import mint.member.bean.MemberDTO;
 
+/**
+ * 191121
+ * 홍소연(@hhhongso)
+ */
 public class MemberLoginSuccessHandler implements AuthenticationSuccessHandler {
 	//인증에 성공했다면 successHandler 클래스로 넘어오게 됨. 여기서 session을 부여한 뒤, 원하는 페이지로 리다이렉트 시켜준다. 
 	

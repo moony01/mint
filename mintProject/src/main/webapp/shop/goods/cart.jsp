@@ -178,8 +178,10 @@ document.getElementById('placeAnOrder').onclick = function(){
 	input1.type = 'hidden';
 	let productCode = [];
 	for(var i=0; i<prdCnt; i++) {
-		let value = $('.productCode').eq(i).val();
-		productCode.push(value);
+		if($('.prdCheck').eq(i).prop('checked')){
+			let value = $('.productCode').eq(i).val();
+			productCode.push(value);			
+		}
 	}
 	input1.value = productCode;
 	form.appendChild(input1);
@@ -190,8 +192,10 @@ document.getElementById('placeAnOrder').onclick = function(){
 	input2.type = 'hidden';
 	let ctCount = [];
 	for(var i=0; i<prdCnt; i++) {
-		let value = $('.clk_count').eq(i).val();
-		ctCount.push(value);
+		if($('.prdCheck').eq(i).prop('checked')){
+			let value = $('.clk_count').eq(i).val();
+			ctCount.push(value);
+		}
 	}
 	input2.value = ctCount;
 	form.appendChild(input2);
@@ -206,8 +210,8 @@ document.getElementById('placeAnOrder').onclick = function(){
 	
 	document.body.appendChild(form);
 	
-	var passPrice = parseInt($('#totalPrdPrice span').text());
-	if(passPrice==0) {
+	var passPrice = parseInt($('#amountTotal').text());
+	if(passPrice==3000) {
 		alert("결제할 항목을 선택하세요");
 	}else {
 		if(confirm("결제를 진행하시겠습니까?")) {

@@ -37,6 +37,7 @@
 	                <c:if test="${memberDTO.memLevel == '0'}"><td colspan="2">일반</td></c:if>
 	                <c:if test="${memberDTO.memLevel == '1'}"><td colspan="2">우수</td></c:if>
 	                <c:if test="${memberDTO.memLevel == '2'}"><td colspan="2">최우수</td></c:if>
+	                <c:if test="${memberDTO.memLevel == '5'}"><td colspan="2">관리자</td></c:if>
 	            </tr>
 	            
 	            

@@ -44,7 +44,6 @@ $(document).ready(function(){
 					let price2 = parseInt(PRICE - discoutPrice);//상품할인적용가
 					let savingPrice = 0;//적립금
 					
-					
 					let customCart = `
 						<tr class="viewDel">
 							<input type="hidden" class="productCode" value="${PRODUCTCODE }">

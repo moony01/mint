@@ -78,15 +78,15 @@ $(document).ready(function(){
 
 	//데이터 가공 후 붙여주는작업
 	let topProductName = $('.mainSubject').eq(0).text();
+	let otherCnt = cnt-1;
 	$('#topProductName').text(topProductName);	
-	$('#productListCount').text(cnt);
+	$('#productListCount').text(otherCnt);
 	
 	let email = $('#memberEmail').text();
 	let name = $('#memberName').text();
 	let tel = $('#memberTel').text();
 	let addr1 = $('#delivery_addr1').val();
 	let addr2 = $('#delivery_addr2').val();
-	
 	
 	let tel1 = tel.substring(1,4);
 	let tel2 = tel.substring(4,8);
@@ -104,27 +104,40 @@ $(document).ready(function(){
 			pg: 'html5_inicis', // version 1.1.0부터 지원.  
 			pay_method: 'card',
 			merchant_uid: 'merchant_' + new Date().getTime(),
-			name: 'MINT 결제', //결제창에서 보여질 이름
-			amount: lastPrice, //가격
+			name: topProductName+"외"+otherCnt, //결제창에서 보여질 이름
+			//amount: lastPrice, //가격
+			amount: 100, //가격
 			buyer_email: email,
 			buyer_name: name,
 			buyer_tel:  tel,
 			buyer_addr: addr1+", "+addr2,
 			buyer_postcode: '123-456',
-			m_redirect_url: 'https://www.yourdomain.com/payments/complete' // 나중에 수정
+			m_redirect_url: '/mintProject/shop/goods/redirect' // 나중에 수정
 		   }, function (rsp) {
-		    console.log(rsp);
 		    if (rsp.success) {
 			    var msg = '결제가 완료되었습니다.';
 			    msg += '고유ID : ' + rsp.imp_uid;
-			    msg += '상점 거래ID : ' + rsp.merchant_uid;
-			    msg += '결제 금액 : ' + rsp.paid_amount;
-			    msg += '카드 승인번호 : ' + rsp.apply_num;
+			    //msg += '상점 거래ID : ' + rsp.merchant_uid;
+			    //msg += '결제 금액 : ' + rsp.paid_amount;
+			    //msg += '카드 승인번호 : ' + rsp.apply_num;
+		    	
+		    	$.ajax({
+		    		method: 'GET',
+		    		url: "/mintProject/shop/goods/redirectServer",
+		    		headers: { "Content-Type": "application/json" },
+		    		data: {
+						imp_uid: rsp.imp_uid
+		    		}
+		    	}).then((data) => {
+		    		location.href='/mintProject/shop/main/index';
+		    	})
+		    	
 		    } else {
 			    var msg = '결제에 실패하였습니다.';
 			    msg += '에러내용 : ' + rsp.error_msg;
 		    }
 		    alert(msg);
+		    console.log(msg);
 		});
 	};
 });

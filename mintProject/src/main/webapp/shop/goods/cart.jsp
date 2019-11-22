@@ -114,8 +114,8 @@
             <div class="cart-amount__item">
                 <div class="cart-amount__tit">상품 금액</div>
                 <div class="cart-amount__price">
-                    <!-- amountNum = jsì© -->
-                    <span id="amountPrice"></span> 원
+                    <!-- amountNum = js -->
+                    <span id="amountPrice"></span> 원
                 </div>
             </div>
             <div class="cart-amount__deco deco-minus">
@@ -124,8 +124,8 @@
             <div class="cart-amount__item">
                 <div class="cart-amount__tit">상품 할인금액</div>
                 <div class="cart-amount__price">
-                    <!-- amountNum = jsì© -->
-                    -<span id="amountSale"></span> 원
+                    <!-- amountNum = js -->
+                    -<span id="amountSale"></span> 원
                 </div>
             </div>
             <div class="cart-amount__deco">
@@ -134,8 +134,8 @@
             <div class="cart-amount__item">
                 <div class="cart-amount__tit">배송비</div>
                 <div class="cart-amount__price">
-                    <!-- amountNum = jsì© -->
-                    <span id="amountCourier">0</span> 원
+                    <!-- amountNum = js -->
+                    <span id="amountCourier">0</span> 원
                 </div>
             </div>
             <div class="cart-amount__deco">
@@ -144,8 +144,8 @@
             <div class="cart-amount__item amount-total">
                 <div class="cart-amount__tit">결제예정금액</div>
                 <div class="cart-amount__price">
-                    <!-- amountNum = jsì© -->
-                    <span id="amountTotal"></span> 원
+                    <!-- amountNum = js -->
+                    <span id="amountTotal"></span> 원
                 </div>
                 
                 <div id="totalPoint" align="center">	

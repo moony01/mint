@@ -216,34 +216,38 @@ reivewInit();
 
 
     function openModal(){
-		$.ajax({
-    		type : "post",
-    		url : "/mintProject/shop/goods/addCartList",
-    		data : {'productCode' : $('#productCode').val(),
-    			    'ctCount' : $('.qty').val()		
-    				},
-    		dataType : "json",
-    		success : function(data){
-    			if(data.gubun=='1'){
-    				$('.notice-modal__message').text("이미 동일한 상품이 장바구니에 존재합니다.");
-    				
-    			} else {
-    				console.log('떠라');
-    				console.log($('#thumbImg').prop('src'));
-    				$('.notice-modal__message').append($('<img>',{
-    					src : $('#thumbImg').prop('src'),
-    					height : "70px",
-    					width : "70px"
-    				})).append("&emsp;&emsp;장바구니에 담겼습니다.");
+    	if($("#sessionId").val() == ""){
+    		$('.notice-modal__message').text("로그인 하신 후 장바구니 등록을 해주세요.")
+    	}else{
+    		$.ajax({
+        		type : "post",
+        		url : "/mintProject/shop/goods/addCartList",
+        		data : {'productCode' : $('#productCode').val(),
+        			    'ctCount' : $('.qty').val()		
+        				},
+        		dataType : "json",
+        		success : function(data){
+        			if(data.gubun=='1'){
+        				$('.notice-modal__message').text("이미 동일한 상품이 장바구니에 존재합니다.");
+        				
+        			} else {
+        				console.log($('#thumbImg').prop('src'));
+        				$('.notice-modal__message').append($('<img>',{
+        					src : $('#thumbImg').prop('src'),
+        					height : "70px",
+        					width : "70px"
+        				})).append("&emsp;&emsp;장바구니에 담겼습니다.");
 
-    			}
-    		},
-    		error : function(error){
-    			
-    		}
-    		
-    	});
-        modal.classList.remove("hidden");
+        			}
+        		},
+        		error : function(error){
+        			
+        		}
+        		
+        	});
+    	}
+    	 modal.classList.remove("hidden");
+		
     }
 
     saveBtn.addEventListener("click",openModal);

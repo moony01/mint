@@ -5,11 +5,12 @@
 
 <script src="/mintProject/shop/js/index.js"></script>
 
-<div class="search_wrap">
-<div class="product__name" style="font-size: 30px; text-align: center;"> 
+<div class="wrap">
+<div class="search_wrap my_cart__header">
+<div class="my-cart__tit"> 
 	상품검색
 </div>
-<div class="product__disc" style="text-align: center; margin-bottom: 50px;">
+<div class="my-cart__sub-tit" style="margin-bottom: 50px;">
 신선한 민트의 상품을 검색해보세요.
 </div>
 <div class="search_box">
@@ -75,4 +76,5 @@
         	</c:forEach>
         </c:if>
     </div>
+</div>
 </div>

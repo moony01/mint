@@ -74,7 +74,7 @@ function getProductQnaList(pg){
 	return $.ajax({
 		type : 'post',
     	url : '/mintProject/shop/product/productQnaBoardList',
-    	data : {'productCode' : 1, 'pg' : pg},
+    	data : {'productCode' : $('#productCode').val(), 'pg' : pg},
     	dataType : 'text',
 	});
 }
@@ -86,8 +86,6 @@ function printProductQnaList(result){
 	$('.pagination qna li').remove();
 	
 	$('#qna').html(result.trim());
-	  
-	/*$('#qna_cnt').text('상품문의');*/
 	
 	$('.qna_cnt').text('상품문의('+$('#totalArticle').val()+')');
 	
@@ -97,7 +95,7 @@ function printProductQnaList(result){
 	let addr = $('#addr').val(); 
 	
 	$('#qna_write_btn').on('click', function(){
-		location.href='/mintProject/shop/service/productQnaWriteForm?productCode=1';
+		location.href='/mintProject/shop/service/productQnaWriteForm?productCode='+$('#productCode').val()+'&subCategory='+$('#subCategory').val();
 	});
 	
     const qnaViewList = document.querySelectorAll(".qna-tb__view"),

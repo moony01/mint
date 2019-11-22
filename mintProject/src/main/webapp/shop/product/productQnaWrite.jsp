@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <form id="productQnaWriteForm" method="post" action="/mintProject/shop/service/productQnaWrite">
 <input type="hidden" id="productCode" name="productCode" value="${productCode }">
+<input type="hidden" id="subCategory" name="subCategory" value="${subCategory }">
 <div class="product-write">
     <div class="product-write__tit">
         상품 Q&A 

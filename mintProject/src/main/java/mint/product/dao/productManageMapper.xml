@@ -159,7 +159,7 @@
 		select sum(qty) as count, mainCategory from orderInfo
 		join orderDetails using (orderNumber)
 		join product using (productCode)
-		where status = 3 and logtime like '19/11/%%'
+		where status = 3 and logtime like to_char(sysdate,'yy/MM/')||'%%'
 		group by mainCategory
 		order by mainCategory
 	</select>

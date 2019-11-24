@@ -29,4 +29,8 @@
 		     , #{ctCount}  
 	         )
 	</insert>
+	
+	<select id="getCartCount" parameterType="String" resultType="int">
+		select count(*) from cart where id = #{id}
+	</select>
 </mapper>

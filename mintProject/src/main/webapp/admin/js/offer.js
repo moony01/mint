@@ -2,6 +2,7 @@
  * 191113
  * 홍소연(@hhhongso)
  */
+
 //ajax로 처음 로드했을 때 list 가져옴. 
 $().ready(function(){
 	getSuggestBoard()
@@ -92,7 +93,6 @@ function paging(totalArticle, currentPage, addr){
 			class: 'page-link', 
 			href: 'javascript:void(0)',
 			onclick: 'getSuggestBoardByOption(' +(startPage-1)+ ')',
-			//href: addr+'?pg='+(startPage-1),
 			text: '<'
 		})).appendTo('.pagination');
 	}
@@ -117,7 +117,6 @@ function paging(totalArticle, currentPage, addr){
 			class: 'page-link', 
 			href: 'javascript:void(0)',
 			onclick: 'getSuggestBoardByOption('+(endPage+1)+')',
-			//href: addr+'?pg='+(endPage+1),
 			text: '>'
 		})).appendTo('.pagination');
 	}

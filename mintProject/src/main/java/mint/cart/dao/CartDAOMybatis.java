@@ -33,4 +33,9 @@ public class CartDAOMybatis implements CartDAO {
 	public void addCartProduct(Map<String, String> map) {
 		sqlSession.insert("cartSQL.addCartProduct", map);
 	}
+
+	@Override
+	public int getCartCount(String id) {
+		return sqlSession.selectOne("cartSQL.getCartCount", id);
+	}
 }

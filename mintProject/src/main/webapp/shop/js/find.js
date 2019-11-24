@@ -2,7 +2,6 @@ let formData;
 let certiAuthBtn = document.querySelector(".btn-certiAuthKey");
 let emailCerti = document.getElementsByName("emailCerti")[0];
 //아이디 비밀번호 찾기============================================================================================================
-
 function checkFormData(btn){
 	if(btn.text() == '아이디 찾기') {
 		formData = $('#findIdForm').serialize();
@@ -11,7 +10,6 @@ function checkFormData(btn){
 	}	
 	return formData;
 }
-
 
 //아이디 / 비밀번호 찾기 버튼 클릭
 $('.btn-find').click(function(){
@@ -63,7 +61,6 @@ function printFindIdPage(result){
 	}
 	
 }
-
 
 //비밀번호 찾기 관련 메소드 =========================================================================================================
 function printAuthCheckPage(){

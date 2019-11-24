@@ -56,7 +56,7 @@ addrBtn.addEventListener("click", function(){
     });
 })
 
-//판매자 중복확인
+//판매자(supplierCode) 중복확인
 $('input[name=supplierCode]').blur(function(){
 	getIsDuplicated()
 	.then(printIsDuplicated)

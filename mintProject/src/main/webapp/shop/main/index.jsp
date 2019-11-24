@@ -136,6 +136,7 @@
         </ul>
         <div class="cart_count">
         	<a class="btn_cart" href="/mintProject/shop/goods/cart"><img src="https://res.kurly.com/pc/ico/1908/ico_cart_x2_v2.png" alt="장바구니"></a>
+        	<label>${memCart }</label> <!-- 로그인 시 해당 아이디의 장바구니 count(*) 를 세션에 담아 가져옴. -->
         </div>
     </nav>
     

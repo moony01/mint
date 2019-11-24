@@ -31,7 +31,7 @@
 			● default-target-url: 인증 성공 시 디폴트로 이동하는 url (always-use-default-target="true" 일 떄)
 			● authentication-failure-url: 인증 실패 시 이동하는 url 
 			● username-parameter, password-parameter: loginForm 에서 name 값으로 파라미터 값 가져옴.-->
-		<security:form-login login-page="/shop/member/login?status=need"
+		<security:form-login login-page="/shop/member/login?status=yet"
 							login-processing-url="/shop/member/loginOk" 
 							default-target-url="/shop/main/index"
 							authentication-success-handler-ref="memberLoginSuccessHandler"

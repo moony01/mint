@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
@@ -16,6 +17,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 
+import mint.cart.dao.CartDAO;
 import mint.member.bean.MemberDTO;
 
 /**
@@ -24,18 +26,24 @@ import mint.member.bean.MemberDTO;
  */
 public class MemberLoginSuccessHandler implements AuthenticationSuccessHandler {
 	//인증에 성공했다면 successHandler 클래스로 넘어오게 됨. 여기서 session을 부여한 뒤, 원하는 페이지로 리다이렉트 시켜준다. 
-	
+
 	private RequestCache requestCache = new HttpSessionRequestCache();  //RequestCache 객체 생성
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy(); //RedirectStrategy 객체 생성
+	@Autowired
+	private CartDAO cartDAO;
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		MemberDTO memberDTO = (MemberDTO) authentication.getPrincipal();
+		int count = cartDAO.getCartCount(memberDTO.getId());
+		
 		HttpSession session = request.getSession();
 		session.setAttribute("memId", memberDTO.getId());
 		session.setAttribute("memName", memberDTO.getName());
 		session.setAttribute("memEmail", memberDTO.getEmail());
+		
+		session.setAttribute("memCart", count);
 		
 		SavedRequest savedRequest = requestCache.getRequest(request, response); // savedRequest 가져옴 
 		

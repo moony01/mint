@@ -15,7 +15,7 @@
     width: 120px;
 }
 </style>   
-<form name="supplierForm" method="" action="" >
+<form name="supplierForm">
 	<div class="main__title">
 	    <h2 class="out">회원 관리</h2>
 	    <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>회원</span></a>

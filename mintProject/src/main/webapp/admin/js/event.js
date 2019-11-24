@@ -1,5 +1,10 @@
 /* 이벤트 관리 스크립트 */
 $(function(){
+	
+	/* 일일특가 */
+	var countTo = "Nov 27, 2019 20:00:00";
+	dailySpecialCntDown(countTo, 'dscd');
+	
 	/* datetimepicker 한국어 설정 */
 	$.datetimepicker.setLocale('ko');
 	
@@ -44,10 +49,6 @@ $(function(){
 			console.error(error);
 		}
 	});
-	
-	/* 일일특가 */
-	var countTo = "Nov 23, 2019 11:00:00";
-	dailySpecialCntDown(countTo, 'dscd');
 });
 
 /* 제목 클릭시 내용 나타나기/사라지기 */

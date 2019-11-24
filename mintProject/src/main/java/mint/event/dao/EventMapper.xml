@@ -64,15 +64,11 @@
 	</update>
 	
 	<!-- 이벤트 상품 수정 -->
-	<update id="eventProductModify" parameterType="java.util.Map">
-		update product set discountRate =
-		<foreach collection="discountRate" item="discountRate" index="i" open="(" separator="," close=")">
-			#{discountRate[i]}
+	<update id="eventProductUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="eventProduct" index="i" separator=",">
+			update product set discountRate = #{eventProduct.discountRate} where productCode = #{eventProduct.productCode}
 		</foreach>
-		where productCode =
-		<foreach collection="productCode" item="productCode" index="i" open="(" separator="," close=")">
-			#{productCode[i]}
-		</foreach>
+		
 	</update>
 	
 	
@@ -83,13 +79,13 @@
 		 	<if test='eventStatus != 9'>
 			 	eventStatus = #{eventStatus}
 		 	</if>
-		 	<if test='subject != null'>
-		 		and subject = #{subject}
+		 	<if test='subject != ""'>
+		 		and subject like '%'||#{subject}||'%'
 		 	</if>
-		 	<if test='startDate != null'>
+		 	<if test='startDate != ""'>
 		 		and startDate &gt;= to_date(#{startDate},'yyyy-MM-dd')
 		 	</if>
-		 	<if test='endDate != null'>
+		 	<if test='endDate != ""'>
 		 		and endDate &lt;= to_date(#{endDate},'yyyy-MM-dd')
 		 	</if>
 	 	</where>
@@ -102,13 +98,13 @@
 		 	<if test='eventStatus != 9'>
 			 	eventStatus = #{eventStatus}
 		 	</if>
-		 	<if test='subject != null'>
-		 		and subject = #{subject}
+		 	<if test='subject != ""'>
+		 		and subject like '%'||#{subject}||'%'
 		 	</if>
-		 	<if test='startDate != null'>
+		 	<if test='startDate != ""'>
 		 		and startDate &gt;= to_date(#{startDate},'yyyy-MM-dd')
 		 	</if>
-		 	<if test='endDate != null'>                                                                                                                                                                                                                                                        
+		 	<if test='endDate != ""'>                                                                                                                                                                                                                                                        
 		 		and endDate &lt;= to_date(#{endDate},'yyyy-MM-dd')
 		 	</if>
 		 </where>

@@ -65,12 +65,6 @@ public class MemberController {
 	@ResponseBody
 	public boolean isDuplicated(@RequestParam Map<String, String> map, ModelAndView mav) {
 		boolean isDuplicated = false; 
-		
-		Set<String> set = map.keySet(); 
-		for (String key : set) {
-			map.put("key", key); //key="id" or "email", value=해당값
-			map.put("value", map.get(key));
-		}
 
 		MemberDTO memberDTO = memberService.getUserBy(map);
 		if(memberDTO != null) {
@@ -247,14 +241,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/shop/member/updateInfo")
-	public ModelAndView updateMemberInfo(@RequestParam Map<String, String> map, ModelAndView mav) {		
+	public String updateMemberInfo(@RequestParam Map<String, String> map) {		
 		String pwd = passwordEncoder.encode(map.get("pwd")); //비밀번호 암호화
 		map.put("pwd", pwd);
-		
 		memberService.updateInfo(map);
-		mav.addObject("display","/shop/template/body.jsp");
-		mav.setViewName("/shop/main/index");
-		return mav;
+		
+		return "redirect:/admin/main/admin";
 	}
 	
 	// 마이페이지 - 개인정보 수정

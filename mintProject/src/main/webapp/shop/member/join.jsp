@@ -15,7 +15,7 @@
         <div class="join-content">
             <div class="join-col">
                 <div class="join-title">아이디*</div>
-                <input type="text" class="join-input input--lg" name="id" placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합"><br>
+                <input type="text" class="join-input input--lg" name="id" placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합">
                  <div class="join-btn btn--primary btn-checkId">중복 확인</div>
             </div>
             <div class="join-col">

@@ -55,45 +55,25 @@ addrBtn.addEventListener("click",function(){
 
 //아이디 중복확인
 checkIdBtn.addEventListener("click", function(){
-	$.ajax({
-		type: 'post',
-		url: '/mintProject/shop/member/isDuplicated',
-		data: {"id": document.getElementsByName("id")[0].value},
-		dataType: 'json',
-		success: function(result){
-			if(!result){
-				alert('사용 가능한 아이디입니다. ');
-			} else {
-				alert('이미 사용중인 아이디입니다. 다른 아이디를 입력하세요. ');
-				document.getElementsByName("id")[0].focus();
-			}
-		},
-		error: function(e){
-			console.log(e);
-		}
-	});
+	let key = this.previousElementSibling.getAttribute("name");
+	let value = this.previousElementSibling.value;
+	getIsDuplicatedPage(key, value)
+	.then(printIsDuplicated)
+	.catch(printError);
+	
 });
 
 
-//인증번호 받기
+//이메일 중복확인  & 인증번호 받기
 authBtn.addEventListener("click", function(){	
-		//회원가입일 경우 => 우선 이메일 중복확인 먼저 하고 
-		getIsDuplicatedPage()
-		.then(function(result){
-			if(!result){
-				alert('사용 가능한 이메일입니다. 인증번호를 발송합니다. ');
-				setCountDown();
-				
-				//인증번호 발송
-				getAuthCheckPage()
-				.catch(printError);
-			} else {
-				alert('이미 사용중인 이메일입니다. ');
-				document.getElementsByName("email")[0].focus();
-			}		
-		})
-		.catch(printError);
+	let key = this.previousElementSibling.getAttribute("name");
+	let value = this.previousElementSibling.value;
 
+	getIsDuplicatedPage(key, value) //이메일 중복검사 ajax 호출
+	.then(printIsDuplicated) // success: function(result)
+	.then(setCountDown) // if(!result)(중복되지않음) => 타이머 실행   
+	.then(getAuthCheckPage) // if(!result)(중복되지않음) => 인증번호 발송
+	.catch(printError);
 		
 });
 
@@ -104,36 +84,41 @@ emailCerti.addEventListener("focus", function(){
 //인증번호 확인
 certiAuthBtn.addEventListener("click", function(){
 	getAuthConfirmPage()
-	.then(function(result){
-		if(result == 'true') {
-			alert("인증이 완료되었습니다. ");
-			clearInterval(counter);
-		}
-		else alert('인증번호가 잘못되었거나, 시간이 만료되었습니다.');
-	})
+	.then(printAuthConfirm)
 	.catch(printError);
 		
 });
 
 //회원가입 버튼 클릭
 $('.btn--lg').click(function(){
-	$.ajax({
+	getJoinPage()
+	.then(function(){
+		alert('회원가입이 완료되었습니다. ');
+		location.href='/mintProject/shop/main/index';
+	})
+	.catch(printError);
+	
+});
+
+
+//getAuthConfirmPage() 의 sucess result
+function printAuthConfirm(result){
+	if(result == 'true') {
+		alert("인증이 완료되었습니다. ");
+		clearInterval(counter);
+	}
+	else alert('인증번호가 잘못되었거나, 시간이 만료되었습니다.');
+}
+
+function getJoinPage(){
+	return $.ajax({
 		type: 'post',
 		url: '/mintProject/shop/member/joinOk',
 		data: $('#join-form').serialize(),
-		success: function(){
-			alert('회원가입이 완료되었습니다. ');
-			location.href='/mintProject/shop/main/index';
-		},
-		error: function(e){
-			printError(e);
-		}
-	});
-});
+	})
+}
 
-//===========
-
-
+//타이머에 사용하는 함수=============================================================================
 let timer, counter;
 //이메일 인증 시 시간 제한 3분
 function countDown(){
@@ -155,9 +140,11 @@ function zeroPad(number, width){
 	return number.length >= width ? number : new Array(width - number.length +1).join('0') +number;
 }
 
-
-function setCountDown(){	
-	timer = 60*3; 
-	counter = setInterval(countDown, 1000); //1초마다 반복적으로 countDown() 실행
-
+function setCountDown(result){
+	if(!result){
+		timer = 60*3; 
+		counter = setInterval(countDown, 1000); //1초마다 반복적으로 countDown() 실행
+	}
+	
+	return result;
 }

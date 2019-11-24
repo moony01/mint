@@ -95,6 +95,7 @@ public class MemberAdminController {
 			map.put("from", searchValue.substring(0, 6));
 			map.put("to", searchValue.substring(9));
 			
+			
 		} else if(!searchValue.equals("undefined")){ // 아이디로 검색
 			map.put("searchOption", "id");
 			map.put("searchValue", searchValue);
@@ -103,7 +104,6 @@ public class MemberAdminController {
 		map.put("table", table);
 		map.put("orderbyValue", orderbyValue);
 	
-
 		List<Map<String, String>> list = memberService.getList(map); // member
 		//페이징 처리를 script에서 처리하기 위해 pg, totalArticle, addr 를 함께 싣어 보내준다. 
 		//mav.addObject("pg", pg);
@@ -114,7 +114,6 @@ public class MemberAdminController {
 		
 		return mav; 
 
-		
 	}
 
 	//getList() 함수 수행 시 파라미터 값에 따라 value 값 설정

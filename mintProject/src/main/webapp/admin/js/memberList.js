@@ -56,8 +56,8 @@ function printList(result){
 		if(table == 'supplier'){ // 판매자 목록 
 			let {SUPPLIERCODE, CATEGORY, ID, STAR, LOGTIME, STATUS} = list[i];	
 			
-			let date = JSON.parse(LOGTIME);
-			let parseDate = new Date(date).toISOString().slice(0,10);
+			let date = new Date(LOGTIME);
+			let parseDate = new Date(date - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10);
 			
 			if(CATEGORY == 101) { CATEGORY = '농산물';
 			} else if(CATEGORY == 102){ CATEGORY = '수산물';
@@ -78,17 +78,14 @@ function printList(result){
 	            <td>${parseDate}</td>
 	            <td>${STATUS}</td>
 	        </tr>`;
-			//${ID} 를 td의 class 속성으로 부여한 뒤, td :first-child() 를 제외하고 모두 remove() or display: none; 
-			//eq(0). 
 
 			$frag.append($(supplier));
 		}
 		
 		else if(table == 'member'){ //회원 목록 
 			let {ID, MEMLEVEL, ISAGREEDSMS, LOGTIME} = list[i];		
-			
-			let date = JSON.parse(LOGTIME);
-			let parseDate = new Date(date).toISOString().slice(0,10);
+			let date = new Date(LOGTIME);
+			let parseDate = new Date(date - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10);
 			
 			if(MEMLEVEL == 0) { MEMLEVEL = '일반';
 			} else if(MEMLEVEL == 1) { MEMLEVEL = '우수';
@@ -142,6 +139,7 @@ $('.btn-update').click(function(){
 	if(check.length == 0){
 		alert('선택된 항목이 없습니다 !! ');
 	} else {
+		//데이터 가공 
 		let form = document.forms[1];
 		let data = document.createElement('input'); 
 		let data2 = document.createElement('input'); 
@@ -168,8 +166,6 @@ $('.btn-update').click(function(){
 		form.appendChild(data2);
 		form.method = 'post';
 		form.action = '/mintProject/admin/member/update/'+table;
-		console.log(form);
-		console.log(table);
 		
 		form.submit();
 	}

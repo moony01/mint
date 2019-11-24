@@ -3,9 +3,33 @@
 
 <mapper namespace="memberSQL">
 	<insert id="writeMember" parameterType="member">
-		insert into member(name, id, pwd, email, tel, addr1, addr2, gender, birthday, point, isAgreedSMS, memLevel, logtime) 
-		values (#{name}, #{id}, #{pwd}, #{email}, #{tel}, #{addr1}, #{addr2}, #{gender}, 
-								#{birthday}, #{point}, #{isAgreedSMS}, #{memLevel}, sysdate)
+		insert into member
+		(name, 
+		id, 
+		pwd, 
+		email, 
+		tel, addr1, 
+		addr2, 
+		gender, 
+		birthday, 
+		point, 
+		isAgreedSMS, 
+		memLevel, 
+		logtime) 
+		values 
+		(#{name}, 
+		#{id}, 
+		#{pwd}, 
+		#{email}, 
+		#{tel}, 
+		#{addr1}, 
+		#{addr2}, 
+		#{gender}, 
+		#{birthday}, 
+		#{point}, 
+		#{isAgreedSMS}, 
+		#{memLevel}, 
+		sysdate)
 	</insert>
 
 	<select id="getUserBy" parameterType="java.util.Map" resultType="member">
@@ -18,7 +42,7 @@
 	</select>	
 	
 	<update id="insertAttendance" parameterType="String">
-		update member set attDate=sysdate,point=point+100 where id=#{id}
+		update member set attDate=sysdate, point=point+100 where id=#{id}
 	</update>
 	
 	<update id="updateAttendance" parameterType="String">
@@ -43,7 +67,12 @@
 	
 	<!-- 개인정보 수정 -->
 	<update id="modifyMember" parameterType="member">
-		update member set name = #{name}, tel = #{tel}, email = #{email}, gender = #{gender}, birthday = #{birthday}
+		update member set 
+		name = #{name}, 
+		tel = #{tel}, 
+		email = #{email}, 
+		gender = #{gender}, 
+		birthday = #{birthday}
 		<if test="pwd != null">, pwd = #{pwd}</if>
 		where id = #{id}
 	</update>
@@ -54,7 +83,16 @@
 	
 	<!-- [관리자]회원 / 판매자 ================================================================================================================ -->
 	<insert id="writeSupplier" parameterType="supplier">
-		insert into supplier values (#{supplierCode}, #{id}, #{category}, #{tel}, #{addr1}, #{addr2}, #{description}, #{status}, sysdate)
+		insert into supplier values 
+		(#{supplierCode}, 
+		#{id}, 
+		#{category}, 
+		#{tel}, 
+		#{addr1}, 
+		#{addr2}, 
+		#{description}, 
+		#{status}, 
+		sysdate)
 	</insert>
 	
 	<select id="getSupplierBy" parameterType="java.util.Map" resultType="supplier">
@@ -62,10 +100,9 @@
 	</select>
 	
 	<select id="getListBysearchOption" parameterType="java.util.Map" resultType="java.util.Map">
-		
 		select * from ${table} where ${searchOption} 
 		<if test="from != null">
-		between to_date(#{from}, 'YYMMDDHH') and to_date(#{to}, 'YYMMDDHH') + 0.99999 
+		between to_date(#{from}, 'YYMMDD') and to_date(#{to}, 'YYMMDD') + 0.99999 
 		</if>
 		<if test="searchValue != null">
 		like '%'||#{searchValue}||'%'

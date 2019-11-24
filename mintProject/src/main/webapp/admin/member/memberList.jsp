@@ -78,24 +78,18 @@
 	</div>
 	</form>
     
-<script src="/mintProject/admin/js/member.js"></script>    
+<script src="/mintProject/admin/js/memberList.js"></script>    
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 <script>
 //date picker 적용
-let from; 
-let to; 
-
 $(function() {
-	  $('input[name="daterange"]').daterangepicker({
-	    opens: 'left',
-	    locale: {
-	        format: 'YY.MM.DD'
-	    }
-	  }, function(start, end, label) {
-		  
-	  });
+  $('input[name="daterange"]').daterangepicker({
+	  locale: {
+        format: 'YY.MM.DD'
+    }
+  }, function(start, end, label) {		  
+  });
 });
-
 </script>

@@ -4,6 +4,10 @@
 .table {
 	vertical-align: middle !important;
 }
+
+.faqRow :nth-child(4){
+	cursor: pointer;
+}
 </style>
 <div class="main__title">
     <h2 class="out">FAQ 관리</h2>
@@ -29,8 +33,8 @@
 	        <tr class="th--dark">
 	            <th class="col-md-1"><input type="checkbox" name="" id="chkAll"></th>
 	            <th class="col-md-1">번호</th>
-	            <th class="col-md-1">카테고리</th>
-	            <th class="col-md-6">제목</th>
+	            <th class="col-md-2">카테고리</th>
+	            <th class="col-md-5">제목</th>
 	            <th class="col-md-1">작성일</th>
 	            <th class="col-md-1">작성자</th>
 	        </tr>

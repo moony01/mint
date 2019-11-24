@@ -28,16 +28,15 @@ import mint.product.bean.ProductDTO;
  *	EventController
  * 	이벤트 컨트롤러
  * 
- * @version 1.5
+ * @version 1.6
  * @author LimChangHyun 
  *
  *	구현된 기능 : 이벤트 등록, 페이징 처리, 리스트 처리, 이벤트 삭제
- *			     이벤트 상품 리스트
- *	불완전 기능 : 이벤트 수정, 이벤트 검색, 이벤트 연동, 일일특가
+ *			     이벤트 상품 리스트, 이벤트 검색
+ *	불완전 기능 : 이벤트 수정, 이벤트 연동, 일일특가
  *	앞으로 구현되어야 하는 것 : 상품 검색(상품관리쪽과 겹침), 상품 추가, 상품 삭제
  *	이슈    1. 기간설정 없는 상시이벤트를 수정하려는 경우 startDate endDate 입력 input이 disabled 되지 않음
- *		 2. 이벤트 검색 기능 작동 안함(sql구문 문제인듯)
- *		 3. 이벤트 적용 상품이 두개 이상일 때 이벤트 수정 기능 작동 안함
+ *		 2. 이벤트 적용 상품이 두개 이상일 때 이벤트 수정 기능 작동 안함
  *
  */
 
@@ -159,18 +158,7 @@ public class EventController {
 	@ResponseBody
 	public void eventModify(@RequestParam Map<String, Object> map) {
 		// event 정보 수정(subject, eventStatus, startDate, endDate)
-		eventService.eventModify(map);
-		
-		// product관련 수정(productCode, discountRate)
-		Map<String, String[]> map2 = new HashMap<String, String[]>();
-		
-		String[] productCode = ((String)map.get("productCode")).split(",");
-		String[] discountRate = ((String)map.get("discountRate")).split(",");
-		System.out.println(productCode[0]);
-		System.out.println(discountRate[0]);
-		map2.put("productCode", productCode);
-		map2.put("discountRate", discountRate);
-		// eventService.eventProductModify(map2);
+		eventService.eventModify(map);		
 	}
 	
 	/* 이벤트 삭제 기능 */
@@ -188,13 +176,14 @@ public class EventController {
 		// 1페이지당 10개씩
 		int endNum = Integer.parseInt((String) map.get("pg"))*10;
 		int startNum = endNum-9;
- 
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		
 		List<EventDTO> list = eventService.eventSearch(map);
-		System.out.println("SQL거쳐서 온 리스트 : "+list);
+		
 		// 게시판 페이징 처리
 		// 총 글수
 		int totalEvent = eventService.getSearchTotalEvent(map);
-		System.out.println("SQL거쳐서 온 조건 부합 게시물 개수 : "+totalEvent);
 		eventPaging.setCurrentPage(Integer.parseInt((String) map.get("pg")));
 		eventPaging.setPageBlock(5);
 		eventPaging.setPageSize(15);
@@ -207,5 +196,19 @@ public class EventController {
 		mav.addObject("eventPaging", eventPaging);
 		mav.setViewName("jsonView");
 		return mav;
+	}
+	
+	/* 이벤트 실행 (product discountRate update) */
+	@RequestMapping(value="/admin/service/eventProductUpdate", method=RequestMethod.POST)
+	@ResponseBody
+	public void eventProductUpdate(@RequestParam String[] productCode,
+								   @RequestParam int[] discountRate) {
+		eventProductDTO.setProductCode(productCode);
+		eventProductDTO.setDiscountRate(discountRate);
+		
+		// product관련 수정(productCode, discountRate)
+		List<EventProductDTO> list = new ArrayList<EventProductDTO>();
+		list.add(eventProductDTO);
+		eventService.eventProductUpdate(list);	
 	}
 }

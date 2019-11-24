@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import mint.event.bean.EventDTO;
+import mint.event.bean.EventProductDTO;
 import mint.product.bean.ProductDTO;
 
 public interface EventService {
@@ -26,6 +27,6 @@ public interface EventService {
 
 	public List<ProductDTO> getProductList(Map<String, Object> map);
 
-	public void eventProductModify(Map<String, String[]> map2);
+	public void eventProductUpdate(List<EventProductDTO> list);
 
 }

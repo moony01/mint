@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mint.event.bean.EventDTO;
+import mint.event.bean.EventProductDTO;
 import mint.event.dao.EventDAO;
 import mint.product.bean.ProductDTO;
 
@@ -61,8 +62,8 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public void eventProductModify(Map<String, String[]> map2) {
-		eventDAO.eventProductModify(map2);
+	public void eventProductUpdate(List<EventProductDTO> list) {
+		eventDAO.eventProductUpdate(list);
+		
 	}
-
 }

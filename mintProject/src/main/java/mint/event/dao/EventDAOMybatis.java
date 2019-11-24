@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import mint.event.bean.EventDTO;
+import mint.event.bean.EventProductDTO;
 import mint.product.bean.ProductDTO;
 
 @Transactional
@@ -63,8 +64,8 @@ public class EventDAOMybatis implements EventDAO{
 	}
 
 	@Override
-	public void eventProductModify(Map<String, String[]> map2) {
-		sqlSession.update("eventSQL.eventProductModify", map2);
+	public void eventProductUpdate(List<EventProductDTO> list) {
+		sqlSession.update("eventSQL.eventProductUpdate", list);
 	}
 
 }

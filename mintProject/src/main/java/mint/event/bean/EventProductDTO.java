@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Component
 public class EventProductDTO {
-	private String productCode;
-	private Object discountRate;
+	private String[] productCode;
+	private int[] discountRate;
 
 }

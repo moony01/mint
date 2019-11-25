@@ -27,9 +27,10 @@ import mint.product.bean.ProductDTO;
  * @version 1.7
  * @author LimChangHyun 
  *
- *	구현된 기능 : 이벤트 등록, 페이징 처리, 리스트 처리, 이벤트 삭제
- *			     이벤트 상품 리스트, 이벤트 수정, 이벤트 검색
- *	불완전 기능 : 이벤트 연동, 일일특가
+ *	기능
+ *	이벤트 등록, 페이징 처리, 리스트 처리, 이벤트 삭제
+ *  이벤트 상품 리스트, 이벤트 수정, 이벤트 검색, 이벤트 연동, 일일특가
+ *
  *	앞으로 구현되어야 하는 것 : 상품 검색(상품관리쪽과 겹침), 상품 추가, 상품 삭제
  *	이슈    1. 기간설정 없는 상시이벤트를 수정하려는 경우 startDate endDate 입력 input이 disabled 되지 않음
  *
@@ -148,12 +149,11 @@ public class EventController {
 	}
 	
 
-	/* 이벤트 수정 기능 */
+	/* 이벤트 수정 기능 (subject, eventStatus, startDate, endDate) */
 	@RequestMapping(value="/admin/service/eventModify", method=RequestMethod.POST)
 	@ResponseBody
 	public void eventModify(@RequestParam Map<String, Object> map) {
-		// event 정보 수정(subject, eventStatus, startDate, endDate)
-		eventService.eventModify(map);		
+		eventService.eventModify(map);
 	}
 	
 	/* 이벤트 삭제 기능 */
@@ -198,6 +198,9 @@ public class EventController {
 	@ResponseBody
 	public void eventProductUpdate(@RequestParam String productCode,
 								   @RequestParam String discountRate) {
+		/**
+		 * 각각 toString() 된 상태로 a, b, c 의 형태로 패러미터 값이 넘어와야한다
+		 */
 		// split으로 배열화
 		String[] productCodeArray = productCode.split(",");
 		String[] discountRateArray = discountRate.split(",");

@@ -1,20 +1,15 @@
-package mint.orderAndSales.bean;
+package mint.order.bean;
 
 import java.util.Date;
-
 import org.springframework.stereotype.Component;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 @Data
 @Component
-public class OrderAndSalesDTO {
+public class OrderInfoDTO {
 	private String orderNumber;
-	private String email;
-	private String productCode;
-	private int price;
-	private int qty;
+	private String id;
 	private String logtime;
-//	private Date logtime;
 	private int status;
 }

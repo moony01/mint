@@ -54,3 +54,7 @@
 	           
 	        </table>
 	        </div> 
+	    
+	    <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" onclick="location.href='/mintProject/admin/member/memberList'">목록으로</button>
+	    </div>

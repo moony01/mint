@@ -101,6 +101,7 @@
                     <span>매출</span>
                 </div>
                 <ul class="list">
+                    <li><a href="/mintProject/admin/sales/order">오더 관리</a></li>
                     <li><a href="/mintProject/admin/sales">매출 관리</a></li>
                 </ul>
             </div>

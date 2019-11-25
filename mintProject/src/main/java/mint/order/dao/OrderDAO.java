@@ -13,7 +13,7 @@ public interface OrderDAO {
 	public Object updateCartCount(Map<String, Object> map);
 
 	public Map<String, Object> getProductCartData(Map<String, Object> map);
-
+	
 	public List<Map<String, String>> getMyOrderInfo(Map<String, String> map);
 
 	public List<Map<String, String>> getMyOrderDetails(String ordernumber);
@@ -25,5 +25,9 @@ public interface OrderDAO {
 	public void updateOrderStatus(Map<String, Object> map);
 
 	public List<OrderInfoDTO> getOrderListByDate(Map<String, Object> map);
+
+	public void insertOrderInfo(Map<String, Object> order);
+
+	public void insertOrderDetail(Map<String, Object> map);
 
 }

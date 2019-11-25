@@ -294,7 +294,6 @@ function change_checkbox(label){
 		label.attr('class', 'check-label'); // [라벨]의 아이콘을 체크 해제 상태로 바꿈
 		
 		$('.allCheck').parent().attr('class', 'check-label');
-
 	} else {
 		label.children(':first').prop('checked', true);
 		label.children(':first').trigger('change', 'trigger');

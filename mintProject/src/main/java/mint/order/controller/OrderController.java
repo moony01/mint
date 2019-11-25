@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,21 +60,6 @@ public class OrderController {
 		return "/shop/main/index";
 	}
 	
-	@RequestMapping(value="/shop/goods/redirectServer", method= RequestMethod.GET)
-	@ResponseBody
-	public void redirectSuccess(@RequestParam String imp_uid,
-								Model model,
-								HttpSession session) {
-		
-		String id = (String)session.getAttribute("memId");
-		
-		System.out.println(id);
-		System.out.println(imp_uid);
-		
-		model.addAttribute("imp_uid", imp_uid);
-		System.out.println("model : " +model);
-	}
-	
 	// 마이페이지 - 주문내역 페이지
 	@RequestMapping(value="/shop/mypage/myOrderList", method = RequestMethod.GET)
 	public ModelAndView myOrderList() {
@@ -114,6 +100,38 @@ public class OrderController {
 		mav.addObject("display","/shop/mypage/myOrderDetails.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;
+	}
+	
+	@RequestMapping(value="/shop/goods/redirectServer", method= RequestMethod.POST)
+	@ResponseBody
+	public void redirectSuccess(@RequestBody Map<String, Object> order,
+								Model model,
+								HttpSession session) {
+		
+		String id = (String)session.getAttribute("memId");
+		System.out.println("최초 order : "+order);
+		ArrayList<String> productCode = (ArrayList<String>) order.get("productCode");
+		ArrayList<String> qty = (ArrayList<String>) order.get("qty");
+		System.out.println("productCode ArrayList 화 : " +productCode);
+		System.out.println("qty ArrayList 화 : " +qty);
+		
+		order.remove("productCode");
+		order.remove("qty");
+		System.out.println("remove order : " +order);
+		orderService.insertOrderInfo(order);
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		for(int i=0; i<productCode.size(); i++) {
+			map.put("productCode", productCode.get(i));
+			map.put("qty", qty.get(i));
+			map.put("id", id);
+			orderService.insertOrderDetail(map);
+			//orderService.updateProductStock(map);
+			//orderService.deleteCartList(map);
+		}
+
+
 	}
 	
 }

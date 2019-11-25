@@ -60,4 +60,15 @@ public class OrderDAOMybatis implements OrderDAO {
 	public List<OrderInfoDTO> getOrderListByDate(Map<String, Object> map) {
 		return sqlSession.selectList("orderSQL.getOrderListByDate", map);
 	}
+
+	@Override
+	public void insertOrderInfo(Map<String, Object> order) {
+		sqlSession.insert("orderSQL.insertOrderInfo", order);
+	}
+	
+	@Override
+	public void insertOrderDetail(Map<String, Object> map) {
+		sqlSession.insert("orderSQL.insertOrderDetail", map);
+	}
+
 }

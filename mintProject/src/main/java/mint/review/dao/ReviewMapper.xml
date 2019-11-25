@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mint.review.dao.ReviewSql">
+	<!-- 관리자 : 상품 리뷰 -->
+	<select id="getReview" resultType="mint.review.bean.Review">
+		select 
+			seq, 
+			id, 
+			subject, 
+			content, 
+			imgname,
+			productCode, 
+			star, 
+			logtime as "date"
+		from 
+			reviewboard
+	</select>
+	<!-- 관리자 : 상품 리뷰 삭제 -->
+	<delete id = "deleteReview" >
+		DELETE
+		FROM
+		    reviewboard
+		WHERE
+		    seq = #{id}
+	</delete>
+	<!-- 마이페이지 상품 후기 상세 -->
+	<select id="getReviewDetail" resultType="mint.review.bean.Review" parameterType="String">
+		select seq, subject, id, to_char(logtime,'yyyy-MM-DD') as logtime, (star/10) as star, imgname, content 
+		from reviewboard
+		where seq = #{seq}
+	</select>
+	<!-- 마이페이지 상품후기 작성 가능한 주문 리스트 -->
+	<select id="getOrder" resultType="java.util.Map" parameterType="String">
+		select orderNumber, productCode, mainSubject as title, status, qty, to_char(logtime,'yy-MM-dd') as logtime, thumbnail as img, reviewStatus
+		from   orderDetails
+		join   product using (productCode)
+		join   orderInfo using (orderNumber)
+		where  id = #{id} and status = 3
+		order by orderNumber asc, productCode asc
+	</select>
+	<!-- 상품 상세 페이지 (최신순) -->
+	<select id = "getReviewByProduct" resultType = "mint.review.bean.Review">
+		select seq, productCode, id, subject, star, to_char(logtime,'yyyy-MM-DD') as logtime
+		from   reviewboard where productCode = #{productCode}
+		order  by seq desc
+	</select>
+	<!-- 상품 상세 페이지 (별점순) -->
+	<select id = "getReviewByProductStar" resultType = "mint.review.bean.Review">
+		select seq, productCode, id, subject, star, to_char(logtime,'yyyy-MM-DD') as logtime
+		from   reviewboard where productCode = #{productCode}
+		order  by star desc
+	</select>
+	<!-- 상품 상세 페이지 별점 평균/총 후기글 수 -->
+	<select id = "getReviewStar" resultType = "java.util.Map">
+		select count(*) as count, avg(star) as star from reviewboard where productCode = #{productCode}
+	</select>
+	<!-- 후기 작성 -->
+	<insert id="addreview" parameterType="mint.review.bean.Review">
+		insert into reviewboard(seq, id, subject, content, imgName, productCode, star, logtime, orderNumber) 
+		values (seq_reviewboard.nextval, #{id}, #{subject}, #{content}, #{imgName}, #{productCode}, #{star}, sysdate, #{orderNumber})
+	</insert>
+	<update id="updateOrderReview" parameterType="mint.review.bean.Review">
+		update orderDetails set reviewStatus = 1 where orderNumber = #{orderNumber} and productCode = #{productCode}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

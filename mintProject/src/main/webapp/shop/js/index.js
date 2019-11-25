@@ -18,7 +18,7 @@ function checkMemId(memId, memName){
 										 <ul class="my-page__menu">
 								            <li><a href="/mintProject/shop/mypage/myOrderList">주문내역</a></li>
 								            <li><a href="#">위시 리스트</a></li>
-								            <li><a href="#">상품 후기</a></li>
+								            <li><a href="/mintProject/shop/mypage/review">상품 후기</a></li>
 								            <li><a href="/mintProject/shop/mypage/myinfo_pwd">개인정보 수정</a></li>
 								            <li><a href="/mintProject/shop/mypage/attendance">출석체크</a></li>
 								            <li>

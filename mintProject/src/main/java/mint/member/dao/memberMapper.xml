@@ -149,15 +149,4 @@
 		update product set productStatus = ${updateValue} where ${key} in (${value})
 	</update>
 	
-	<!-- [회원] 주문내역 ================================================================================================================ -->
-	<select id="getMyOrderInfo" parameterType="String" resultType="java.util.Map">
-		select orderNumber, to_char(logtime,'yyyy-MM-dd') as logtime, status from orderInfo 
-		where id = #{id}
-		<if test="from != null">
-		and logtime between to_date(#{from}, 'YYMMDDHH') and to_date(#{to}, 'YYMMDDHH') + 0.99999 
-		</if>
-	</select>
-	<select id="getMyOrderDetails" parameterType="String" resultType="java.util.Map">
-		
-	</select>
 </mapper>

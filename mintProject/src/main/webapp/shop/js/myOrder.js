@@ -1,4 +1,5 @@
 const addrSearchBtn = document.querySelector("#addrSearchBtn");
+const pointInput = document.querySelector(".point-tb__input");
 
 // 다음 우편번호
 addrSearchBtn.addEventListener("click", function() {
@@ -48,4 +49,8 @@ addrSearchBtn.addEventListener("click", function() {
       }
     }).open();
   });
+});
+
+pointInput.addEventListener("click", () => {
+  pointInput.value = "";
 });

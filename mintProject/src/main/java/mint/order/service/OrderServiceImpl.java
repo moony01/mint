@@ -28,4 +28,14 @@ public class OrderServiceImpl implements OrderService {
 	public Map<String, Object> getProductCartData(Map<String, Object> map) {
 		return orderDAO.getProductCartData(map);
 	}
+
+	@Override
+	public List<Map<String, String>> getMyOrderInfo(Map<String, String> map) {
+		return orderDAO.getMyOrderInfo(map);
+	}
+
+	@Override
+	public List<Map<String, String>> getMyOrderDetails(String ordernumber) {
+		return orderDAO.getMyOrderDetails(ordernumber);
+	}
 }

@@ -29,4 +29,14 @@ public class OrderDAOMybatis implements OrderDAO {
 	public Map<String, Object> getProductCartData(Map<String, Object> map) {
 		return sqlSession.selectOne("orderSQL.getProductCartData", map);
 	}
+
+	@Override
+	public List<Map<String, String>> getMyOrderInfo(Map<String, String> map) {
+		return sqlSession.selectList("orderSQL.getMyOrderInfo", map);
+	}
+
+	@Override
+	public List<Map<String, String>> getMyOrderDetails(String ordernumber) {
+		return sqlSession.selectList("orderSQL.getMyOrderDetails", ordernumber);
+	}
 }

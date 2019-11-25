@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberSQL">
+	<insert id="writeMember" parameterType="member">
+		insert into member(name, id, pwd, email, tel, addr1, addr2, gender, birthday, point, isAgreedSMS, memLevel, logtime) 
+		values (#{name}, #{id}, #{pwd}, #{email}, #{tel}, #{addr1}, #{addr2}, #{gender}, 
+								#{birthday}, #{point}, #{isAgreedSMS}, #{memLevel}, sysdate)
+	</insert>
+
+	<select id="getUserBy" parameterType="java.util.Map" resultType="member">
+		select * from member where ${key} = #{value}
+	</select>
+	
+	<!-- 출석체크 -->
+	<select id="isAttExist" parameterType="String" resultType="String">
+		select attDate from member where id=#{id}
+	</select>	
+	
+	<update id="insertAttendance" parameterType="String">
+		update member set attDate=sysdate,point=point+100 where id=#{id}
+	</update>
+	
+	<update id="updateAttendance" parameterType="String">
+		update member set attDate=concat(attDate, ','||sysdate),point=point+100 where id=#{id}
+	</update>
+	
+	<select id="getAttDates" parameterType="String" resultType="String">
+		select attDate from member where id=#{id}
+	</select>
+	
+	<!-- 아이디/비밀번호 찾기 -->
+	<select id="findUserBy" parameterType="java.util.Map" resultType="String"> 
+		select id from member where 
+		<foreach collection="key" index="i" separator="and">
+			${key[i]} = '${value[i]}'
+		</foreach>
+	</select>
+	
+	<update id="updateInfo" parameterType="java.util.Map">
+		update member set pwd = #{pwd} where id = #{id}
+	</update>
+	
+	<!-- 개인정보 수정 -->
+	<update id="modifyMember" parameterType="member">
+		update member set name = #{name}, tel = #{tel}, email = #{email}, gender = #{gender}, birthday = #{birthday}
+		<if test="pwd != null">, pwd = #{pwd}</if>
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteMember">
+		delete from member where id = #{id}
+	</delete>
+	
+	<!-- [관리자]회원 / 판매자 ================================================================================================================ -->
+	<insert id="writeSupplier" parameterType="supplier">
+		insert into supplier values (#{supplierCode}, #{id}, #{category}, #{tel}, #{addr1}, #{addr2}, #{description}, #{status}, sysdate)
+	</insert>
+	
+	<select id="getSupplierBy" parameterType="java.util.Map" resultType="supplier">
+		select * from supplier where ${key} = #{value}
+	</select>
+	
+	<select id="getListBysearchOption" parameterType="java.util.Map" resultType="java.util.Map">
+		
+		select * from ${table} where ${searchOption} 
+		<if test="from != null">
+		between to_date(#{from}, 'YYMMDDHH') and to_date(#{to}, 'YYMMDDHH') + 0.99999 
+		</if>
+		<if test="searchValue != null">
+		like '%'||#{searchValue}||'%'
+		</if>
+		order by ${orderbyValue} 
+		<if test="orderbyValue == 'id'">
+		 asc </if>
+		<if test="orderbyValue != 'id'">
+		desc </if>
+	</select>
+	
+	<select id="getListBySMS" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from ${table} where ${orderbyValue} = 1
+	</select>
+	
+	<select id="getList" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from ${table} order by ${orderbyValue}
+		<if test="orderbyValue == 'id'">
+		 asc </if>
+		
+		<if test="orderbyValue != 'id'">
+		desc </if>
+	</select>
+	
+	<select id="getProductList" parameterType="java.util.Map" resultType="product">
+		select productcode, mainsubject, trunc(sum(star)/count(*)) as star from product
+		left join supplier using(supplierCode)
+		group by(supplierCode, productcode, mainsubject)
+		having supplierCode= #{value}
+	</select>
+	
+	<update id="updateByAdmin" parameterType="java.util.Map">
+		update ${table} set ${updateKey}
+		<if test="updateKey == 'point'">
+		= point + ${updateValue}
+		</if>
+		<if test="updateKey == 'status'">
+		= ${updateValue} 
+		</if>
+		where ${key} in (${value})
+	</update>
+	
+	<update id="updateProductStatus" parameterType="java.util.Map">
+		update product set productStatus = ${updateValue} where ${key} in (${value})
+	</update>
+	
+</mapper>

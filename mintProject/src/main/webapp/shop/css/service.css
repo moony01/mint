@@ -555,6 +555,7 @@
   color: #666;
 }
 .review-item__delivery-day {
+  width : 120px;
   font-size: 13px;
   color: #666;
   display: flex;

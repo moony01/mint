@@ -12,5 +12,9 @@ public interface OrderService {
 	public void updateCartCount(Map<String, Object> map);
 
 	public Map<String, Object> getProductCartData(Map<String, Object> map);
+
+	public List<Map<String, String>> getMyOrderInfo(Map<String, String> map);
+
+	public List<Map<String, String>> getMyOrderDetails(String ordernumber);
 	
 }

@@ -107,15 +107,4 @@ public class MemberDAOMybatis implements MemberDAO {
 		sqlSession.update("memberSQL.updateProductStatus", map);
 	}
 
-	@Override
-	public List<Map<String, String>> getMyOrderInfo(Map<String, String> map) {
-		return sqlSession.selectList("memberSQL.getMyOrderInfo",map);
-	}
-
-	@Override
-	public List<Map<String, String>> getMyOrderDetails(String orderNumber) {
-		return sqlSession.selectList("memberSQL.getMyOrderDetails", orderNumber);
-	}
-
-
 }

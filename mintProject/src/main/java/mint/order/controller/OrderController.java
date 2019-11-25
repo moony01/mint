@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import mint.member.bean.MemberDTO;
 import mint.order.service.OrderService;
@@ -71,6 +72,48 @@ public class OrderController {
 		
 		model.addAttribute("imp_uid", imp_uid);
 		System.out.println("model : " +model);
+	}
+	
+	// 마이페이지 - 주문내역 페이지
+	@RequestMapping(value="/shop/mypage/myOrderList", method = RequestMethod.GET)
+	public ModelAndView myOrderList() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("display", "/shop/mypage/myOrderList.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
+	}
+	
+	// 마이페이지 - 주문내역
+	@RequestMapping(value="/shop/mypage/getOrderInfo", method = RequestMethod.POST)
+	public ModelAndView getOrderInfo(@RequestParam String dateOption, HttpSession session, Map<String, String> map, ModelAndView mav) {
+		if(dateOption.contains("-")) {
+			dateOption = dateOption.replace("/", "");
+			map.put("from", dateOption.substring(0,6));
+			map.put("to", dateOption.substring(9));
+		}
+		map.put("id", (String) session.getAttribute("memId"));
+		List<Map<String, String>> list = orderService.getMyOrderInfo(map);
+		mav.addObject("list",list);
+		mav.setViewName("jsonView");
+		return mav;
+		
+	}
+	
+	@RequestMapping(value="/shop/mypage/myOrderDetails", method = RequestMethod.GET)
+	public ModelAndView getMyOrderDetails(@RequestParam String ordernumber, HttpSession session, Map<String, String> map) {
+		ModelAndView mav = new ModelAndView();
+		List<Map<String, String>> list = orderService.getMyOrderDetails(ordernumber);
+		System.out.println("session id : "+(String) session.getAttribute("memId"));
+		System.out.println(list.get(0).get("ID"));
+		if(!((String) session.getAttribute("memId")).equals(list.get(0).get("ID"))) {
+			String result = "주문자 아이디와 현재 로그인중인 아이디가 일치하지 않습니다.";
+			mav.addObject("result", result);
+		} else {
+			mav.addObject("list",list);
+		}
+		mav.addObject("display","/shop/mypage/myOrderDetails.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
 	}
 	
 }

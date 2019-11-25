@@ -39,13 +39,18 @@ function printOrderInfo(result){
 		
 		let orderInfo = `<tr class="qna-tb__view">
 							<td>${status}</td>
-							<td>${ORDERNUMBER}</td>
+							<td style="cursor:pointer;" onclick="javascript:getOrderDetails($(this).text())">${ORDERNUMBER}</td>
 							<td>${LOGTIME}</td>
+							
 						</tr>`;
 		
 		$frag.append($(orderInfo));
 	}
 	$('.orderInfo-tb').append($frag);
+}
+
+function getOrderDetails(orderNumber){
+	location.href="/mintProject/shop/mypage/myOrderDetails?ordernumber="+orderNumber;
 }
 
 /*$(document).ready(function(){

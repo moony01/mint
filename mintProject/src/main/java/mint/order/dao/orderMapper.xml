@@ -19,4 +19,20 @@
 		join cart using(productCode)
 		join member using(id) where id=#{id} and productCode=#{productCode}
 	</select>
+	
+	<!-- [회원] 주문내역 ================================================================================================================ -->
+	<select id="getMyOrderInfo" parameterType="String" resultType="java.util.Map">
+		select orderNumber, to_char(logtime,'yyyy-MM-dd') as logtime, status from orderInfo 
+		where id = #{id}
+		<if test="from != null">
+		and logtime between to_date(#{from}, 'YYMMDDHH') and to_date(#{to}, 'YYMMDDHH') + 0.99999 
+		</if>
+	</select>
+	<select id="getMyOrderDetails" parameterType="String" resultType="java.util.Map">
+		select id, productCode, mainSubject, thumbnail, qty, qty*price as orgprice, qty*price*discountRate/100 as dcprice ,qty*(price-price*discountRate/100) as price 
+		from   orderDetails 
+		join   product using (productCode)
+        join   orderInfo using (orderNumber)
+        where  orderNumber = ${ordernumber}
+	</select>
 </mapper>

@@ -35,8 +35,4 @@ public interface MemberService {
 
 	public void updateProductStatus(Map<String, Object> map);
 
-	public List<Map<String, String>> getMyOrderInfo(Map<String, String> map);
-
-	public List<Map<String, String>> getMyOrderDetails(String orderNumber);
-
 }

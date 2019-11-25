@@ -279,46 +279,5 @@ public class MemberController {
 		return result;
 	}
 	
-	// 마이페이지 - 주문내역 페이지
-	@RequestMapping(value="/shop/mypage/myOrderList", method = RequestMethod.GET)
-	public ModelAndView myOrderList() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("display", "/shop/mypage/myOrderList.jsp");
-		mav.setViewName("/shop/main/index");
-		return mav;
-	}
-	
-	// 마이페이지 - 주문내역
-	@RequestMapping(value="/shop/mypage/getOrderInfo", method = RequestMethod.POST)
-	public ModelAndView getOrderInfo(@RequestParam String dateOption, HttpSession session, Map<String, String> map, ModelAndView mav) {
-		System.out.println(dateOption);
-		if(dateOption.contains("-")) {
-			dateOption = dateOption.replace("/", "");
-			map.put("from", dateOption.substring(0,6));
-			map.put("to", dateOption.substring(9));
-		}
-		map.put("id", (String) session.getAttribute("memId"));
-		List<Map<String, String>> list = memberService.getMyOrderInfo(map);
-		mav.addObject("list",list);
-		mav.setViewName("jsonView");
-		return mav;
-		
-//		map.put("id", (String) session.getAttribute("memId"));
-//		String id = (String) session.getAttribute("memId");
-//		List<Map<String, String>> list = memberService.getMyOrderInfo(id);
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("list",list);
-//		mav.setViewName("jsonView");
-//		return mav;
-	}
-	
-//	@RequestMapping(value="/shop/mypage/getOrderDetails", method = RequestMethod.POST)
-//	public ModelAndView getOrderDetails(@RequestParam String orderNumber) {
-//		List<Map<String, String>> list = memberService.getMyOrderDetails(orderNumber);
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("list",list);
-//		mav.setViewName("jsonView");
-//		return mav;
-//	}
 
 }

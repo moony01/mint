@@ -1,13 +1,9 @@
 package mint.event.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,15 +24,14 @@ import mint.product.bean.ProductDTO;
  *	EventController
  * 	이벤트 컨트롤러
  * 
- * @version 1.6
+ * @version 1.7
  * @author LimChangHyun 
  *
  *	구현된 기능 : 이벤트 등록, 페이징 처리, 리스트 처리, 이벤트 삭제
- *			     이벤트 상품 리스트, 이벤트 검색
- *	불완전 기능 : 이벤트 수정, 이벤트 연동, 일일특가
+ *			     이벤트 상품 리스트, 이벤트 수정, 이벤트 검색
+ *	불완전 기능 : 이벤트 연동, 일일특가
  *	앞으로 구현되어야 하는 것 : 상품 검색(상품관리쪽과 겹침), 상품 추가, 상품 삭제
  *	이슈    1. 기간설정 없는 상시이벤트를 수정하려는 경우 startDate endDate 입력 input이 disabled 되지 않음
- *		 2. 이벤트 적용 상품이 두개 이상일 때 이벤트 수정 기능 작동 안함
  *
  */
 
@@ -198,17 +193,32 @@ public class EventController {
 		return mav;
 	}
 	
-	/* 이벤트 실행 (product discountRate update) */
+	/* 이벤트 실행 (product table discountRate update) */
 	@RequestMapping(value="/admin/service/eventProductUpdate", method=RequestMethod.POST)
 	@ResponseBody
-	public void eventProductUpdate(@RequestParam String[] productCode,
-								   @RequestParam int[] discountRate) {
-		eventProductDTO.setProductCode(productCode);
-		eventProductDTO.setDiscountRate(discountRate);
+	public void eventProductUpdate(@RequestParam String productCode,
+								   @RequestParam String discountRate) {
+		// split으로 배열화
+		String[] productCodeArray = productCode.split(",");
+		String[] discountRateArray = discountRate.split(",");
 		
-		// product관련 수정(productCode, discountRate)
-		List<EventProductDTO> list = new ArrayList<EventProductDTO>();
-		list.add(eventProductDTO);
-		eventService.eventProductUpdate(list);	
+		// Service단까지 들고갈 list 생성
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		try {
+			// 상품 개수만큼 Map생성 후 productCode, discountRate집어넣고
+			for(int i=0; i<productCodeArray.length; i++) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("productCode", productCodeArray[i]);
+				map.put("discountRate", Integer.parseInt(discountRateArray[i]));
+				// 최종적으로 list에 넣기
+				list.add(i, map);
+				eventService.eventProductUpdate(list);
+			}
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			list.clear();
+		}
 	}
 }

@@ -181,6 +181,24 @@ $('#eventWriteBtn').click(function(){
 	} else ajax(type);
 });
 
+/* 임시 */
+$('#eventProductUpdateBtn').click(function(){
+	dataManufacturing();
+	
+	$.ajax({
+		type:'post',
+		url:'/mintProject/admin/service/eventProductUpdate/',
+		data:$('#eventWriteForm').serialize(),
+		dataType:'json',
+		success: function(result){
+			
+		},
+		error: function(error){
+			console.error(error);
+		}
+	});
+});
+
 /* 직렬화 이전 데이터 가공 */
 // cart.jsp의 javascript 로직을 가져옴
 function dataManufacturing(){

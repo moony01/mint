@@ -27,6 +27,6 @@ public interface EventService {
 
 	public List<ProductDTO> getProductList(Map<String, Object> map);
 
-	public void eventProductUpdate(List<EventProductDTO> list);
+	public void eventProductUpdate(List<Map<String, Object>> list);
 
 }

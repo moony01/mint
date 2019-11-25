@@ -12,7 +12,7 @@ addrBtn.addEventListener("click", function(){
                 var addr = ''; // 주소 변수
                 var extraAddr = '';
                  //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                 if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
                     addr = data.roadAddress;
                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
                     addr = data.jibunAddress;
@@ -50,9 +50,6 @@ addrBtn.addEventListener("click", function(){
         }).open();
     });
 })
-
-
-
 
 $(document).ready(function(){
 	var cnt = $(".price").length;
@@ -95,39 +92,77 @@ $(document).ready(function(){
 	$('#tel1').val(tel1);
 	$('#tel2').val(tel2);
 	$('#tel3').val(tel3);
+	
+	let productCode = new Array(cnt);
+	let qty = new Array(cnt);
 
+	for(i=0; i<cnt; i++) {
+		productCode[i] = $('.productCode').eq(i).text();
+		qty[i] = $('.ctCount span').eq(i).text();
+	}
+
+	console.log(productCode);
+	console.log(qty);
+	
 	//결제하기 클릭 결제하기
 	document.getElementById('btnPayment').onclick = function(){
+		//form생성
+		let form = document.createElement("form");
+		form.setAttribute("id", "orderPostDataForm");
+		form.setAttribute("charset", "UTF-8");
+		
+		//input생성 = productCode
+		let prcoInput = document.createElement("input");
+		prcoInput.type = "hidden";
+		prcoInput.name = "productCode";
+		prcoInput.value = productCode;
+		form.appendChild(prcoInput);
+		
+		//input생성 = qty
+		let qtyInput = document.createElement("input");
+		qtyInput.type = "hidden";
+		qtyInput.name = "qty";
+		qtyInput.value = qty;
+		form.appendChild(qtyInput);
+		
 		var IMP = window.IMP; // 생략가능
-		   IMP.init('imp22922268'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-		   IMP.request_pay({
+		IMP.init('imp22922268'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		//console.log(productCode);
+		IMP.request_pay({
 			pg: 'html5_inicis', // version 1.1.0부터 지원.  
 			pay_method: 'card',
-			merchant_uid: 'merchant_' + new Date().getTime(),
+			merchant_uid : 'merchant_' + new Date().getTime(),
 			name: topProductName+"외"+otherCnt, //결제창에서 보여질 이름
 			//amount: lastPrice, //가격
 			amount: 100, //가격
 			buyer_email: email,
 			buyer_name: name,
 			buyer_tel:  tel,
-			buyer_addr: addr1+", "+addr2,
-			buyer_postcode: '123-456',
+			buyer_addr: addr1,
+			buyer_postcode: addr2,
 			m_redirect_url: '/mintProject/shop/goods/redirect' // 나중에 수정
-		   }, function (rsp) {
+		}, function (rsp) {
 		    if (rsp.success) {
+		    	console.log(rsp);
 			    var msg = '결제가 완료되었습니다.';
-			    msg += '고유ID : ' + rsp.imp_uid;
-			    //msg += '상점 거래ID : ' + rsp.merchant_uid;
-			    //msg += '결제 금액 : ' + rsp.paid_amount;
-			    //msg += '카드 승인번호 : ' + rsp.apply_num;
+			    /*msg += '고유ID : ' + rsp.imp_uid;
+			    msg += '상점 거래ID : ' + rsp.merchant_uid;
+			    msg += '결제 금액 : ' + rsp.paid_amount;
+			    msg += '카드 승인번호 : ' + rsp.apply_num;*/
 		    	
 		    	$.ajax({
-		    		method: 'GET',
+		    		type: 'POST',
 		    		url: "/mintProject/shop/goods/redirectServer",
-		    		headers: { "Content-Type": "application/json" },
-		    		data: {
-						imp_uid: rsp.imp_uid
-		    		}
+		    		contentType: 'application/json; charset=utf-8',
+		    		data: JSON.stringify({
+		    			buyer_email: rsp.buyer_email,
+		    			buyer_name: rsp.buyer_name,
+		    			buyer_tel: rsp.buyer_tel,
+		    			buyer_addr: rsp.buyer_addr,
+		    			buyer_postcode: rsp.buyer_postcode,
+		                productCode: productCode,
+		                qty: qty 
+		    		})
 		    	}).then((data) => {
 		    		location.href='/mintProject/shop/main/index';
 		    	})

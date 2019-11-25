@@ -59,4 +59,15 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderInfoDTO> getOrderListByDate(Map<String, Object> map) {
 		return orderDAO.getOrderListByDate(map);
 	}
+	
+	@Override
+	public void insertOrderInfo(Map<String, Object> order) {
+		orderDAO.insertOrderInfo(order);
+	}
+	
+	@Override
+	public void insertOrderDetail(Map<String, Object> map) {
+		orderDAO.insertOrderDetail(map);
+	}
+
 }

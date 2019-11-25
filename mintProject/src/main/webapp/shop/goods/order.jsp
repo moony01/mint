@@ -29,11 +29,12 @@
 	<c:if test="${list != null }">
 		<c:forEach var="product" items="${list }">
 			<div>상품이름 : <span class="mainSubject">${product.MAINSUBJECT }</span></div>
-			<div>상품코드 : ${product.PRODUCTCODE }</div>
+			<div>상품코드 : <span class="productCode">${product.PRODUCTCODE }</span></div>
 			<div>상품썸네일 :  ${product.THUMBNAIL }</div>
 			<div class="price">상품정가 : <span>${product.PRICE }</span></div>
 			<div class="discountRate">상품할인율 : <span>${product.DISCOUNTRATE }</span></div>
 			<div class="discountPrice">상품할인적용가 :  <span class="dp"></span></div>
+			<div class="ctCount">수량 : <span>${product.CTCOUNT }</span></div>
 			<br />
 		</c:forEach>
 	</c:if>
@@ -53,7 +54,6 @@
 
 <div id="postDataBox" style="background: #eaeaea; display: none;">
 	<div>보낼 데이터</div>
-	
 </div>
 
 <section class="cart">

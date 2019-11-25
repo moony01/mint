@@ -111,7 +111,8 @@
 				<th class="col-md-1">재고</th>
 				<th class="col-md-1">평점</th>
 				<th class="col-md-1">정상가</th>
-				<th class="col-md-1">할인률</th>
+				<th class="col-md-1">기존할인율</th>
+				<th class="col-md-1">할인율</th>
 				<th class="col-md-1">할인가</th>
 	        </tr>
 	    </table>

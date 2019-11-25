@@ -143,6 +143,7 @@ function eventListTemp(result){
 							<th class="col-md-1">재고</th>
 							<th class="col-md-1">평점</th>
 							<th class="col-md-1">정상가</th>
+							<th class="col-md-1">기존할인률</th>
 							<th class="col-md-1">할인률</th>
 							<th class="col-md-1">할인가</th>
 						</tr>
@@ -171,6 +172,7 @@ function productListTemp(result){
 			productCode,
 			stock,
 			discountRate,
+			prevdiscountrate,
 			price,
 			star
 		} = products[i];
@@ -191,6 +193,7 @@ function productListTemp(result){
 				<td>${stock}</td>
 				<td>${star}</td>
 				<td>${price}</td>
+				<td>${prevDiscountRate}%</td>
 				<td>${discountRate}%</td>
 				<td>${eventPrice}</td>
 			</tr>
@@ -299,24 +302,5 @@ function dailySpecialCntDown(countTo, id){
 	
 	clearTimeout(dailySpecialCntDown.interval);
 	dailySpecialCntDown.interval = setTimeout(function(){ dailySpecialCntDown(countTo, 'dscd'); },1000);
-}
-
-// 
-function eventExecute(){
-	// 이벤트 객체
-	const events = {};
-	// 이벤트 객체에 저장할 내용들
-	var seq = [];
-	var startDate = [];
-	var endDate = [];
-	var now = new Date();
-	
-	
-	
-	// 이벤트 로드하기
-	for(var i=0; i<events.length; i++){
-		
-	}
-	
 }
 

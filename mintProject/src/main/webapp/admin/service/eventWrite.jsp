@@ -127,8 +127,6 @@
 	    			일괄입력
 	    			</button>
 	            </td>
-	    		<th>일괄삭제</th>
-	    		<td></td>
 	            <th>일괄삭제</th>
 	            <td>
 	    			<button type="button" id="deleteEventProductBtn" class="btn btn-danger btn-sm">

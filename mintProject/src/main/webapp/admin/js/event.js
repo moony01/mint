@@ -312,4 +312,11 @@ function eventExecute(){
 	var now = new Date();
 	
 	
+	
+	// 이벤트 로드하기
+	for(var i=0; i<events.length; i++){
+		
+	}
+	
 }
+

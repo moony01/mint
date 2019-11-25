@@ -63,12 +63,9 @@
 		, logtime=sysdate, productCode=#{productCode}, eventStatus=#{eventStatus} where seq=#{seq}
 	</update>
 	
-	<!-- 이벤트 상품 수정 -->
-	<update id="eventProductUpdate" parameterType="java.util.List">
-		<foreach collection="list" item="eventProduct" index="i" separator=",">
-			update product set discountRate = #{eventProduct.discountRate} where productCode = #{eventProduct.productCode}
-		</foreach>
-		
+	<!-- 이벤트 상품 할인율 수정 -->
+	<update id="eventProductUpdate" parameterType="java.util.Map">
+		update product set discountRate = #{discountRate} where productCode = #{productCode}
 	</update>
 	
 	

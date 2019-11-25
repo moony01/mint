@@ -71,3 +71,8 @@
 	      	  <h2 class="main__title">매출 차트 </h2>   
 	      	</div>
 		  </div> 
+		  
+		  <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" onclick="location.href='/mintProject/admin/member/supplierList'">목록으로</button>
+	    </div>
+		  

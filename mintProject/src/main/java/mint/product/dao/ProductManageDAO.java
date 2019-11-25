@@ -3,7 +3,6 @@ package mint.product.dao;
 import java.util.List;
 import java.util.Map;
 
-import mint.orderAndSales.bean.OrderAndSalesDTO;
 import mint.product.bean.ProductDTO;
 
 public interface ProductManageDAO {

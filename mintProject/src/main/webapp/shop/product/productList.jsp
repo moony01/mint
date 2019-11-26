@@ -5,7 +5,7 @@
     
 <section class="wrap">
     <div class="product__menu">
-        <div class="product__title"><img src="" alt=""></div>
+        <div class="product__title"></div>
         <div class="just-flex">
             <ul class="product__list">
             </ul>
@@ -466,9 +466,10 @@ function paging(totalArticle, currentPage, addr){
 
         function renderTitle() {
             const title = document.querySelector('.product__title');
-            const titleImage = title.querySelector('img');
-
-            const text = document.createTextNode(curAllCategories.text);
+			const titleImage = document.createElement('img');
+			const text = document.createTextNode(curAllCategories.text);
+			
+			title.appendChild(titleImage);
             title.appendChild(text);
 
             titleImage.src = curAllCategories.src;
@@ -509,7 +510,31 @@ function paging(totalArticle, currentPage, addr){
             }
         }
         addCurrentProduct();
-    }
-    renderCategory();
+	}
+	
+	function renderCategoryNew(title){
+		const title = document.querySelector('.product__title');
+		const productList = document.querySelector('.product__list');
+
+		const li = document.createElement("li");
+		const a = document.createElement("a");
+
+		title.innerText(title);
+
+		a.innerText = '전체보기';
+
+		li.classList.add("cur-product");
+		li.appendChild(a);
+		productList.appendChild(li);
+
+	}
+
+    if(gubun===1||gubun===2){
+		renderCategory();
+	}else if(headGubun ===1){
+		renderCategoryNew('NEW');
+	}else if(headGubun ===2){
+		renderCategoryNew('베스트');
+	}
 
 </script>

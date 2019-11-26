@@ -513,13 +513,13 @@ function paging(totalArticle, currentPage, addr){
 	}
 	
 	function renderCategoryNew(title){
-		const title = document.querySelector('.product__title');
+		const tit = document.querySelector('.product__title');
 		const productList = document.querySelector('.product__list');
 
 		const li = document.createElement("li");
 		const a = document.createElement("a");
 
-		title.innerText(title);
+		tit.innerText = title;
 
 		a.innerText = '전체보기';
 
@@ -531,9 +531,9 @@ function paging(totalArticle, currentPage, addr){
 
     if(gubun===1||gubun===2){
 		renderCategory();
-	}else if(headGubun ===1){
+	}else if(headGubun ==='1'){
 		renderCategoryNew('NEW');
-	}else if(headGubun ===2){
+	}else if(headGubun ==='2'){
 		renderCategoryNew('베스트');
 	}
 

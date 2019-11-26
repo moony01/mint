@@ -15,7 +15,7 @@
                     <div class="review__write-btn" id="qna_write_btn">상품문의</div>
                 </div>
             </div>
-<input type="hidden" id="pg" value="${pg }">
+<input type="hidden" id="pg_qna" value="${pg }">
 <input type="hidden" id="totalArticle" value="${totalArticle }">
 <input type="hidden" id="addr" value="${addr }">
 <table class="qna-tb">

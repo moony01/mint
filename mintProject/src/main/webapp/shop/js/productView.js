@@ -73,23 +73,33 @@ let sort = "NEW";
 
 // 상품후기
 function drawReview(data){
-	console.log(data);
+	
+	let pg_review = data.pg;
+	let totalArticle_review = data.totalArticle;
+	let currentPage_review = pg_review;
+	
+	$('#review_pagination li').remove();
+	
 	var html = '<tr class="review-tb__head"><th class="size-1">번호</th><th class="size-2">별점</th><th class="size-6">제목</th><th class="size-1">작성자</th><th class="size-2">작성일</th></tr>';
-	data.forEach(function(item){
-	html+= '<tr class="review-tb__view moveReviewDetail" data = "' + item.seq + '" id="review_seq">';
-	html+= '<td>' + item.seq + '</td>';
+	$.each(data.list, function(index, item){
+	console.log(item);
+	html+= '<tr class="review-tb__view moveReviewDetail" data = "' + item.SEQ + '" id="review_seq">';
+	html+= '<td>' + item.RN + '</td>';
 	html+= '<td>';
-	html+= '<div class="star-sm-' + item.star + '"></div>';
+	html+= '<div class="star-sm-' + item.STAR + '"></div>';
 	html+= '</td>';
-	html+= '<td>' + item.subject + '</td>';
-	html+= '<td>' + item.id + '</td>';
-	html+= '<td>' + item.logtime + '</td>';
+	html+= '<td>' + item.SUBJECT + '</td>';
+	html+= '<td>' + item.ID + '</td>';
+	html+= '<td>' + item.LOGTIME + '</td>';
 	html+= '</tr>';
 	})
 	$("#reviewArea").empty().append(html);
+	
 	$(".moveReviewDetail").click(function(){
-		location.href = "/mintProject/shop/mypage/review/detail?seq=" + $('#review_seq').attr("data");
+		location.href = "/mintProject/shop/mypage/review/detail?seq=" + $(this).attr("data");
 	})
+	
+	reviewPaging(totalArticle_review,currentPage_review);
 }
 
 $("#writeReview").click(function(){
@@ -98,18 +108,25 @@ $("#writeReview").click(function(){
 
 
 
-function getReview(sort) {
+function getReview(sort,pg_review) {
 	return $.ajax({
-				method: "GET",
-				type: 'json',
-				dataType: "json",
-				url: "/mintProject/api/review/product?sort=" + sort + "&productCode=" + $('#productCode').val(),
-			});
+		method: "POST",
+		type: 'json',
+		dataType: "json",
+		url: "/mintProject/api/review/product",
+		data : {'sort' : sort, 'productCode' : $('#productCode').val(), 'pg' : pg_review }
+	});
+}
+
+function getReviewByPage(pg_review){
+	sort = $('#sort').val();
+	getReview(sort,pg_review)
+	.then(drawReview)
+	.catch();
 }
 
 $("#sort").change(function(){
 	sort = $(this).val();
-	alert(sort);
 	getReview(sort)
 	.then(drawReview)
 	.catch();
@@ -137,14 +154,13 @@ function getReviewStarAvg() {
 				dataType: "json",
 				url: "/mintProject/api/review/star/avg",
 				success:function(data) {
-					console.log(data);
 					$('.review_cnt').text('고객후기('+data.map.COUNT+')');
 					$('.reivew__users-count').text(data.map.COUNT);
 					if(data.map.COUNT == '0'){
 						$("#starAvg").text('0');
 						$("#starImgArea").addClass("star-lg-"+convertStar(0));
 					} else {
-						$("#starAvg").text(Number(data.map.STAR)/10);
+						$("#starAvg").text((Number(data.map.STAR)/10).toFixed(2));
 						$("#starImgArea").addClass("star-lg-"+convertStar(data.map.STAR));
 					}
 				}
@@ -152,18 +168,18 @@ function getReviewStarAvg() {
 }
 
 // 상품문의 - 페이지 이동
-function getProductQnaListByPage(pg){
-	getProductQnaList(pg)
+function getProductQnaListByPage(pg_qna){
+	getProductQnaList(pg_qna)
 	.then(printProductQnaList)
 	.catch();
 }
 
 // 상품문의 - 데이터 불러오기
-function getProductQnaList(pg){
+function getProductQnaList(pg_qna){
 	return $.ajax({
 		type : 'post',
     	url : '/mintProject/shop/product/productQnaBoardList',
-    	data : {'productCode' : $('#productCode').val(), 'pg' : pg},
+    	data : {'productCode' : $('#productCode').val(), 'pg' : pg_qna},
     	dataType : 'text',
 	});
 }
@@ -178,9 +194,9 @@ function printProductQnaList(result){
 	
 	$('.qna_cnt').text('상품문의('+$('#totalArticle').val()+')');
 	
-	let pg = $('#pg').val();
+	let pg_qna = $('#pg_qna').val();
 	let totalArticle = parseInt($('#totalArticle').val());
-	let currentPage = pg;
+	let currentPage = pg_qna;
 	let addr = $('#addr').val(); 
 	
 	$('#qna_write_btn').on('click', function(){
@@ -358,6 +374,8 @@ function qnaPaging(totalArticle, currentPage, addr){
 	let startPage = Math.ceil((temp-1)/pageBlock) * pageBlock +1; 
 	let endPage = startPage + pageBlock -1;
 	
+	
+	
 	if(endPage > totalPage){
 		endPage = totalPage;
 	}
@@ -393,6 +411,55 @@ function qnaPaging(totalArticle, currentPage, addr){
 			onclick: 'getProductQnaListByPage('+(endPage+1)+')',
 			text: '>'
 		})).appendTo('#qna_pagination');
+	}
+
+}
+
+
+//상품후기 - 페이징
+function reviewPaging(totalArticle, currentPage){
+	let pageBlock = 5;
+	let pageSize = 5;
+	let temp = Math.ceil(currentPage / pageBlock);
+	let totalPage = Math.floor((totalArticle+pageSize-1) / pageSize);
+	let startPage = Math.ceil((temp-1)/pageBlock) * pageBlock +1; 
+	let endPage = startPage + pageBlock -1;
+	
+	if(endPage > totalPage){
+		endPage = totalPage;
+	}
+
+	if(startPage > pageBlock){
+		$('.prev').append($('<a/>', {
+			class: 'page-link', 
+			href: 'javascript:void(0)',
+			onclick: 'getReviewByPage(' +(startPage-1)+ ')',
+			text: '<'
+		})).appendTo('#review_pagination');
+	}
+
+	for(i = startPage; i <= endPage ; i++) {
+		$('<li/>').attr('class', 'page-item pg').append($('<a/>', {
+			class: 'page-link', 
+			href: 'javascript:void(0)',
+			onclick: 'getReviewByPage('+i+')',
+			text: i
+		})).appendTo('#review_pagination');
+		
+ 		if(i == currentPage) {
+ 			$('.pg').attr('class', 'page-item active');
+		} else {
+			$('.pg').removeAttr('class', 'active');
+		}	
+	}
+	
+	if(endPage < totalPage) {
+		$('.next').append($('<a/>', {
+			class: 'page-link', 
+			href: 'javascript:void(0)',
+			onclick: 'getReviewByPage('+(endPage+1)+')',
+			text: '>'
+		})).appendTo('#review_pagination');
 	}
 
 }

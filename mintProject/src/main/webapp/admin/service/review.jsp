@@ -18,7 +18,7 @@ function drawReview(data) {
 		html+= '<td>' + item.seq + '</td>';
 		html+= '<td>' + item.subject + '</td>';
 		html+= '<td>' + item.content + '</td>';
-		html+= '<td>' + item.date + '</td>';
+		html+= '<td>' + item.logtime + '</td>';
 		html+= '<td>' + item.id + '</td>';
 		html+= '<td><button type="button" class="btn btn-primary delBtn" data = "' + item.seq + '">선택 삭제</button></td>';
 		html+= '</tr>';
@@ -45,7 +45,7 @@ function getReview () {
 		dataType: "json",
 		url: "/mintProject/api/review",
 		success:function(data) {
-			drawReview(data);
+			drawReview(data);  
 		}
 	});
 }

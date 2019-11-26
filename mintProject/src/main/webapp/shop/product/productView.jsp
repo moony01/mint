@@ -238,6 +238,12 @@
                 <table class="review-tb" id = "reviewArea">
                     
                 </table>
+                <div class="paging-wrap">
+				    <ul class="pagination review" id="review_pagination">
+				        <li class="page-item prev"></li>
+				        <li class="page-item next"></li>
+				    </ul>
+				</div>
             </div>
 
         </div>

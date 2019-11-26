@@ -94,3 +94,7 @@ body{
 	position: absolute;
 	top: -9999px;
 }
+
+tr,td,th{
+	vertical-align:middle;
+}

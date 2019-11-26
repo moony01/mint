@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import mint.review.bean.Order;
 import mint.review.bean.Review;
 import mint.review.service.ReviewService;
 

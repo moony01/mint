@@ -51,6 +51,14 @@ public class ReviewSql implements ReviewDao {
 		// TODO Auto-generated method stub
 		return sqlsession.selectOne("mint.review.dao.ReviewSql.getReviewStar", productCode);
 	}
+	@Override
+	public int getReviewTotalArticle(Map<String, Object> map) {
+		return sqlsession.selectOne("mint.review.dao.ReviewSql.getReviewTotalArticle",map);
+	}
+	@Override
+	public List<Map<String, Object>> getReviewByOption(Map<String, Object> map) {
+		return sqlsession.selectList("mint.review.dao.ReviewSql.getReviewByOption", map);
+	}
 	
 	
 	

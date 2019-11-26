@@ -33,9 +33,10 @@ function printOrderInfo(result){
 		const {ORDERNUMBER,LOGTIME,STATUS} = list[i];
 		
 		let status;
-		if(STATUS == '0') status = '배송시작전';
-		else if(STATUS == '1') status = '배송중';
-		else if(STATUS == '2') status = '배송완료';
+		if(STATUS == '0') status = '입금 전';
+		else if(STATUS == '1') status = '입금 완료';
+		else if(STATUS == '2') status = '배송 중';
+		else if(STATUS == '3') status = '배송 완료';
 		
 		let orderInfo = `<tr class="qna-tb__view">
 							<td>${status}</td>

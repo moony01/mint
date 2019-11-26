@@ -40,4 +40,10 @@ public class ReviewService {
 	public Map<String, String> getReviewStar(String productCode) {
 		return rd.getReviewStar(productCode);
 	}
+	public int getReviewTotalArticle(Map<String, Object> map) {
+		return rd.getReviewTotalArticle(map);
+	}
+	public List<Map<String, Object>> getReviewByOption(Map<String, Object> map) {
+		return rd.getReviewByOption(map);
+	}
 }

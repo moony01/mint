@@ -30,14 +30,14 @@
 		from reviewboard
 		where seq = #{seq}
 	</select>
-	<!-- 마이페이지 상품후기 작성 가능한 주문 리스트 -->
+	<!-- 마이페이지 상품후기 작성 가능한 주문 리스트 / 작성한 주문 리스트 -->
 	<select id="getOrder" resultType="java.util.Map" parameterType="String">
-		select orderNumber, productCode, mainSubject as title, status, qty, to_char(logtime,'yy-MM-dd') as logtime, thumbnail as img, reviewStatus
+		select orderNumber, productCode, subCategory, mainSubject as title, status, qty, to_char(logtime,'yy-MM-dd') as logtime, thumbnail as img, reviewStatus
 		from   orderDetails
 		join   product using (productCode)
 		join   orderInfo using (orderNumber)
 		where  id = #{id} and status = 3
-		order by orderNumber asc, productCode asc
+		order by orderNumber desc, productCode asc
 	</select>
 	<!-- 상품 상세 페이지 (최신순) -->
 	<select id = "getReviewByProduct" resultType = "mint.review.bean.Review">
@@ -60,8 +60,11 @@
 		insert into reviewboard(seq, id, subject, content, imgName, productCode, star, logtime, orderNumber) 
 		values (seq_reviewboard.nextval, #{id}, #{subject}, #{content}, #{imgName}, #{productCode}, #{star}, sysdate, #{orderNumber})
 	</insert>
-	<update id="updateOrderReview" parameterType="mint.review.bean.Review">
+	<update id="updateOrderReviewStatus" parameterType="mint.review.bean.Review">
 		update orderDetails set reviewStatus = 1 where orderNumber = #{orderNumber} and productCode = #{productCode}
+	</update>
+	<update id="updateOrderReviewPoint" parameterType="mint.review.bean.Review">
+		update member set point = point + 50 where id = #{id}
 	</update>
 </mapper>
 

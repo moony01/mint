@@ -22,7 +22,7 @@
                 <table class="review-write">
                     <tr class="review-write__thumb">
                         <th id = "imgArea"></th>
-                        <td id = "titleArea"></td>
+                        <td id = "titleArea"></td> 
                     </tr>
                     <tr class="review-write__col">
                         <th>제목</th>

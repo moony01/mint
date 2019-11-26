@@ -28,4 +28,8 @@ public interface OrderService {
 
 	public void insertOrderDetail(Map<String, Object> map);
 
+	public void updateProductStock(Map<String, Object> map);
+
+	public int deleteCartList(Map<String, Object> map);
+
 }

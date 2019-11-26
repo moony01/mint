@@ -84,7 +84,7 @@ public class OrderController {
 		return mav;
 		
 	}
-	
+	// 마이페이지 - 주문내역 페이싯 - 주문내역 상세보기
 	@RequestMapping(value="/shop/mypage/myOrderDetails", method = RequestMethod.GET)
 	public ModelAndView getMyOrderDetails(@RequestParam String ordernumber, HttpSession session, Map<String, String> map) {
 		ModelAndView mav = new ModelAndView();

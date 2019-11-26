@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mint.member.bean.MemberDTO;
+import mint.order.bean.OrderInfoDTO;
 import mint.order.dao.OrderDAO;
 
 @Service
@@ -38,4 +39,35 @@ public class OrderServiceImpl implements OrderService {
 	public List<Map<String, String>> getMyOrderDetails(String ordernumber) {
 		return orderDAO.getMyOrderDetails(ordernumber);
 	}
+	
+	@Override
+	public List<OrderInfoDTO> getOrderList(Map<String, Object> map) {
+		return orderDAO.getOrderList(map);
+	}
+
+	@Override
+	public List<Map<String, String>> getOrderView(Map<String, String> map) {
+		return orderDAO.getOrderView(map);
+	}
+
+	@Override
+	public void updateOrderStatus(Map<String, Object> map) {
+		orderDAO.updateOrderStatus(map);
+	}
+
+	@Override
+	public List<OrderInfoDTO> getOrderListByDate(Map<String, Object> map) {
+		return orderDAO.getOrderListByDate(map);
+	}
+	
+	@Override
+	public void insertOrderInfo(Map<String, Object> order) {
+		orderDAO.insertOrderInfo(order);
+	}
+	
+	@Override
+	public void insertOrderDetail(Map<String, Object> map) {
+		orderDAO.insertOrderDetail(map);
+	}
+
 }

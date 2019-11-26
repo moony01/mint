@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mint.orderAndSales.bean.OrderAndSalesDTO;
+import mint.order.bean.OrderAndSalesDTO;
 import mint.qnaBoard.bean.QnaBoardDTO;
 import mint.qnaBoard.dao.QnaBoardDAO;
 

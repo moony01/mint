@@ -6,7 +6,7 @@
                 <li><a href="#description">상품설명</a></li>
                 <li><a href="#image">상품이미지</a></li>
                 <li><a href="#info">상세정보</a></li>
-                <li><a href="#review">고객후기(?)</a></li>
+                <li><a href="#review" class="review_cnt"></a></li>
                 <li><a href="#qna" class="qna_cnt"></a></li>
             </ul>
             <div class="reivew__view-hedaer">

@@ -286,9 +286,12 @@
 
 #content {
   margin-top: 15px;
+  vertical-align : top;
+  border: 0px;
   margin-bottom: 15px;
   width: 680px;
-  height: 300px;
+  background-color: #fff;
+  overflow: visible;
 }
 
 /* 페이징 */
@@ -555,6 +558,7 @@
   color: #666;
 }
 .review-item__delivery-day {
+  width : 120px;
   font-size: 13px;
   color: #666;
   display: flex;
@@ -592,6 +596,7 @@
 .review-write__thumb th {
   height: 140px;
   text-align: center;
+  padding-top: 20px;
 }
 
 .review-write__thumb th img {

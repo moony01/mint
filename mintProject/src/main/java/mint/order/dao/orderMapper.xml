@@ -35,4 +35,50 @@
         join   orderInfo using (orderNumber)
         where  orderNumber = ${ordernumber}
 	</select>
+	
+	<!-- [관리자] 주문내역 보기 -->
+	<select id="getOrderList" parameterType="java.util.Map" resultType="orderInfo">
+		select orderNumber, id, to_char(logtime, 'YY/MM/DD') as logtime, status from orderInfo  
+		<if test="status != 5">
+			where status = #{status}
+		</if>
+		order by status asc, id asc
+	</select>
+	
+	<select id="getOrderListByDate" parameterType="java.util.Map" resultType="orderInfo">
+		select orderNumber, id, to_char(logtime, 'YY/MM/DD') as logtime, status from orderInfo  
+		where  logtime between to_date(#{from}, 'YYMMDD') and to_date(#{to}, 'YYMMDD') + 0.99999
+		<if test="status != 5">
+			and status = #{status}
+		</if>
+		order by status asc, id asc
+	</select>
+	
+	<select id="getOrderView" parameterType="java.util.Map" resultType="java.util.Map">
+		select id, tel, email, addr1, addr2, to_char(logtime, 'YY/MM/DD') as logtime, productcode, thumbnail, mainsubject, price, qty, discountRate from orderDetails
+		left join orderInfo using (ordernumber)
+		left join product using (productcode)
+		where id = #{id} and orderNumber = #{orderNumber}
+	</select>
+	
+	<update id="updateOrderStatus" parameterType="java.util.Map">
+		update orderInfo set status = status + 1 where orderNumber = #{orderNumber}
+	</update>
+	
+	<!-- <insert id="insertOrderDetail" parameterType="java.util.Map">
+		insert into orderdetails values (
+		    seq_order.nextval,
+		    #{name},
+		    #{qty}
+		)
+	</insert>
+	
+	<insert id="insertOrderDetail" parameterType="java.util.Map">
+		insert into orderdetails values (
+		    seq_order.nextval,
+		    #{productCode},
+		    #{qty}
+		)
+	</insert> -->
+	
 </mapper>

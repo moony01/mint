@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import mint.member.bean.MemberDTO;
+import mint.order.bean.OrderInfoDTO;
 
 
 @Repository
@@ -39,4 +40,35 @@ public class OrderDAOMybatis implements OrderDAO {
 	public List<Map<String, String>> getMyOrderDetails(String ordernumber) {
 		return sqlSession.selectList("orderSQL.getMyOrderDetails", ordernumber);
 	}
+	
+	@Override
+	public List<OrderInfoDTO> getOrderList(Map<String, Object> map) {
+		return sqlSession.selectList("orderSQL.getOrderList", map);
+	}
+
+	@Override
+	public List<Map<String, String>> getOrderView(Map<String, String> map) {
+		return sqlSession.selectList("orderSQL.getOrderView" , map);
+	}
+
+	@Override
+	public void updateOrderStatus(Map<String, Object> map) {
+		sqlSession.update("orderSQL.updateOrderStatus", map);
+	}
+
+	@Override
+	public List<OrderInfoDTO> getOrderListByDate(Map<String, Object> map) {
+		return sqlSession.selectList("orderSQL.getOrderListByDate", map);
+	}
+
+	@Override
+	public void insertOrderInfo(Map<String, Object> order) {
+		sqlSession.insert("orderSQL.insertOrderInfo", order);
+	}
+	
+	@Override
+	public void insertOrderDetail(Map<String, Object> map) {
+		sqlSession.insert("orderSQL.insertOrderDetail", map);
+	}
+
 }

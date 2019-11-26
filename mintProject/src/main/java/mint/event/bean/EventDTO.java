@@ -19,5 +19,7 @@ public class EventDTO {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date logtime;
 	private String productCode;
+	private String discountRate;
+	private String prevDiscountRate;
 	private int eventStatus;
 }

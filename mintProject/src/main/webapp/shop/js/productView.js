@@ -1,3 +1,6 @@
+let productCode = $('#productCode').val();
+let sort = "NEW";
+
 (function (){
 	
     const minusBtn =document.querySelector(".minus");
@@ -60,7 +63,93 @@
     .then(printProductQnaList)
     .catch();
     
+    // 상품후기
+    getReview(sort)
+    .then(drawReview)
+    .then(getReviewStarAvg)
+    .catch();
+    
 })();
+
+// 상품후기
+function drawReview(data){
+	console.log(data);
+	var html = '<tr class="review-tb__head"><th class="size-1">번호</th><th class="size-2">별점</th><th class="size-6">제목</th><th class="size-1">작성자</th><th class="size-2">작성일</th></tr>';
+	data.forEach(function(item){
+	html+= '<tr class="review-tb__view moveReviewDetail" data = "' + item.seq + '" id="review_seq">';
+	html+= '<td>' + item.seq + '</td>';
+	html+= '<td>';
+	html+= '<div class="star-sm-' + item.star + '"></div>';
+	html+= '</td>';
+	html+= '<td>' + item.subject + '</td>';
+	html+= '<td>' + item.id + '</td>';
+	html+= '<td>' + item.logtime + '</td>';
+	html+= '</tr>';
+	})
+	$("#reviewArea").empty().append(html);
+	$(".moveReviewDetail").click(function(){
+		location.href = "/mintProject/shop/mypage/review/detail?seq=" + $('#review_seq').attr("data");
+	})
+}
+
+$("#writeReview").click(function(){
+	location.href = "/mintProject/shop/mypage/review";
+});
+
+
+
+function getReview(sort) {
+	return $.ajax({
+				method: "GET",
+				type: 'json',
+				dataType: "json",
+				url: "/mintProject/api/review/product?sort=" + sort + "&productCode=" + $('#productCode').val(),
+			});
+}
+
+$("#sort").change(function(){
+	sort = $(this).val();
+	alert(sort);
+	getReview(sort)
+	.then(drawReview)
+	.catch();
+});
+
+function convertStar(num) {
+	if (num == 0) return 0;
+	else if (num >0 && num < 5) return 5;
+	else if (num >=5 && num < 10) return 5;
+	else if (num >=10 && num < 15) return 10;
+	else if (num >=15 && num < 20) return 15;
+	else if (num >=20 && num < 25) return 20;
+	else if (num >=25 && num < 30) return 25;
+	else if (num >=30 && num < 35) return 30;
+	else if (num >=35 && num < 40) return 35;
+	else if (num >=40 && num < 45) return 40;
+	else if (num >=45 && num < 50) return 45;
+	else return 50;
+}
+function getReviewStarAvg() {
+	return $.ajax({
+				method: "POST",
+				type: 'json',
+				data : {'productCode' : $('#productCode').val() },
+				dataType: "json",
+				url: "/mintProject/api/review/star/avg",
+				success:function(data) {
+					console.log(data);
+					$('.review_cnt').text('고객후기('+data.map.COUNT+')');
+					$('.reivew__users-count').text(data.map.COUNT);
+					if(data.map.COUNT == '0'){
+						$("#starAvg").text('0');
+						$("#starImgArea").addClass("star-lg-"+convertStar(0));
+					} else {
+						$("#starAvg").text(Number(data.map.STAR)/10);
+						$("#starImgArea").addClass("star-lg-"+convertStar(data.map.STAR));
+					}
+				}
+			});
+}
 
 // 상품문의 - 페이지 이동
 function getProductQnaListByPage(pg){
@@ -110,11 +199,13 @@ function printProductQnaList(result){
         		qnaContentList[i].classList.toggle("tb-on");
 		            
 		            const answer = qnaContentList[i].nextElementSibling;
-		            const isAnswer = answer.className.includes("qna-tb__answer");
-		            
-		            if(isAnswer){
-		                answer.classList.toggle("tb-on");
+		            if(answer){
+		            	const isAnswer = answer.className.includes("qna-tb__answer");
+		            	if(isAnswer){
+			                answer.classList.toggle("tb-on");
+			            }
 		            }
+		            
         	} else {
         		alert('비밀글입니다');
         	}

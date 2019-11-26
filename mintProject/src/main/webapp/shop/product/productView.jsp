@@ -148,7 +148,7 @@
                 <li><a href="#description">상품설명</a></li>
                 <li><a href="#image">상품이미지</a></li>
                 <li><a href="#info">상세정보</a></li>
-                <li><a href="#review">고객후기(?)</a></li>
+                <li><a href="#review" class="review_cnt"></a></li>
                 <li><a href="#qna" class="qna_cnt"></a></li>
             </ul>
         
@@ -165,7 +165,7 @@
                 <li><a href="#description">상품설명</a></li>
                 <li><a href="#image">상품이미지</a></li>
                 <li><a href="#info">상세정보</a></li>
-                <li><a href="#review">고객후기(?)</a></li>
+                <li><a href="#review" class="review_cnt"></a></li>
                 <li><a href="#qna" class="qna_cnt"></a></li>
             </ul>
             <div class="goods-detail__content">
@@ -179,7 +179,7 @@
                 <li><a href="#description">상품설명</a></li>
                 <li><a href="#image">상품이미지</a></li>
                 <li><a href="#info">상세정보</a></li>
-                <li><a href="#review">고객후기(?)</a></li>
+                <li><a href="#review" class="review_cnt"></a></li>
                 <li><a href="#qna" class="qna_cnt"></a></li>
             </ul>
             <div class="goods-detail__content">
@@ -192,7 +192,7 @@
                 <li><a href="#description">상품설명</a></li>
                 <li><a href="#image">상품이미지</a></li>
                 <li><a href="#info">상세정보</a></li>
-                <li><a href="#review">고객후기(?)</a></li>
+                <li><a href="#review" class="review_cnt"></a></li>
                 <li><a href="#qna" class="qna_cnt"></a></li>
             </ul>
             <div class="review__wrap">
@@ -200,11 +200,11 @@
                     <div class="review__total">
                         <div class="reivew-r1">
                             <div class="review-txt1">사용자 총 평점</div>
-                            <div class="review-txt2">(총 <span class="reivew__users-count">4,123</span>개 고객후기 기준)</div>
+                            <div class="review-txt2">(총 <span class="reivew__users-count"></span>개 고객후기 기준)</div>
                         </div>
                         <div class="review-r2">
                             
-                            <div class="review-star star-lg-5"></div>
+                            <div class="review-star" id = "starImgArea"></div>
                             <!-- ex)
                                 lg는 크기 뒤에 숫지는 스타 갯수 
                                 star-lg-5은 0.5개
@@ -212,7 +212,7 @@
                                 star-lg-50은 5개
                             -->
                             <div class="review-avg">
-                                <span class="review-avg__point">4.8</span>
+                                <span class="review-avg__point" id = "starAvg">4.8</span>
                                 <span class="review-avg__max-point">/5<span class="dot">점</span></span>
                             </div>
                         </div>
@@ -226,87 +226,18 @@
                         고객후기
                     </div>
                     <div class="review__view-btns">
-                        <select name="" id="" class="review__sort">
-                            <option value="">최근 등록순</option>
-                            <option value="">평점 높은순</option>
+                        <select name="" id="sort" class="review__sort">
+                            <option value="NEW">최근 등록순</option>
+                            <option value="SORT">평점 높은순</option>
                         </select>
-                        <div class="review__write-btn">
+                        <div class="review__write-btn" id = "writeReview">
                             고객후기 작성
                         </div>
                     </div>
                 </div>
-                <table class="review-tb">
-                    <tr class="review-tb__head">
-                        <th class="size-1">번호</th>
-                        <th class="size-2">별점</th>
-                        <th class="size-6">제목</th>
-                        <th class="size-1">작성자</th>
-                        <th class="size-2">작성일</th>
-                    </tr>
-                    <tr class="review-tb__view">
-                        <td>1</td>
-                        <td>
-                            <div class="star-sm-0"></div>
-                        </td>
-                        <td>너무 맛없어요 ....</td>
-                        <td>김치몬</td>
-                        <td>2019-11-15</td>
-                    </tr>
-                    <tr class="review-tb__content">
-                        <td colspan="5" >
-                            <img class="review-img" src="//img-cf.kurly.com/shop/data/review/20191114/cea3e1467a0dac77c717d4c1a5aa193c.jpg" alt="">
-                            맛있어용 목살이 토실토실하네요<br>
-                            다음에도 또살게요
-                        </td>
-                    </tr>
-                
+                <table class="review-tb" id = "reviewArea">
                     
-                    <tr class="review-tb__view">
-                        <td>1</td>
-                        <td>
-                            <div class="star-sm-50"></div>
-                        </td>
-                        <td>다음에 또살게요^^ ....</td>
-                        <td>김치몬</td>
-                        <td>2019-11-15</td>
-                    </tr>
-
-                    <tr class="review-tb__content">
-                        <td colspan="5" >
-                            맛있어용 목살이 토실토실하네요<br>
-                            다음에도 또살게요
-                        </td>
-                    </tr>
-
-                    <tr class="review-tb__view">
-                        <td>1</td>
-                        <td>
-                            <div class="star-sm-50"></div>
-                        </td>
-                        <td>다음에 또살게요^^ ....</td>
-                        <td>김치몬</td>
-                        <td>2019-11-15</td>
-                    </tr>
-
-                    <tr class="review-tb__content">
-                        <td colspan="5">
-                            맛있어용 목살이 토실토실하네요<br>
-                            다음에도 또살게요
-                        </td>
-                    </tr>
                 </table>
-                <div class="paging-wrap">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                        <li class="page-item"><a class="page-link" href="#">&lsaquo;</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">&rsaquo;</a></li>
-                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                    </ul>
-                </div>
-                
             </div>
 
         </div>

@@ -90,6 +90,9 @@ function eventInfo(result){
 		$('#datetimepickerStart').val(startDate);
 		$('#datetimepickerEnd').val(endDate);
 	}
+	
+	// 할인율
+		
 }
 
 /* datetimepicker 한국어 설정 */
@@ -152,7 +155,8 @@ function productListTemp(result){
 				<td>${stock}</td>
 				<td>${star}</td>
 				<td class="price">${price}</td>
-				<td><input type="text" size="2" class="discountRate" value="${discountRate}"/>%</td>
+				<td>${discountRate}%</td>
+				<td><input type="text" size="2" class="discountRate"/>%</td>
 				<td class="eventPrice"></td>
 			</tr>
 			`;
@@ -187,7 +191,7 @@ $('#eventProductUpdateBtn').click(function(){
 	
 	$.ajax({
 		type:'post',
-		url:'/mintProject/admin/service/eventProductUpdate/',
+		url:'/mintProject/admin/service/eventProductUpdate',
 		data:$('#eventWriteForm').serialize(),
 		dataType:'json',
 		success: function(result){

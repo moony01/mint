@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mint.orderAndSales.bean.OrderAndSalesDTO;
 import mint.product.bean.ProductDTO;
 import mint.product.dao.ProductManageDAO;
 

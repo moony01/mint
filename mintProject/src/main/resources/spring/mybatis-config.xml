@@ -12,6 +12,8 @@
 		<typeAlias type="mint.event.bean.EventDTO" alias="event"/>
 		<typeAlias type="mint.product.bean.ProductDTO" alias="product"/>
 		<typeAlias type="mint.cart.bean.CartDTO" alias="cart"/>
-		<typeAlias type="mint.orderAndSales.bean.OrderAndSalesDTO" alias="orderAndSales"/>
+		<typeAlias type="mint.order.bean.OrderAndSalesDTO" alias="orderAndSales"/>
+		<typeAlias type="mint.order.bean.OrderInfoDTO" alias="orderInfo"/>
+		<typeAlias type="mint.order.bean.OrderDetailsDTO" alias="orderDetails"/>
 	</typeAliases>
 </configuration>

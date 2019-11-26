@@ -67,4 +67,17 @@ public class EventServiceImpl implements EventService {
 			eventDAO.eventProductUpdate(list.get(i));
 		}
 	}
+
+	@Override
+	public List<EventProductDTO> getEventProduct(int seq) {
+		return eventDAO.getEventProduct(seq);
+	}
+
+	@Override
+	public void eventEndProductUpdate(List<Map<String, Object>> list) {
+		for(int i=0; i<list.size(); i++) {
+			eventDAO.eventEndProductUpdate(list.get(i));
+		}
+	}
+
 }

@@ -24,7 +24,7 @@ import mint.product.bean.ProductDTO;
  *	EventController
  * 	이벤트 컨트롤러
  * 
- * @version 1.7
+ * @version 1.8
  * @author LimChangHyun 
  *
  *	기능
@@ -42,8 +42,6 @@ public class EventController {
 	private EventService eventService;
 	@Autowired
 	private EventPaging eventPaging;
-	@Autowired
-	private EventProductDTO eventProductDTO;
 	
 	/* 이벤트 관리 페이지 이동 */
 	@RequestMapping(value="/admin/service/event", method=RequestMethod.GET)
@@ -113,9 +111,20 @@ public class EventController {
 		return mav;
 	}
 	
+	/* 이벤트 PrevDiscountRate 가져오기 */
+	@RequestMapping(value="/admin/service/getPrevDiscountRate", method=RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView getPrevDiscountRate(@RequestParam String seq) {
+		
+		ModelAndView mav = new ModelAndView();
+		// mav.addObject("list", list);
+		mav.setViewName("jsonView");
+		return mav;
+	}
 	
 	/* 이벤트 상품 리스트 가져오기 */
 	@RequestMapping(value="/admin/service/getProductList", method=RequestMethod.POST)
+	@ResponseBody
 	public ModelAndView getProductList(@RequestParam(required=false, defaultValue="1") String pg,
 									   @RequestParam String seq) {
 		// EventDTO에서 productCode 가져오기
@@ -127,10 +136,12 @@ public class EventController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("array", array);
 		List<ProductDTO> list = eventService.getProductList(map);
-		
+		List<EventProductDTO> eventProductList = eventService.getEventProduct(Integer.parseInt(seq));
+
 		// Response
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
+		mav.addObject("eventProductList", eventProductList);
 		mav.setViewName("jsonView");
 		return mav;
 	}
@@ -153,6 +164,7 @@ public class EventController {
 	@RequestMapping(value="/admin/service/eventModify", method=RequestMethod.POST)
 	@ResponseBody
 	public void eventModify(@RequestParam Map<String, Object> map) {
+		System.out.println(map);
 		eventService.eventModify(map);
 	}
 	
@@ -199,7 +211,7 @@ public class EventController {
 	public void eventProductUpdate(@RequestParam String productCode,
 								   @RequestParam String discountRate) {
 		/**
-		 * 각각 toString() 된 상태로 a, b, c 의 형태로 패러미터 값이 넘어와야한다
+		 * 각각 toString() 된 상태로 'a, b, c' 의 형태로 패러미터 값이 넘어와야한다
 		 */
 		// split으로 배열화
 		String[] productCodeArray = productCode.split(",");
@@ -224,4 +236,37 @@ public class EventController {
 			list.clear();
 		}
 	}
+	
+	/* 이벤트 종료 (product table discountRate update) */
+	@RequestMapping(value="/admin/service/eventEndProductUpdate", method=RequestMethod.POST)
+	@ResponseBody
+	public void eventEndProductUpdate(@RequestParam String productCode,
+								   @RequestParam String prevDiscountRate) {
+		/**
+		 * 각각 toString() 된 상태로 'a, b, c' 의 형태로 패러미터 값이 넘어와야한다
+		 */
+		// split으로 배열화
+		String[] productCodeArray = productCode.split(",");
+		String[] prevDiscountRateArray = prevDiscountRate.split(",");
+		
+		// Service단까지 들고갈 list 생성
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		try {
+			// 상품 개수만큼 Map생성 후 productCode, discountRate집어넣고
+			for(int i=0; i<productCodeArray.length; i++) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("productCode", productCodeArray[i]);
+				map.put("prevDiscountRate", Integer.parseInt(prevDiscountRateArray[i]));
+				// 최종적으로 list에 넣기
+				list.add(i, map);
+				eventService.eventEndProductUpdate(list);
+			}
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			list.clear();
+		}
+	}
+	
 }

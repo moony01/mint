@@ -111,9 +111,8 @@
 				<th class="col-md-1">재고</th>
 				<th class="col-md-1">평점</th>
 				<th class="col-md-1">정상가</th>
+				<th class="col-md-1">이벤트할인율</th>
 				<th class="col-md-1">기존할인율</th>
-				<th class="col-md-1">할인율</th>
-				<th class="col-md-1">할인가</th>
 	        </tr>
 	    </table>
 	    <br>
@@ -123,7 +122,7 @@
 	            <td class="table--left">
 	            	모든 상품 
 	                <input type="text" size="2" id="eventRate">% 할인
-	                <button type="button" id="rateApplyBtn" class="btn btn-primary btn-sm">
+	                <button type="button" id="discountRateApplyBtn" class="btn btn-primary btn-sm">
 	    			<i class="fa fa-calculator" aria-hidden="true"></i>
 	    			일괄입력
 	    			</button>

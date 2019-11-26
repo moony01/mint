@@ -19,7 +19,7 @@ public interface EventService {
 
 	public void eventDelete(Map<String, String[]> map);
 
-	public EventDTO getEvent(int parseInt);
+	public EventDTO getEvent(int seq);
 
 	public List<EventDTO> eventSearch(Map<String, Object> map);
 
@@ -28,5 +28,10 @@ public interface EventService {
 	public List<ProductDTO> getProductList(Map<String, Object> map);
 
 	public void eventProductUpdate(List<Map<String, Object>> list);
+
+	public List<EventProductDTO> getEventProduct(int seq);
+
+	public void eventEndProductUpdate(List<Map<String, Object>> list);
+
 
 }

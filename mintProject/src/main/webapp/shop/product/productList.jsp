@@ -224,6 +224,301 @@ function paging(totalArticle, currentPage, addr){
     const sortText = ["신상품순","인기상품순","낮은 가격순","높은 가격순"]; */
     /* sort.textContent = sortText[gubun-1];  */
   
- 
+	const productObject = {
+        101: {
+            src: '/mintProject/shop/storage/mint/icon/corn.png',
+            text: '농산물',
+            list: [
+                {
+                    href:
+                        '/mintProject/productList/getProductList?mainCategory=101&gubun=1&pg=1',
+                    text: '전체보기',
+                },
+                {
+                    category: 211,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=211&gubun=2&pg=1',
+                    text: '과일',
+                },
+                {
+                    category: 212,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=212&gubun=2&pg=1',
+                    text: '기본채소',
+                },
+                {
+                    category: 213,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=213&gubun=2&pg=1',
+                    text: '쌈채소',
+                },
+                {
+                    category: 214,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=214&gubun=2&pg=1',
+                    text: '브로콜리·특수채소',
+                },
+                {
+                    category: 215,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=215&gubun=2&pg=1',
+                    text: '피망·고추',
+                },
+                {
+                    category: 216,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=216&gubun=2&pg=1',
+                    text: '곡류',
+                },
+                {
+                    category: 217,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=217&gubun=2&pg=1',
+                    text: '버섯류',
+                },
+                {
+                    category: 218,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=218&gubun=2&pg=1',
+                    text: '견과류',
+                },
+            ],
+        },
+        102: {
+            src: '/mintProject/shop/storage/mint/icon/fish.png ',
+            text: '수산물',
+            list: [
+                {
+                    href:
+                        '/mintProject/productList/getProductList?mainCategory=102&gubun=1&pg=1',
+                    text: '전체보기',
+                },
+                {
+                    category: 221,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=221&gubun=2&pg=1',
+                    text: '생선류',
+                },
+                {
+                    category: 222,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=222&gubun=2&pg=1',
+                    text: '조개류',
+                },
+                {
+                    category: 223,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=223&gubun=2&pg=1',
+                    text: '갑각류',
+                },
+                {
+                    category: 224,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=224&gubun=2&pg=1',
+                    text: '해조류',
+                },
+                {
+                    category: 225,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=225&gubun=2&pg=1',
+                    text: '건어물',
+                },
+                {
+                    category: 226,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=226&gubun=2&pg=1',
+                    text: '오징어',
+                },
+            ],
+        },
+        103: {
+            src: '/mintProject/shop/storage/mint/icon/meat.png',
+            text: '축산물',
+            list: [
+                {
+                    href:
+                        '/mintProject/productList/getProductList?mainCategory=103&gubun=1&pg=1',
+                    text: '전체보기',
+                },
+                {
+                    category: 231,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=231&gubun=2&pg=1',
+                    text: '소고기',
+                },
+                {
+                    category: 232,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=232&gubun=2&pg=1',
+                    text: '돼지고기',
+                },
+                {
+                    category: 233,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=233&gubun=2&pg=1',
+                    text: '닭고기',
+                },
+                {
+                    category: 234,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=234&gubun=2&pg=1',
+                    text: '계란류',
+                },
+                {
+                    category: 235,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=235&gubun=2&pg=1',
+                    text: '오리고기',
+                },
+            ],
+        },
+        104: {
+            src: '/mintProject/shop/storage/mint/icon/snack.png',
+            text: '일반식품',
+            list: [
+                {
+                    href:
+                        '/mintProject/productList/getProductList?mainCategory=104&gubun=1&pg=1',
+                    text: '전체보기',
+                },
+                {
+                    category: 241,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=241&gubun=2&pg=1',
+                    text: '유제품',
+                },
+                {
+                    category: 242,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=242&gubun=2&pg=1',
+                    text: '만두류',
+                },
+                {
+                    category: 243,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=243&gubun=2&pg=1',
+                    text: '라면',
+                },
+                {
+                    category: 244,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=244&gubun=2&pg=1',
+                    text: '과자',
+                },
+                {
+                    category: 245,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=245&gubun=2&pg=1',
+                    text: '국수',
+                },
+                {
+                    category: 246,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=246&gubun=2&pg=1',
+                    text: '어묵',
+                },
+                {
+                    category: 247,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=247&gubun=2&pg=1',
+                    text: '햄',
+                },
+            ],
+        },
+        105: {
+            src: '/mintProject/shop/storage/mint/icon/soup.png',
+            text: '반찬류',
+            list: [
+                {
+                    href:
+                        '/mintProject/productList/getProductList?mainCategory=105&gubun=1&pg=1',
+                    text: '전체보기',
+                },
+                {
+                    category: 251,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=251&gubun=2&pg=1',
+                    text: '김치',
+                },
+                {
+                    category: 252,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=252&gubun=2&pg=1',
+                    text: '국·찌개',
+                },
+                {
+                    category: 253,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=253&gubun=2&pg=1',
+                    text: '전·부침',
+                },
+                {
+                    category: 254,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=254&gubun=2&pg=1',
+                    text: '간편식',
+                },
+                {
+                    category: 255,
+                    href:
+                        '/mintProject/productList/getProductList?subCategory=255&gubun=2&pg=1',
+                    text: '통조림',
+                },
+            ],
+        },
+	};
+	
+	function renderCategory() {
+        const curAllCategories = productObject[mainCategory];
+        const { list } = curAllCategories;
+        const productList = document.querySelector('.product__list');
+
+        function renderTitle() {
+            const title = document.querySelector('.product__title');
+            const titleImage = title.querySelector('img');
+
+            const text = document.createTextNode(curAllCategories.text);
+            title.appendChild(text);
+
+            titleImage.src = curAllCategories.src;
+
+        }
+        renderTitle();
+
+        function renderSubCategory() {
+            list.forEach((category, index) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+
+                a.href = category.href;
+                a.innerText = category.text;
+
+                li.appendChild(a);
+
+                if (gubun === 1 && index === 0) {
+                    li.classList.add('cur-product');
+                } else if (gubun === 2 && category.category === subCategory) {
+                    li.classList.add('cur-product');
+                }
+
+                productList.appendChild(li);
+            });
+        }
+
+        renderSubCategory();
+
+        function addCurrentProduct() {
+            if (gubun === 1) {
+                const li = productList.querySelector('li');
+                li.classList.add('cur-product');
+            } else {
+                list.filter(category => {
+                    return;
+                });
+            }
+        }
+        addCurrentProduct();
+    }
+    renderCategory();
 
 </script>

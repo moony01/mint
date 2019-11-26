@@ -29,7 +29,8 @@ public class ReviewSql implements ReviewDao {
 	@Override
 	public void addReview(Review r) {
 		sqlsession.insert("mint.review.dao.ReviewSql.addreview", r);
-		sqlsession.update("mint.review.dao.ReviewSql.updateOrderReview", r);
+		sqlsession.update("mint.review.dao.ReviewSql.updateOrderReviewStatus", r);
+		sqlsession.update("mint.review.dao.ReviewSql.updateOrderReviewPoint", r);
 	}
 	@Override
 	public int deleteReview(int id) {

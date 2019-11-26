@@ -16,8 +16,8 @@
     <div class="service__main">
         <h2 class="service__main-title">상품후기</h2>
         <div class="review-notice">
-             <span>후기 작성 시 사진후기 100원, 글후기 50원을 적립해드립니다.</span><br>
-             <span>* 후기 작성은 배송 완료일로부터 30일 이내 가능합니다. </span>
+             <span>후기 작성 시 50포인트를 적립해드립니다.</span><br>
+             <!-- <span>* 후기 작성은 배송 완료일로부터 30일 이내 가능합니다. </span> -->
         </div>
         <ul class="review-tab">
             <li>
@@ -59,11 +59,12 @@ function drawOrder(data) {
 			        '<div class="review-item__content">' +
 				        '<img src="/mintProject/shop/storage/mint/product/' + item.IMG + '" alt="" class="review-item__thumb">' +
 			            '<div class="review-item__desc">' +
-			                '<div class="review-item__name">' + item.TITLE + '</div>' +
+			                '<div class="review-item__name" style="cursor:pointer;">' + item.TITLE + '</div>' +
 			                '<div class="reivew-item__count">' + item.QTY + '개 구매</div>' +
 			            '</div>' +
 			            '<div class="review-item__delivery-day">' + status[item.STATUS] + " " + item.LOGTIME + 
 			            '</div>' +
+			            '<input type="hidden" id="" value="'+item.SUBCATEGORY+'">'+
 			            '<input type="hidden" id="" value="'+item.PRODUCTCODE+'">'+
 			            '<input type="hidden" id="" value="'+item.ORDERNUMBER+'">'+
 			            '<button class="reivew-item__write-btn">' +
@@ -78,6 +79,13 @@ function drawOrder(data) {
 	$(".reivew-item__write-btn").click(function(){
 		location.href = "/mintProject/shop/mypage/review/write?orderNumber="+$(this).prev().val()+"&productCode="+$(this).prev().prev().val();
 	})
+	
+	$('.review-item__name').click(function(){
+		var productCode = $(this).parent().next().next().next().val();
+		var subCategory = $(this).parent().next().next().val();
+		location.href="/mintProject/shop/product/productView?productCode="+productCode+"&subCategory="+subCategory;
+	});
+	
 }
 
 function getOrder() {

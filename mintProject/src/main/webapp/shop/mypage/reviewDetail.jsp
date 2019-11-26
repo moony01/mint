@@ -20,13 +20,18 @@
             <th class="notice-view__title">평점</th>
             <td id="star"></td>
         </tr>
-        
         <tr class="notice-view__conent" style="vertical-align:top;">
+            <td colspan="4">
+            	<div id=imgArea></div>
+            	<pre id="content"></pre>
+            </td>
+        </tr>
+        <!-- <tr class="notice-view__conent" style="vertical-align:top;">
             <td colspan="2" id="imgArea" style="vertical-align:top;">
             </td>
             <td colspan="2" style="vertical-align:top;"><textarea  id="content" style="margin-top: 0px;vertical-align:top;border: 0px;"></textarea>
             </td>
-        </tr>
+        </tr> -->
     </table>
     
     <div class="content_btm_wrap">
@@ -45,8 +50,10 @@ function drawReview(data) {
 	$("#subject").text(review.subject);
 	$("#logtime").text(review.logtime);
 	$("#star").text(review.star);
-	$("#content").val(review.content);
-	/* $("#imgArea").empty().append('<img src="/mintProject/shop/storage/review/' + review.imgName + '" alt="" style="vertical-align:unset; width: 100%;">'); */
+	$("#content").text(review.content);
+	if(review.imgName != null){
+		$("#imgArea").empty().append('<br><img src="/mintProject/shop/storage/member/review/' + review.imgName + '" alt="" style="vertical-align:unset; width: 300px;">');
+	}
 	
 }
 getReview(seq);

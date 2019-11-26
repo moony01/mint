@@ -34,4 +34,9 @@ public interface MemberDAO {
 
 	public void updateProductStatus(Map<String, Object> map);
 
+	public void updateMemLevel(Map<String, String> map);
+
+	public String getTotPricePrevMonth(Map<String, String> map);
+
+
 }

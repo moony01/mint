@@ -24,8 +24,6 @@ public interface OrderDAO {
 
 	public void updateOrderStatus(Map<String, Object> map);
 
-	public List<OrderInfoDTO> getOrderListByDate(Map<String, Object> map);
-
 	public void insertOrderInfo(Map<String, Object> order);
 
 	public void insertOrderDetail(Map<String, Object> map);

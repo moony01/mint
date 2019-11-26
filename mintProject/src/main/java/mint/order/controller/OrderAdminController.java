@@ -33,23 +33,18 @@ public class OrderAdminController {
 	public ModelAndView getOrderList(@PathVariable String option, 
 									@PathVariable String searchValue, ModelAndView mav) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<OrderInfoDTO> list = null; 
 		map.put("status", Integer.parseInt(option));
 
 		if(searchValue.contains("-")) {
 			searchValue = searchValue.replace(".", "");
 			map.put("from", searchValue.substring(0, 6));
 			map.put("to", searchValue.substring(9));
-			System.out.println(map);
-			list = orderService.getOrderListByDate(map);
-		} else {
-			list = orderService.getOrderList(map);
 		}
 		
+		System.out.println(map);
+		List<OrderInfoDTO> list = orderService.getOrderList(map);
 		mav.addObject("list", list);
 		mav.setViewName("jsonView");
-		System.out.println("map: " + map);
-		System.out.println("list: " + list);
 		
 		return mav; 
 	}
@@ -70,9 +65,10 @@ public class OrderAdminController {
 		
 	}
 	
-	@RequestMapping(value="/admin/sales/orderUpdate/{orderNumber}", method = RequestMethod.POST)
-	public void updateOrderStatus(@PathVariable String orderNumber) {
+	@RequestMapping(value="/admin/sales/orderUpdate/{id}/{orderNumber}", method = RequestMethod.POST)
+	public void updateOrderStatus(@PathVariable String id, @PathVariable String orderNumber) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
 		map.put("orderNumber", orderNumber);
 		orderService.updateOrderStatus(map);
 

@@ -23,8 +23,6 @@ public interface OrderService {
 	public List<Map<String, String>> getOrderView(Map<String, String> map);
 
 	public void updateOrderStatus(Map<String, Object> map);
-
-	public List<OrderInfoDTO> getOrderListByDate(Map<String, Object> map);
 	
 	public void insertOrderInfo(Map<String, Object> order);
 

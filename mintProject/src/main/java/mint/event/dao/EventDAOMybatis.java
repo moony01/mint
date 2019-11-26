@@ -68,4 +68,15 @@ public class EventDAOMybatis implements EventDAO{
 		sqlSession.update("eventSQL.eventProductUpdate", map);
 	}
 
+	@Override
+	public List<EventProductDTO> getEventProduct(int seq) {
+		return sqlSession.selectList("eventSQL.getEventProduct", seq);
+	}
+
+	@Override
+	public void eventEndProductUpdate(Map<String, Object> map) {
+		sqlSession.update("eventSQL.eventEndProductUpdate", map);
+	}
+
+
 }

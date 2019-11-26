@@ -9,5 +9,5 @@ import lombok.Data;
 public class EventProductDTO {
 	private String productCode;
 	private int discountRate;
-
+	private int prevDisountRate;
 }

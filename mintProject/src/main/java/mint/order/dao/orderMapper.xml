@@ -75,20 +75,39 @@
 		having id = #{id}
 	</select>
 	
-	<!-- <insert id="insertOrderDetail" parameterType="java.util.Map">
-		insert into orderdetails values (
+	<insert id="insertOrderInfo" parameterType="java.util.Map">
+		insert into orderInfo values (
 		    seq_order.nextval,
-		    #{name},
-		    #{qty}
+		    #{buyer_name},
+		    #{buyer_tel},
+		    #{buyer_email},
+		    #{buyer_addr},
+		    #{buyer_postcode},
+		    #{id},
+		    sysdate,
+		    0
 		)
 	</insert>
 	
 	<insert id="insertOrderDetail" parameterType="java.util.Map">
-		insert into orderdetails values (
-		    seq_order.nextval,
+		<selectKey keyProperty="orderNumber" resultType="Long" order="BEFORE">
+			select orderNumber from orderInfo where id=#{id} and rownum = 1 order by orderNumber desc
+		</selectKey>
+		
+		insert into orderDetails values (
+		    #{orderNumber},
 		    #{productCode},
-		    #{qty}
+		    #{qty},
+		    0
 		)
-	</insert> -->
+	</insert>
+	
+	<update id="updateProductStock" parameterType="java.util.Map">
+		update product set stock = (stock - #{qty}) where productCode=#{productCode}
+	</update>
+	
+	<delete id="deleteCartList" parameterType="java.util.Map">
+		delete from cart where id=#{id} and productCode=#{productCode}
+	</delete>
 	
 </mapper>

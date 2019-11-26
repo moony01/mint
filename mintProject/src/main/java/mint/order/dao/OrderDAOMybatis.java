@@ -89,4 +89,15 @@ public class OrderDAOMybatis implements OrderDAO {
 		sqlSession.insert("orderSQL.insertOrderDetail", map);
 	}
 
+	@Override
+	public void updateProductStock(Map<String, Object> map) {
+		sqlSession.update("orderSQL.updateProductStock", map);
+	}
+
+	@Override
+	public int deleteCartList(Map<String, Object> map) {
+		sqlSession.delete("orderSQL.deleteCartList", map);
+		return sqlSession.selectOne("cartSQL.getCartCount", map);
+	}
+
 }

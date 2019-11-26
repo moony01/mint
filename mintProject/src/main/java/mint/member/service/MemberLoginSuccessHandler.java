@@ -1,6 +1,12 @@
 package mint.member.service;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +25,7 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 
 import mint.cart.dao.CartDAO;
 import mint.member.bean.MemberDTO;
+import mint.member.dao.MemberDAO;
 
 /**
  * 191121
@@ -31,22 +38,53 @@ public class MemberLoginSuccessHandler implements AuthenticationSuccessHandler {
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy(); //RedirectStrategy 객체 생성
 	@Autowired
 	private CartDAO cartDAO;
+	@Autowired
+	private MemberDAO memberDAO; 
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		MemberDTO memberDTO = (MemberDTO) authentication.getPrincipal();
-		int count = cartDAO.getCartCount(memberDTO.getId());
-		
+				
 		HttpSession session = request.getSession();
 		session.setAttribute("memId", memberDTO.getId());
 		session.setAttribute("memName", memberDTO.getName());
 		session.setAttribute("memEmail", memberDTO.getEmail());
-		
-		session.setAttribute("memCart", count);
-		
+		session.setAttribute("memLevel", memberDTO.getMemLevel());
 		SavedRequest savedRequest = requestCache.getRequest(request, response); // savedRequest 가져옴 
-		
+			
+		if(!memberDTO.getId().equals("admin")) {
+			//memLevel 조회하여 업데이트
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+			Calendar cal = Calendar.getInstance(); //오늘
+			cal.add(cal.MONTH, -1); // 이전달	
+			int lastDate = cal.getActualMaximum(cal.DAY_OF_MONTH);
+			String startDate = sdf.format(cal.getTime())+"01";
+			String endDate = sdf.format(cal.getTime())+""+lastDate;
+			
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("startDate", startDate);
+			map.put("endDate", endDate);
+			map.put("id", memberDTO.getId());
+			String totPrice = memberDAO.getTotPricePrevMonth(map);
+			int totalPrice = Integer.parseInt(totPrice);
+			
+			int memLevel = 0; 
+			if(totalPrice >= 0 && totalPrice < 150000) {
+				memLevel = 0;
+			} else if(totalPrice >= 150000 && totalPrice < 300000) {
+				memLevel = 1; 
+			} else if(totalPrice >= 300000) {
+				memLevel = 2; 
+			}
+			
+			map.put("memLevel", memLevel+"");
+			memberDAO.updateMemLevel(map);
+			
+			// 장바구니에 담긴 상품 갯수 가져오기 
+			int count = cartDAO.getCartCount(memberDTO.getId());
+			session.setAttribute("memCart", count);	
+		}
 		
 		if(memberDTO.getId().equals("admin")) { //관리자로 로그인 시 바로 관리자 메인 페이지로 이동
 			redirectStrategy.sendRedirect(request, response, "/admin/main/admin");

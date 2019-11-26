@@ -3,6 +3,7 @@ package mint.review.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ import mint.review.service.ReviewService;
 public class ReviewController {
 	@Autowired private ReviewService rs;
 	
-	// 마이페이지  - 상품후기
+	// 마이페이지  - 상품후기 (상품후기 작성 가능)
 	@RequestMapping("/shop/mypage/review")
 	public ModelAndView reviewPage(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -37,7 +38,7 @@ public class ReviewController {
 		mav.setViewName("/shop/main/index");
 		return mav;
 	}
-	// 마이페이지 - 상품후기 - 상세
+	// 상품상세 - 상품후기 - 상품후기 상세 폼
 	@RequestMapping(value="/shop/mypage/review/detail", method = RequestMethod.GET)
 	public ModelAndView reviewDetailPage(HttpSession session, @RequestParam String seq) {
 		ModelAndView mav = new ModelAndView();
@@ -46,7 +47,7 @@ public class ReviewController {
 		mav.setViewName("/shop/main/index");
 		return mav;
 	}
-	// 마이페이지 - 상품후기 - 상품후기 작성 후
+	// 마이페이지 - 상품후기 - 상품후기 (작성된 상품후기)
 	@RequestMapping("/shop/mypage/review/finish")
 	public ModelAndView reviewFinishPage(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -60,27 +61,35 @@ public class ReviewController {
 	public List<Map<String, Object>> getOrder(HttpSession session) {
 		return rs.getOrder((String) session.getAttribute("memId"));
 	}
-	// 마이페이지 - 상품후기 - 상세
+	// 상품상세 - 상품후기 - 상품후기 상세 폼
 	@RequestMapping("/api/review/detail")
 	@ResponseBody
 	public List<Review> getReviewDetail(@RequestParam String seq) {
 		return rs.getReviewDetail(seq);
 	}
-	// 상품 상세 페이지 - 해당 상품후기 불러오기
+	// 상품 상세 페이지 - 해당 상품후기 전체 불러오기
 	@RequestMapping("/api/review/product")
-	@ResponseBody
-	public List<Review> getReviewByProduct(
-			@RequestParam(value = "productCode") String productCode,
-			@RequestParam(value = "sort") String sort
-			) {
-		if ("NEW".equals(sort)) {
-			return rs.getReviewByProduct(productCode);
+	public ModelAndView getReview(@RequestParam(value = "productCode", required = false, defaultValue = "undefined") String productCode,
+											@RequestParam(value = "sort") String sort,
+											@RequestParam(required = false, defaultValue = "1") String pg) {
+		ModelAndView mav = new ModelAndView();
+		int totalArticle = 0;
+		List<Map<String, Object>> list = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(!productCode.equals("undefined")) { // 상품 상세 페이지에서 해당 상품의 상품후기글 요청 - productCode 필요
+			map.put("productCode", productCode);
 		}
-		else {
-			return rs.getReviewByProductStar(productCode);			
-		}
+		totalArticle = rs.getReviewTotalArticle(map);
+		setPagingNumber(pg, map);
+		map.put("option", sort);
+		list = rs.getReviewByOption(map);
+		mav.addObject("pg",pg);
+		mav.addObject("totalArticle",totalArticle);
+		mav.addObject("list",list);
+		mav.setViewName("jsonView");
+		return mav;
 	}
-	// 해당 상품의 평균 별점
+	// 상품 상세 페이지 - 해당 상품의 평균 별점
 	@RequestMapping(value="/api/review/star/avg", method = RequestMethod.POST)
 	public ModelAndView gerReviewStar(@RequestParam String productCode, Map<String,String> map) {
 		ModelAndView mav = new ModelAndView();
@@ -122,7 +131,7 @@ public class ReviewController {
 	
 	//=============================================================================
 	
-	// 관리자 - 상품후기 관리 페이지
+	// 관리자 - 상품후기 관리 페이지 폼
 	@RequestMapping("/admin/service/review")
 	public ModelAndView adminReviewPage(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -135,12 +144,21 @@ public class ReviewController {
 	@RequestMapping("/api/review")
 	@ResponseBody
 	public List<Review> getReview() {
-		return rs.getReview();
+		return rs.getReviewDetail("undefined");
 	}
 	
 	@RequestMapping("/api/review/delete")
 	@ResponseBody
 	public int deleteReview(@RequestParam(value = "id")int id) {
 		return rs.deleteReview(id);
+	}
+	
+	// [사용자, 관리자 페이지 공통 함수] ==================================================================================================
+	public  void setPagingNumber(String pg, Map<String, Object> map) {
+		int endNum = Integer.parseInt(pg) *5;
+		int startNum = endNum -4; 
+		
+		map.put("endNum", endNum);
+		map.put("startNum", startNum);
 	}
 }

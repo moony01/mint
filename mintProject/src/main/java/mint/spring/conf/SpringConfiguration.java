@@ -15,7 +15,7 @@ public class SpringConfiguration {
 	public BasicDataSource getBasicDataSource() {
 		BasicDataSource basicDataSource = new BasicDataSource();
 		basicDataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		basicDataSource.setUrl("jdbc:oracle:thin:@mint.c4ccogloxvpr.ap-northeast-2.rds.amazonaws.com:1521:ORCL");
+		basicDataSource.setUrl("jdbc:oracle:thin:@mint.c4ccogloxvpr.ap-northeast-2.rds.amazonaws.com:1521:ORCL"); //
 		basicDataSource.setUsername("mint");
 		basicDataSource.setPassword("mint12345");
 		basicDataSource.setMaxTotal(20);

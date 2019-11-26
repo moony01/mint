@@ -703,13 +703,16 @@
 .cart-tb {
     margin-bottom: 30px;
 }
-.cart-tb tr {
+.cart-tb tr,
+.order-tb tr {
     border-bottom: 2px solid #ddd;
 }
-.cart-tb__header {
+.cart-tb__header,
+.order-tb__header {
     height: 65px;
 }
-.cart-tb__header {
+.cart-tb__header,
+.order-tb__header {
     font-weight: 700;
     font-size: 14px;
     color: #666;
@@ -754,23 +757,27 @@
 .cart-tb__count {
     text-align: center;
 }
-.cart-tb__total {
+.cart-tb__total,
+.order-tb__total {
     text-align: center;
     font-weight: 700;
     font-size: 14px;
     color: #000;
 }
 
-.cart-tb__name {
+.cart-tb__name,
+.order-tb__name {
     font-weight: 700;
     font-size: 14px;
     color: #000;
     margin-bottom: 14px;
 }
-.cart-tb__price {
+.cart-tb__price,
+.order-tb__price {
     font-size: 12px;
 }
-.cart-tb__num {
+.cart-tb__num,
+.order-tb__num {
     margin-right: 5px;
 }
 .cart-tb__cost {

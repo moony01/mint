@@ -196,5 +196,65 @@
 	<select id="productSearch" parameterType="String" resultType="product">
 		select * from product where mainSubject like '%'||'${sword}'||'%'
 	</select>
+	
+	<!-- 관리자 상품리스트 조회 -->
+	<select id="getProductAdminList" parameterType="java.util.Map" resultType="product">
+		select * 
+		  from (
+		       select rownum rn
+		            , tt.*
+		        from (    
+		             select *
+		               from product
+		               
+		               <choose>
+						   <when test="categorySelect==0">
+					  where maincategory = 101	
+						   </when>
+						   <when test="categorySelect==1">
+					  where maincategory = 102	
+						   </when>
+						   <when test="categorySelect==2">
+					  where maincategory = 103	
+						   </when>
+						   <when test="categorySelect==3">
+					  where maincategory = 104	
+						   </when>
+						   <when test="categorySelect==4">
+					  where maincategory = 105	
+						   </when>
+						   <when test="categorySelect==9">
+						   </when>
+					   </choose> 	
+		             ) tt
+		       )
+		 where rn between #{startNum} and #{endNum}
+		 order by  productCode desc 
+	</select>
+	
+	<!-- 관리자 상품리스트 총 갯수 구하기 -->
+	<select id="getCntProductAdminList" parameterType="java.util.Map" resultType="Integer">
+        select count(*) cnt
+          from product
+        <choose>
+		   <when test="categorySelect==0">
+		 where maincategory = 101	
+		   </when>
+		   <when test="categorySelect==1">
+		 where maincategory = 102	
+		   </when>
+		   <when test="categorySelect==2">
+		 where maincategory = 103	
+		   </when>
+		   <when test="categorySelect==3">
+		 where maincategory = 104	
+		   </when>
+		   <when test="categorySelect==4">
+		 where maincategory = 105	
+		   </when>
+		   <when test="categorySelect==9">
+		   </when>
+		</choose>  
+	</select>
 </mapper>
 

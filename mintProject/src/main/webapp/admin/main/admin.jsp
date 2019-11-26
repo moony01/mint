@@ -35,9 +35,6 @@
     <link rel="stylesheet" href="/mintProject/shop/css/reset.css">
     <link rel="stylesheet" href="/mintProject/admin/css/admin.css">
     <script></script>
-    <style>
-        
-    </style>
     <title>관리자 페이지</title>
 </head>
 <body>
@@ -69,7 +66,7 @@
                     <span>상품</span>
                 </div>
                 <ul class="list">
-                    <li><a href="/mintProject/productManage/productWriteForm">상품 관리</a></li> <!-- 일단 상품 등록 페이지로 연결 -->
+                    <li><a href="/mintProject/admin/productAdminList?pg=1">상품 관리</a></li> <!-- 일단 상품 등록 페이지로 연결 -->
                 </ul>
             </div>
             <div class="event-manage">

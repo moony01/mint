@@ -1,6 +1,5 @@
 package mint.product.controller;
 
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,8 +34,11 @@ public class ProductManageController {
 	@RequestMapping(value = "/admin/imageUpload", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String handleFileUpload(@RequestParam("uploadFile") MultipartFile multiPartFile) {
-		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/product/"; // 원하는 위치 (storage로 잡아주세요)
-		
+		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/product/"; // 원하는
+																															// 위치
+																															// (storage로
+																															// 잡아주세요)
+
 		String fileName = multiPartFile.getOriginalFilename();
 		File file = new File(filePath, fileName);
 		try {
@@ -59,7 +61,8 @@ public class ProductManageController {
 	@ResponseBody
 	public void productWrite(@ModelAttribute ProductDTO productDTO, @RequestParam MultipartFile product_img,
 			@RequestParam MultipartFile thumbnail_img) {
-		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/product/"; // 원하는 위치
+		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/product/"; // 원하는
+																															// 위치
 		try {
 			FileCopyUtils.copy(thumbnail_img.getInputStream(),
 					new FileOutputStream(new File(filePath, thumbnail_img.getOriginalFilename())));
@@ -89,7 +92,7 @@ public class ProductManageController {
 
 			List<ProductDTO> list = productManageService.getProductList(map);
 
-			if (list != null|| list.equals("")) {
+			if (list != null || list.equals("")) {
 				mav.addObject("list", list);
 			}
 			// mainCategory : 1 //subCategory : 2 //headerGubun
@@ -101,6 +104,7 @@ public class ProductManageController {
 			// 페이지
 			mav.addObject("pg", map.get("pg"));
 			// 조건에 따른 상품리스트 총 갯수
+
 			mav.addObject("totalArticle", totalArticle);
 			mav.addObject("addr", "/mintProject/productList/getProductList");
 			mav.addObject("display", "/shop/product/productList.jsp");
@@ -139,21 +143,82 @@ public class ProductManageController {
 	public ModelAndView productView(HttpSession session, @RequestParam Map<String, String> map) {
 		System.out.println("productView 메서드");
 		System.out.println("map : " + map);
-		
-		//상품 1개 정보들
-		ProductDTO productDTO =  productManageService.getProductInfo(map);
-		// 상품 상세 뷰 페이지 아래 같은 subCategory 상품 10개  최신순으로 불러오기 
-		List<ProductDTO> list  = productManageService.getSameSubcategoryProductList(map);
-		System.out.println("list : " + list); 
-		
+
+		// 상품 1개 정보들
+		ProductDTO productDTO = productManageService.getProductInfo(map);
+		// 상품 상세 뷰 페이지 아래 같은 subCategory 상품 10개 최신순으로 불러오기
+		List<ProductDTO> list = productManageService.getSameSubcategoryProductList(map);
+		System.out.println("list : " + list);
+
 		ModelAndView mav = new ModelAndView();
-		
+
 		mav.addObject("productDTO", productDTO);
 		mav.addObject("list", list);
 		mav.addObject("display", "/shop/product/productView.jsp");
 		mav.setViewName("/shop/main/index");
 		mav.addObject("memId", (String) session.getAttribute("memId"));
+
+		return mav;
+	}
+	
+	// 관리자 상품 업데이트
+	@RequestMapping(value = "/shop/product/updateProductForm")
+	public ModelAndView updateProductForm(HttpSession session, @RequestParam Map<String, String> map) {
+		System.out.println("updateProductForm 메서드");
+		System.out.println("map : " + map);
+		// 상품 1개 정보들
+		ProductDTO productDTO = productManageService.getProductInfo(map);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("productDTO", productDTO);
+//		mav.addObject("list", list);
+//		mav.addObject("display", "/shop/product/productView.jsp");
+//		mav.setViewName("/shop/main/index");
+//		mav.addObject("memId", (String) session.getAttribute("memId"));
 		
+		mav.addObject("display", "/admin/service/productUpdate.jsp");
+		mav.setViewName("/admin/main/admin");
+		
+		return mav;
+	}
+	
+	
+
+	// 관리자 상품리스트 조회
+	@RequestMapping(value = "/admin/productAdminList", method = RequestMethod.GET)
+	public ModelAndView productAdminList(@RequestParam Map<String, String> map) {
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println("pg : " + map.get("pg"));
+		
+		//총 갯수
+		int totalArticle = productManageService.getCntProductAdminList(map);
+		System.out.println("totalArticle : " + totalArticle);
+		// 시작페이지와 끝 설정
+	    setPagingNumber(map);
+		
+	    System.out.println("map : " + map);
+	    
+		List<ProductDTO> list =  productManageService.getProductAdminList(map);
+		
+		System.out.println("lize : " + list.size());
+		
+		// 페이지
+		mav.addObject("pg", map.get("pg"));
+		// 조건에 따른 상품리스트 총 갯수
+		mav.addObject("totalArticle", totalArticle);
+		//셀렉트박스 구분
+		if(map.get("categorySelect") == null) {
+			mav.addObject("categorySelect", "9");
+		}else {
+			mav.addObject("categorySelect", map.get("categorySelect"));
+		}
+		
+		mav.addObject("addr", "/mintProject/admin/productAdminList");
+		mav.addObject("list", list);
+		mav.addObject("display", "/admin/service/productAdminList.jsp");
+		mav.setViewName("/admin/main/admin"); 
+
 		return mav;
 	}
 
@@ -173,7 +238,7 @@ public class ProductManageController {
 		JSONArray jsonArray = JSONArray.fromObject(list);
 		return jsonArray;
 	}
-	
+
 	@RequestMapping(value = "/admin/sales_getCategorySales", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONArray getCategorySalesForChart() {
@@ -181,20 +246,19 @@ public class ProductManageController {
 		JSONArray jsonArray = JSONArray.fromObject(list);
 		return jsonArray;
 	}
-	
-	//상품 전체검색
-	@RequestMapping(value="/shop/product/productSearch", method = RequestMethod.GET)
+
+	// 상품 전체검색
+	@RequestMapping(value = "/shop/product/productSearch", method = RequestMethod.GET)
 	public ModelAndView productSearch(@RequestParam String sword) {
 		List<ProductDTO> list = productManageService.productSearch(sword);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list",list);
+		mav.addObject("list", list);
 		mav.addObject("resultCnt", list.size());
-		mav.addObject("sword",sword);
-		mav.addObject("display","/shop/product/productSearch.jsp");
+		mav.addObject("sword", sword);
+		mav.addObject("display", "/shop/product/productSearch.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;
 	}
-	
 
 	// [사용자, 관리자 페이지 공통 함수]
 	// ==================================================================================================

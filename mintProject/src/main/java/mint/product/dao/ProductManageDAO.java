@@ -27,5 +27,10 @@ public interface ProductManageDAO {
 
 	public List<ProductDTO> getSameSubcategoryProductList(Map<String, String> map);
 
+	public List<ProductDTO> getProductAdminList(Map<String, String> map);
+
+	public int getCntProductAdminList(Map<String, String> map);
+
+
 
 }

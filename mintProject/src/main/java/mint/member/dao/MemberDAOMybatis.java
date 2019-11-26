@@ -107,4 +107,18 @@ public class MemberDAOMybatis implements MemberDAO {
 		sqlSession.update("memberSQL.updateProductStatus", map);
 	}
 
+	@Override
+	public void updateMemLevel(Map<String, String> map) {
+		sqlSession.update("memberSQL.updateMemLevel", map);
+	}
+
+	@Override
+	public String getTotPricePrevMonth(Map<String, String> map) {
+		String totalPrice = sqlSession.selectOne("memberSQL.getTotPricePrevMonth", map);
+		if(totalPrice == null) {
+			totalPrice = "0";
+		}
+		return totalPrice;
+	}
+
 }

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import mint.member.bean.MemberDTO;
 import mint.order.bean.OrderInfoDTO;
 
-
 @Repository
 public class OrderDAOMybatis implements OrderDAO {
 	@Autowired
@@ -43,6 +42,10 @@ public class OrderDAOMybatis implements OrderDAO {
 	
 	@Override
 	public List<OrderInfoDTO> getOrderList(Map<String, Object> map) {
+		if(map.containsKey("from")) {
+			return sqlSession.selectList("orderSQL.getOrderListByDate", map);
+		}
+			
 		return sqlSession.selectList("orderSQL.getOrderList", map);
 	}
 
@@ -53,13 +56,28 @@ public class OrderDAOMybatis implements OrderDAO {
 
 	@Override
 	public void updateOrderStatus(Map<String, Object> map) {
-		sqlSession.update("orderSQL.updateOrderStatus", map);
+		sqlSession.update("orderSQL.updateOrderStatus1", map); // 오더 상태 변경 (입금 전 - 입금 완료 - 배송 중 - 배송 완료 )
+		Map<String, String> resultMap = sqlSession.selectOne("orderSQL.updateOrderStatus2", map); //해당 status = 3(배송완료) => 포인트 지급 
+		
+		String status = String.valueOf(resultMap.get("STATUS"));
+		String memLevel = String.valueOf(resultMap.get("MEMLEVEL"));
+		String totPrice = String.valueOf(resultMap.get("TOTALPRICE"));
+		
+		int point = 0; 
+		if(status.equals("3")) {
+			if(memLevel.equals("0")) {
+				point = (int)(Integer.parseInt(totPrice) * 0.05);
+			} else if(memLevel.equals("1")) {
+				point = (int)(Integer.parseInt(totPrice) * 0.07);
+			} else if(memLevel.equals("2")) {
+				point = (int)(Integer.parseInt(totPrice) * 0.10);
+			}
+			map.put("point", point);
+			sqlSession.update("memberSQL.updatePoint", map);
+		}
+		
 	}
 
-	@Override
-	public List<OrderInfoDTO> getOrderListByDate(Map<String, Object> map) {
-		return sqlSession.selectList("orderSQL.getOrderListByDate", map);
-	}
 
 	@Override
 	public void insertOrderInfo(Map<String, Object> order) {

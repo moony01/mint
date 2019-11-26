@@ -61,9 +61,19 @@
 		where id = #{id} and orderNumber = #{orderNumber}
 	</select>
 	
-	<update id="updateOrderStatus" parameterType="java.util.Map">
+	<update id="updateOrderStatus1" parameterType="java.util.Map">
 		update orderInfo set status = status + 1 where orderNumber = #{orderNumber}
 	</update>
+	
+	<select id="updateOrderStatus2" parameterType="java.util.Map" resultType="java.util.Map">
+		select id, memLevel, status, sum(price) as price, sum(price*(discountRate/100)) as discountPrice, (sum(price) - sum(price*(discountRate/100))) as totalPrice  from orderDetails 
+		left join orderInfo using (ordernumber)
+		left join product using (productcode)
+		left join member using (id)
+		where orderNumber = #{orderNumber}
+		group by (id, memLevel, status)
+		having id = #{id}
+	</select>
 	
 	<!-- <insert id="insertOrderDetail" parameterType="java.util.Map">
 		insert into orderdetails values (

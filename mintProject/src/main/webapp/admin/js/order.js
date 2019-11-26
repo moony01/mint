@@ -69,7 +69,7 @@ function printList(result){
             <td><a href="/mintProject/admin/sales/orderView/${id}/${orderNumber}">${orderNumber}</a></td>
             <td>${id}</td>
             <td>${logtime}</td>
-            <td><a class="status${status}" href="javascript:void(0)" onclick="updateOrderStatus('${orderNumber}')">${status_str}</a></td>
+            <td><a class="status${status}" href="javascript:void(0)" onclick="updateOrderStatus('${id}', '${orderNumber}')">${status_str}</a></td>
         </tr>`;
 		
 		$frag.append($(order));
@@ -86,8 +86,8 @@ function printList(result){
 }
 
 
-function updateOrderStatus(orderNumber){
-	getUpdateOrderPage(orderNumber)
+function updateOrderStatus(id, orderNumber){
+	getUpdateOrderPage(id, orderNumber)
 	.then(function(){
 		getList(5)
 		.then(printList)
@@ -98,10 +98,10 @@ function updateOrderStatus(orderNumber){
 	
 }
 
-function getUpdateOrderPage(orderNumber){
+function getUpdateOrderPage(id, orderNumber){
 	return $.ajax({
 		method: 'post',
-		url: '/mintProject/admin/sales/orderUpdate/'+orderNumber,
+		url: '/mintProject/admin/sales/orderUpdate/'+id+'/'+orderNumber,
 	});
 }
 

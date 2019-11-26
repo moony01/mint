@@ -5,18 +5,9 @@
     
 <section class="wrap">
     <div class="product__menu">
-        <div class="product__title"><img src="/mintProject/shop/storage/mint/icon/corn.png" alt="">농산물</div>
+        <div class="product__title"><img src="" alt=""></div>
         <div class="just-flex">
             <ul class="product__list">
-                <li class="cur-product"><a href="">전체보기</a></li>
-                <li><a href="">과일</a></li>
-                <li><a href="">기본채소</a></li>
-                <li><a href="">쌈채소</a></li>
-                <li><a href="">브로콜리·특수채소</a></li>
-                <li><a href="">피망·고추</a></li>
-                <li><a href="">곡류</a></li>
-                <li><a href="">버섯류</a></li>
-                <li><a href="">견과류</a></li>
             </ul>
             <div class="product__sort">
                 <span class="sort up">신상품순</span>

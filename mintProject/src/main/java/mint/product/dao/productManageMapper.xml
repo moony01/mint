@@ -152,25 +152,13 @@
 	
 	<!-- 매출 -->
 	<select id="getSalesData" resultType="java.util.Map">
-	<!-- select price, qty, to_char(logtime,'YYYY-MM-DD') as logtime from orderandsales where status=3 -->
-		<!-- select sum(price*qty) as sales, to_char(logtime,'YYYY-MM-DD') as logtime from orderandsales where status=3 group by to_char(logtime,'YYYY-MM-DD') order by logtime -->
-		select sum(qty*(price-price*discountRate/100)) as sales
-		     , to_char(logtime,'yyyy-MM-DD') as logtime 
-		  from orderInfo
-		  join orderDetails 
-		 using (orderNumber)
-		  join product using (productCode)
-		 group by to_char(logtime,'yyyy-MM-DD')
-		 order by logtime
+		select sum(fprice) as sales, to_char(logtime,'yyyy-MM-DD') as logtime
+		from   orderInfo
+		group  by to_char(logtime,'yyyy-MM-DD')
+		order  by logtime
 	</select>
 	<select id="getProductData" resultType="java.util.Map">
-		<!-- select count(*) as count, mainSubject from orderandsales 
-		join product using(productCode)
-		where status=3 
-		group by mainSubject
-		order by count desc -->
-		select sum(qty) as count
-		     , mainSubject 
+		select sum(qty) as count, mainSubject 
 		  from orderDetails
 		  join product 
 		 using (productCode)

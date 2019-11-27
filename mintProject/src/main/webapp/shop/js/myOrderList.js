@@ -26,7 +26,7 @@ function getOrderInfo(dateOption){
 function printOrderInfo(result){
 	let list = result.list;
 	
-	$('.orderInfo-tb tr:gt(0)').remove();
+	$('.tb-orderInfo tr:gt(0)').remove();
 	
 	let $frag = $(document.createDocumentFragment());
 	for(let i=0; i<list.length; i++){
@@ -38,7 +38,7 @@ function printOrderInfo(result){
 		else if(STATUS == '2') status = '배송 중';
 		else if(STATUS == '3') status = '배송 완료';
 		
-		let orderInfo = `<tr class="qna-tb__view">
+		let orderInfo = `<tr class="tb-content">
 							<td>${status}</td>
 							<td style="cursor:pointer;" onclick="javascript:getOrderDetails($(this).text())">${ORDERNUMBER}</td>
 							<td>${LOGTIME}</td>
@@ -47,7 +47,7 @@ function printOrderInfo(result){
 		
 		$frag.append($(orderInfo));
 	}
-	$('.orderInfo-tb').append($frag);
+	$('.tb-orderInfo').append($frag);
 }
 
 function getOrderDetails(orderNumber){

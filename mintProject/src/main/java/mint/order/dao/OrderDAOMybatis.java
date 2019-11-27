@@ -36,8 +36,8 @@ public class OrderDAOMybatis implements OrderDAO {
 	}
 
 	@Override
-	public List<Map<String, String>> getMyOrderDetails(String ordernumber) {
-		return sqlSession.selectList("orderSQL.getMyOrderDetails", ordernumber);
+	public List<Map<String, String>> getMyOrderProductList(String ordernumber) {
+		return sqlSession.selectList("orderSQL.getMyOrderProductList", ordernumber);
 	}
 	
 	@Override
@@ -58,7 +58,6 @@ public class OrderDAOMybatis implements OrderDAO {
 	public void updateOrderStatus(Map<String, Object> map) {
 		sqlSession.update("orderSQL.updateOrderStatus1", map); // 오더 상태 변경 (입금 전 - 입금 완료 - 배송 중 - 배송 완료 )
 		Map<String, String> resultMap = sqlSession.selectOne("orderSQL.updateOrderStatus2", map); //해당 status = 3(배송완료) => 포인트 지급 
-		System.out.println("resultMap: " + resultMap);
 		
 		String status = String.valueOf(resultMap.get("STATUS"));
 		String memLevel = String.valueOf(resultMap.get("MEMLEVEL"));
@@ -79,9 +78,6 @@ public class OrderDAOMybatis implements OrderDAO {
 			map.put("point", point);
 			sqlSession.update("memberSQL.updatePoint", map);
 		}
-		
-		System.out.println("totalPrice: " + totalPrice);
-		System.out.println("point: " + point);
 	}
 
 
@@ -104,6 +100,11 @@ public class OrderDAOMybatis implements OrderDAO {
 	public int deleteCartList(Map<String, Object> map) {
 		sqlSession.delete("orderSQL.deleteCartList", map);
 		return sqlSession.selectOne("cartSQL.getCartCount", map);
+	}
+
+	@Override
+	public Map<String, String> getMyOrderDetails(String ordernumber) {
+		return sqlSession.selectOne("orderSQL.getMyOrderDetails",ordernumber);
 	}
 
 }

@@ -1,10 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<div id="totalSalesContainer" style="width: 100%; height: 400px;"></div>
-<div id="productSalesContainer" style="width: 100%; height: 400px;"></div>
-<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-
+	
+<style>
+.wrap {
+	margin: 30px; 
+	padding-left: 50px; 
+	padding-right: 50px;
+}
+.my-wrap {
+	border-top : 2px solid #45b8ac;
+	margin-bottom: 50px;
+}
+.wrap h2 {
+	font-size: 24px; 
+	font-weight: 450; 
+	margin-bottom: 10px;
+}
+</style>
+	
+<div class="wrap"> 
+	<h2>전체 매출</h2>
+	<div class="my-wrap" >
+		<div id="totalSalesContainer" style="width: 100%; height: 400px; padding-top: 20px;"></div>
+	</div>
+	
+	<h2>오늘 팔린 상품 순위</h2>
+	<div class="my-wrap" >
+		<div id="productSalesContainer" style="width: 100%; height: 400px; padding-top: 20px;"></div>
+	</div>
+	<h2>이번 달 카테고리별 판매율</h2>
+	<div class="my-wrap">
+		<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto; padding-top: 20px;"></div>
+	</div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/data.js"></script>
@@ -55,8 +83,8 @@ function createTotalSalesChart(categories,seriesData){
 	var startD = categories[0].substring(8,10);
 	Highcharts.stockChart('totalSalesContainer', {
 		chart: { type: 'line' }, //Bar Chart
-		title: { text: '매출' },
-        subtitle: { text: '전체매출' },
+		/* title: { text: '매출' },
+        subtitle: { text: '전체매출' }, */
         series : [{
 	       	name : 'test',
 	       	data : seriesData,
@@ -93,8 +121,7 @@ function createProductSalesChart(categories,seriesData){
 	        type: 'bar',  
 	        marginLeft: 150
 	    },
-	    title: { text: '오늘 팔린 상품 순위' },
-	    subtitle: { text: '상품' },
+	    title: { text: '' },
 	    xAxis: {
 	    	categories: categories,
 	        /* min: 0,
@@ -153,8 +180,8 @@ function createCategorySalesChart(categories,seriesData){
 	        type: 'pie'  
 	    },
 	    title: {
-	        text: '이번달 카테고리별 판매율'
-	    },
+	        text: ''
+	    }, 
 	    xAxis: {
 	    	categories: categories,
 	    },

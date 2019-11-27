@@ -16,7 +16,7 @@ public interface OrderService {
 
 	public List<Map<String, String>> getMyOrderInfo(Map<String, String> map);
 
-	public List<Map<String, String>> getMyOrderDetails(String ordernumber);
+	public List<Map<String, String>> getMyOrderProductList(String ordernumber);
 	
 	public List<OrderInfoDTO> getOrderList(Map<String, Object> map);
 
@@ -31,5 +31,7 @@ public interface OrderService {
 	public void updateProductStock(Map<String, Object> map);
 
 	public int deleteCartList(Map<String, Object> map);
+
+	public Map<String, String> getMyOrderDetails(String ordernumber);
 
 }

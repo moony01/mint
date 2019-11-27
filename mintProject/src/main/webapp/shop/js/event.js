@@ -80,15 +80,19 @@ function dailySpecialInfo(seq, discountRate){
 		dataType:'json',
 		success: function(result){
 			let eventProduct = result.list[0];
-			let subject = eventProduct.mainSubject;
+			let mainSubject = eventProduct.mainSubject;
+			let subSubject = eventProduct.subSubject;
 			let price = eventProduct.price;
-			
+			let thumbnail = eventProduct.thumbnail;
+
 			// 할인가 계산
 			let eventPrice = price-(price/100*discountRate); 
-			$('.ds-subject').text(subject);
+			$('.ds-mainsubject').text(mainSubject);
+			$('.ds-subsubject').text(subSubject);
 			$('.ds-discountrate').text(discountRate+'%');
 			$('.ds-price').text(price+'원');
 			$('.ds-eventprice').text(eventPrice+'원');
+			$('.ds-thumbnail').html('<img class="dailyspecial-thumb" src="/mintProject/shop/storage/mint/product/'+thumbnail+'">');
 		},
 		error: function(error){
 			console.error(error);

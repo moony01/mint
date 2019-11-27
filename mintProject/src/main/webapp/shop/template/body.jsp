@@ -8,6 +8,12 @@
 </head>
 <body>
 메인 :D
+<br>
+<%-- 일일특가 --%>
+일일특가
+<br>
+24시간 동안만 진행되는 깜짝 특가!
+<br>
 
 <%-- 일일특가 임시 카운트다운 --%>
 <div class="dailyspecial-countdown" id="dscd">
@@ -20,10 +26,13 @@
 </div>
 <%-- 일일특가 상품 정보 --%>
 <div class="dailyspecial-info">
-	<span class="ds-subject"></span>
+	<div class="ds-thumbnail"></div>
+	<span class="ds-mainsubject"></span><br>
+	<span class="ds-subsubject"></span><br>
 	<span class="ds-price"></span>
 	<span class="ds-eventprice"></span>
 	<span class="ds-discountrate"></span>
 </div>
 </body>
+<script type="text/javascript" src="/mintProject/shop/js/event.js"></script>
 </html>

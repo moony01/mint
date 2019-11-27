@@ -70,8 +70,8 @@ $('.isPeriodOn').change(function(){
 function eventInfo(result){
 	let eventInfo = result.dto;
 
-	let startDate = moment(eventInfo.startDate).format('YYYY/MM/DD hh:mm');
-	let endDate = moment(eventInfo.endDate).format('YYYY/MM/DD hh:mm');
+	let startDate = moment(eventInfo.startDate).format('YYYY/MM/DD HH:mm');
+	let endDate = moment(eventInfo.endDate).format('YYYY/MM/DD HH:mm');
 	
 	// 진행여부
 	if(eventInfo.eventStatus === 0){
@@ -84,9 +84,9 @@ function eventInfo(result){
 	
 	// 기간설정
 	if(eventInfo.startDate === null && eventInfo.endDate === null){
-		$('.isPeriodOn:radio[value="0"]').attr('checked',true); 
+		$('.isPeriodOn:radio[value="0"]').attr('checked',true);
 	} else {
-		$('.isPeriodOn:radio[value="1"]').attr('checked',true); 
+		$('.isPeriodOn:radio[value="1"]').attr('checked',true);
 		$('#datetimepickerStart').val(startDate);
 		$('#datetimepickerEnd').val(endDate);
 	}
@@ -147,7 +147,7 @@ function productListTemp(result){
 		let productRow = `
 			<tr class="productRow">
 				<td><input type="checkbox" class="pcheck" name="chk" value="${productCode}"></td>
-				<td><img class="thumb" src="/mintProject/shop/storage/mint/product/${thumbnail}" alt=""></td>
+				<td><img class="thumb" src="/mintProject/shop/storage/mint/product/${thumbnail}"></td>
 				<td class="productstatus${productStatus}">${
 					(() => {
 						if(products[i].productStatus === 0) return '판매중';
@@ -182,23 +182,6 @@ $('#eventWriteBtn').click(function(){
 	} else ajax(type);
 });
 
-/* 임시 */
-$('#eventProductUpdateBtn').click(function(){
-	dataManufacturing();
-	
-	$.ajax({
-		type:'post',
-		url:'/mintProject/admin/service/eventProductUpdate',
-		data:$('#eventWriteForm').serialize(),
-		dataType:'json',
-		success: function(result){
-			
-		},
-		error: function(error){
-			console.error(error);
-		}
-	});
-});
 
 /* 직렬화 이전 데이터 가공 */
 // cart.jsp의 javascript 로직을 가져옴
@@ -216,7 +199,6 @@ function dataManufacturing(){
 		productCode.push(value);
 	}
 	input1.value = productCode;
-	console.log(input1.value);
 	form.appendChild(input1);
 	
 	// discountRate
@@ -229,7 +211,6 @@ function dataManufacturing(){
 		discountRate.push(value);
 	}
 	input2.value = discountRate;
-	console.log(input2.value);
 	form.appendChild(input2);
 	
 }

@@ -29,6 +29,7 @@ public class OrderController {
 	public String orderList(@RequestParam String ctCount,
 							@RequestParam String productCode,
 							@RequestParam String totalPoint,
+							@RequestParam String deleveryPrice,
 							Map<String, Object> resultMap,
 							Model model,
 							HttpSession session) {
@@ -54,6 +55,7 @@ public class OrderController {
 		// System.out.println("memberDTO :"+memberDTO);
 		
 		model.addAttribute("totalPoint", totalPoint);
+		model.addAttribute("deleveryPrice", deleveryPrice);
 		model.addAttribute("list", list);
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("display", "/shop/goods/order.jsp");

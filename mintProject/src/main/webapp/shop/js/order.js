@@ -1,7 +1,7 @@
 /**
  * 한문희
  */
-const addrBtn = document.querySelector(".btn-addr");
+const addrBtn = document.querySelector("#addrSearchBtn");
 //배송자 주소 검색
 addrBtn.addEventListener("click", function(){
    daum.postcode.load(function(){
@@ -52,27 +52,57 @@ addrBtn.addEventListener("click", function(){
 })
 
 $(document).ready(function(){
-	var cnt = $(".price").length;
-	var price = new Array(cnt);
-	var discountRate = new Array(cnt);
-	var discountPriceMinus = new Array(cnt);
-	var discountPrice = new Array(cnt);
-
-	let lastPrice = 0; //최종결제금액
+	var cnt = $(".price").length; //상품갯수
+	
+	let qty = new Array(cnt); //수량
+	var price = new Array(cnt); //가격
+	var discountRate = new Array(cnt); //할인율
+	var discountPriceMinus = new Array(cnt); //할인된금액
+	var discountPrice = new Array(cnt); //할인적용가
+	var onePrdPrice = new Array(cnt); //상품개당 가격
+	let totDiscountPrice = new Array(cnt); //할인적용가 * 수량
+	let totPrice = new Array(cnt); //상품정가 * 수량
+	let totSalePrice = new Array(cnt); //할인금액합계
+	
+	let lastPrice = 0; //결제금액합계
+	let lastTotPrice = 0; //정가금액합계
+	let lastTotSalePrice = 0; //할인금액합계
+	
+	dataSet(); //상품정보 박스 데이터가공(할인적용가, 최종결제금액)
 
 	//상품정보 박스 데이터가공(할인적용가, 최종결제금액)
-	for(var i=0; i<cnt; i++) {
-		price[i] = $('.price span').eq(i).text();
-		discountRate[i] = $('.discountRate span').eq(i).text();
-		discountPriceMinus[i] = price[i]*(discountRate[i] / 100); //할인된금액
-		discountPrice[i] = parseInt(price[i] - discountPriceMinus[i]); //할인적용가
-		$(".dp").eq(i).text(discountPrice[i]);
-		$(".salesPrice").eq(i).text(discountPrice[i]);
-		
-		lastPrice +=  discountPrice[i]; //최종결제금액
-		$('#lastPrice').text(lastPrice); 
-	}
+	function dataSet() {
+		for(var i=0; i<cnt; i++) {
+			price[i] = parseInt($('.price span').eq(i).text()); //정가
+			discountRate[i] = parseInt($('.discountRate span').eq(i).text()); //할인율
+			discountPriceMinus[i] = price[i]*(discountRate[i] / 100); //할인된금액
+			discountPrice[i] = parseInt(price[i] - discountPriceMinus[i]); //할인적용가
+			qty[i] = parseInt($('.ctCount span').eq(i).text()); //수량
+			
+			$(".dp").eq(i).text(discountPrice[i]);
+			$(".salesPrice").eq(i).text(discountPrice[i] * qty[i]);
 
+			console.log(discountPriceMinus[i]*2);
+			
+			totDiscountPrice[i] = parseInt($(".salesPrice").eq(i).text());
+			totPrice[i] = price[i] * qty[i];
+			totSalePrice[i] = discountPriceMinus[i] * qty[i];
+			
+			lastPrice += totDiscountPrice[i]; //최종결제금액
+			lastTotPrice += totPrice[i]; //정가금액합계
+			lastTotSalePrice += totSalePrice[i]; //할인금액합계
+		}
+		
+		console.log(lastTotPrice);
+		
+		$('#lastPrice').text(lastPrice); 
+		
+		$('.bill-tb__total-price span').text(lastPrice); 
+		$('.bill-tb__product-price span').text(lastTotPrice);
+		$('.bill-tb__col_sale span').text(lastTotSalePrice);
+	}
+	
+	
 	//데이터 가공 후 붙여주는작업
 	let topProductName = $('.mainSubject').eq(0).text();
 	let otherCnt = cnt-1;
@@ -89,20 +119,18 @@ $(document).ready(function(){
 	let tel2 = tel.substring(4,8);
 	let tel3 = tel.substring(8,12);
 	
-	$('#tel1').val(tel1);
-	$('#tel2').val(tel2);
-	$('#tel3').val(tel3);
+	$('.tel1').val(tel1);
+	$('.tel2').val(tel2);
+	$('.tel3').val(tel3);
 	
 	let productCode = new Array(cnt);
-	let qty = new Array(cnt);
 
 	for(i=0; i<cnt; i++) {
 		productCode[i] = $('.productCode').eq(i).text();
-		qty[i] = $('.ctCount span').eq(i).text();
+		
+		onePrdPrice[i] = parseInt(discountPrice[i]); //개당 가격
+		$(".onePrdPrice").eq(i).text(onePrdPrice[i]);
 	}
-
-	console.log(productCode);
-	console.log(qty);
 	
 	//결제하기 클릭 결제하기
 	document.getElementById('btnPayment').onclick = function(){
@@ -175,6 +203,21 @@ $(document).ready(function(){
 		    console.log(msg);
 		});
 	};
+	
+	let myPoint = $('#memberPoint').text();
+	
+	$('#pointChk').change(function(){
+		if($('#pointChk').is(':checked')){
+			$('.check-label').removeClass('checked');
+			$('#myPoint').val(0);
+			$('.pointUse').text('0');
+		}else {
+			$('.check-label').addClass('checked');
+			$('#myPoint').val($('#memberPoint').text());
+			$('.pointUse').text(myPoint);
+		}
+	});
+
 });
 
 

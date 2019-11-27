@@ -41,7 +41,7 @@ $(document).ready(function(){
 						CTCOUNT//카드수량
 					} = cart[i];
 					let discoutPrice = PRICE*(DISCOUNTRATE/100);//상품할인된금액
-					let price2 = parseInt(PRICE - discoutPrice);//상품할인적용가
+					let price2 = PRICE - discoutPrice;//상품할인적용가
 					let savingPrice = 0;//적립금
 					
 					let customCart = `
@@ -52,10 +52,10 @@ $(document).ready(function(){
 							<input type="hidden" class="memlevel" value="${MEMLEVEL }">
 							<input type="hidden" name="price2" class="prd_price_fix" value="${price2 }">
 							<td class="cart-tb__check">
-							 <label for="" class="check-label checked" onclick="change_checkbox($(this))">
+							<label for="" class="check-label checked" onclick="change_checkbox($(this))">
 								<input type="checkbox" class="prdCheck ico_check" checked onchange="total_calcul()">
 						 	</label>
-							 </td>
+							</td>
 							<td class="cart-tb__thumb"><img src="/mintProject/shop/storage/mint/product/${THUMBNAIL }"></td>
 							<td class="cart-tb__desc">
 								<div class="cart-tb__name">${MAINSUBJECT }</div>
@@ -65,7 +65,7 @@ $(document).ready(function(){
 								</div>
 							</td>
 							<td class="cart-tb__count">
-							 <span class="goods-count">
+							 	<span class="goods-count">
 									<button class="minus" onClick="fnDn($(this))"></button>
 									<input type="text" value="${CTCOUNT }" id="${PRODUCTCODE }" class="qty clk_count" readonly>
 									<button type="button" class="plus up_btn" onClick="fnUp($(this))"></button>
@@ -92,6 +92,7 @@ $(document).ready(function(){
 				total_calcul();//총상품금액
 				hide_stock();//품절처리
 				selectDelete();//선택삭제
+				PriceCntSum();
 			}
 			
 		});
@@ -101,6 +102,19 @@ $(document).ready(function(){
 		history.back();
 	}
 });
+
+//브라우저 로드 상품  카운트 1이상일때 계산
+function PriceCntSum() {
+	let salePrice = new Array();
+	let cnt = $('.qty').length;
+	console.log(cnt);
+	
+	for(i=0; i<cnt; i++) {
+		salePrice[i] = parseInt($('.price2').eq(i).text() * $('.qty').eq(i).val());
+		
+		$('.prd_price').eq(i).text(salePrice[i]);
+	}
+}
 
 //품절처리
 function hide_stock() {
@@ -276,11 +290,16 @@ function total_calcul() {
 
 	memlevel = $('.memlevel').eq(0).val();
 	if(memlevel == 0) {
+		console.log("memlevel : 0");
 		$('#totalPoint span').text((originalTotPrice - discountTotPrice) * 0.05); // 적립금 : 최종 결제 예정 금액 * 적립금 비율(memLevel에 따라 달라짐: pointRate의 값 가져옴)
 		//savingPrice = $('#totalPoint span').text();
 		//$('.savingPrice').eq(0).val(savingPrice);
 	}else if(memlevel == 1) {
 		console.log("memlevel : 1");
+		$('#totalPoint span').text(parseInt((originalTotPrice - discountTotPrice) * 0.07));
+	}else if(memlevel == 2) {
+		console.log("memlevel : 2");
+		$('#totalPoint span').text(parseInt((originalTotPrice - discountTotPrice) * 0.1));
 	}
 
 }

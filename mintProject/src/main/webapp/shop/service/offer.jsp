@@ -10,7 +10,7 @@
         <ul class="snb__list">
             <li class="snb__item"><a href="/mintProject/shop/service/notice">공지사항</a></li>
             <li class="snb__item"><a href="/mintProject/shop/service/faq">자주하는 질문</a></li>
-            <li class="snb__item"><a href="/mintProject/shop/service/qna">1:1 문의</a></li>
+            <li class="snb__item"><a href="/mintProject/qnaboard/getQnaBoardList">1:1 문의</a></li>
             <li class="snb__item current"><a href="/mintProject/shop/service/offer">상품 제안</a></li>
         </ul>
     </div>

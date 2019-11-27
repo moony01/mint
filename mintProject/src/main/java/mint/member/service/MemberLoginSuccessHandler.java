@@ -66,7 +66,7 @@ public class MemberLoginSuccessHandler implements AuthenticationSuccessHandler {
 			map.put("startDate", startDate);
 			map.put("endDate", endDate);
 			map.put("id", memberDTO.getId());
-			/*
+			
 			String totPrice = memberDAO.getTotPricePrevMonth(map);
 			int totalPrice = Integer.parseInt(totPrice);
 			
@@ -81,7 +81,7 @@ public class MemberLoginSuccessHandler implements AuthenticationSuccessHandler {
 			
 			map.put("memLevel", memLevel+"");
 			memberDAO.updateMemLevel(map);
-			*/
+			
 			// 장바구니에 담긴 상품 갯수 가져오기 
 			int count = cartDAO.getCartCount(memberDTO.getId());
 			session.setAttribute("memCart", count);	

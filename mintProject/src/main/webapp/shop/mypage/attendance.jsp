@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://momentjs.com/downloads/moment.min.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/locale-all.js'></script>
+
 <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" />
 
 <style>
@@ -24,7 +21,7 @@
 
 <jsp:include page="mypage_main.jsp"/>
 
-<seciton class="service">
+<section class="service">
     <div class="snb">
         <h2 class="snb__title">마이컬리</h2>
         <ul class="snb__list">
@@ -43,8 +40,12 @@
 		</div>
     </div>
     
-</seciton>
+</section>
 
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/locale-all.js'></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 var prevEvents;

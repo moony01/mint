@@ -15,18 +15,18 @@
 		  	<h2 class="main__title">주문자 정보</h2>
 	        <table class="table table-bordered table-member">
 	            <tr class="th--dark">
-	                <th class="col-md-3">이름</th>
+	                <th class="col-md-3">아이디</th>
 	                <td colspan="2">${list.get(0).ID }</td>
+	            </tr>
+	            
+	            <tr class="th--dark">
+	                <th class="col-md-3">주문자명 </th>
+	                <td colspan="2">${list.get(0).NAME }</td>
 	            </tr>
 	            
 	             <tr class="th--dark">
 	                <th class="col-md-3">휴대폰</th>
 	                <td colspan="2">${list.get(0).TEL }</td>
-	            </tr>
-	            
-	            <tr class="th--dark">
-	                <th class="col-md-3">이메일</th>
-	                <td colspan="2">${list.get(0).EMAIL }</td>
 	            </tr>
 	            
 	            <tr class="th--dark">
@@ -37,6 +37,11 @@
 	            <tr class="th--dark">
 	                <th class="col-md-3">주문날짜</th>
 	                <td colspan="2">${list.get(0).LOGTIME }</td>
+	            </tr>
+	            
+	            <tr class="th--dark">
+	                <th class="col-md-3">배송 요청사항</th>
+	                <td colspan="2">${list.get(0).REQUEST }</td>
 	            </tr>
 	        </table>
 	      </div> 
@@ -50,20 +55,20 @@
 	                <th class="col-md-2">수량</th>
 	                <th class="col-md-2">금액</th> 
 	            </tr>
-	        	<c:forEach items="${list}" var="orderDetails">
-	        	<tr class="th--dark">
-	                <td colspan="1"><img src="/mintProject/shop/storage/mint/product/${orderDetails.THUMBNAIL }"  style="height: 200px;"></td>
-	                <td colspan="1">${orderDetails.MAINSUBJECT }</td>
-	                <td colspan="1">${orderDetails.QTY }</td>
-	                <td colspan="1"><fmt:formatNumber value="${orderDetails.PRICE}" pattern="#,###"/>원</td>
-	            </tr>
 	            
-	            <c:set var="originalPrice" value="${originalPrice + (orderDetails.PRICE * orderDetails.QTY) }"/>
-	            <fmt:formatNumber var="discountRate" value="${orderDetails.DISCOUNTRATE}" pattern="#.##"/>
-	            <c:set var="discount" value="${discountRate / 100 }"/>
-	            <c:set var="discountPrice" value="${discountPrice + (orderDetails.PRICE * discount)}"/>
-	            <fmt:parseNumber var="discountPrice" value="${discountPrice }" integerOnly="true"/>
-	            </c:forEach>
+	        	<c:forEach items="${list}" var="orderDetails">
+		        	<tr class="th--dark">
+		                <td colspan="1"><img src="/mintProject/shop/storage/mint/product/${orderDetails.THUMBNAIL }"  style="height: 200px;"></td>
+		                <td colspan="1">${orderDetails.MAINSUBJECT }</td>
+		                <td colspan="1">${orderDetails.QTY }</td>
+		                <td colspan="1"><fmt:formatNumber value="${orderDetails.PRICE}" pattern="#,###"/>원</td>
+		            </tr>
+		            
+		            <c:set var="originalPrice" value="${originalPrice + (orderDetails.PRICE * orderDetails.QTY) }"/>
+		            <fmt:formatNumber var="discountRate" value="${orderDetails.DISCOUNTRATE}" pattern="#.##"/>
+		            <c:set var="discount" value="${discountRate / 100 }"/>
+		            <c:set var="discountPrice" value="${discountPrice + (orderDetails.QTY * (orderDetails.PRICE * discount))}"/>
+	          	</c:forEach>
 	        </table>
 	      </div>
 	      
@@ -81,19 +86,18 @@
 	            </tr>
 	            
 	            <tr class="th--dark">
+	                <th class="col-md-3">적립금 사용</th>
+	                	<td colspan="1"><fmt:formatNumber value="${list.get(0).POINTUSE }" pattern="#,###"/>원</td>
+	            </tr>
+	            
+	            <tr class="th--dark">
 	                <th class="col-md-3">배송비</th>
-	                <c:if test="${originalPrice - discountPrice > 30000 }">
-	                	 <c:set var="deliveryPrice" value="0"/>
-	                </c:if>
-	                <c:if test="${originalPrice - discountPrice < 30000 }">
-	               		 <c:set var="deliveryPrice" value="3000"/>
-	                </c:if>
-	                	<td colspan="1"><fmt:formatNumber value="${deliveryPrice }" pattern="#,###"/>원</td>
+	                	<td colspan="1"><fmt:formatNumber value="${list.get(0).DPRICE }" pattern="#,###"/>원</td>
 	            </tr>
 	            
 	            <tr class="th--dark">
 	                <th class="col-md-3">총 결제 금액 </th>
-	                <td colspan="1"><fmt:formatNumber value="${originalPrice - discountPrice + deliveryPrice}" pattern="#,###"/>원</td>
+	                <td colspan="1"><fmt:formatNumber value="${list.get(0).FPRICE}" pattern="#,###"/>원</td>
 	            </tr>
 	        </table>
 	      </div>

@@ -53,9 +53,9 @@
 	           <tr class="qna-view__conent"> 
 	            	<td colspan="5">
                     	<c:if test="${suggestBoardDTO.imgName != null }">
-                    		<img alt="" src="/mintProject/shop/storage/${suggestBoardDTO.imgName}" width="400px" height="300px"><br>
+                    		<img alt="" src="/mintProject/shop/storage/member/productQna/${suggestBoardDTO.imgName}" width="400px" height="300px"><br>
                     	</c:if>
-                    	<pre><p>${suggestBoardDTO.content }</p></pre>
+                    	<pre style="background-color: #fff; ">${suggestBoardDTO.content }</pre>
                     	<c:if test="${suggestBoardDTO.replyStatus == 0 }">
 	                    	<div style="display: flex;  flex-direction:row-reverse;" >
 	                    		<input type="button" class="btnDelete" value="삭제" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;">

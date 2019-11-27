@@ -58,24 +58,30 @@ public class OrderDAOMybatis implements OrderDAO {
 	public void updateOrderStatus(Map<String, Object> map) {
 		sqlSession.update("orderSQL.updateOrderStatus1", map); // 오더 상태 변경 (입금 전 - 입금 완료 - 배송 중 - 배송 완료 )
 		Map<String, String> resultMap = sqlSession.selectOne("orderSQL.updateOrderStatus2", map); //해당 status = 3(배송완료) => 포인트 지급 
+		System.out.println("resultMap: " + resultMap);
 		
 		String status = String.valueOf(resultMap.get("STATUS"));
 		String memLevel = String.valueOf(resultMap.get("MEMLEVEL"));
-		String totPrice = String.valueOf(resultMap.get("TOTALPRICE"));
+		String totPrice = String.valueOf(resultMap.get("FPRICE"));
+		String deliveryPrice = String.valueOf(resultMap.get("DPRICE"));
 		
+		int totalPrice = Integer.parseInt(totPrice) - Integer.parseInt(deliveryPrice);
 		int point = 0; 
+		
 		if(status.equals("3")) {
 			if(memLevel.equals("0")) {
-				point = (int)(Integer.parseInt(totPrice) * 0.05);
+				point = (int)(totalPrice * 0.05);
 			} else if(memLevel.equals("1")) {
-				point = (int)(Integer.parseInt(totPrice) * 0.07);
+				point = (int)(totalPrice * 0.07);
 			} else if(memLevel.equals("2")) {
-				point = (int)(Integer.parseInt(totPrice) * 0.10);
+				point = (int)(totalPrice * 0.10);
 			}
 			map.put("point", point);
 			sqlSession.update("memberSQL.updatePoint", map);
 		}
 		
+		System.out.println("totalPrice: " + totalPrice);
+		System.out.println("point: " + point);
 	}
 
 

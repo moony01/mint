@@ -17,7 +17,7 @@ public class SuggestBoardDTO {
 	private String subject;
 	private String content;
 	private String imgName;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date logtimeQ;
 
 	private String replyContent;

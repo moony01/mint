@@ -34,13 +34,13 @@ function getOfferBoardWrite(formData){
 function getOfferBoardView(){
 	if(suggestBoardDTO != ''){
 		for (var i = 0; i < options.length; i++) {
-			if(options[i].value == '${suggestBoardDTO.category}') options[i].setAttribute('selected', true);
+			if(options[i].value == category) options[i].setAttribute('selected', true);
 		}
 		
-		$('.board-write__subject-txt').val('${suggestBoardDTO.subject}');
+		$('.board-write__subject-txt').val(subject);
 		$('#content').val(content);
-		if('${suggestDTO.imgName}' !=''){
-			$('#viewImg').append('현재 이미지: ${suggestBoardDTO.imgName}');			
+		if(imgName !=''){
+			$('#viewImg').append('현재 이미지:' + imgName);			
 		}
 		$('.board-write__write-btn').text('수정');
 	}

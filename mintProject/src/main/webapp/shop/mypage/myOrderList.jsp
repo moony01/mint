@@ -25,9 +25,9 @@
 	                <i class="fa fa-search"></i>
 	            </div>
 	    </div>
-        <table class="qna-tb orderInfo-tb">
-			<tr class="qna-tb__head">
-			    <th class="size-1">배송상태</th>
+        <table class="tb tb-orderInfo">
+			<tr>
+			    <th class="size-2">배송상태</th>
 			    <th class="size-2">주문번호</th>
 			    <th class="size-2">주문날짜</th>
 			</tr>

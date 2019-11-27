@@ -28,12 +28,21 @@
 		and logtime between to_date(#{from}, 'YYMMDDHH') and to_date(#{to}, 'YYMMDDHH') + 0.99999 
 		</if>
 	</select>
-	<select id="getMyOrderDetails" parameterType="String" resultType="java.util.Map">
-		select id, productCode, mainSubject, thumbnail, qty, qty*price as orgprice, qty*price*discountRate/100 as dcprice ,qty*(price-price*discountRate/100) as price 
-		from   orderDetails 
+	<select id="getMyOrderProductList" parameterType="String" resultType="java.util.Map">
+		select id, mainSubject, od.qty as qty, od.price as orgprice, thumbnail, 
+			   od.qty*od.price*od.discountRate/100 as dcprice, 
+			   od.qty*(od.price-od.price*od.discountrate/100) as price
+		from   orderDetails od
 		join   product using (productCode)
-        join   orderInfo using (orderNumber)
-        where  orderNumber = ${ordernumber}
+		join   orderInfo using (ordernumber)
+		where  orderNumber = #{ordernumber}
+	</select>
+	<select id="getMyOrderDetails" parameterType="String" resultType="java.util.Map">
+		select m.name as memname, m.tel as memtel, m.email as mememail, oi.addr1 as addr1, oi.addr2 as addr2, oi.tel as tel,
+			   oi.name as name, request, dprice, pointuse, pointadd, fprice, status
+		from   orderInfo oi
+		join   member m using (id)
+		where  ordernumber = #{ordernumber}
 	</select>
 	
 	<!-- [관리자] 주문내역 보기 ======================================================================================-->

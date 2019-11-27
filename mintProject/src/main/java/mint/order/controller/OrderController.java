@@ -84,18 +84,23 @@ public class OrderController {
 		return mav;
 		
 	}
-	// 마이페이지 - 주문내역 페이싯 - 주문내역 상세보기
+	// 마이페이지 - 주문내역 페이지 - 주문내역 상세보기
 	@RequestMapping(value="/shop/mypage/myOrderDetails", method = RequestMethod.GET)
 	public ModelAndView getMyOrderDetails(@RequestParam String ordernumber, HttpSession session, Map<String, String> map) {
 		ModelAndView mav = new ModelAndView();
-		List<Map<String, String>> list = orderService.getMyOrderDetails(ordernumber);
-		System.out.println("session id : "+(String) session.getAttribute("memId"));
-		System.out.println(list.get(0).get("ID"));
-		if(!((String) session.getAttribute("memId")).equals(list.get(0).get("ID"))) {
+		
+		List<Map<String, String>> productList = orderService.getMyOrderProductList(ordernumber);
+		Map<String, String> orderDetails = orderService.getMyOrderDetails(ordernumber);
+		
+		System.out.println(productList);
+		System.out.println(orderDetails);
+		
+		if(!((String) session.getAttribute("memId")).equals(productList.get(0).get("ID"))) {
 			String result = "주문자 아이디와 현재 로그인중인 아이디가 일치하지 않습니다.";
-			mav.addObject("result", result);
+			mav.addObject("result",result);
 		} else {
-			mav.addObject("list",list);
+			mav.addObject("productList",productList);
+			mav.addObject("orderDetails",orderDetails);
 		}
 		mav.addObject("display","/shop/mypage/myOrderDetails.jsp");
 		mav.setViewName("/shop/main/index");

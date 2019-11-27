@@ -1,24 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="wrap">
     <div class="my-cart__header">
         <div class="my-cart__tit">주문 내역</div>
     </div>
     <div class="order-state">
-        <div class="order-state__state">입금전</div>
+        <div class="order-state__state" id="order-state-0">입금전</div>
         <div class="order-state__arrow">
             <i class="fas fa-arrow-right"></i>
         </div>
-        <div class="order-state__state">배송준비</div>
+        <div class="order-state__state" id="order-state-1">배송준비</div>
         <div class="order-state__arrow">
             <i class="fas fa-arrow-right"></i>
         </div>
-        <div class="order-state__state current-state">배송중</div>
+        <div class="order-state__state" id="order-state-2">배송중</div>
         <div class="order-state__arrow">
             <i class="fas fa-arrow-right"></i>
         </div>
-        <div class="order-state__state">배송완료</div>
+        <div class="order-state__state" id="order-state-3">배송완료</div>
     </div>
     <div class="title2">
         <h2>상품 정보</h2>
@@ -30,36 +32,26 @@
                 <th>상품 정보</th>
                 <th>상품 금액</th>
             </tr>
-            <tr class="order-tb__item">
+            <c:forEach var="data" items="${productList }">
+            	<tr class="order-tb__item">
                 <td class="order-tb__thumb">
                     <img
-                        src="//img-cf.kurly.com/shop/data/goods/1529309809590s0.jpg"
+                        src="/mintProject/shop/storage/mint/product/${data.THUMBNAIL }"
                         alt=""
                     />
                 </td>
                 <td class="order-tb__desc">
-                    <div class="order-tb__name">[사미헌] 감자탕</div>
+                    <div class="order-tb__name">${data.MAINSUBJECT }</div>
                     <div class="order-tb__price">
-                        <span class="order-tb__num">1개 / 개 당 9,900 원</span>
+                        <span class="order-tb__num">${data.QTY }개 / 개 당 <fmt:formatNumber value="${data.ORGPRICE}" pattern="##,###,###"/>원</span><br/><br/>
+                        <span class="order-tb__num">총 <fmt:formatNumber value="${data.DCPRICE}" pattern="##,###,###"/>원 할인</span>
                     </div>
                 </td>
-                <td class="order-tb__total">8,400원</td>
+                <td class="order-tb__total"><fmt:formatNumber value="${data.PRICE}" pattern="##,###,###"/> 원</td>
             </tr>
-            <tr class="order-tb__item">
-                <td class="order-tb__thumb">
-                    <img
-                        src="//img-cf.kurly.com/shop/data/goods/1574400021312s0.jpg"
-                        alt=""
-                    />
-                </td>
-                <td class="order-tb__desc">
-                    <div class="order-tb__name">[사미헌] 감자탕</div>
-                    <div class="order-tb__price">
-                        <span class="order-tb__num">1개 / 개 당 9,900 원</span>
-                    </div>
-                </td>
-                <td class="order-tb__total">8,400원</td>
-            </tr>
+            <c:set var="originalPrice" value="${originalPrice + (data.QTY * data.ORGPRICE) }"/>
+            <c:set var="totalDCPrice" value="${totalDCPrice + data.DCPRICE}"/>
+            </c:forEach>
         </table>
     </div>
     <div class="title2">
@@ -72,7 +64,7 @@
                 <td class="size-10">
                     <input
                         type="text"
-                        value="김덕배"
+                        value="${orderDetails.MEMNAME }"
                         readonly
                         class="read-only"
                     />
@@ -81,19 +73,7 @@
             <tr class="info-tb__phone">
                 <th class="size-2">휴대폰 *</th>
                 <td class="size-10">
-                    <input type="text" value="010" readonly class="read-only" />
-                    <input
-                        type="text"
-                        value="1234"
-                        readonly
-                        class="read-only"
-                    />
-                    <input
-                        type="text"
-                        value="4567"
-                        readonly
-                        class="read-only"
-                    />
+                    <input type="text" value="${orderDetails.MEMTEL }" readonly class="read-only" style="width: 140px;" />
                 </td>
             </tr>
             <tr class="info-tb__email">
@@ -101,7 +81,7 @@
                 <td class="size-10">
                     <input
                         type="text"
-                        value="gamja123@naver.com"
+                        value="${orderDetails.MEMEMAIL }"
                         readonly
                         class="read-only"
                     />
@@ -124,86 +104,34 @@
                                 type="text"
                                 class="shipping-tb__addr1"
                                 id="addr1"
-                                value="충남 당진시 합덕읍 감자마을1길 12 [31812]"
+                                value="${orderDetails.ADDR1 }"
                                 readonly
                             />
                             <input
                                 type="text"
                                 class="shipping-tb__addr2"
                                 id="addr2"
-                                value="감자 아파트 104동 102호"
+                                value="${orderDetails.ADDR2 }"
+                                readonly
                             />
-                            <button
-                                class="shipping-tb__search"
-                                id="addrSearchBtn"
-                            >
-                                우편번호 찾기
-                            </button>
                         </td>
                     </tr>
                     <tr class="shipping-tb__name">
                         <th class="size-2">수령인 이름 *</th>
                         <td class="size-10">
-                            <input type="text" value="김덕배" />
+                            <input type="text" value="${orderDetails.NAME }" />
                         </td>
                     </tr>
                     <tr class="shipping-tb__phone">
                         <th class="size-2">휴대폰 *</th>
                         <td class="size-10">
-                            <input type="text" value="010" maxlength="4" />
-                            <input type="text" value="1234" maxlength="4" />
-                            <input type="text" value="4567" maxlength="4" />
+                            <input type="text" value="${orderDetails.TEL }" style="width:163px; padding-left:8px; text-align:left;">
                         </td>
                     </tr>
                     <tr class="shipping-tb__ask">
                         <th class="size-2">배송 요청사항</th>
                         <td class="size-10">
-                            <textarea
-                                name=""
-                                id=""
-                                class="shipping-tb__textarea"
-                                maxlength="50"
-                            ></textarea>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="title2">
-                <h2>쿠폰 / 적립금</h2>
-            </div>
-            <div class="cart-goods">
-                <table class="point-tb">
-                    <tr>
-                        <th class="size-2">쿠폰 적용</th>
-                        <td class="size-10">
-                            <span>사용 가능한 쿠폰이 없습니다</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="size-2">적립금 적용</th>
-                        <td class="size-10">
-                            <div class="pont-tb__point">
-                                <input
-                                    type="text"
-                                    value="0"
-                                    class="point-tb__input"
-                                />원
-                                <label
-                                    for=""
-                                    class="check-label point-tb__checkbox"
-                                >
-                                    <input
-                                        type="checkbox"
-                                        class="check-box"
-                                        name=""
-                                        id=""
-                                    />
-                                </label>
-                                <span>모두사용</span>
-                            </div>
-                            <div class="point-tb__having-point">
-                                <span>보유 적립금 : 6,616원</span>
-                            </div>
+                            <textArea class="shipping-tb__textarea" maxlength="50" style="resize: none;">${orderDetails.REQUEST }</textArea>
                         </td>
                     </tr>
                 </table>
@@ -217,7 +145,7 @@
             <table class="bill-tb">
                 <tr class="bill-tb__product-price">
                     <th>상품 금액</th>
-                    <td>34,000 원</td>
+                    <td><fmt:formatNumber value="${originalPrice }" pattern="##,###,###"/> 원</td>
                 </tr>
 
                 <tr class="tb-hr">
@@ -231,19 +159,19 @@
 
                 <tr class="bill-tb__col">
                     <th>상품할인금액</th>
-                    <td>- 2,200 원</td>
+                    <td>- <fmt:formatNumber value="${totalDCPrice }" pattern="##,###,###"/> 원</td>
                 </tr>
                 <tr class="bill-tb__col">
                     <th>배송비</th>
-                    <td>0 원</td>
+                    <td><fmt:formatNumber value="${orderDetails.DPRICE }" pattern="##,###,###"/> 원</td>
                 </tr>
-                <tr class="bill-tb__col">
+                <!-- <tr class="bill-tb__col">
                     <th>쿠폰사용</th>
                     <td>0 원</td>
-                </tr>
+                </tr> -->
                 <tr class="bill-tb__col">
                     <th>적립금사용</th>
-                    <td>0 원</td>
+                    <td><fmt:formatNumber value="${orderDetails.POINTUSE }" pattern="##,###,###"/> 원</td>
                 </tr>
 
                 <tr class="tb-hr">
@@ -257,22 +185,21 @@
 
                 <tr class="bill-tb__total-price">
                     <th>최종결제금액</th>
-                    <td>31,800 원</td>
+                    <td><fmt:formatNumber value="${orderDetails.FPRICE }" pattern="##,###,###"/> 원</td>  
                 </tr>
 
                 <tr class="bill-tb__earn-point">
-                    <td colspan="2">
-                        <span>구매 시 1,590 원 (5%) 적립예정</span>
+                    <td colspan="2">            
+                        <span>이 구매로 <fmt:formatNumber value="${orderDetails.POINTADD}" pattern="##,###,###"/> 원 적립</span>
                     </td>
                 </tr>
             </table>
         </div>
     </div>
-    <button class="myorder-writeBtn">결제하기</button>
 </div>
 
 <script>
 $(document).ready(function(){
-	console.log(`${list}`);
+	$('#order-state-${orderDetails.STATUS}').addClass('current-state');
 });
 </script>

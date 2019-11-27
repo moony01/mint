@@ -59,14 +59,17 @@ public class EventController {
 		return "/admin/main/admin";
 	}
 	
-	/* 이벤트 등록 기능 */
-	@RequestMapping(value="/admin/service/eventWrite", method=RequestMethod.POST)
-	@ResponseBody
-	public void eventWrite(@RequestParam Map<String, Object> map) {
-		
-		// 임시 (나중에 productCode 가져올 수 있으면 지울 것)
-		map.put("productCode", "125");
-		eventService.eventWrite(map);
+	/* 이벤트 수정 페이지 이동 */
+	@RequestMapping(value="/admin/service/eventModifyForm", method=RequestMethod.GET)
+	public String eventModifyForm(@RequestParam String seq,
+								@RequestParam String pg,
+								@RequestParam String type,
+								Model model) {
+		model.addAttribute("pg", pg);
+		model.addAttribute("seq", seq);
+		model.addAttribute("type", type);
+		model.addAttribute("display", "/admin/service/eventWrite.jsp");
+		return "/admin/main/admin";
 	}
 	
 	/* 이벤트 리스트 가져오기 */
@@ -144,27 +147,23 @@ public class EventController {
 		mav.addObject("eventProductList", eventProductList);
 		mav.setViewName("jsonView");
 		return mav;
-	}
-	
-	/* 이벤트 수정 페이지 이동 */
-	@RequestMapping(value="/admin/service/eventModifyForm", method=RequestMethod.GET)
-	public String eventModifyForm(@RequestParam String seq,
-								@RequestParam String pg,
-								@RequestParam String type,
-								Model model) {
-		model.addAttribute("pg", pg);
-		model.addAttribute("seq", seq);
-		model.addAttribute("type", type);
-		model.addAttribute("display", "/admin/service/eventWrite.jsp");
-		return "/admin/main/admin";
-	}
-	
+	}	
 
-	/* 이벤트 수정 기능 (subject, eventStatus, startDate, endDate) */
+	/* 이벤트 등록 기능 */
+	@RequestMapping(value="/admin/service/eventWrite", method=RequestMethod.POST)
+	@ResponseBody
+	public void eventWrite(@RequestParam Map<String, Object> map) {
+		
+		// 임시 (나중에 productCode 가져올 수 있으면 지울 것)
+		map.put("productCode", "125");
+		eventService.eventWrite(map);
+	}
+	
+	/* 이벤트 수정 기능 */
 	@RequestMapping(value="/admin/service/eventModify", method=RequestMethod.POST)
 	@ResponseBody
 	public void eventModify(@RequestParam Map<String, Object> map) {
-		System.out.println(map);
+		// System.out.println(map);
 		eventService.eventModify(map);
 	}
 	

@@ -74,9 +74,9 @@ function eventInfo(result){
 	let endDate = moment(eventInfo.endDate).format('YYYY/MM/DD hh:mm');
 	
 	// 진행여부
-	if(eventInfo.eventStatus === '0'){
+	if(eventInfo.eventStatus === 0){
 		$('.eventStatus:radio[value="0"]').attr('checked',true); 
-	} else if(eventInfo.eventStatus === '1'){
+	} else if(eventInfo.eventStatus === 1){
 		$('.eventStatus:radio[value="1"]').attr('checked',true); 
 	}
 	// 이벤트명
@@ -84,9 +84,9 @@ function eventInfo(result){
 	
 	// 기간설정
 	if(eventInfo.startDate === null && eventInfo.endDate === null){
-		$(".isPeriodOn:radio[value='0']").attr("checked",true); 
+		$('.isPeriodOn:radio[value="0"]').attr('checked',true); 
 	} else {
-		$(".isPeriodOn:radio[value='1']").attr("checked",true); 
+		$('.isPeriodOn:radio[value="1"]').attr('checked',true); 
 		$('#datetimepickerStart').val(startDate);
 		$('#datetimepickerEnd').val(endDate);
 	}
@@ -158,7 +158,7 @@ function productListTemp(result){
 				<td>${stock}</td>
 				<td>${star}</td>
 				<td class="price">${price}</td>
-				<td><input type="text" size="2" class="discountRate" value="${discountRate}"/>%</td>
+				<td><input type="text" size="2" maxlength="2" class="discountRate" value="${discountRate}"/>%</td>
 				<td>${prevDiscountRate}%</td>
 			</tr>
 			`;
@@ -243,8 +243,8 @@ function ajax(type){
 			url:'/mintProject/admin/service/eventModify',
 			data: $('#eventWriteForm').serialize(),
 			success: function(){
-				//alert('수정 완료!');
-				//location.href='/mintProject/admin/service/event';
+				alert('수정 완료!');
+				location.href='/mintProject/admin/service/event';
 			},
 			error: function(error){
 				alert('수정 실패!');

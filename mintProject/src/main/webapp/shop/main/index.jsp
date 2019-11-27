@@ -372,7 +372,7 @@ pageEncoding="UTF-8"%>
                 </li>
                 <li class="gnb__item">
                     <a
-                        href="/mintProject/productList/getProductList?gubun=3&headGubun=4&pg=1"
+                        href="/mintProject/shop/goods/event"
                         ><span>이벤트</span></a
                     >
                 </li>

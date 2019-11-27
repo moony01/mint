@@ -110,13 +110,13 @@ function eventListTemp(result){
 				<td>${
 					(() => {
 						if(events[i].startDate === null) return '상시진행';
-						else return moment(sd).format('YYYY/MM/DD hh:mm');
+						else return moment(sd).format('YYYY/MM/DD HH:mm');
 					})()
 				}</td>
 				<td>${
 					(() => {
 						if(events[i].endDate === null) return '상시진행';
-						else return moment(ed).format('YYYY/MM/DD hh:mm');
+						else return moment(ed).format('YYYY/MM/DD HH:mm');
 					})()
 				}</td>
 				<td>
@@ -260,6 +260,19 @@ $('#eventDeleteBtn').click(function(){
 });
 
 
+/**
+ *  이벤트 스크립트
+ *  
+ *  관리자 이벤트 페이지에 적용시킴 
+ *  
+ *  1. AJAX로 이벤트 리스트를 가져옴
+ *  2. eventStatus가 1이고 endDate에서 현재 시간을 뺀 값이 양수면 실행한다
+ *  3. startDate - 현재 시간(now)의 값을 이벤트 실행 setTimeout의 delay 패러미터에 넣음
+ *  4. 이벤트 실행 setTimeout이 0이 되거나 음수가 되면 1~50ms 후 곧바로 product DB에 update
+ *  5. endDate - 현재 시간(now)의 값을 이벤트 종료 setTimeout의 delay 패러미터에 넣음
+ *  6. 이벤트 종료 setTimeout이 0이 되거나 음수가 되면 1~50ms 후 곧바로 product DB에 update
+ */
+
 function eventExecute(result){
 	let event = result.list;
 	let now = new Date();
@@ -299,27 +312,42 @@ function eventExecute(result){
 			}, startCount);
 			
 		} else if(eventStatus === 1 && endCount <= 0) {
-			console.log('시작까지 남은 시간 : '+startCount+', 종료까지 남은 시간 : '+endCount);			
+			console.log('event '+eventSubject+' : '+'eventStatus : '+eventStatus
+					+' startCount : '+startCount+' endCount : '+endCount);
 			// 진행중 상태지만 이벤트 종료
-						
 			setTimeout(function(){
 				clearTimeout(eventOngoing);
 				console.log('이벤트 종료!');
 			}, endCount);
 			
 			// 이전 할인율로 update하기
-			$.ajax({
-				type:'post',
-				url:'/mintProject/admin/service/eventEndProductUpdate',
-				data:'productCode='+productCode
-					+'&prevDiscountRate='+prevDiscountRate,
-				success: function(){
-					console.log("되돌리기 성공!");
-				},
-				error: function(error){
-					console.error(error);
-				}
-			});
+			endEvent(productCode, prevDiscountRate);
+		} else if(eventStatus === 0){
+			console.log('event '+eventSubject+' : '+'eventStatus : '+eventStatus
+					+' startCount : '+startCount+' endCount : '+endCount);
+			// 진행 안함 (진행중이었다가 상태 변경한 것 포함)
+			setTimeout(function(){
+				clearTimeout(eventOngoing);
+				console.log('이벤트 종료!');
+			}, endCount);
+			
+			// 이전 할인율로 update하기
+			endEvent(productCode, prevDiscountRate);
 		}
 	}	
+}
+
+function endEvent(productCode, prevDiscountRate){
+	$.ajax({
+		type:'post',
+		url:'/mintProject/admin/service/eventEndProductUpdate',
+		data:'productCode='+productCode
+			+'&prevDiscountRate='+prevDiscountRate,
+		success: function(){
+			console.log("되돌리기 성공!");
+		},
+		error: function(error){
+			console.error(error);
+		}
+	});
 }

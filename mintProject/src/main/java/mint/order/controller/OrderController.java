@@ -84,7 +84,7 @@ public class OrderController {
 		return mav;
 		
 	}
-	
+	// 마이페이지 - 주문내역 페이싯 - 주문내역 상세보기
 	@RequestMapping(value="/shop/mypage/myOrderDetails", method = RequestMethod.GET)
 	public ModelAndView getMyOrderDetails(@RequestParam String ordernumber, HttpSession session, Map<String, String> map) {
 		ModelAndView mav = new ModelAndView();
@@ -109,17 +109,13 @@ public class OrderController {
 								HttpSession session) {
 		
 		String id = (String)session.getAttribute("memId");
-		System.out.println("최초 order : "+order);
 		ArrayList<String> productCode = (ArrayList<String>) order.get("productCode");
 		ArrayList<String> qty = (ArrayList<String>) order.get("qty");
-		System.out.println("productCode ArrayList 화 : " +productCode);
-		System.out.println("qty ArrayList 화 : " +qty);
 		
 		order.remove("productCode");
 		order.remove("qty");
-		System.out.println("remove order : " +order);
+		order.put("id", id);
 		orderService.insertOrderInfo(order);
-		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		for(int i=0; i<productCode.size(); i++) {
@@ -127,11 +123,10 @@ public class OrderController {
 			map.put("qty", qty.get(i));
 			map.put("id", id);
 			orderService.insertOrderDetail(map);
-			//orderService.updateProductStock(map);
-			//orderService.deleteCartList(map);
+			orderService.updateProductStock(map);
+			int memcart = orderService.deleteCartList(map);
+			session.setAttribute("memCart", memcart);
 		}
-
-
 	}
 	
 }

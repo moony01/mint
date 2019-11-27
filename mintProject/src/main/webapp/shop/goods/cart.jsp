@@ -180,7 +180,7 @@ document.getElementById('placeAnOrder').onclick = function(){
 	for(var i=0; i<prdCnt; i++) {
 		if($('.prdCheck').eq(i).prop('checked')){
 			let value = $('.productCode').eq(i).val();
-			productCode.push(value);			
+			productCode.push(value);
 		}
 	}
 	input1.value = productCode;

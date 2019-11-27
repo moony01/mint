@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import mint.review.bean.Order;
 import mint.review.bean.Review;
 
 @Repository(value="reviewDao")

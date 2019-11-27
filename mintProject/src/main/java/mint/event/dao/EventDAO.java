@@ -29,4 +29,8 @@ public interface EventDAO {
 
 	public void eventProductUpdate(Map<String, Object> map);
 
+	public List<EventProductDTO> getEventProduct(int seq);
+
+	public void eventEndProductUpdate(Map<String, Object> map);
+
 }

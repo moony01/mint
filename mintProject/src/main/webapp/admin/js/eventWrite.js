@@ -29,7 +29,7 @@ function getEvent(seq){
 		error: function(error){
 			console.error(error);
 		}
-	});
+	});	
 }
 
 /* 이벤트 해당 상품 목록 가져오기 */
@@ -90,9 +90,7 @@ function eventInfo(result){
 		$('#datetimepickerStart').val(startDate);
 		$('#datetimepickerEnd').val(endDate);
 	}
-	
-	// 할인율
-		
+			
 }
 
 /* datetimepicker 한국어 설정 */
@@ -126,26 +124,31 @@ $('#dateEndBtn').click(function(){
 function productListTemp(result){
 	const $productTable = $('#eventProductTable');
 	let products = result.list;
+	let eventInfos = result.eventProductList;
 	let $pfrag = $(document.createDocumentFragment());
 	
 	// 구조분해할당, 템플릿 리터럴
 	for(let i=0; i<products.length; i++){
 		const {
-			productstatus,
+			productStatus,
 			thumbnail,
 			mainSubject,
 			productCode,
 			stock,
-			discountRate,
 			price,
 			star
 		} = products[i];
 		
+		const {
+			discountRate,
+			prevDiscountRate
+		} = eventInfos[i];
+		
 		let productRow = `
 			<tr class="productRow">
-				<td><input type="checkbox" class="pcheck" value="${productCode}"></td>
+				<td><input type="checkbox" class="pcheck" name="chk" value="${productCode}"></td>
 				<td><img class="thumb" src="/mintProject/shop/storage/mint/product/${thumbnail}" alt=""></td>
-				<td class="productstatus${productstatus}">${
+				<td class="productstatus${productStatus}">${
 					(() => {
 						if(products[i].productStatus === 0) return '판매중';
 						else return '판매중지';
@@ -155,9 +158,8 @@ function productListTemp(result){
 				<td>${stock}</td>
 				<td>${star}</td>
 				<td class="price">${price}</td>
-				<td>${discountRate}%</td>
-				<td><input type="text" size="2" class="discountRate"/>%</td>
-				<td class="eventPrice"></td>
+				<td><input type="text" size="2" class="discountRate" value="${discountRate}"/>%</td>
+				<td>${prevDiscountRate}%</td>
 			</tr>
 			`;
 		$pfrag.append($(productRow));
@@ -166,11 +168,6 @@ function productListTemp(result){
 }
 
 
-/* 이벤트 대상 상품 체크박스 컨트롤 */
-$('#pchkAll').click(function(){
-	if($('#pchkAll').prop('checked')) $('.pcheck').prop('checked', true);
-	else $('.pcheck').prop('checked', false);
-});
 
 /* 글쓰기 버튼 클릭시 */
 $('#eventWriteBtn').click(function(){	
@@ -246,8 +243,8 @@ function ajax(type){
 			url:'/mintProject/admin/service/eventModify',
 			data: $('#eventWriteForm').serialize(),
 			success: function(){
-				alert('수정 완료!');
-				location.href='/mintProject/admin/service/event';
+				//alert('수정 완료!');
+				//location.href='/mintProject/admin/service/event';
 			},
 			error: function(error){
 				alert('수정 실패!');
@@ -274,4 +271,25 @@ function ajax(type){
 /* 이벤트 관리 리스트 이동 */
 $('#eventListBtn').click(function(){	
 	location.href='/mintProject/admin/service/event?pg='+pg;
+});
+
+/* 이벤트 대상 상품 체크박스 컨트롤 */
+$('#pchkAll').click(function(){
+	if($('#pchkAll').prop('checked')) $('.pcheck').prop('checked', true);
+	else $('.pcheck').prop('checked', false);
+});
+
+/* 할인율 일괄 적용 (DB를 거치지 않음) */
+$('#discountRateApplyBtn').click(function(){
+	let rate = $('#eventRate').val();
+	$('.discountRate').val(rate);
+});
+
+/* 선택 상품 리스트 삭제 (DB를 거치지 않음) */
+$('#deleteEventProductBtn').click(function(){
+	var cnt = $('.pcheck:checked').length; // 체크된 항목 갯수 구하기
+	if(cnt===0) alert('삭제할 항목을 먼저 선택하세요');
+	else {
+		$('.pcheck:checked').parent().parent().remove();
+	}
 });

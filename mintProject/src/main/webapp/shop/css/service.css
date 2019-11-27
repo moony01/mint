@@ -1,3 +1,4 @@
+
 .service,
 .service-view {
     display: block;
@@ -48,6 +49,9 @@
 }
 
 /* 메인 타이틀 */
+.service__main{
+	width:820px;
+}
 .service__main-title {
     font-size: 24px;
     font-weight: 450;
@@ -77,7 +81,7 @@
 
 /* 테이블 */
 .tb {
-    width: 640px;
+    width: 100%;
     border-top: 1px solid #45b8ac;
     border-bottom: 1px solid #45b8ac;
     color: #555;
@@ -1041,14 +1045,14 @@
     border: 2px solid #45b8ac;
 }
 .bill-tb th {
-    width: 100px;
+    width: 130px;
     color: #000;
     font-size: 14px;
     font-weight: 500;
     padding-left: 18px;
 }
 .bill-tb td {
-    width: 152px;
+    width: 130px;
     text-align: right;
     padding-right: 20px;
 }

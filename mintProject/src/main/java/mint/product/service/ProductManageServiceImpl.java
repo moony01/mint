@@ -65,4 +65,14 @@ public class ProductManageServiceImpl implements ProductManageService{
 	public List<ProductDTO> getSameSubcategoryProductList(Map<String, String> map) {
 		return productManageDAO.getSameSubcategoryProductList(map);
 	}
+
+	@Override
+	public List<ProductDTO> getProductAdminList(Map<String, String> map) {
+		return productManageDAO.getProductAdminList(map);
+	}
+
+	@Override
+	public int getCntProductAdminList(Map<String, String> map) {
+		return productManageDAO.getCntProductAdminList(map);
+	}
 }

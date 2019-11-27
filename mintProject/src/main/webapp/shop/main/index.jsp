@@ -247,7 +247,6 @@
 
 	<footer class="footer"></footer>
 </body>
-<script type="text/javascript" src="/mintProject/shop/js/event.js"></script>
 <script>
         let memId = '${memId}';
         let memName = '${memName}';

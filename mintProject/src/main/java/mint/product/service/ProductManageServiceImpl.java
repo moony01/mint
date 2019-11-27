@@ -75,4 +75,9 @@ public class ProductManageServiceImpl implements ProductManageService{
 	public int getCntProductAdminList(Map<String, String> map) {
 		return productManageDAO.getCntProductAdminList(map);
 	}
+
+	@Override
+	public int productUpdate(ProductDTO productDTO) {
+		return productManageDAO.productUpdate(productDTO);
+	}
 }

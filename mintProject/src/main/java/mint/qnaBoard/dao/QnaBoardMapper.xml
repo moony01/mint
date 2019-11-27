@@ -9,7 +9,10 @@
                          , tt.*
                       from (select * 
                               from qnaboard
-                             order by seq desc) tt)
+                             where id = #{memId} 
+                             order by seq desc
+                            ) tt
+                    )
 		]]>
 	</select>
 	<!--  where rn >= #{startNum} and rn <= #{endNum} -->

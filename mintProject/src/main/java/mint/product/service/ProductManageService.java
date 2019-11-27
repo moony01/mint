@@ -31,5 +31,7 @@ public interface ProductManageService {
 
 	public int getCntProductAdminList(Map<String, String> map);
 
+	public int productUpdate(ProductDTO productDTO);
+
 
 }

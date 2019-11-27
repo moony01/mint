@@ -1,14 +1,7 @@
 /**
  *  이벤트 스크립트
  *  
- *  index.jsp에 js를 물렸으므로 어느 페이지에 있든 실행될 수 있다
- *
- *  1. AJAX로 이벤트 리스트를 가져옴
- *  2. eventStatus가 1이고 endDate에서 현재 시간을 뺀 값이 양수면 실행한다
- *  3. startDate - 현재 시간(now)의 값을 이벤트 실행 setTimeout의 delay 패러미터에 넣음
- *  4. 이벤트 실행 setTimeout이 0이 되거나 음수가 되면 1~50ms 후 곧바로 product DB에 update
- *  5. endDate - 현재 시간(now)의 값을 이벤트 종료 setTimeout의 delay 패러미터에 넣음
- *  6. 이벤트 종료 setTimeout이 0이 되거나 음수가 되면 1~50ms 후 곧바로 product DB에 update
+ *  일일특가 이벤트 정보만 가져옴
  */
 
 $(function(){	

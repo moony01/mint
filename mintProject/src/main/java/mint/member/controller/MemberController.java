@@ -280,6 +280,15 @@ public class MemberController {
 		return result;
 	}
 	
-	
+	@RequestMapping("/shop/mypage/getPoint")
+	@ResponseBody
+	public int getMemberPoint(HttpSession session) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key", "id");
+		map.put("value", (String) session.getAttribute("memId"));
+		
+		MemberDTO memberDTO = memberService.getUserBy(map);
+		return memberDTO.getPoint();
+	}
 
 }

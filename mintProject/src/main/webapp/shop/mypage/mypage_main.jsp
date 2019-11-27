@@ -47,6 +47,7 @@
 						</div>
 						<div class="pointRate"></div>
 					</div>
+					<div class="point">누적 적립금</div>
 				</div>
 				
 			</div>
@@ -111,4 +112,15 @@ if(memLevel == 0) {
 
 $('.memLevel').text(memLevel);
 $('.pointRate').append(pointRate + ' 적립');
+
+$.ajax({
+	type:'post',
+	url: '/mintProject/shop/mypage/getPoint',
+	dataType: 'text',
+	success: function(result){
+		$('.point').append(result + ' point');
+		
+	},
+	error: function(){}
+});
 </script>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+    
 <link rel="stylesheet" href="/mintProject/shop/css/service.css">    
 
 <jsp:include page="mypage_main.jsp"/>
@@ -18,18 +20,18 @@
     </div>
     <div class="service__main">
         <h2 class="service__main-title">주문내역</h2>
-        <div class="searches" style="float: right; display:flex; justify-content: flex-end;">
-	            <input type="text" name="daterange">
-	            <div class="search">
-	                <input type="button" class="searchButton" onclick="getOrderInfoByOption($(this))">
+        <div class="searches">
+	            <input type="text" name="daterange" class="daterange-txt">
+	            <button class="daterange-search-btn" onclick="getOrderInfoByOption($(this))">
 	                <i class="fa fa-search"></i>
-	            </div>
+	            </button>
 	    </div>
         <table class="tb tb-orderInfo">
 			<tr>
 			    <th class="size-2">배송상태</th>
-			    <th class="size-2">주문번호</th>
-			    <th class="size-2">주문날짜</th>
+			    <th class="size-4">주문번호</th>
+			    <th class="size-3">주문날짜</th>
+			    <th class="size-2">결제금액</th>
 			</tr>
 		</table>
 	</div>  

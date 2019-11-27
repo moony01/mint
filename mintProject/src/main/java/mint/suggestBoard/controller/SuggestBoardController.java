@@ -52,7 +52,7 @@ public class SuggestBoardController {
 		suggestBoardDTO.setId((String) session.getAttribute("memId"));
 		
 		//file 경로: 상대경로로 지정되어야 함 (보완예정)
-		String filePath = "C:\\Users\\user\\Desktop\\soyeon\\Spring\\mint\\mintProject\\src\\main\\webapp\\shop\\storage";
+		String filePath = "C:\\Users\\bitcamp\\Documents\\GitHub\\mint\\mintProject\\src\\main\\webapp\\shop\\storage";
 		String fileName = img.getOriginalFilename();
 		File file = new File(filePath, fileName);
 

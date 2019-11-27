@@ -36,9 +36,9 @@
         where  orderNumber = ${ordernumber}
 	</select>
 	
-	<!-- [관리자] 주문내역 보기 -->
+	<!-- [관리자] 주문내역 보기 ======================================================================================-->
 	<select id="getOrderList" parameterType="java.util.Map" resultType="orderInfo">
-		select orderNumber, id, to_char(logtime, 'YY/MM/DD') as logtime, status from orderInfo  
+		select orderNumber, id, to_char(logtime, 'yyyy-MM-dd') as logtime, status from orderInfo  
 		<if test="status != 5">
 			where status = #{status}
 		</if>
@@ -55,10 +55,11 @@
 	</select>
 	
 	<select id="getOrderView" parameterType="java.util.Map" resultType="java.util.Map">
-		select id, tel, email, addr1, addr2, to_char(logtime, 'YY/MM/DD') as logtime, productcode, thumbnail, mainsubject, price, qty, discountRate from orderDetails
+		select id, name, tel, addr1, addr2, request, to_char(logtime, 'YY/MM/DD') as logtime, 
+				fprice, dprice, pointUse, pointAdd, productcode, thumbnail, mainsubject, od.price as price, qty, od.discountRate as discountRate from orderDetails od
 		left join orderInfo using (ordernumber)
 		left join product using (productcode)
-		where id = #{id} and orderNumber = #{orderNumber}
+		where id =#{id} and orderNumber = #{orderNumber}
 	</select>
 	
 	<update id="updateOrderStatus1" parameterType="java.util.Map">
@@ -66,13 +67,12 @@
 	</update>
 	
 	<select id="updateOrderStatus2" parameterType="java.util.Map" resultType="java.util.Map">
-		select id, memLevel, status, sum(price) as price, sum(price*(discountRate/100)) as discountPrice, (sum(price) - sum(price*(discountRate/100))) as totalPrice  from orderDetails 
+		select id, memLevel, status, fprice, dprice from orderDetails
 		left join orderInfo using (ordernumber)
-		left join product using (productcode)
 		left join member using (id)
 		where orderNumber = #{orderNumber}
-		group by (id, memLevel, status)
-		having id = #{id}
+        group by (id, memLevel, status, fprice, dprice)
+        having id = #{id}
 	</select>
 	
 	<insert id="insertOrderInfo" parameterType="java.util.Map">

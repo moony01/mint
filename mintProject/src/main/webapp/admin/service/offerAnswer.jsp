@@ -31,7 +31,7 @@
         <tr class="write-tb__content">
             <th>내용</th>
             <td colspan="3" class="table--left">
-                <pre>${suggestBoardDTO.content }</pre>
+                <pre style="background-color: #fff;">${suggestBoardDTO.content }</pre>
             </td>
         </tr>
 	        <tr class="write-tb__answer">

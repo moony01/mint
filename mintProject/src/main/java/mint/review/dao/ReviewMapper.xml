@@ -29,8 +29,6 @@
 		order by orderNumber desc, productCode asc
 	</select>
 	
-	
-	
 	<!-- 상품후기 총 글수 해당 상품/전체 -->
 	<select id="getReviewTotalArticle" resultType="int" parameterType="java.util.Map">
 		select count(*) from reviewboard 
@@ -53,19 +51,6 @@
 		where rn between #{startNum} and #{endNum}
 		order by rn asc
 	</select>
-
-	<select id = "getReviewByProduct" resultType = "mint.review.bean.Review">
-		select seq, productCode, id, subject, star, to_char(logtime,'yyyy-MM-DD') as logtime
-		from   reviewboard where productCode = #{productCode}
-		order  by seq desc
-	</select>
-	<select id = "getReviewByProductStar" resultType = "mint.review.bean.Review">
-		select seq, productCode, id, subject, star, to_char(logtime,'yyyy-MM-DD') as logtime
-		from   reviewboard where productCode = #{productCode}
-		order  by star desc
-	</select>
-	
-	
 	
 	<!-- 상품 상세 페이지 별점 평균/총 후기글 수 -->
 	<select id = "getReviewStar" resultType = "java.util.Map">

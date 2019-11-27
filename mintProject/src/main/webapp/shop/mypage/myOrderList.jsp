@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="/mintProject/shop/css/service.css">    
+
+<jsp:include page="mypage_main.jsp"/>
+
 <seciton class="service">
     <div class="snb">
         <h2 class="snb__title">마이컬리</h2>

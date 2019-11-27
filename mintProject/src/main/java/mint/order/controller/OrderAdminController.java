@@ -59,7 +59,8 @@ public class OrderAdminController {
 		List<Map<String, String>> list = orderService.getOrderView(map);
 		
 		mav.addObject("list", list);
-		mav.addObject("display", "/admin/order/orderView.jsp");
+		mav.addObject("display", ""
+				+ "/admin/order/orderView.jsp");
 		mav.setViewName("/admin/main/admin");
 		return mav; 
 		

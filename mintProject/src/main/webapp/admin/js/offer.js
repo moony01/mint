@@ -42,6 +42,9 @@ function printgetSuggestBoard(result){
 	for (let i = 0; i < list.length; i++) {
 		const {seq, category, subject, content, logtimeQ, id, replyStatus} = list[i];
 		
+		let date = new Date(logtimeQ);
+		let parseDate = new Date(date - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10);
+		
 		let reply; 
 		if(replyStatus == '0') {
 			reply = '대기 중';
@@ -53,7 +56,7 @@ function printgetSuggestBoard(result){
 					            <td>${seq}</td>
 					            <td>${category}</td>
 					            <td class="table--left"><a href="/mintProject/admin/service/offerAnswer?pg=${pg}&seq=${seq}">${subject}</a></td>
-					            <td>${logtimeQ}</td>
+					            <td>${parseDate}</td>
 					            <td>${id}</td>
 								<td>${reply}</td>
 								

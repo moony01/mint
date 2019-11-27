@@ -77,4 +77,9 @@ public class ProductManageMybatis implements ProductManageDAO {
 		return sqlSession.selectOne("productManageSQL.getCntProductAdminList",map);
 	}
 
+	@Override
+	public int productUpdate(ProductDTO productDTO) {
+		return sqlSession.update("productManageSQL.productUpdate",productDTO);
+	}
+
 }

@@ -51,6 +51,7 @@
 	            	<tr class="qna-view__conent">
                     	<td colspan="5">
                     		<c:if test="${list.fileName != null }">
+                    			<br>
                     			<img alt="" src="/mintProject/shop/storage/${list.fileName}" width="200px" height="250px"><br>
                     		</c:if>
                     		<pre><p>${list.content}</p></pre>

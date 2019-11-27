@@ -30,8 +30,8 @@
 	    <table id="faqListTable" class="table table-bordered" style="vertical-align:middle; align-content: center;">
 	        <tr class="th--dark">
 	           <!--  <th class="col-md-1"><input type="checkbox" name="" id="chkAll"></th> -->
-	            <th class="col-md-2">상품사진</th>
-	            <th class="col-md-1">상품코드</th>
+	            <th class="col-md-2">상품코드</th>
+	            <th class="col-md-1">상품사진</th>
 	            <th class="col-md-6">상품명</th>
 	            <th class="col-md-2">가격</th>
 	            <th class="col-md-1">수량</th>
@@ -62,17 +62,17 @@
     	</div>
 	    <div class="main__btns">
 	            <div class="searches">
-	                <select name="searchOption" class="select-box">
-	                    <option value="id">상품코드</option>
-	                    <option value="content">상품명</option>
-	                </select>
-	                <div class="search">
-	                	<input type="hidden" id="pg" name="pg" value="${pg}">
-	                    <input type="text" name="keyword" class="searchTerm" placeholder="검색어 입력">
-	                    <button type="button" class="searchButton">
-	                        <i class="fa fa-search"></i>
-	                    </button>
-	                </div>
+		                <select name="searchOption" id="searchOption" class="select-box" >
+		                    <option value="1">상품코드</option>
+		                    <option value="2">상품명</option>
+		                </select>
+		                <div class="search">
+		                	<input type="hidden" id="pg" name="pg" value="${pg}">
+		                    <input type="text" name="keyword" id="keyword" class="searchTerm" placeholder="검색어 입력">
+		                    <button type="button" class="searchButton">
+		                        <i class="fa fa-search"></i>
+		                    </button>
+		                </div>
 	            </div>
 	        <div>
 	            <!-- <button type="button" id="faqDeleteBtn" class="btn btn-danger">
@@ -93,11 +93,15 @@ let totalArticle = ${totalArticle};
 let currentPage = ${pg};
 let addr = '${addr}';
 let categorySelect = ${categorySelect};
+let searchOption = ${searchOption};
+let keyword = '${keyword}';
 
 console.log("totalArticle :  "+ totalArticle)
 console.log("currentPage :  "+ currentPage)
 console.log("addr :  "+ addr)
 console.log("categorySelect :  "+ categorySelect)
+console.log("searchOption :  "+ searchOption)
+console.log("keyword :  "+ keyword)
 
 paging(totalArticle, currentPage, addr);
 renderSelectBox();
@@ -107,7 +111,6 @@ function renderSelectBox(){
 	const selectedNumber = ${categorySelect};
 	//selectBox[selectedNumber].selected = true;
 	$("#categorySelect").val(${categorySelect}).prop("selected", true);
-	
 }
 
 //페이징 처리
@@ -122,7 +125,13 @@ function paging(totalArticle, currentPage, addr){
 	if(endPage > totalPage) endPage = totalPage;
 	
 	var href = "";
-	href = "&categorySelect="+categorySelect;
+	
+	// 셀렉트박스 위아래 구분
+	if(searchOption != 3){
+		href = "&searchOption="+searchOption+"&keyword="+keyword;
+	}else{
+		href = "&categorySelect="+categorySelect;
+	}
 	
 	if(startPage > pageBlock){
 		$('.prev').append($('<a/>', {
@@ -157,13 +166,27 @@ function paging(totalArticle, currentPage, addr){
 
 }
 
+// 아래 전체조회
+$(".searchButton").click(function(){
+	var searchOption = $("#searchOption").val();
+	var keyword= $("#keyword").val();
+	
+	location.href = "/mintProject/admin/productAdminList?pg=1&searchOption="+searchOption+"&keyword="+keyword;
+});
+
+//엔터키 입력 가능
+$("#keyword").keypress(function(e){
+	if(e.which == 13){
+		var searchOption = $("#searchOption").val();
+		var keyword= $("#keyword").val();
+		
+		location.href = "/mintProject/admin/productAdminList?pg=1&searchOption="+searchOption+"&keyword="+keyword;
+	}
+});
 
 $("#productWriteFormBtn").click(function(){
-	alert("작성클릭")
-	location.href = "/mintProject/productManage/productWrite";
+	location.href = "/mintProject/productManage/productWriteForm";
 })
-
-
 
 /* 카테고리 선택시 게시판 리스트 불러오기 */
 $('#categorySelect').change(function(){
@@ -206,8 +229,6 @@ $('#categorySelect').change(function(){
 		break;
 	}
 });
-
-
 
 
 </script>

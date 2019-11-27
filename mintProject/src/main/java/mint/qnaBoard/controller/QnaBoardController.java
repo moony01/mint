@@ -33,14 +33,14 @@ public class QnaBoardController {
 	// 1:1 문의 보드 보드 값 조회
 	@RequestMapping(value = "/qnaboard/getQnaBoardList")
 	public ModelAndView getQnaBoardList(HttpSession session) {
-		String id = (String) session.getAttribute("memId");
-
 		// 1페이지당 5개씩
 //		int endNum = Integer.parseInt(pg)*5;
 //		int startNum = endNum-4;
 //				
-		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("memId", id);
+		Map<String, String> map = new HashMap<String, String>();
+
+		String id = (String) session.getAttribute("memId");
+		map.put("memId", id);
 
 //		map.put("startNum", startNum);
 //		map.put("endNum", endNum);
@@ -51,6 +51,7 @@ public class QnaBoardController {
 		mav.addObject("list", list);
 		mav.addObject("display", "/shop/service/qna.jsp");
 		mav.setViewName("/shop/main/index");
+
 		return mav;
 	}
 
@@ -96,9 +97,8 @@ public class QnaBoardController {
 			qnaBoardDTO.setFileName("");
 		}
 
-		// 일단 임시..
-		// String id = (String) session.getAttribute("memId");
-		String id = "sonsangz";
+		String id = (String) session.getAttribute("memId");
+//		String id = "sonsangz";
 
 		qnaBoardDTO.setId(id);
 		qnaBoardService.qnaBoardWrite(qnaBoardDTO);
@@ -170,6 +170,29 @@ public class QnaBoardController {
 	public void qnaBoardDelete(@RequestParam int seq, HttpSession session) {
 		System.out.println("삭제할 seq : " + seq);
 		qnaBoardService.qnaBoardDelete(seq);
+	}
+
+	// 관리자 1:1 문의 보드 보드 값 조회
+	@RequestMapping(value = "/admin/service/getAdminQnaBoardList")
+	public ModelAndView getAdminQnaBoardList(@RequestParam Map<String, String> map) {
+		
+		ModelAndView mav = new ModelAndView();
+//		mav.addObject("list", list);
+		mav.addObject("display", "/admin/service/qna.jsp");
+		mav.setViewName("/admin/main/admin");
+		
+		return mav;
+	}
+
+	// [사용자, 관리자 페이지 공통 함수]
+	// ==================================================================================================
+	public void setPagingNumber(Map<String, String> map) {
+		int endNum = Integer.parseInt((String) map.get("pg")) * 9;
+		int startNum = endNum - 8;
+
+		map.put("endNum", endNum + "");
+		map.put("startNum", startNum + "");
+
 	}
 
 }

@@ -8,7 +8,7 @@ import mint.qnaBoard.bean.QnaBoardDTO;
 
 public interface QnaBoardDAO {
 
-	public List<QnaBoardDTO> getQnaBoardList(Map<String, Object> map);
+	public List<QnaBoardDTO> getQnaBoardList(Map<String, String> map);
 
 	public List<OrderAndSalesDTO> getOrderList(String email);
 

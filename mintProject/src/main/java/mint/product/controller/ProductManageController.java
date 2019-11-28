@@ -160,8 +160,8 @@ public class ProductManageController {
 
 		return mav;
 	}
-	
-	// 관리자 상품 업데이트
+
+	// 관리자 상품 업데이트 화면 호출
 	@RequestMapping(value = "/shop/product/updateProductForm")
 	public ModelAndView updateProductForm(HttpSession session, @RequestParam Map<String, String> map) {
 		System.out.println("updateProductForm 메서드");
@@ -175,49 +175,107 @@ public class ProductManageController {
 //		mav.addObject("display", "/shop/product/productView.jsp");
 //		mav.setViewName("/shop/main/index");
 //		mav.addObject("memId", (String) session.getAttribute("memId"));
-		
+
 		mav.addObject("display", "/admin/service/productUpdate.jsp");
 		mav.setViewName("/admin/main/admin");
-		
+
 		return mav;
 	}
-	
-	
+
+	// 관리자 상품 업데이트
+	@RequestMapping(value = "/shop/product/updateProduct", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView updateProduct(@ModelAttribute ProductDTO productDTO, @RequestParam MultipartFile product_img,
+			@RequestParam MultipartFile thumbnail_img) {
+		// 원하는 위치
+		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/product/"; 
+																															
+		// 메인사진
+		if (thumbnail_img.isEmpty()) {
+			System.out.println("thumbnail_img 값 안 넘어옴:" + thumbnail_img);
+//			productDTO.setThumbnail("");
+
+		} else {
+			try {
+				FileCopyUtils.copy(thumbnail_img.getInputStream(),
+						new FileOutputStream(new File(filePath, thumbnail_img.getOriginalFilename())));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println("thumbnail_img.getOriginalFilename() : " + thumbnail_img.getOriginalFilename());
+			productDTO.setThumbnail(thumbnail_img.getOriginalFilename());
+
+		}
+
+		// 상품이미지사진(아래)
+		if (product_img.isEmpty()) {
+			System.out.println("product_img 값 안 넘어옴: " + product_img);
+//			productDTO.setProductImage("");
+		} else {
+			try {
+				FileCopyUtils.copy(product_img.getInputStream(),
+						new FileOutputStream(new File(filePath, product_img.getOriginalFilename())));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println("product_img.getOriginalFilename() : " + product_img.getOriginalFilename());
+			productDTO.setProductImage(product_img.getOriginalFilename());
+
+		}
+
+		int updateCnt = productManageService.productUpdate(productDTO);
+		ModelAndView mav = new ModelAndView();
+		if (updateCnt == 1) {
+			System.out.println("일단 상품 수정 성공!");
+			
+			mav.addObject("display", "/admin/service/productUpdateOk.jsp");
+			mav.setViewName("/admin/main/admin");
+		}
+		return mav;
+	}
 
 	// 관리자 상품리스트 조회
 	@RequestMapping(value = "/admin/productAdminList", method = RequestMethod.GET)
 	public ModelAndView productAdminList(@RequestParam Map<String, String> map) {
 		ModelAndView mav = new ModelAndView();
+
+		System.out.println("map : " + map);
 		
-		System.out.println("pg : " + map.get("pg"));
-		
-		//총 갯수
+		// 총 갯수
 		int totalArticle = productManageService.getCntProductAdminList(map);
 		System.out.println("totalArticle : " + totalArticle);
 		// 시작페이지와 끝 설정
-	    setPagingNumber(map);
-		
-	    System.out.println("map : " + map);
-	    
-		List<ProductDTO> list =  productManageService.getProductAdminList(map);
-		
+		setPagingNumber(map);
+
+		System.out.println("map : " + map);
+
+		List<ProductDTO> list = productManageService.getProductAdminList(map);
+
 		System.out.println("lize : " + list.size());
-		
+
 		// 페이지
 		mav.addObject("pg", map.get("pg"));
 		// 조건에 따른 상품리스트 총 갯수
 		mav.addObject("totalArticle", totalArticle);
-		//셀렉트박스 구분
-		if(map.get("categorySelect") == null) {
+		// 셀렉트박스 구분
+		if (map.get("categorySelect") == null) {
 			mav.addObject("categorySelect", "9");
-		}else {
+		} else {
 			mav.addObject("categorySelect", map.get("categorySelect"));
+		}
+		//맨 아래 셀렉트 박스 구분
+		if (map.get("searchOption") == null) {
+			mav.addObject("searchOption", "3");
+			mav.addObject("keyword", "");
+		} else {
+			mav.addObject("searchOption", map.get("searchOption"));
+			mav.addObject("keyword", map.get("keyword"));
 		}
 		
 		mav.addObject("addr", "/mintProject/admin/productAdminList");
 		mav.addObject("list", list);
 		mav.addObject("display", "/admin/service/productAdminList.jsp");
-		mav.setViewName("/admin/main/admin"); 
+		mav.setViewName("/admin/main/admin");
 
 		return mav;
 	}

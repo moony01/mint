@@ -1,21 +1,7 @@
 /**
  *  이벤트 스크립트
  *  
- *  index.jsp에 js를 물렸으므로 어느 페이지에 있든 실행될 수 있다
- *  
- */
-
-/////////////////////////////////////////////////////////////
-/**
- *	이벤트 로직 쿼리
- *
- *  1. AJAX로 이벤트 리스트를 가져옴
- *  2. 
- *  3. startDate - 현재 시간(now)의 값을 이벤트 실행 setTimeout의 delay 패러미터에 넣음
- *  4. 이벤트 실행 setTimeout이 0이 되거나 음수가 되면 1~50ms 후 곧바로 product DB에 update
- *  5. endDate - 현재 시간(now)의 값을 이벤트 종료 setTimeout의 delay 패러미터에 넣음
- *  6. 이벤트 종료 setTimeout이 0이 되거나 음수가 되면 1~50ms 후 곧바로 product DB에 update
- *  7. 이벤트 종료시 모든 discountRate는 0이 된다(기존 discountRate를 보존할 수 있는 방법이 있다면 시도해보겠음)
+ *  일일특가 이벤트 정보만 가져옴
  */
 
 $(function(){	
@@ -35,73 +21,29 @@ $(function(){
 
 function eventExecute(result){
 	let event = result.list;
-	var now = new Date();
+	let now = new Date();
 	var eventOngoing = null;
 	
 	for(var i=0; i<event.length; i++){
 		if(event[i].startDate < now) var startCount = 0;
 		else var startCount = event[i].startDate - now;
-		var endCount = event[i].endDate - now;
-		let eventStatus = event[i].eventStatus;
-		let productCode = event[i].productCode;
-		let discountRate = event[i].discountRate;
-		let prevDiscountRate = event[i].prevDiscountRate;
-		
+		let endCount = event[i].endDate - now
+		  , eventStatus = event[i].eventStatus
+		  , seq = event[i].seq
+		  , discountRate = event[i].discountRate
+		  
 		/* 이벤트 진행 여부 */
 		if(eventStatus === 1 && endCount > 0){
-			console.log('시작까지 남은 시간 : '+startCount+', 종료까지 남은 시간 : '+endCount);
-			// 이벤트 진행중이고 종료되지 않은 이벤트
-			
-			/* 일일특가 카운트 다운 */
+			/* 진행중인 일일특가 카운트 다운 */
 			if(event[i].subject.indexOf('[일일특가]') !== -1){
-				var countTo = event[i].startDate;
+				var countTo = event[i].endDate;
 				dailySpecialCntDown(countTo, 'dscd');
+				dailySpecialInfo(seq, discountRate);
 			}
-			
-			eventOngoing = setTimeout(function(){
-				$.ajax({
-					type:'post',
-					url:'/mintProject/admin/service/eventProductUpdate',
-					data:'productCode='+productCode
-						+'&discountRate='+discountRate,
-					success: function(){
-						console.log("이벤트 실행 성공!");
-					},
-					error: function(error){
-						console.error(error);
-					}
-				});
-			}, startCount);
-			
-			
-		} else if(eventStatus === 1 && endCount <= 0) {
-			console.log('시작까지 남은 시간 : '+startCount+', 종료까지 남은 시간 : '+endCount);			
-			// 진행중 상태지만 이벤트 종료
-						
-			setTimeout(function(){
-				clearTimeout(eventOngoing);
-				console.log('이벤트 종료!');
-			}, endCount);
-			
-			// 이전 할인율로 update하기
-			$.ajax({
-				type:'post',
-				url:'/mintProject/admin/service/eventEndProductUpdate',
-				data:'productCode='+productCode
-					+'&prevDiscountRate='+prevDiscountRate,
-				success: function(){
-					console.log("되돌리기 성공!");
-				},
-				error: function(error){
-					console.error(error);
-				}
-			});
+		} else {
+			// 시간 지나면 해당 부분 종료 이미지로 처리하기
 		}
-	}
-	
-	
-	
-	
+	}	
 }
 
 /* 일일특가 카운트다운 실행 로직 */
@@ -126,5 +68,35 @@ function dailySpecialCntDown(countTo, id){
 	
 	clearTimeout(dailySpecialCntDown.interval);
 	dailySpecialCntDown.interval = setTimeout(function(){ dailySpecialCntDown(countTo, 'dscd'); },1000);
+}
+
+/* 일일특가 상품 정보 */
+function dailySpecialInfo(seq, discountRate){
+	// 상품 정보 가져오기 (ProductDTO)
+	$.ajax({
+		type:'post',
+		url:'/mintProject/admin/service/getProductList',
+		data:'seq='+seq,
+		dataType:'json',
+		success: function(result){
+			let eventProduct = result.list[0];
+			let mainSubject = eventProduct.mainSubject;
+			let subSubject = eventProduct.subSubject;
+			let price = eventProduct.price;
+			let thumbnail = eventProduct.thumbnail;
+
+			// 할인가 계산
+			let eventPrice = price-(price/100*discountRate); 
+			$('.ds-mainsubject').text(mainSubject);
+			$('.ds-subsubject').text(subSubject);
+			$('.ds-discountrate').text(discountRate+'%');
+			$('.ds-price').text(price+'원');
+			$('.ds-eventprice').text(eventPrice+'원');
+			$('.ds-thumbnail').html('<img class="dailyspecial-thumb" src="/mintProject/shop/storage/mint/product/'+thumbnail+'">');
+		},
+		error: function(error){
+			console.error(error);
+		}
+	});
 }
 

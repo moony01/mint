@@ -69,9 +69,12 @@
 </section>
 <script src='/mintProject/shop/js/offer.js'></script>
 <script>
-let suggestBoardDTO = '${suggestBoardDTO.seq}';
+let suggestBoardDTO = `${suggestBoardDTO}`;
 let options = document.querySelector(".board-write__subject-select");
+let subject = `${suggestBoardDTO.subject}`;
+let category = `${suggestBoardDTO.category}`;
 let content = `${suggestBoardDTO.content}`;
+let imgName = `${suggestBoardDTO.imgName}`;
 
 getOfferBoardView();
 </script>

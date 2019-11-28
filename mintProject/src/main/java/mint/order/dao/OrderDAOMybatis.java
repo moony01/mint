@@ -36,8 +36,8 @@ public class OrderDAOMybatis implements OrderDAO {
 	}
 
 	@Override
-	public List<Map<String, String>> getMyOrderDetails(String ordernumber) {
-		return sqlSession.selectList("orderSQL.getMyOrderDetails", ordernumber);
+	public List<Map<String, String>> getMyOrderProductList(String ordernumber) {
+		return sqlSession.selectList("orderSQL.getMyOrderProductList", ordernumber);
 	}
 	
 	@Override
@@ -61,21 +61,23 @@ public class OrderDAOMybatis implements OrderDAO {
 		
 		String status = String.valueOf(resultMap.get("STATUS"));
 		String memLevel = String.valueOf(resultMap.get("MEMLEVEL"));
-		String totPrice = String.valueOf(resultMap.get("TOTALPRICE"));
+		String totPrice = String.valueOf(resultMap.get("FPRICE"));
+		String deliveryPrice = String.valueOf(resultMap.get("DPRICE"));
 		
+		int totalPrice = Integer.parseInt(totPrice) - Integer.parseInt(deliveryPrice);
 		int point = 0; 
+		
 		if(status.equals("3")) {
 			if(memLevel.equals("0")) {
-				point = (int)(Integer.parseInt(totPrice) * 0.05);
+				point = (int)(totalPrice * 0.05);
 			} else if(memLevel.equals("1")) {
-				point = (int)(Integer.parseInt(totPrice) * 0.07);
+				point = (int)(totalPrice * 0.07);
 			} else if(memLevel.equals("2")) {
-				point = (int)(Integer.parseInt(totPrice) * 0.10);
+				point = (int)(totalPrice * 0.10);
 			}
 			map.put("point", point);
 			sqlSession.update("memberSQL.updatePoint", map);
 		}
-		
 	}
 
 
@@ -98,6 +100,16 @@ public class OrderDAOMybatis implements OrderDAO {
 	public int deleteCartList(Map<String, Object> map) {
 		sqlSession.delete("orderSQL.deleteCartList", map);
 		return sqlSession.selectOne("cartSQL.getCartCount", map);
+	}
+
+	@Override
+	public Map<String, String> getMyOrderDetails(String ordernumber) {
+		return sqlSession.selectOne("orderSQL.getMyOrderDetails",ordernumber);
+	}
+
+	@Override
+	public int getOrderTotalArticle() {
+		return sqlSession.selectOne("orderSQL.getOrderTotalArticle");
 	}
 
 }

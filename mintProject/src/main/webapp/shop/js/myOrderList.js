@@ -7,7 +7,7 @@ $().ready(function(){
 });
 
 function getOrderInfoByOption(btn){
-	dateOption = btn.parent().prev().val();
+	dateOption = btn.prev().val();
 	getOrderInfo(dateOption)
 	.then(printOrderInfo)
 	.catch();
@@ -26,28 +26,30 @@ function getOrderInfo(dateOption){
 function printOrderInfo(result){
 	let list = result.list;
 	
-	$('.orderInfo-tb tr:gt(0)').remove();
+	$('.tb-orderInfo tr:gt(0)').remove();
+	
 	
 	let $frag = $(document.createDocumentFragment());
 	for(let i=0; i<list.length; i++){
-		const {ORDERNUMBER,LOGTIME,STATUS} = list[i];
-		
+		const {ORDERNUMBER,LOGTIME,STATUS,FPRICE} = list[i];
+		let regexp = /\B(?=(\d{3})+(?!\d))/g;
+		var fprice = FPRICE.toString().replace(regexp,','); 
 		let status;
 		if(STATUS == '0') status = '입금 전';
 		else if(STATUS == '1') status = '입금 완료';
 		else if(STATUS == '2') status = '배송 중';
 		else if(STATUS == '3') status = '배송 완료';
 		
-		let orderInfo = `<tr class="qna-tb__view">
+		let orderInfo = `<tr class="tb-content">
 							<td>${status}</td>
 							<td style="cursor:pointer;" onclick="javascript:getOrderDetails($(this).text())">${ORDERNUMBER}</td>
 							<td>${LOGTIME}</td>
-							
+							<td>${fprice} 원</td>
 						</tr>`;
 		
 		$frag.append($(orderInfo));
 	}
-	$('.orderInfo-tb').append($frag);
+	$('.tb-orderInfo').append($frag);
 }
 
 function getOrderDetails(orderNumber){

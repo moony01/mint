@@ -1,7 +1,7 @@
 /**
  * 한문희
  */
-const addrBtn = document.querySelector(".btn-addr");
+const addrBtn = document.querySelector("#addrSearchBtn");
 //배송자 주소 검색
 addrBtn.addEventListener("click", function(){
    daum.postcode.load(function(){
@@ -52,129 +52,188 @@ addrBtn.addEventListener("click", function(){
 })
 
 $(document).ready(function(){
-	var cnt = $(".price").length;
-	var price = new Array(cnt);
-	var discountRate = new Array(cnt);
-	var discountPriceMinus = new Array(cnt);
-	var discountPrice = new Array(cnt);
-
-	let lastPrice = 0; //최종결제금액
+	var cnt = $(".price").length; //상품갯수
+	
+	let qty = new Array(cnt); //수량
+	var price = new Array(cnt); //가격
+	var discountRate = new Array(cnt); //할인율
+	var discountPriceMinus = new Array(cnt); //할인된금액
+	var discountPrice = new Array(cnt); //할인적용가
+	var onePrdPrice = new Array(cnt); //상품개당 가격
+	let totDiscountPrice = new Array(cnt); //할인적용가 * 수량
+	let totPrice = new Array(cnt); //상품정가 * 수량
+	let totSalePrice = new Array(cnt); //할인금액합계
+	
+	let lastPrice = 0; //결제금액합계
+	let lastTotPrice = 0; //정가금액합계
+	let lastTotSalePrice = 0; //할인금액합계
+	
+	let deleveryPrice = 0; //배송비
+	
+	let lastPriceSet = 0;
+	
+	dataSet(); //상품정보 박스 데이터가공(할인적용가, 최종결제금액)
+	paymentDataSet() //결제창 데이터 가공
 
 	//상품정보 박스 데이터가공(할인적용가, 최종결제금액)
-	for(var i=0; i<cnt; i++) {
-		price[i] = $('.price span').eq(i).text();
-		discountRate[i] = $('.discountRate span').eq(i).text();
-		discountPriceMinus[i] = price[i]*(discountRate[i] / 100); //할인된금액
-		discountPrice[i] = parseInt(price[i] - discountPriceMinus[i]); //할인적용가
-		$(".dp").eq(i).text(discountPrice[i]);
-		$(".salesPrice").eq(i).text(discountPrice[i]);
+	function dataSet() {
+		for(var i=0; i<cnt; i++) {
+			price[i] = parseInt($('.price span').eq(i).text()); //정가
+			discountRate[i] = parseInt($('.discountRate span').eq(i).text()); //할인율
+			discountPriceMinus[i] = price[i]*(discountRate[i] / 100); //할인된금액
+			discountPrice[i] = parseInt(price[i] - discountPriceMinus[i]); //할인적용가
+			qty[i] = parseInt($('.ctCount span').eq(i).text()); //수량
+			deleveryPrice = parseInt($('#deleveryPrice').text());
+			
+			$(".dp").eq(i).text(discountPrice[i]);
+			$(".salesPrice").eq(i).text(discountPrice[i] * qty[i]);
+			
+			totDiscountPrice[i] = parseInt($(".salesPrice").eq(i).text());
+			totPrice[i] = price[i] * qty[i];
+			totSalePrice[i] = discountPriceMinus[i] * qty[i];
+			
+			lastPrice += totDiscountPrice[i]; //최종결제금액
+			lastTotPrice += totPrice[i]; //정가금액합계
+			lastTotSalePrice += totSalePrice[i]; //할인금액합계
+		}
 		
-		lastPrice +=  discountPrice[i]; //최종결제금액
 		$('#lastPrice').text(lastPrice); 
+		
+		$('.bill-tb__total-price span').text(lastPrice + deleveryPrice); 
+		$('.bill-tb__product-price span').text(lastTotPrice);
+		$('.bill-tb__col_sale span').text(lastTotSalePrice);
 	}
+	
+	
+	//데이터 가공 후 결제창에 붙여주는작업
+	function paymentDataSet() {
+		let topProductName = $('.mainSubject').eq(0).text(); //
+		let otherCnt = cnt-1; //상품 몇개 외....
+		$('#topProductName').text(topProductName);	
+		$('#productListCount').text(otherCnt);
+		
+		let name = $('#memberName').text();
+		let tel = $('#memberTel').text();
+		let addr1 = $('#delivery_addr1').val();
+		let addr2 = $('#delivery_addr2').val();
+		let delevery = $('#deleveryPrice').text();
+		
+		let pointadd = $('#totalPoint').text();
+		
+		let tel1 = tel.substring(1,4);
+		let tel2 = tel.substring(4,8);
+		let tel3 = tel.substring(8,12);
+		
+		$('.tel1').val(tel1);
+		$('.tel2').val(tel2);
+		$('.tel3').val(tel3);
+		
+		let productCode = new Array(cnt);
 
-	//데이터 가공 후 붙여주는작업
-	let topProductName = $('.mainSubject').eq(0).text();
-	let otherCnt = cnt-1;
-	$('#topProductName').text(topProductName);	
-	$('#productListCount').text(otherCnt);
-	
-	let email = $('#memberEmail').text();
-	let name = $('#memberName').text();
-	let tel = $('#memberTel').text();
-	let addr1 = $('#delivery_addr1').val();
-	let addr2 = $('#delivery_addr2').val();
-	
-	let tel1 = tel.substring(1,4);
-	let tel2 = tel.substring(4,8);
-	let tel3 = tel.substring(8,12);
-	
-	$('#tel1').val(tel1);
-	$('#tel2').val(tel2);
-	$('#tel3').val(tel3);
-	
-	let productCode = new Array(cnt);
-	let qty = new Array(cnt);
+		for(i=0; i<cnt; i++) {
+			productCode[i] = $('.productCode').eq(i).text();
+			
+			onePrdPrice[i] = parseInt(discountPrice[i]); //개당 가격
+			$(".onePrdPrice").eq(i).text(onePrdPrice[i]);
+		}
+		
+		lastPriceSet = parseInt($('.bill-tb__total-price span').text());
+		
+		//결제하기 클릭 결제하기
+		document.getElementById('btnPayment').onclick = function(){
+			let request = $('#request').val();
+			let pointuse = $('.pointUse').text();
+			
+			var IMP = window.IMP; // 생략가능
+			IMP.init('imp22922268'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+			//console.log(productCode);
+			console.log(lastPriceSet);
+			console.log(request);
+			console.log(delevery);
+			console.log(pointuse);
+			console.log(pointadd);
+			
+	    	console.log("qty : "+qty);
+	    	console.log("productCode : "+productCode);
+	    	console.log("lastPriceSet : "+lastPriceSet);
+	    	console.log("price : "+price);
+	    	console.log("discountRate : "+discountRate);
+			IMP.request_pay({
+				pg: 'html5_inicis', // version 1.1.0부터 지원.  
+				pay_method: 'card',
+				merchant_uid : 'merchant_' + new Date().getTime(),
+				name: topProductName+"외"+otherCnt, //결제창에서 보여질 이름
+				//amount: lastPriceSet, //가격
+				amount: 100, //가격
+				buyer_name: name,
+				buyer_tel:  tel,
+				buyer_addr: addr1,
+				buyer_postcode: addr2,
+				m_redirect_url: '/mintProject/shop/goods/redirect' // 나중에 수정
+			}, function (rsp) {
+			    if (rsp.success) {
+			    	console.log(rsp);
+				    var msg = '결제가 완료되었습니다.';
+				    /*msg += '고유ID : ' + rsp.imp_uid;
+				    msg += '상점 거래ID : ' + rsp.merchant_uid;
+				    msg += '결제 금액 : ' + rsp.paid_amount;
+				    msg += '카드 승인번호 : ' + rsp.apply_num;*/
 
-	for(i=0; i<cnt; i++) {
-		productCode[i] = $('.productCode').eq(i).text();
-		qty[i] = $('.ctCount span').eq(i).text();
+			    	$.ajax({
+			    		type: 'POST',
+			    		url: "/mintProject/shop/goods/redirectServer",
+			    		contentType: 'application/json; charset=utf-8',
+			    		data: JSON.stringify({
+			    			buyer_name: rsp.buyer_name,
+			    			buyer_tel: rsp.buyer_tel,
+			    			buyer_addr: rsp.buyer_addr,
+			    			buyer_postcode: rsp.buyer_postcode,
+			    			request: request,
+			    			fprice: lastPriceSet,
+			    			dprice: delevery,
+			    			pointuse: pointuse,
+			    			pointadd: pointadd,
+			                productCode: productCode,
+			                qty: qty,
+			                price: price,
+			                discountRate: discountRate,
+			    		})
+			    	}).then((data) => {
+			    		location.href='/mintProject/shop/main/index';
+			    	})
+			    	
+			    } else {
+				    var msg = '결제에 실패하였습니다.';
+				    msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			    alert(msg);
+			    console.log(msg);
+			});
+		};
 	}
-
-	console.log(productCode);
-	console.log(qty);
 	
-	//결제하기 클릭 결제하기
-	document.getElementById('btnPayment').onclick = function(){
-		//form생성
-		let form = document.createElement("form");
-		form.setAttribute("id", "orderPostDataForm");
-		form.setAttribute("charset", "UTF-8");
-		
-		//input생성 = productCode
-		let prcoInput = document.createElement("input");
-		prcoInput.type = "hidden";
-		prcoInput.name = "productCode";
-		prcoInput.value = productCode;
-		form.appendChild(prcoInput);
-		
-		//input생성 = qty
-		let qtyInput = document.createElement("input");
-		qtyInput.type = "hidden";
-		qtyInput.name = "qty";
-		qtyInput.value = qty;
-		form.appendChild(qtyInput);
-		
-		var IMP = window.IMP; // 생략가능
-		IMP.init('imp22922268'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-		//console.log(productCode);
-		IMP.request_pay({
-			pg: 'html5_inicis', // version 1.1.0부터 지원.  
-			pay_method: 'card',
-			merchant_uid : 'merchant_' + new Date().getTime(),
-			name: topProductName+"외"+otherCnt, //결제창에서 보여질 이름
-			//amount: lastPrice, //가격
-			amount: 100, //가격
-			buyer_email: email,
-			buyer_name: name,
-			buyer_tel:  tel,
-			buyer_addr: addr1,
-			buyer_postcode: addr2,
-			m_redirect_url: '/mintProject/shop/goods/redirect' // 나중에 수정
-		}, function (rsp) {
-		    if (rsp.success) {
-		    	console.log(rsp);
-			    var msg = '결제가 완료되었습니다.';
-			    /*msg += '고유ID : ' + rsp.imp_uid;
-			    msg += '상점 거래ID : ' + rsp.merchant_uid;
-			    msg += '결제 금액 : ' + rsp.paid_amount;
-			    msg += '카드 승인번호 : ' + rsp.apply_num;*/
-		    	
-		    	$.ajax({
-		    		type: 'POST',
-		    		url: "/mintProject/shop/goods/redirectServer",
-		    		contentType: 'application/json; charset=utf-8',
-		    		data: JSON.stringify({
-		    			buyer_email: rsp.buyer_email,
-		    			buyer_name: rsp.buyer_name,
-		    			buyer_tel: rsp.buyer_tel,
-		    			buyer_addr: rsp.buyer_addr,
-		    			buyer_postcode: rsp.buyer_postcode,
-		                productCode: productCode,
-		                qty: qty 
-		    		})
-		    	}).then((data) => {
-		    		location.href='/mintProject/shop/main/index';
-		    	})
-		    	
-		    } else {
-			    var msg = '결제에 실패하였습니다.';
-			    msg += '에러내용 : ' + rsp.error_msg;
-		    }
-		    alert(msg);
-		    console.log(msg);
-		});
-	};
+	let myPoint = $('#memberPoint').text();
+	
+	$('#pointChk').change(function(){
+		if($('#pointChk').is(':checked')){
+			$('.check-label').addClass('checked');
+			$('#myPoint').val($('#memberPoint').text());
+			$('.pointUse').text(myPoint);
+			
+			lastPriceSet = parseInt($('.bill-tb__total-price span').text());
+			lastPriceSet -= myPoint;
+			$('.bill-tb__total-price span').text(lastPriceSet);
+		}else {
+			$('.check-label').removeClass('checked');
+			$('#myPoint').val(0);
+			$('.pointUse').text('0');
+			
+			lastPriceSet = parseInt($('.bill-tb__total-price span').text());
+			lastPriceSet += parseInt(myPoint);
+			$('.bill-tb__total-price span').text(lastPriceSet);
+		}
+	});
+
 });
 
 

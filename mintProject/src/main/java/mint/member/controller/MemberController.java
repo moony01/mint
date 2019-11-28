@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -279,5 +280,15 @@ public class MemberController {
 		return result;
 	}
 	
+	@RequestMapping("/shop/mypage/getPoint")
+	@ResponseBody
+	public int getMemberPoint(HttpSession session) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key", "id");
+		map.put("value", (String) session.getAttribute("memId"));
+		
+		MemberDTO memberDTO = memberService.getUserBy(map);
+		return memberDTO.getPoint();
+	}
 
 }

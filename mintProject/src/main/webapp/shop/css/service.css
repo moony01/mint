@@ -1,3 +1,23 @@
+.searches{
+	display:flex;
+	justify-content :flex-end;
+	margin-bottom:15px;
+}
+.daterange-txt{
+	width:130px;
+	padding-left:8px;
+}
+.daterange-search-btn{
+	all:unset;
+	cursor:pointer;
+	width:36px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	font-size:16px;
+	background-color:#45b8ac;
+	color:white;
+}
 
 .service,
 .service-view {

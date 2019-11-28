@@ -16,7 +16,7 @@ public class QnaBoardServiceImpl implements QnaBoardService{
 	private QnaBoardDAO qndBoardDAO;
 	
 	@Override
-	public List<QnaBoardDTO> getQnaBoardList(Map<String, Object> map) {
+	public List<QnaBoardDTO> getQnaBoardList(Map<String, String> map) {
 		return qndBoardDAO.getQnaBoardList(map);
 	}
 

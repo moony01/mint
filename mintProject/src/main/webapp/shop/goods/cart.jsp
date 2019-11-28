@@ -208,6 +208,14 @@ document.getElementById('placeAnOrder').onclick = function(){
 	input3.value = point;
 	form.appendChild(input3);
 	
+	//배송비
+	var input4 = document.createElement("input");
+	input4.name = 'deleveryPrice';
+	input4.type = 'hidden';
+	let delivery = $('#amountCourier').text();
+	input4.value = delivery;
+	form.appendChild(input4);
+	
 	document.body.appendChild(form);
 	
 	var passPrice = parseInt($('#amountTotal').text());

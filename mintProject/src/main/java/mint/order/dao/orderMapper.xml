@@ -22,27 +22,42 @@
 	
 	<!-- [회원] 주문내역 ================================================================================================================ -->
 	<select id="getMyOrderInfo" parameterType="String" resultType="java.util.Map">
-		select orderNumber, to_char(logtime,'yyyy-MM-dd') as logtime, status from orderInfo 
+		select orderNumber, to_char(logtime,'yyyy-MM-dd') as logtime, status, fprice from orderInfo
 		where id = #{id}
 		<if test="from != null">
 		and logtime between to_date(#{from}, 'YYMMDDHH') and to_date(#{to}, 'YYMMDDHH') + 0.99999 
 		</if>
 	</select>
-	<select id="getMyOrderDetails" parameterType="String" resultType="java.util.Map">
-		select id, productCode, mainSubject, thumbnail, qty, qty*price as orgprice, qty*price*discountRate/100 as dcprice ,qty*(price-price*discountRate/100) as price 
-		from   orderDetails 
+	<select id="getMyOrderProductList" parameterType="String" resultType="java.util.Map">
+		select id, mainSubject, od.qty as qty, od.price as orgprice, thumbnail, 
+			   od.qty*od.price*od.discountRate/100 as dcprice, 
+			   od.qty*(od.price-od.price*od.discountrate/100) as price
+		from   orderDetails od
 		join   product using (productCode)
-        join   orderInfo using (orderNumber)
-        where  orderNumber = ${ordernumber}
+		join   orderInfo using (ordernumber)
+		where  orderNumber = #{ordernumber}
+	</select>
+	<select id="getMyOrderDetails" parameterType="String" resultType="java.util.Map">
+		select m.name as memname, m.tel as memtel, m.email as mememail, oi.addr1 as addr1, oi.addr2 as addr2, oi.tel as tel,
+			   oi.name as name, request, dprice, pointuse, pointadd, fprice, status
+		from   orderInfo oi
+		join   member m using (id)
+		where  ordernumber = #{ordernumber}
 	</select>
 	
-	<!-- [관리자] 주문내역 보기 -->
+	<!-- [관리자] 주문내역 보기 ======================================================================================-->
+	<select id="getOrderTotalArticle" resultType="int">
+		select count(*) from orderInfo
+	</select>
+	
 	<select id="getOrderList" parameterType="java.util.Map" resultType="orderInfo">
-		select orderNumber, id, to_char(logtime, 'YY/MM/DD') as logtime, status from orderInfo  
+		select * from
+		(select rownum rn, orderNumber, id, to_char(logtime, 'yyyy-MM-dd') as logtime, status from orderInfo  
 		<if test="status != 5">
 			where status = #{status}
 		</if>
-		order by status asc, id asc
+		order by status asc, id asc) temp
+		where rn between #{startNum} and #{endNum} 
 	</select>
 	
 	<select id="getOrderListByDate" parameterType="java.util.Map" resultType="orderInfo">
@@ -55,10 +70,11 @@
 	</select>
 	
 	<select id="getOrderView" parameterType="java.util.Map" resultType="java.util.Map">
-		select id, tel, email, addr1, addr2, to_char(logtime, 'YY/MM/DD') as logtime, productcode, thumbnail, mainsubject, price, qty, discountRate from orderDetails
+		select id, name, tel, addr1, addr2, request, to_char(logtime, 'YY/MM/DD') as logtime, 
+				fprice, dprice, pointUse, pointAdd, productcode, thumbnail, mainsubject, od.price as price, qty, od.discountRate as discountRate from orderDetails od
 		left join orderInfo using (ordernumber)
 		left join product using (productcode)
-		where id = #{id} and orderNumber = #{orderNumber}
+		where id =#{id} and orderNumber = #{orderNumber}
 	</select>
 	
 	<update id="updateOrderStatus1" parameterType="java.util.Map">
@@ -66,26 +82,29 @@
 	</update>
 	
 	<select id="updateOrderStatus2" parameterType="java.util.Map" resultType="java.util.Map">
-		select id, memLevel, status, sum(price) as price, sum(price*(discountRate/100)) as discountPrice, (sum(price) - sum(price*(discountRate/100))) as totalPrice  from orderDetails 
+		select id, memLevel, status, fprice, dprice from orderDetails
 		left join orderInfo using (ordernumber)
-		left join product using (productcode)
 		left join member using (id)
 		where orderNumber = #{orderNumber}
-		group by (id, memLevel, status)
-		having id = #{id}
+        group by (id, memLevel, status, fprice, dprice)
+        having id = #{id}
 	</select>
 	
 	<insert id="insertOrderInfo" parameterType="java.util.Map">
 		insert into orderInfo values (
 		    seq_order.nextval,
 		    #{buyer_name},
+		    #{id},
 		    #{buyer_tel},
-		    #{buyer_email},
 		    #{buyer_addr},
 		    #{buyer_postcode},
-		    #{id},
+		    #{request},
 		    sysdate,
-		    0
+		    0,
+		    #{fprice},
+		    #{dprice},
+		    #{pointuse},
+		    #{pointadd}
 		)
 	</insert>
 	
@@ -98,7 +117,9 @@
 		    #{orderNumber},
 		    #{productCode},
 		    #{qty},
-		    0
+		    0,
+		    #{price},
+		    #{discountRate}
 		)
 	</insert>
 	

@@ -18,8 +18,8 @@ public class QnaBoardDAOMybatis implements QnaBoardDAO {
 	private SqlSession sqlsession;
 
 	@Override
-	public List<QnaBoardDTO> getQnaBoardList(Map<String, Object> map) {
-		return sqlsession.selectList("qnaBoardSQL.getQnaBoardList");
+	public List<QnaBoardDTO> getQnaBoardList(Map<String, String> map) {
+		return sqlsession.selectList("qnaBoardSQL.getQnaBoardList",map);
 	}
 
 	@Override

@@ -48,7 +48,8 @@
 	height: 1px;
 }
 </style>
-<form name="productWriteForm" method="post" action="/mintProject/productManage/productWrite" enctype="multipart/form-data">
+<form name="productUpdateForm" method="post" action="/mintProject/shop/product/updateProduct" enctype="multipart/form-data">
+	<input type="hidden" id="productCode" name="productCode" value="${productDTO.productCode}">
 	<div class="main__title">
 	    <h2 class="out">상품 관리</h2>
 	    <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>게시판</span></a>
@@ -192,7 +193,7 @@
 	        </tr>
 	    </table>
 	    <div class="write-tb__btns">
-	        <button type="button" class="btn btn-primary btn-lg" id="write-btn">수정</button>
+	        <button type="button" class="btn btn-primary btn-lg" id="update-btn">수정</button>
 	        <button type="button" class="btn btn-success btn-lg">삭제</button>
 	    </div>   
 	</div>
@@ -236,6 +237,10 @@ $(document).ready(function(){
 	   	}
     });
 })
+
+$('#update-btn').click(function(){
+	document.productUpdateForm.submit();
+});
 
 let mainCategoryNum = ${productDTO.mainCategory};
 $("#mainCategory").val(mainCategoryNum).prop("selected", true);
@@ -308,13 +313,7 @@ mainCategory.addEventListener("change",function(){
     });
 });
 
-
-console.log(subCategoryNum);
-
-
-
-
-
+/* console.log(subCategoryNum); */
 
 function preview(input){
 	if(input.files && input.files[0]){
@@ -325,7 +324,6 @@ function preview(input){
 			} else if(input.id=='thumbnail-img'){
 				$('#preview-thumbnail-img').attr('src', e.target.result).width(150).height(150); 
 			}
-			
 		}
 		reader.readAsDataURL(input.files[0]);
 	}
@@ -355,7 +353,5 @@ function sendFile(file, editor){
 	});
 }
 
-$('#write-btn').click(function(){
-	document.productWriteForm.submit();
-});
+
 </script>

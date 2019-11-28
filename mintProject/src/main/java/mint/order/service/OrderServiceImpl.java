@@ -36,8 +36,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Map<String, String>> getMyOrderDetails(String ordernumber) {
-		return orderDAO.getMyOrderDetails(ordernumber);
+	public List<Map<String, String>> getMyOrderProductList(String ordernumber) {
+		return orderDAO.getMyOrderProductList(ordernumber);
 	}
 	
 	@Override
@@ -73,6 +73,16 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int deleteCartList(Map<String, Object> map) {
 		return orderDAO.deleteCartList(map);
+	}
+
+	@Override
+	public Map<String, String> getMyOrderDetails(String ordernumber) {
+		return orderDAO.getMyOrderDetails(ordernumber);
+	}
+
+	@Override
+	public int getOrderTotalArticle() {
+		return orderDAO.getOrderTotalArticle();
 	}
 	
 }

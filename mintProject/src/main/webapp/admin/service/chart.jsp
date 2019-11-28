@@ -1,10 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 
-<div id="totalSalesContainer" style="width: 100%; height: 400px;"></div>
-<div id="productSalesContainer" style="width: 100%; height: 400px;"></div>
-<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-
+<div class="main__title">
+    <h2 class="out">매출 관리</h2>
+    <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>매출 관리</span></a>
+    <span class="ar-title">></span>        
+    <a href="" class="ch-title now-title">매출 차트</a>        
+</div>	
+<div class="container"> 
+	<h2 class="main__title sub__title">전체 매출</h2>
+	<div class="chart-wrap" >
+		<div id="totalSalesContainer" style="width: 100%; height: 400px; margin-bottom: 30px;"></div>
+	</div>
+	<h2 class="main__title sub__title">오늘 팔린 상품 순위</h2>
+	<div class="chart-wrap" >
+		<div id="productSalesContainer" style="width: 100%; height: 400px; margin-bottom: 30px;"></div>
+	</div>
+	<h2 class="main__title sub__title">이번 달 카테고리별 판매율</h2>
+	<div class="chart-wrap">
+		<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto; margin-bottom: 30px;"></div>
+	</div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/data.js"></script>
@@ -35,35 +52,28 @@ function getTotalSales(){
  	});
 }
 function putTotalSales(data){
-	var seriesData = [];
-	var categories = [];
+	var chartData = [];
 	$.each((data), function(index, item) {
-		categories.push(item.LOGTIME);
-		seriesData.push(item.SALES);
+		chartData.push([item.LOGTIME,item.SALES]);
 	});
-	createTotalSalesChart(categories,seriesData);
+	createTotalSalesChart(chartData);
 }
-function createTotalSalesChart(categories,seriesData){
+function createTotalSalesChart(chartData){
 	Highcharts.setOptions({
         lang: {
             decimalPoint: '.',
             thousandsSep: ','
         }
     });
-	var startY = categories[0].substring(0,4);
-	var startM = categories[0].substring(5,7);
-	var startD = categories[0].substring(8,10);
 	Highcharts.stockChart('totalSalesContainer', {
-		chart: { type: 'line' }, //Bar Chart
-		title: { text: '매출' },
-        subtitle: { text: '전체매출' },
-        series : [{
+		chart: { 
+			type: 'line',
+		},
+		colors: ['#3399CC'],
+        series : [{ 
 	       	name : 'test',
-	       	data : seriesData,
-	       	pointStart: Date.UTC(startY, parseInt(startM)-1, startD), 
-	           pointInterval: 24 * 3600 * 1000 // one day,
+	       	data : chartData,
         }],
-       	xAxis: { categories: categories },
        	tooltip: {
 			pointFormat: '<b>{point.y:,.0f} 원</b><br/>',
 			valueDecimals: 2
@@ -91,14 +101,19 @@ function createProductSalesChart(categories,seriesData){
 	Highcharts.chart('productSalesContainer', {
 	    chart: {
 	        type: 'bar',  
-	        marginLeft: 150
+	        marginLeft: 220
 	    },
-	    title: { text: '오늘 팔린 상품 순위' },
-	    subtitle: { text: '상품' },
+	    colors: ['#3399CC'],
+	    title: { text: '' },
 	    xAxis: {
 	    	categories: categories,
-	        /* min: 0,
-	        max: 8, */
+	    	labels : {
+	    		style : {
+	    			fontSize : '13px'
+	    		}
+	    	},
+	        min: 0,
+	        max: 9,
 	        scrollbar: { enabled: true },
 	        tickLength: 0
 	    },
@@ -153,8 +168,8 @@ function createCategorySalesChart(categories,seriesData){
 	        type: 'pie'  
 	    },
 	    title: {
-	        text: '이번달 카테고리별 판매율'
-	    },
+	        text: ''
+	    }, 
 	    xAxis: {
 	    	categories: categories,
 	    },

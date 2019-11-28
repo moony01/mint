@@ -128,7 +128,7 @@ public class ReviewController {
 		return "redirect:/shop/mypage/review/finish";
 	}
 	
-	//=============================================================================
+	//=====================================================================================================================
 	
 	// 관리자 - 상품후기 관리 페이지 폼
 	@RequestMapping("/admin/service/review")
@@ -152,7 +152,7 @@ public class ReviewController {
 		return rs.deleteReview(id);
 	}
 	
-	// [사용자, 관리자 페이지 공통 함수] ==================================================================================================
+	// [사용자, 관리자 페이지 공통 함수] ==================================================	=============================================
 	public  void setPagingNumber(String pg, Map<String, Object> map) {
 		int endNum = Integer.parseInt(pg) *5;
 		int startNum = endNum -4; 

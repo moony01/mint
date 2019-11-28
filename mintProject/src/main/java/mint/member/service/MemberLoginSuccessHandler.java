@@ -66,6 +66,7 @@ public class MemberLoginSuccessHandler implements AuthenticationSuccessHandler {
 			map.put("startDate", startDate);
 			map.put("endDate", endDate);
 			map.put("id", memberDTO.getId());
+			
 			String totPrice = memberDAO.getTotPricePrevMonth(map);
 			int totalPrice = Integer.parseInt(totPrice);
 			

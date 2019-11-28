@@ -150,27 +150,16 @@
 		]]>
 	</select>
 	
-	<!-- 매출 -->
+	<!-- 전체 매출 -->
 	<select id="getSalesData" resultType="java.util.Map">
-	<!-- select price, qty, to_char(logtime,'YYYY-MM-DD') as logtime from orderandsales where status=3 -->
-		<!-- select sum(price*qty) as sales, to_char(logtime,'YYYY-MM-DD') as logtime from orderandsales where status=3 group by to_char(logtime,'YYYY-MM-DD') order by logtime -->
-		select sum(qty*(price-price*discountRate/100)) as sales
-		     , to_char(logtime,'yyyy-MM-DD') as logtime 
-		  from orderInfo
-		  join orderDetails 
-		 using (orderNumber)
-		  join product using (productCode)
-		 group by to_char(logtime,'yyyy-MM-DD')
-		 order by logtime
+		select sum(fprice) as sales, (to_date(to_char(oi.logtime,'YYYYMMDD'),'YYYYMMDD') - to_date('19700101','YYYYMMDD')) * (1*24*60*60*1000) as logtime
+		from   orderInfo oi
+		group  by (to_date(to_char(oi.logtime,'YYYYMMDD'),'YYYYMMDD') - to_date('19700101','YYYYMMDD')) * (1*24*60*60*1000)
+		order  by logtime
 	</select>
+	<!-- 오늘 판매량 순위 -->
 	<select id="getProductData" resultType="java.util.Map">
-		<!-- select count(*) as count, mainSubject from orderandsales 
-		join product using(productCode)
-		where status=3 
-		group by mainSubject
-		order by count desc -->
-		select sum(qty) as count
-		     , mainSubject 
+		select sum(qty) as count, mainSubject 
 		  from orderDetails
 		  join product 
 		 using (productCode)
@@ -180,6 +169,7 @@
 		 group by mainSubject
 		 order by count desc
 	</select>
+	<!-- 이번 달 카테고리별 판매율 -->
 	<select id="getCategoryData" resultType="java.util.Map">
 		select sum(qty) as count
 		     , mainCategory
@@ -206,26 +196,33 @@
 		        from (    
 		             select *
 		               from product
-		               
-		               <choose>
-						   <when test="categorySelect==0">
+		               <if test="searchOption==null">
+		                  <choose>
+						     <when test="categorySelect==0">
 					  where maincategory = 101	
-						   </when>
-						   <when test="categorySelect==1">
+						      </when>
+						      <when test="categorySelect==1">
 					  where maincategory = 102	
-						   </when>
-						   <when test="categorySelect==2">
+						      </when>
+						      <when test="categorySelect==2">
 					  where maincategory = 103	
-						   </when>
-						   <when test="categorySelect==3">
+						      </when>
+						      <when test="categorySelect==3">
 					  where maincategory = 104	
-						   </when>
-						   <when test="categorySelect==4">
+						      </when>
+						      <when test="categorySelect==4">
 					  where maincategory = 105	
-						   </when>
-						   <when test="categorySelect==9">
-						   </when>
-					   </choose> 	
+						      </when>
+						      <when test="categorySelect==9">
+						      </when>
+					      </choose>	
+		               </if>
+		               <if test="searchOption==1">
+		              where productcode like '%'||#{keyword}||'%' 
+		               </if>
+		               <if test="searchOption==2">
+		              where mainsubject like '%'||#{keyword}||'%'  
+		               </if>
 		             ) tt
 		       )
 		 where rn between #{startNum} and #{endNum}
@@ -236,25 +233,61 @@
 	<select id="getCntProductAdminList" parameterType="java.util.Map" resultType="Integer">
         select count(*) cnt
           from product
-        <choose>
-		   <when test="categorySelect==0">
-		 where maincategory = 101	
-		   </when>
-		   <when test="categorySelect==1">
-		 where maincategory = 102	
-		   </when>
-		   <when test="categorySelect==2">
-		 where maincategory = 103	
-		   </when>
-		   <when test="categorySelect==3">
-		 where maincategory = 104	
-		   </when>
-		   <when test="categorySelect==4">
-		 where maincategory = 105	
-		   </when>
-		   <when test="categorySelect==9">
-		   </when>
-		</choose>  
+        <if test="searchOption==null">
+        	<choose>
+				<when test="categorySelect==0">
+		  where maincategory = 101	
+			    </when>
+			    <when test="categorySelect==1">
+		  where maincategory = 102	
+			    </when>
+			    <when test="categorySelect==2">
+		  where maincategory = 103	
+			    </when>
+			    <when test="categorySelect==3">
+		  where maincategory = 104	
+			    </when>
+			    <when test="categorySelect==4">
+		  where maincategory = 105	
+			    </when>
+			    <when test="categorySelect==9">
+			    </when>
+		    </choose>	
+         </if>
+         <if test="searchOption==1"> 
+        where productcode like '%'||#{keyword}||'%' 
+         </if>
+         <if test="searchOption==2">
+        where mainsubject like '%'||#{keyword}||'%'  
+         </if>  
 	</select>
+	
+	<!-- 관리자 상품 수정 -->
+	<update id="productUpdate" parameterType="product">
+		update product 
+		   set mainCategory = #{mainCategory}
+		     , subCategory = #{subCategory}
+			 , supplierCode = #{supplierCode} 	
+		     , stock = #{stock} 
+			 , mainSubject = #{mainSubject}
+			 , subSubject = #{subSubject}
+			 <if test="thumbnail!=null">
+			 , thumbnail = #{thumbnail}
+			 </if>
+			 , price = #{price}
+			 , unit = #{unit}
+			 , weight = #{weight}
+			 , packageType = #{packageType}
+			 , information = #{information}
+			 , description = #{description}
+			 <if test="productImage!=null">
+			 , productImage = #{productImage}
+			 </if>
+			 , details = #{details}
+			 , productStatus= #{productStatus}
+			 , star = #{star}
+			 , discountRate = #{discountRate}
+		 where productcode = #{productCode} 	 
+	</update>
 </mapper>
 

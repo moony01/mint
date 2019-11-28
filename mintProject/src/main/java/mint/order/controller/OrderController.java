@@ -29,6 +29,7 @@ public class OrderController {
 	public String orderList(@RequestParam String ctCount,
 							@RequestParam String productCode,
 							@RequestParam String totalPoint,
+							@RequestParam String deleveryPrice,
 							Map<String, Object> resultMap,
 							Model model,
 							HttpSession session) {
@@ -54,6 +55,7 @@ public class OrderController {
 		// System.out.println("memberDTO :"+memberDTO);
 		
 		model.addAttribute("totalPoint", totalPoint);
+		model.addAttribute("deleveryPrice", deleveryPrice);
 		model.addAttribute("list", list);
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("display", "/shop/goods/order.jsp");
@@ -84,18 +86,23 @@ public class OrderController {
 		return mav;
 		
 	}
-	// 마이페이지 - 주문내역 페이싯 - 주문내역 상세보기
+	// 마이페이지 - 주문내역 페이지 - 주문내역 상세보기
 	@RequestMapping(value="/shop/mypage/myOrderDetails", method = RequestMethod.GET)
 	public ModelAndView getMyOrderDetails(@RequestParam String ordernumber, HttpSession session, Map<String, String> map) {
 		ModelAndView mav = new ModelAndView();
-		List<Map<String, String>> list = orderService.getMyOrderDetails(ordernumber);
-		System.out.println("session id : "+(String) session.getAttribute("memId"));
-		System.out.println(list.get(0).get("ID"));
-		if(!((String) session.getAttribute("memId")).equals(list.get(0).get("ID"))) {
+		
+		List<Map<String, String>> productList = orderService.getMyOrderProductList(ordernumber);
+		Map<String, String> orderDetails = orderService.getMyOrderDetails(ordernumber);
+		
+		System.out.println(productList);
+		System.out.println(orderDetails);
+		
+		if(!((String) session.getAttribute("memId")).equals(productList.get(0).get("ID"))) {
 			String result = "주문자 아이디와 현재 로그인중인 아이디가 일치하지 않습니다.";
-			mav.addObject("result", result);
+			mav.addObject("result",result);
 		} else {
-			mav.addObject("list",list);
+			mav.addObject("productList",productList);
+			mav.addObject("orderDetails",orderDetails);
 		}
 		mav.addObject("display","/shop/mypage/myOrderDetails.jsp");
 		mav.setViewName("/shop/main/index");
@@ -111,16 +118,24 @@ public class OrderController {
 		String id = (String)session.getAttribute("memId");
 		ArrayList<String> productCode = (ArrayList<String>) order.get("productCode");
 		ArrayList<String> qty = (ArrayList<String>) order.get("qty");
+		ArrayList<String> price = (ArrayList<String>) order.get("price");
+		ArrayList<String> discountRate = (ArrayList<String>) order.get("discountRate");
+		
 		
 		order.remove("productCode");
 		order.remove("qty");
+		order.remove("price");
+		order.remove("discountRate");
 		order.put("id", id);
+		System.out.println("order : "+order);
 		orderService.insertOrderInfo(order);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		for(int i=0; i<productCode.size(); i++) {
 			map.put("productCode", productCode.get(i));
 			map.put("qty", qty.get(i));
+			map.put("price", price.get(i));
+			map.put("discountRate", discountRate.get(i));
 			map.put("id", id);
 			orderService.insertOrderDetail(map);
 			orderService.updateProductStock(map);

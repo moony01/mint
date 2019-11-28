@@ -24,7 +24,7 @@ import mint.product.bean.ProductDTO;
  *	EventController
  * 	이벤트 컨트롤러
  * 
- * @version 1.8
+ * @version 1.9
  * @author LimChangHyun 
  *
  *	기능
@@ -33,7 +33,6 @@ import mint.product.bean.ProductDTO;
  *
  *	앞으로 구현되어야 하는 것 : 상품 검색(상품관리쪽과 겹침), 상품 추가, 상품 삭제
  *	이슈    1. 기간설정 없는 상시이벤트를 수정하려는 경우 startDate endDate 입력 input이 disabled 되지 않음
- *
  */
 
 @Controller
@@ -42,6 +41,13 @@ public class EventController {
 	private EventService eventService;
 	@Autowired
 	private EventPaging eventPaging;
+	
+	/* 이벤트 페이지 이동 */
+	@RequestMapping(value="/shop/goods/event", method=RequestMethod.GET)
+	public String event(Model model) {
+		model.addAttribute("display", "/shop/goods/event.jsp");
+		return "/shop/main/index";
+	}
 	
 	/* 이벤트 관리 페이지 이동 */
 	@RequestMapping(value="/admin/service/event", method=RequestMethod.GET)
@@ -59,14 +65,17 @@ public class EventController {
 		return "/admin/main/admin";
 	}
 	
-	/* 이벤트 등록 기능 */
-	@RequestMapping(value="/admin/service/eventWrite", method=RequestMethod.POST)
-	@ResponseBody
-	public void eventWrite(@RequestParam Map<String, Object> map) {
-		
-		// 임시 (나중에 productCode 가져올 수 있으면 지울 것)
-		map.put("productCode", "125");
-		eventService.eventWrite(map);
+	/* 이벤트 수정 페이지 이동 */
+	@RequestMapping(value="/admin/service/eventModifyForm", method=RequestMethod.GET)
+	public String eventModifyForm(@RequestParam String seq,
+								@RequestParam String pg,
+								@RequestParam String type,
+								Model model) {
+		model.addAttribute("pg", pg);
+		model.addAttribute("seq", seq);
+		model.addAttribute("type", type);
+		model.addAttribute("display", "/admin/service/eventWrite.jsp");
+		return "/admin/main/admin";
 	}
 	
 	/* 이벤트 리스트 가져오기 */
@@ -144,27 +153,23 @@ public class EventController {
 		mav.addObject("eventProductList", eventProductList);
 		mav.setViewName("jsonView");
 		return mav;
-	}
-	
-	/* 이벤트 수정 페이지 이동 */
-	@RequestMapping(value="/admin/service/eventModifyForm", method=RequestMethod.GET)
-	public String eventModifyForm(@RequestParam String seq,
-								@RequestParam String pg,
-								@RequestParam String type,
-								Model model) {
-		model.addAttribute("pg", pg);
-		model.addAttribute("seq", seq);
-		model.addAttribute("type", type);
-		model.addAttribute("display", "/admin/service/eventWrite.jsp");
-		return "/admin/main/admin";
-	}
-	
+	}	
 
-	/* 이벤트 수정 기능 (subject, eventStatus, startDate, endDate) */
+	/* 이벤트 등록 기능 */
+	@RequestMapping(value="/admin/service/eventWrite", method=RequestMethod.POST)
+	@ResponseBody
+	public void eventWrite(@RequestParam Map<String, Object> map) {
+		
+		// 임시 (나중에 productCode 가져올 수 있으면 지울 것)
+		map.put("productCode", "125");
+		eventService.eventWrite(map);
+	}
+	
+	/* 이벤트 수정 기능 */
 	@RequestMapping(value="/admin/service/eventModify", method=RequestMethod.POST)
 	@ResponseBody
 	public void eventModify(@RequestParam Map<String, Object> map) {
-		System.out.println(map);
+		// System.out.println(map);
 		eventService.eventModify(map);
 	}
 	

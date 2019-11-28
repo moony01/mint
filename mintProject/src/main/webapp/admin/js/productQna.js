@@ -43,7 +43,7 @@ function printProductQnaBoard(result){
 		let productQnaBoard  = `<tr class="subject_wrap" style="cursor : pointer" id="qna_${i}">
 									<td>${SEQ}</td>
 									<td>${MAINSUBJECT}</td>
-									<td>${SUBJECT}</td>
+									<td class="table--left">${SUBJECT}</td>
 									<td>${LOGTIMEQ}</td>
 									<td>${ID}</td>
 									<td>${reply}</td>	
@@ -61,7 +61,7 @@ function printProductQnaBoard(result){
 												</tr>
 												<tr class="content_wrap qna_${i}">
 													<td colspan="6">
-														<textarea style="width:1140px; height:195px; resize:none;"></textarea><input type='button' value="답변등록" id="reply_btn" style="margin-top:10px;">
+														<textarea style="width:100%; height:195px; resize:none;"></textarea><input type='button' value="답변등록" id="reply_btn" style="margin-top:10px;">
 													</td>
 												</tr>`;
 		}

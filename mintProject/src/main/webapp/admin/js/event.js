@@ -40,6 +40,7 @@ $(function(){
 		success: function(result){
 			eventListTemp(result);
 			$('.pagination').html(result.eventPaging.pagingHTML);
+			eventExecute(result);
 		},
 		error: function(error){
 			console.error(error);
@@ -102,20 +103,20 @@ function eventListTemp(result){
 				<td><input type="checkbox" name="check" class="check" value=${seq}></td>
 				<td>${
 					(() => {
-						if(events[i].eventStatus === 1) return '진행중';
+						if(events[i].eventStatus === 1) return '진행함';
 						else return '진행안함';
 					})()}</td>
 				<td class="tb-subject" onclick="eventRow(this)">${subject}</td>
 				<td>${
 					(() => {
 						if(events[i].startDate === null) return '상시진행';
-						else return moment(sd).format('YYYY/MM/DD hh:mm');
+						else return moment(sd).format('YYYY/MM/DD HH:mm');
 					})()
 				}</td>
 				<td>${
 					(() => {
 						if(events[i].endDate === null) return '상시진행';
-						else return moment(ed).format('YYYY/MM/DD hh:mm');
+						else return moment(ed).format('YYYY/MM/DD HH:mm');
 					})()
 				}</td>
 				<td>
@@ -257,3 +258,96 @@ $('#eventDeleteBtn').click(function(){
 		}
 	}
 });
+
+
+/**
+ *  이벤트 스크립트
+ *  
+ *  관리자 이벤트 페이지에 적용시킴 
+ *  
+ *  1. AJAX로 이벤트 리스트를 가져옴
+ *  2. eventStatus가 1이고 endDate에서 현재 시간을 뺀 값이 양수면 실행한다
+ *  3. startDate - 현재 시간(now)의 값을 이벤트 실행 setTimeout의 delay 패러미터에 넣음
+ *  4. 이벤트 실행 setTimeout이 0이 되거나 음수가 되면 1~50ms 후 곧바로 product DB에 update
+ *  5. endDate - 현재 시간(now)의 값을 이벤트 종료 setTimeout의 delay 패러미터에 넣음
+ *  6. 이벤트 종료 setTimeout이 0이 되거나 음수가 되면 1~50ms 후 곧바로 product DB에 update
+ */
+
+function eventExecute(result){
+	let event = result.list;
+	let now = new Date();
+	var eventOngoing = null;
+
+	for(var i=0; i<event.length; i++){
+		if(event[i].startDate < now) var startCount = 0;
+		else var startCount = event[i].startDate - now;
+		let endCount = event[i].endDate - now
+		  , eventSubject = event[i].subject
+		  , eventStatus = event[i].eventStatus
+		  , productCode = event[i].productCode
+		  , discountRate = event[i].discountRate
+		  , prevDiscountRate = event[i].prevDiscountRate;
+
+		/* 이벤트 진행 여부 */
+		if(eventStatus === 1 && endCount > 0){
+
+			console.log('event '+eventSubject+' : '+'eventStatus : '+eventStatus
+					+' startCount : '+startCount+' endCount : '+endCount);
+			// 이벤트 진행중이고 종료되지 않은 이벤트
+			
+			eventOngoing = setTimeout(function(){
+				console.log('진입 성공');
+				$.ajax({
+					type:'post',
+					url:'/mintProject/admin/service/eventProductUpdate',
+					data:'productCode='+productCode
+						+'&discountRate='+discountRate,
+					success: function(){
+						console.log('이벤트 실행 성공!');
+					},
+					error: function(error){
+						console.error(error);
+					}
+				});
+			}, startCount);
+
+		} else if(eventStatus === 1 && endCount <= 0) {
+			console.log('event '+eventSubject+' : '+'eventStatus : '+eventStatus
+					+' startCount : '+startCount+' endCount : '+endCount);
+			// 진행중 상태지만 이벤트 종료
+			setTimeout(function(){
+				clearTimeout(eventOngoing);
+				console.log('이벤트 종료!');
+			}, endCount);
+			
+			// 이전 할인율로 update하기
+			endEvent(productCode, prevDiscountRate);
+		} else if(eventStatus === 0 && prevDiscountRate !== discountRate){
+			console.log('event '+eventSubject+' : '+'eventStatus : '+eventStatus
+					+' startCount : '+startCount+' endCount : '+endCount);
+			// 진행 안함 (진행중이었다가 상태 변경한 것 포함)
+			setTimeout(function(){
+				clearTimeout(eventOngoing);
+				console.log('이벤트 종료!');
+			}, endCount);
+			
+			// 이전 할인율로 update하기
+			endEvent(productCode, prevDiscountRate);	
+		}
+	}	
+}
+
+function endEvent(productCode, prevDiscountRate){
+	$.ajax({
+		type:'post',
+		url:'/mintProject/admin/service/eventEndProductUpdate',
+		data:'productCode='+productCode
+			+'&prevDiscountRate='+prevDiscountRate,
+		success: function(){
+			console.log("되돌리기 성공!");
+		},
+		error: function(error){
+			console.error(error);
+		}
+	});
+}

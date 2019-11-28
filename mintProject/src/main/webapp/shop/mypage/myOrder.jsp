@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<style>
+	.cart span, .cart td{vertical-align: middle;}
+	#getDataBoxBtn{position: fixed; top: 20px; right: 0;}
+	#postDataBoxBtn{position: fixed; top: 20px; right: 90px;}
+</style>
+
 <div class="wrap">
   <div class="my-cart__header">
     <div class="my-cart__tit">주문서</div>

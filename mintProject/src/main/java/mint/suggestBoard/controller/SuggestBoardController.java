@@ -52,7 +52,7 @@ public class SuggestBoardController {
 		suggestBoardDTO.setId((String) session.getAttribute("memId"));
 		
 		//file 경로: 상대경로로 지정되어야 함 (보완예정)
-		String filePath = "C:\\Users\\user\\Desktop\\soyeon\\Spring\\mint\\mintProject\\src\\main\\webapp\\shop\\storage";
+		String filePath = "C:\\Users\\bitcamp\\Documents\\GitHub\\mint\\mintProject\\src\\main\\webapp\\shop\\storage";
 		String fileName = img.getOriginalFilename();
 		File file = new File(filePath, fileName);
 
@@ -196,7 +196,7 @@ public class SuggestBoardController {
 	}
 	
 	// [사용자, 관리자 페이지 공통 함수] ==================================================================================================
-	public  void setPagingNumber(String pg, Map<String, Object> map) {
+	public void setPagingNumber(String pg, Map<String, Object> map) {
 		int endNum = Integer.parseInt(pg) *5;
 		int startNum = endNum -4; 
 		

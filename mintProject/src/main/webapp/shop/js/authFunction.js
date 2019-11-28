@@ -10,7 +10,7 @@ function getIsDuplicatedPage(key, value){
 // getIsDuplicatedPage() 의 sucess result
 function printIsDuplicated(result){
 	if(!result){
-		alert('사용 가능한 아이디입니다. ');
+		alert('사용 가능한 이메일 입니다. ');
 	} else {
 		alert('이미 사용중인 계정입니다.');
 	}

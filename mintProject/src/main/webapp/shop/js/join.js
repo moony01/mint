@@ -103,11 +103,14 @@ certiAuthBtn.addEventListener('click', function() {
 //         .catch(printError);
 // });
 
+
 //getAuthConfirmPage() 의 sucess result
 function printAuthConfirm(result) {
     if (result == 'true') {
         alert('인증이 완료되었습니다. ');
         clearInterval(counter);
+        $('.btn-auth').removeClass('btn--primary');
+        $('.btn-auth').addClass('btn--white');
     } else alert('인증번호가 잘못되었거나, 시간이 만료되었습니다.');
 }
 

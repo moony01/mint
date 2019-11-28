@@ -10,19 +10,11 @@ public class AdminController {
 	@RequestMapping(value="/admin/main/admin", method=RequestMethod.GET)
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("display","/shop/template/body.jsp");
+		mav.addObject("display","/admin/order/chart.jsp");
 		mav.setViewName("/admin/main/admin");
 		return mav;
 	}
-	
-	@RequestMapping(value="/admin/service/sales", method=RequestMethod.GET)
-	public ModelAndView sales() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("display","/admin/service/chart.jsp");
-		mav.setViewName("/admin/main/admin");
-		return mav;
-	}
-	
+
 	@RequestMapping("/admin/main/denied")
 	public String denied() {
 		return "/admin/main/denied";

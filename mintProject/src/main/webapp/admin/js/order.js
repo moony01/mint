@@ -73,7 +73,7 @@ function printList(result){
 		
 		let order = `<tr>
 			<td><input type="checkbox" class="checkbox-one" value="${status}"></td>
-            <td><a href="/mintProject/admin/sales/orderView/${id}/${orderNumber}">${orderNumber}</a></td>
+            <td onclick="location.href='/mintProject/admin/sales/orderView/${id}/${orderNumber}'" style="cursor : pointer;">${orderNumber}</td>
             <td>${id}</td>
             <td>${logtime}</td>
             <td><a class="status${status}" href="javascript:void(0)" onclick="updateOrderStatus('${id}', '${orderNumber}')">${status_str}</a></td>

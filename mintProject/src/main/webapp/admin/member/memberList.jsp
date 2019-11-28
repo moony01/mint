@@ -27,17 +27,17 @@
     <form name="member">
 	    <div class="container">
 	        <div class="main__select" style="display:inline-block; justify-content: flex-start;">
-	            <select name="" id="" class="select-box" onchange="getListByOption($(this))">
+	            <select name="" id="" class="select-box" onchange="getListByOption($(this))" style="width: 100.5px; ">
 	                <option value="0">전체</option>
-	                <option value="1">아이디 오름차순</option>
+	                <option value="1">아이디 알파벳순</option>
 	                <option value="2">회원레벨 내림차순</option>
 	                <option value="3">수신동의(Y)</option>
-	                <option value="4">가입일 내림차순</option>
+	                <option value="4">가입일 최신순</option>
 	            </select>
 	        </div>
 	        
 	        <div class="searches">
-	            <input type="text" name="daterange" class="daterange-txt">
+	            <input type="text" name="daterange" class="daterange-txt" style="padding-left: 23px; width:150px;">
 	            <div class="search">
 	                <p class="searchButton daterange-search-btn" onclick="getListBySearch($(this))">
 	                <i class="fa fa-search"></i>

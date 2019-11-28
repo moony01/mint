@@ -5,11 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,7 +30,8 @@ public class OrderAdminController {
 	
 	@RequestMapping(value="/admin/sales/order/{searchValue}/{option}", method = RequestMethod.POST)
 	public ModelAndView getOrderList(@PathVariable String option, 
-									@PathVariable String searchValue, ModelAndView mav) {
+									@PathVariable String searchValue, 
+									@RequestParam(required = false, defaultValue = "1") String pg, ModelAndView mav) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("status", Integer.parseInt(option));
 
@@ -40,9 +40,16 @@ public class OrderAdminController {
 			map.put("from", searchValue.substring(0, 6));
 			map.put("to", searchValue.substring(9));
 		}
+		int totalArticle = orderService.getOrderTotalArticle();
+		int endNum = Integer.parseInt(pg) *10;
+		int startNum = endNum -9; 
 		
-		System.out.println(map);
+		map.put("endNum", endNum);
+		map.put("startNum", startNum);
 		List<OrderInfoDTO> list = orderService.getOrderList(map);
+		System.out.println("list(*): " + list.size());
+		mav.addObject("pg", pg);
+		mav.addObject("totalArticle", totalArticle);
 		mav.addObject("list", list);
 		mav.setViewName("jsonView");
 		

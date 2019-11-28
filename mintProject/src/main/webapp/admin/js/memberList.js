@@ -56,6 +56,7 @@ function printList(result){
 		if(table == 'supplier'){ // 판매자 목록 
 			let {SUPPLIERCODE, CATEGORY, ID, STAR, LOGTIME, STATUS} = list[i];	
 			
+			
 			let date = new Date(LOGTIME);
 			let parseDate = new Date(date - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10);
 			

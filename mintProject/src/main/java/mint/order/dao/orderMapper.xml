@@ -46,12 +46,18 @@
 	</select>
 	
 	<!-- [관리자] 주문내역 보기 ======================================================================================-->
+	<select id="getOrderTotalArticle" resultType="int">
+		select count(*) from orderInfo
+	</select>
+	
 	<select id="getOrderList" parameterType="java.util.Map" resultType="orderInfo">
-		select orderNumber, id, to_char(logtime, 'yyyy-MM-dd') as logtime, status from orderInfo  
+		select * from
+		(select rownum rn, orderNumber, id, to_char(logtime, 'yyyy-MM-dd') as logtime, status from orderInfo  
 		<if test="status != 5">
 			where status = #{status}
 		</if>
-		order by status asc, id asc
+		order by status asc, id asc) temp
+		where rn between #{startNum} and #{endNum} 
 	</select>
 	
 	<select id="getOrderListByDate" parameterType="java.util.Map" resultType="orderInfo">

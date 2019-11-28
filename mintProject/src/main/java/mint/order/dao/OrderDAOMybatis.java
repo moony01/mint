@@ -107,4 +107,9 @@ public class OrderDAOMybatis implements OrderDAO {
 		return sqlSession.selectOne("orderSQL.getMyOrderDetails",ordernumber);
 	}
 
+	@Override
+	public int getOrderTotalArticle() {
+		return sqlSession.selectOne("orderSQL.getOrderTotalArticle");
+	}
+
 }

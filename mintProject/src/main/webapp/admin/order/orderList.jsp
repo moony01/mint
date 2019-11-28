@@ -3,6 +3,23 @@
 <style>
 .nonClick{color: grey;}
 .nonClick:hover {color: grey;}
+
+.searches{
+	float: right;
+   display:flex;
+   justify-content :flex-end;
+   margin-bottom:15px;
+}
+
+.daterange-search-btn{
+   cursor:pointer;
+   display:flex;
+   justify-content:center;
+   align-items:center;
+   background-color: black;
+   color:white;
+}
+
 </style>
 
 <div class="main__title">
@@ -12,6 +29,7 @@
         <a href="" class="ch-title now-title">주문 목록</a>        
     </div>
     <form name="order">
+    	<input type="hidden" name="pg" value=${pg }>
 	    <div class="container">
 	        <div class="main__select" style="display:inline-block; justify-content: flex-start;">
 	            <select name="" id="" class="select-box" onchange="getListByOption($(this))">
@@ -24,11 +42,12 @@
 	            </select>
 	        </div>
 	        
-	        <div class="searches" style="float: right; display:flex; justify-content: flex-end;">
+	        <div class="searches">
 	            <input type="text" name="daterange">
 	            <div class="search">
-	                <input type="button" class="searchButton" onclick="getListBySearch($(this))">
+	                <p class="searchButton daterange-search-btn" onclick="getListBySearch($(this))">
 	                <i class="fa fa-search"></i>
+	                </p>
 	            </div>
 	        </div>
 	        

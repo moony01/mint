@@ -1,6 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<style>
+.searches{
+	float: right;
+   display:flex;
+   justify-content :flex-end;
+   margin-bottom:15px;
+}
+
+.daterange-search-btn{
+   cursor:pointer;
+   display:flex;
+   justify-content:center;
+   align-items:center;
+   background-color: black;
+   color:white;
+}
+</style> 
 
 	<div class="main__title">
         <h2 class="out">회원 관리</h2>
@@ -19,11 +36,12 @@
 	            </select>
 	        </div>
 	        
-	        <div class="searches" style="float: right; display:flex; justify-content: flex-end;">
-	            <input type="text" name="daterange">
+	        <div class="searches">
+	            <input type="text" name="daterange" class="daterange-txt">
 	            <div class="search">
-	                <input type="button" class="searchButton" onclick="getListBySearch($(this))">
+	                <p class="searchButton daterange-search-btn" onclick="getListBySearch($(this))">
 	                <i class="fa fa-search"></i>
+	                </p>
 	            </div>
 	        </div>
 	        
@@ -49,13 +67,13 @@
 	            <div>
 	                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">상태 변경</button>
 	            </div>
-                <div class="searches" style="float: right; display:flex; justify-content: flex-end;">
-                	<label style="text-align: center;">상호명 검색</label> &emsp; 
-                	<input type="text" name="searchValue" placeholder="검색 해주세요">
+                <div class="searches">
+                	<label style="text-align: center; vertical-align: middle;">상호명 검색</label> &emsp; 
+                	<input type="text" name="searchValue" class="daterange-txt" placeholder="검색 해주세요">
                     <div class="search">
-                        <input type="button" class="searchButton" onclick="getListBySearch($(this))">
+                        <p class="searchButton daterange-search-btn" onclick="getListBySearch($(this))">
                             <i class="fa fa-search"></i>
-                       
+                        </p>
                     </div>
                 </div>
 	        </div>

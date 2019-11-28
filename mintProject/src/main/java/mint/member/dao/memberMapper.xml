@@ -141,11 +141,19 @@
 		desc </if>
 	</select>
 	
-	<select id="getProductList" parameterType="java.util.Map" resultType="product">
-		select productcode, mainsubject, trunc(sum(star)/count(*)) as star from product
+	<select id="getProductList1" parameterType="java.util.Map" resultType="product">
+		<!-- select productcode, mainsubject, trunc(sum(star)/count(*)) as star from product
 		left join supplier using(supplierCode)
 		group by(supplierCode, productcode, mainsubject)
+		having supplierCode= #{value} -->
+		
+		select productcode, mainsubject, nvl(avg(rb.star), 0) as star  from product
+		left join supplier using(supplierCode)
+        left join reviewboard rb using (productCode)
+		group by(supplierCode, productcode, mainsubject)
 		having supplierCode= #{value}
+        order by productcode asc
+		
 	</select>
 	
 	<update id="updateByAdmin" parameterType="java.util.Map">

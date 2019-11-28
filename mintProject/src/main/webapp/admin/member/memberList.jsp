@@ -1,5 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<style>
+.searches{
+	float: right;
+   display:flex;
+   justify-content :flex-end;
+   margin-bottom:15px;
+}
+
+.daterange-search-btn{
+   cursor:pointer;
+   display:flex;
+   justify-content:center;
+   align-items:center;
+   background-color: black;
+   color:white;
+}
+</style>    
 	<div class="main__title">
         <h2 class="out">회원 관리</h2>
         <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>회원 관리</span></a>
@@ -18,14 +36,15 @@
 	            </select>
 	        </div>
 	        
-	        <div class="searches" style="float: right; display:flex; justify-content: flex-end;">
-	            <input type="text" name="daterange">
+	        <div class="searches">
+	            <input type="text" name="daterange" class="daterange-txt">
 	            <div class="search">
-	                <input type="button" class="searchButton" onclick="getListBySearch($(this))">
+	                <p class="searchButton daterange-search-btn" onclick="getListBySearch($(this))">
 	                <i class="fa fa-search"></i>
+	                </p>
 	            </div>
 	        </div>
-	        
+	         
 	        <table class="table table-bordered table-member">
 	            <tr class="th--dark">
 	                <th class="col-md-1"><input type="checkbox" class="checkbox-all"></th>

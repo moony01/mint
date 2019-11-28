@@ -196,7 +196,7 @@ public class SuggestBoardController {
 	}
 	
 	// [사용자, 관리자 페이지 공통 함수] ==================================================================================================
-	public  void setPagingNumber(String pg, Map<String, Object> map) {
+	public void setPagingNumber(String pg, Map<String, Object> map) {
 		int endNum = Integer.parseInt(pg) *5;
 		int startNum = endNum -4; 
 		

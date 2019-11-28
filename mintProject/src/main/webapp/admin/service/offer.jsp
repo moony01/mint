@@ -53,7 +53,7 @@
                     <option value="">주문번호</option>
                 </select>
                 <div class="search">
-                    <input type="text" class="searchTerm" placeholder="검색 해주세요!!">
+                    <input type="text" class="searchTerm" placeholder="검색어를 입력하세요">
                     <button type="submit" class="searchButton">
                         <i class="fa fa-search"></i>
                     </button>

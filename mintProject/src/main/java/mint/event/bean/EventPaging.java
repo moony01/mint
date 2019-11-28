@@ -17,6 +17,7 @@ public class EventPaging {
 	private int pageBlock; // if [이전][1][2][3][다음], int=3
 	private int pageSize; // 1페이지당 게시물 10개
 	private int totalEvent; // 총글수
+	private String addr; // 주소 구분용
 	private StringBuffer pagingHTML; // 아래 함수 실행후 생성되는 html태그 담는 객체
 	
 	public void makePagingHTML() {
@@ -30,27 +31,27 @@ public class EventPaging {
 		if(endPage > totalP) endPage = totalP;
 		
 		
-		pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg=1'><<</a></li>");
+		pagingHTML.append("<li class='page-item'><a class='page-link' href='"+addr+"?pg=1'><<</a></li>");
 		
 		if(currentPage == 1) 
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg=1'><</a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='"+addr+"?pg=1'><</a></li>");
 		else 
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg="+(currentPage-1)+"'><</a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='"+addr+"?pg="+(currentPage-1)+"'><</a></li>");
 		
 		
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
-				pagingHTML.append("<li class='page-item active'><a class='page-link' href='faqBoardList?pg="+i+"'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item active'><a class='page-link' href='"+addr+"?pg="+i+"'>"+i+"</a></li>");
 			else
-				pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg="+i+"'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item'><a class='page-link' href='"+addr+"?pg="+i+"'>"+i+"</a></li>");
 		}
 		
 		
 		if(currentPage == endPage)
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg="+(endPage)+"'>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='"+addr+"?pg="+(endPage)+"'>></a></li>");
 		else 
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg="+(currentPage+1)+"'>></a></li>");
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg="+(endPage)+"'>>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='"+addr+"?pg="+(currentPage+1)+"'>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='"+addr+"?pg="+(endPage)+"'>>></a></li>");
 	}
 	
 	public void makeSearchPagingHTML() {
@@ -63,7 +64,7 @@ public class EventPaging {
 		
 		if(endPage > totalP) endPage = totalP;
 		
-		pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(startPage)+")'><<</a></li>");
+		pagingHTML.append("<li class='page-item'><a class='page-link' onclick='"+addr+"("+(startPage)+")'><<</a></li>");
 		
 		if(currentPage == 1) 
 			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(startPage)+")'><</a></li>");

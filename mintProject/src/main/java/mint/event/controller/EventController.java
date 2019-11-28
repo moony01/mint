@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,15 +25,17 @@ import mint.product.bean.ProductDTO;
  *	EventController
  * 	이벤트 컨트롤러
  * 
- * @version 1.9
+ * @version 1.10
  * @author LimChangHyun 
  *
- *	기능
- *	이벤트 등록, 페이징 처리, 리스트 처리, 이벤트 삭제
- *  이벤트 상품 리스트, 이벤트 수정, 이벤트 검색, 이벤트 연동, 일일특가
- *
- *	앞으로 구현되어야 하는 것 : 상품 검색(상품관리쪽과 겹침), 상품 추가, 상품 삭제
+ *	구현된 기능 : 이벤트 등록, 리스트 처리, 이벤트 삭제
+ *  		     이벤트 상품 리스트, 이벤트 수정, 이벤트 검색, 이벤트 연동, 일일특가
+ *	불완전 기능 : 상품 검색(상품관리쪽과 겹침), 페이징 처리
+ *	앞으로 구현되어야 하는 것 : 상품 추가, 상품 삭제
  *	이슈    1. 기간설정 없는 상시이벤트를 수정하려는 경우 startDate endDate 입력 input이 disabled 되지 않음
+ *		 2. 전체적으로 페이징 손봐야함(event, eventWrite(post)), faq도 손봐야할 것
+ *		 3. 실행 종료 SQL구문과 javascript settimeout 조건 다시 확인할 것
+ *
  */
 
 @Controller
@@ -79,25 +82,25 @@ public class EventController {
 	}
 	
 	/* 이벤트 리스트 가져오기 */
-	@RequestMapping(value="/admin/service/getEventList", method=RequestMethod.POST)
-	public ModelAndView getEventList(@RequestParam(required=false, defaultValue="1") String pg) {
-		// 1페이지당 10개씩
-		int endNum = Integer.parseInt(pg)*10;
-		int startNum = endNum-9;
+	@RequestMapping(value="/{temp}/service/getEventList", method=RequestMethod.POST)
+	public ModelAndView getEventList(@PathVariable String temp, @RequestParam(required=false, defaultValue="1") String pg) {
+		// 1페이지당 5개씩
+		int endNum = Integer.parseInt(pg)*5;
+		int startNum = endNum-4;
 		// 게시물 리스트 가져오기
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
-		// event seq가져가서 각각의 productCode를 가져와야함 HashMap?
 		
 		List<EventDTO> list = eventService.getEventList(map);
 		
 		// 게시판 페이징 처리
 		// 총 이벤트 수
 		int totalEvent = eventService.getTotalEvent();
+		eventPaging.setAddr("event");
 		eventPaging.setCurrentPage(Integer.parseInt(pg));
 		eventPaging.setPageBlock(5);
-		eventPaging.setPageSize(10);
+		eventPaging.setPageSize(5);
 		eventPaging.setTotalEvent(totalEvent);
 		eventPaging.makePagingHTML();
 		
@@ -131,11 +134,50 @@ public class EventController {
 		return mav;
 	}
 	
-	/* 이벤트 상품 리스트 가져오기 */
-	@RequestMapping(value="/admin/service/getProductList", method=RequestMethod.POST)
+	/* 상품 리스트 가져오기 */
+	@RequestMapping(value = "/admin/service/getProductList", method=RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView getProductList(@RequestParam(required=false, defaultValue="1") String pg,
-									   @RequestParam String seq) {
+	public ModelAndView productAdminList(@RequestParam(required=false, defaultValue="1") String pg2,
+										String searchOption,
+										String categorySelect,
+										String keyword) {
+		// 1페이지당 10개씩
+		int endNum = Integer.parseInt(pg2)*10;
+		int startNum = endNum-9;
+		
+		// 게시물 리스트 가져오기
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("searchOption", searchOption);
+		map.put("categorySelect", searchOption);
+		map.put("keyword", keyword);
+		
+		List<ProductDTO> list = eventService.getProductList(map);
+		
+		// 총 갯수
+		int totalProduct = eventService.getTotalProduct(map);
+		eventPaging.setAddr("");
+		eventPaging.setCurrentPage(Integer.parseInt(pg2));
+		eventPaging.setPageBlock(5);
+		eventPaging.setPageSize(10);
+		eventPaging.setTotalEvent(totalProduct);
+		eventPaging.makeSearchPagingHTML();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("pg2", pg2);
+		mav.addObject("list", list);
+		mav.addObject("eventPaging", eventPaging);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	/* 이벤트 상품 리스트 가져오기 */
+	@RequestMapping(value="/{temp}/service/getEventProductList", method=RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView getEventProductList(@PathVariable String temp,
+											@RequestParam(required=false, defaultValue="1") String pg,
+											@RequestParam String seq) {
 		// EventDTO에서 productCode 가져오기
 		EventDTO eventDTO = eventService.getEvent(Integer.parseInt(seq));
 		// productcode를 배열로 변환하기
@@ -144,7 +186,7 @@ public class EventController {
 		// 게시물 리스트 가져오기
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("array", array);
-		List<ProductDTO> list = eventService.getProductList(map);
+		List<ProductDTO> list = eventService.getEventProductList(map);
 		List<EventProductDTO> eventProductList = eventService.getEventProduct(Integer.parseInt(seq));
 
 		// Response
@@ -159,17 +201,17 @@ public class EventController {
 	@RequestMapping(value="/admin/service/eventWrite", method=RequestMethod.POST)
 	@ResponseBody
 	public void eventWrite(@RequestParam Map<String, Object> map) {
-		
-		// 임시 (나중에 productCode 가져올 수 있으면 지울 것)
-		map.put("productCode", "125");
-		eventService.eventWrite(map);
+		System.out.println(map);
+
+		// map.put("productCode", productCodeToArray);
+		// eventService.eventWrite(map);
 	}
 	
 	/* 이벤트 수정 기능 */
 	@RequestMapping(value="/admin/service/eventModify", method=RequestMethod.POST)
 	@ResponseBody
 	public void eventModify(@RequestParam Map<String, Object> map) {
-		// System.out.println(map);
+		System.out.println(map);
 		eventService.eventModify(map);
 	}
 	
@@ -185,9 +227,9 @@ public class EventController {
 	/* 이벤트 검색 기능 */
 	@RequestMapping(value="/admin/service/eventSearch", method=RequestMethod.POST)
 	public ModelAndView getFAQBoardSearch(@RequestParam Map<String, Object> map) {
-		// 1페이지당 10개씩
-		int endNum = Integer.parseInt((String) map.get("pg"))*10;
-		int startNum = endNum-9;
+		// 1페이지당 5개씩
+		int endNum = Integer.parseInt((String) map.get("pg"))*5;
+		int startNum = endNum-4;
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
 		
@@ -228,8 +270,8 @@ public class EventController {
 			// 상품 개수만큼 Map생성 후 productCode, discountRate집어넣고
 			for(int i=0; i<productCodeArray.length; i++) {
 				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("productCode", productCodeArray[i]);
-				map.put("discountRate", Integer.parseInt(discountRateArray[i]));
+				map.put("productCode", productCodeArray[i].trim());
+				map.put("discountRate", Integer.parseInt(discountRateArray[i].trim()));
 				// 최종적으로 list에 넣기
 				list.add(i, map);
 				eventService.eventProductUpdate(list);
@@ -260,8 +302,8 @@ public class EventController {
 			// 상품 개수만큼 Map생성 후 productCode, discountRate집어넣고
 			for(int i=0; i<productCodeArray.length; i++) {
 				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("productCode", productCodeArray[i]);
-				map.put("prevDiscountRate", Integer.parseInt(prevDiscountRateArray[i]));
+				map.put("productCode", productCodeArray[i].trim());
+				map.put("prevDiscountRate", Integer.parseInt(prevDiscountRateArray[i].trim()));
 				// 최종적으로 list에 넣기
 				list.add(i, map);
 				eventService.eventEndProductUpdate(list);

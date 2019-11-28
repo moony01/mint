@@ -81,7 +81,7 @@ public class QnaBoardController {
 
 		if (!img.isEmpty()) {
 			System.out.println("파일 집어넣었다!!!!!!!!");
-			String filePath = "C:\\Users\\bitcamp\\Documents\\GitHub\\mint\\mintProject\\src\\main\\webapp\\shop\\storage";
+			String filePath = "C:\\Users\\bitcamp\\Documents\\GitHub\\mint\\mintProject\\src\\main\\webapp\\shop\\storage\\member\\qnaboard";
 			String fileName = img.getOriginalFilename();
 			File file = new File(filePath, fileName);
 			System.out.println(fileName);
@@ -175,14 +175,91 @@ public class QnaBoardController {
 	// 관리자 1:1 문의 보드 보드 값 조회
 	@RequestMapping(value = "/admin/service/getAdminQnaBoardList")
 	public ModelAndView getAdminQnaBoardList(@RequestParam Map<String, String> map) {
-		
 		ModelAndView mav = new ModelAndView();
-//		mav.addObject("list", list);
-		mav.addObject("display", "/admin/service/qna.jsp");
-		mav.setViewName("/admin/main/admin");
+		// 총 갯수
+		int totalArticle = qnaBoardService.getAdminQnaBoardCnt(map);
+		setPagingNumber(map);
+		System.out.println("map : " + map);
+
+		List<QnaBoardDTO> list = qnaBoardService.getAdminQnaBoardList(map);
+
+		// 셀렉트 박스 구분
+		if (map.get("selectGubun") == "" || map.get("selectGubun") == null) {
+			mav.addObject("selectGubun", "9");
+		} else {
+			mav.addObject("selectGubun", map.get("selectGubun"));
+		}
 		
+		//맨 아래 셀렉트 박스 구분
+		if (map.get("searchOption") == null) {
+			mav.addObject("searchOption", "0");
+			mav.addObject("keyword", "");
+		} else {
+			mav.addObject("searchOption", map.get("searchOption"));
+			mav.addObject("keyword", map.get("keyword"));
+		}
+		
+		// 페이지
+		mav.addObject("pg", map.get("pg"));
+		mav.addObject("list", list);
+		mav.addObject("display", "/admin/service/qna.jsp");
+		mav.addObject("totalArticle", totalArticle);
+		mav.addObject("addr", "/mintProject/admin/service/getAdminQnaBoardList");
+		
+		mav.setViewName("/admin/main/admin");
+
 		return mav;
 	}
+
+	// 관리자 1:1 문의 답변 창 불러오기
+	@RequestMapping(value = "/admin/service/getAdminQnaReplyForm")
+	public ModelAndView getAdminQnaReplyForm(@RequestParam Map<String, String> map) {
+		ModelAndView mav = new ModelAndView();
+
+		QnaBoardDTO qndBoardDTO = qnaBoardService.getAdminQnaReply(map);
+
+		mav.addObject("qndBoardDTO", qndBoardDTO);
+		mav.addObject("pg", map.get("pg"));
+		mav.addObject("display", "/admin/service/qnaAnswer.jsp");
+		mav.setViewName("/admin/main/admin");
+
+		return mav;
+	}
+	
+	// 관리자 1:1 문의 답변 달기
+	@RequestMapping(value = "/admin/service/adminQnaReplyUpdate",method = RequestMethod.POST)
+	public ModelAndView adminQnaReplyUpdate(@RequestParam Map<String,String> map) {
+		ModelAndView mav = new ModelAndView();
+		//String content, @RequestParam String pg
+		System.out.println("content : " + map.get("content"));
+		System.out.println("pg : " + map.get("pg"));
+		System.out.println("seq : " + map.get("seq"));
+		
+		//관리자 1:1문의 답변달기
+		int cnt = qnaBoardService.updateAdminReply(map);
+		
+		if(cnt == 1) {
+			mav.addObject("pg", map.get("pg"));
+			mav.addObject("display", "/admin/service/qnaAnswerOk.jsp");
+			mav.setViewName("/admin/main/admin");
+		}
+
+		return mav;
+	}
+	
+	// 관리자 1:1 문의 답변 삭제
+		@RequestMapping(value = "/admin/service/adminQnaDelete",method = RequestMethod.GET)
+		public ModelAndView adminQnaDelete(@RequestParam Map<String,String> map) {
+			ModelAndView mav = new ModelAndView();
+			//String content, @RequestParam String pg
+			System.out.println("삭제할 seq : " + map.get("seq"));
+			qnaBoardService.qnaBoardDelete(Integer.parseInt(map.get("seq")));
+			
+			mav.addObject("display", "/admin/service/qnaDeleteOk.jsp");
+			mav.setViewName("/admin/main/admin");
+
+			return mav;
+		}
 
 	// [사용자, 관리자 페이지 공통 함수]
 	// ==================================================================================================

@@ -48,4 +48,24 @@ public class QnaBoardServiceImpl implements QnaBoardService{
 		
 	}
 
+	@Override
+	public int getAdminQnaBoardCnt(Map<String, String> map) {
+		return qndBoardDAO.getAdminQnaBoardCnt(map);
+	}
+
+	@Override
+	public List<QnaBoardDTO> getAdminQnaBoardList(Map<String, String> map) {
+		return qndBoardDAO.getAdminQnaBoardList(map);
+	}
+
+	@Override
+	public QnaBoardDTO getAdminQnaReply(Map<String, String> map) {
+		return qndBoardDAO.getAdminQnaReply(map);
+	}
+
+	@Override
+	public int updateAdminReply(Map<String, String> map) {
+		return qndBoardDAO.updateAdminReply(map);
+	}
+
 }

@@ -1,5 +1,6 @@
 package mint.cart.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,7 +57,8 @@ public class CartController {
 		map.put("id", id);
 		
 		System.out.println("load map : "+map);
-		cartService.cartListDelete(map);
+		int memcart = cartService.cartListDelete(map);
+		session.setAttribute("memCart", memcart);
 	}
 	
 	@RequestMapping(value="/shop/goods/addCartList", method=RequestMethod.POST)
@@ -80,9 +83,31 @@ public class CartController {
 			mav.addObject("gubun", 2);
 			mav.setViewName("jsonView");
 		}
-		
-		
 		return mav;
+	}
+	
+	@RequestMapping(value="/shop/goods/cartSoldOutDelete", method=RequestMethod.POST)
+	@ResponseBody
+	public void cartSoldOutDelete(@RequestBody Map<String,Object> map,
+								  HttpSession session) {
+		String id = (String)session.getAttribute("memId");
+		
+		System.out.println("map : "+map);
+		System.out.println("id : "+id);
+		
+		ArrayList<String> productCode = (ArrayList<String>) map.get("productCode");
+		map.remove("productCode");
+		System.out.println(productCode);
+		System.out.println(map);
+		
+		for(int i=0; i<productCode.size(); i++) {
+			map.put("productCode", productCode.get(i));
+			System.out.println(map);
+			int memcart = cartService.cartSoldOutDelete(map);
+			session.setAttribute("memCart", memcart);
+		}
+		
+		
 	}
 	
 }

@@ -84,5 +84,10 @@ public class OrderServiceImpl implements OrderService {
 	public int getOrderTotalArticle() {
 		return orderDAO.getOrderTotalArticle();
 	}
+
+	@Override
+	public void minusMemberPoint(Map<String, Object> order) {
+		orderDAO.minusMemberPoint(order);
+	}
 	
 }

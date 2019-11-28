@@ -44,6 +44,8 @@ $(document).ready(function(){
 					let price2 = PRICE - discoutPrice;//상품할인적용가
 					let savingPrice = 0;//적립금
 					
+					// 여기서
+					
 					let customCart = `
 						<tr class="viewDel">
 							<input type="hidden" class="productCode" value="${PRODUCTCODE }">
@@ -73,7 +75,7 @@ $(document).ready(function(){
 							</td>
 							<td class="cart-tb__total prd_price">${price2 }</td>
 							<td>
-								<button type="button" class="btn btn_delete_point" onclick="seldel($(this))"></button>
+								<button type="button" class="btn_delete_point" onclick="seldel($(this))"><img src="https://res.kurly.com/pc/ico/1801/btn_close_24x24_514859.png" alt="삭제"></button>
 							</td>
 						</tr>
 					`;
@@ -87,12 +89,13 @@ $(document).ready(function(){
 				let chk_leng = 0;//상품row checkbox count
 				let checked = 0;//상품 for문에 쓸 변수
 				var lastPrice = 0;//총상품금액 계
+				var stock = []; //수량의 배열을 담을 객체
 				
 				fnck();//체크박스
 				total_calcul();//총상품금액
+				PriceCntSum();//총상품금액 수량 1이상일때 계산
 				hide_stock();//품절처리
 				selectDelete();//선택삭제
-				PriceCntSum();
 			}
 			
 		});
@@ -118,17 +121,47 @@ function PriceCntSum() {
 
 //품절처리
 function hide_stock() {
-	var stock = new Array(); //정가의 배열을 담을 객체
+	stock = new Array();
 	$(".stock").each(function(index, item) {
 		stock.push(parseInt($(item).val()));
 	});
-	
+	console.log(stock);
 	for(i=0; i<prdCnt; i++) {
 		if(stock[i] == 0) {
-			$(".stock").eq(i).parents(".viewDel").css("background", "red").addClass("soldOut");
+			$(".stock").eq(i).parents(".viewDel").css("background", "white").css("opacity", "20%").addClass("soldOut");
 		}
 	}
 }
+
+//품절된상품 삭제
+$('.soldOutBtn').click(function(){
+	
+	let soldCnt = $('.soldOut').length;
+	let soldOutPrd = new Array(soldCnt);
+	
+	for(i=0; i<soldCnt; i++) {
+		soldOutPrd[i] = $('.soldOut').eq(i).children('.productCode').val();
+		console.log(soldOutPrd[i]);
+	}
+	console.log(soldOutPrd);
+	
+	$.ajax({
+		type: 'post',
+		url: '/mintProject/shop/goods/cartSoldOutDelete',
+		contentType: 'application/json; charset=utf-8',
+		data: JSON.stringify({
+			id : memId,
+			productCode : soldOutPrd 
+		}),
+		success: function(data){
+			console.log(JSON.stringify(data));
+			location.reload(true);
+		},
+		error: function(err){
+			console.log(err);
+		}
+	});
+});
 
 //선택삭제 이벤트
 function selectDelete() {
@@ -158,7 +191,7 @@ $('.prdCheck').on("click", function(){
 //상품 전체선택: fnck() 함수 안에서 정의되었는데, 해당 함수 안에 있지 않아도 상관 없어서 위치를 밖으로 뺐습니다. 
 //allCheck.on(): 본래 click 이벤트였는데, trigger로 불러오려니까 꼬이더라구요.. 그래서 change로 바꿨습니다. (allCheck(체크박스) 가 클릭되었을 때 = 체크박스 상태가 변경되었을때 라서 바꿔도 액션은 동일하게 들어감) 
 //제가 추가한 내용만 주석을 달아놨어요
- $('.allCheck').on('change', function(){
+$('.allCheck').on('change', function(){
  	if($(this).prop('checked')) {
  		$(".prdCheck").prop("checked", true); 
  		$(".prdCheck").parent().attr('class', 'check-label checked'); // 라벨의 아이콘을 체크 상태로 바꿈
@@ -170,8 +203,10 @@ $('.prdCheck').on("click", function(){
  	}
 	
  	total_calcul();
- });
+});
 
+
+ 
 //상품개수카운트 함수
 //제가 추가한 내용만 주석을 달아놨어요
 function chCount() {
@@ -244,6 +279,7 @@ function seldel(deleteBtn) {
 		}
 		
 		function printCartListDelete() {
+			location.reload(true);
 			$('#'+rowDeleteSel).parents().parents('.viewDel').remove();
 			
 			chk_total_obj = $('.prdCheck');
@@ -279,7 +315,9 @@ function total_calcul() {
 		}
 	}
 	
-	if(originalTotPrice - discountTotPrice < 30000) { // [상품금액div - 상품할인금액 div] 값이 30000원 이하면 배송비가 붙는다. 
+	if(originalTotPrice === 0) {
+		deliveryPrice = 0;
+	}else if(originalTotPrice - discountTotPrice < 30000) { // [상품금액div - 상품할인금액 div] 값이 30000원 이하면 배송비가 붙는다. 
 		deliveryPrice = 3000;
 	}
 	

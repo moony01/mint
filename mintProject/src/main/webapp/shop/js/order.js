@@ -112,10 +112,10 @@ $(document).ready(function(){
 		$('#topProductName').text(topProductName);	
 		$('#productListCount').text(otherCnt);
 		
-		let name = $('#memberName').text();
+		let name = '';
 		let tel = $('#memberTel').text();
-		let addr1 = $('#delivery_addr1').val();
-		let addr2 = $('#delivery_addr2').val();
+		let addr1 = '';
+		let addr2 = '';
 		let delevery = $('#deleveryPrice').text();
 		
 		let pointadd = $('#totalPoint').text();
@@ -127,12 +127,11 @@ $(document).ready(function(){
 		$('.tel1').val(tel1);
 		$('.tel2').val(tel2);
 		$('.tel3').val(tel3);
-		
+
 		let productCode = new Array(cnt);
 
 		for(i=0; i<cnt; i++) {
 			productCode[i] = $('.productCode').eq(i).text();
-			
 			onePrdPrice[i] = parseInt(discountPrice[i]); //개당 가격
 			$(".onePrdPrice").eq(i).text(onePrdPrice[i]);
 		}
@@ -143,16 +142,19 @@ $(document).ready(function(){
 		document.getElementById('btnPayment').onclick = function(){
 			let request = $('#request').val();
 			let pointuse = $('.pointUse').text();
+			name = $('#recipient').val();
+			let setTel = $('#tel1').val() + $('#tel2').val() + $('#tel3').val();
+			addr1 = $('#delivery_addr1').val();
+			addr2 = $('#delivery_addr2').val();
 			
 			var IMP = window.IMP; // 생략가능
 			IMP.init('imp22922268'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-			//console.log(productCode);
 			console.log(lastPriceSet);
 			console.log(request);
 			console.log(delevery);
 			console.log(pointuse);
 			console.log(pointadd);
-			
+			console.log("tel" +setTel);
 	    	console.log("qty : "+qty);
 	    	console.log("productCode : "+productCode);
 	    	console.log("lastPriceSet : "+lastPriceSet);
@@ -166,7 +168,7 @@ $(document).ready(function(){
 				//amount: lastPriceSet, //가격
 				amount: 100, //가격
 				buyer_name: name,
-				buyer_tel:  tel,
+				buyer_tel:  setTel,
 				buyer_addr: addr1,
 				buyer_postcode: addr2,
 				m_redirect_url: '/mintProject/shop/goods/redirect' // 나중에 수정
@@ -174,10 +176,6 @@ $(document).ready(function(){
 			    if (rsp.success) {
 			    	console.log(rsp);
 				    var msg = '결제가 완료되었습니다.';
-				    /*msg += '고유ID : ' + rsp.imp_uid;
-				    msg += '상점 거래ID : ' + rsp.merchant_uid;
-				    msg += '결제 금액 : ' + rsp.paid_amount;
-				    msg += '카드 승인번호 : ' + rsp.apply_num;*/
 
 			    	$.ajax({
 			    		type: 'POST',

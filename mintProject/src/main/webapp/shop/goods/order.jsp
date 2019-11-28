@@ -108,14 +108,14 @@ pageEncoding="UTF-8"%>
 			</tr>
 			<tr class="shipping-tb__name">
 				<th class="size-2">수령인 이름 *</th>
-				<td class="size-10"><input type="text" value="${memberDTO.name }" /></td>
+				<td class="size-10"><input type="text" id="recipient" value="${memberDTO.name }" /></td>
 			</tr>
 			<tr class="shipping-tb__phone">
 				<th class="size-2">휴대폰 *</th>
 				<td class="size-10">
-					<input type="text" class="tel1" value="" size="3" maxlength="3" />
-					<input type="text" class="tel2" value="" size="4" maxlength="4" />
-					<input type="text" class="tel3" value="" size="4" maxlength="4" />
+					<input type="text" id="tel1" class="tel1" value="" size="3" maxlength="3" />
+					<input type="text" id="tel2" class="tel2" value="" size="4" maxlength="4" />
+					<input type="text" id="tel3" class="tel3" value="" size="4" maxlength="4" />
 				</td>
 			</tr>
 			<tr class="shipping-tb__ask">

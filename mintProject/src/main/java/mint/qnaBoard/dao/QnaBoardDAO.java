@@ -20,4 +20,12 @@ public interface QnaBoardDAO {
 
 	public void qnaBoardDelete(int seq);
 
+	public int getAdminQnaBoardCnt(Map<String, String> map);
+
+	public List<QnaBoardDTO> getAdminQnaBoardList(Map<String, String> map);
+
+	public QnaBoardDTO getAdminQnaReply(Map<String, String> map);
+
+	public int updateAdminReply(Map<String, String> map);
+
 }

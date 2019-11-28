@@ -121,7 +121,6 @@ public class OrderController {
 		ArrayList<String> price = (ArrayList<String>) order.get("price");
 		ArrayList<String> discountRate = (ArrayList<String>) order.get("discountRate");
 		
-		
 		order.remove("productCode");
 		order.remove("qty");
 		order.remove("price");
@@ -129,6 +128,7 @@ public class OrderController {
 		order.put("id", id);
 		System.out.println("order : "+order);
 		orderService.insertOrderInfo(order);
+		orderService.minusMemberPoint(order);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		for(int i=0; i<productCode.size(); i++) {

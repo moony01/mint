@@ -33,4 +33,8 @@
 	<select id="getCartCount" parameterType="String" resultType="int">
 		select count(*) from cart where id = #{id}
 	</select>
+	
+	<delete id="cartSoldOutDelete" parameterType="java.util.Map">
+		delete from cart where id=#{id} and productCode=#{productCode}
+	</delete>
 </mapper>

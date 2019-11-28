@@ -13,9 +13,9 @@ function closeModal() {
     modal.classList.add('hidden');
 }
 
-function openModal(text) {
+function openModal(msg) {
     modal.classList.remove('hidden');
-    $('notice-modal__message').text(text);
+    $('.notice-modal__message').text(msg);
 }
 
 overlay.addEventListener('click', closeModal);
@@ -67,7 +67,7 @@ addrBtn.addEventListener('click', function() {
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById(
-                    'addr1',
+                    'addr1'
                 ).value = `${addr} [${data.zonecode}]`;
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById('addr2').focus();
@@ -75,13 +75,14 @@ addrBtn.addEventListener('click', function() {
         }).open();
     });
 });
-let timer, counter;
+
 
 function resetCount() {
-    $('.timeCount').text();
+    $('.time-count').text('');
     $('.btn-certiAuthKey')
         .css('pointer-events', 'none')
         .css('opacity', 0.3);
+    console.log("ss");
 }
 function activeCount() {
     $('.btn-certiAuthKey')
@@ -99,7 +100,7 @@ function printAuthConfirm(result) {
 }
 
 //타이머에 사용하는 함수=============================================================================
-
+let timer='', counter='';
 //분, 초의 자릿수를 2자리로 맞춤. ex) 2분 9초 => 02:09
 function zeroPad(number, width) {
     number = number + '';
@@ -113,26 +114,28 @@ function countDown() {
     activeCount();
     let min = parseInt(timer / 60);
     let sec = timer % 60;
-
+    
+    $('.time-count').text(zeroPad(min, 2) + ':' + zeroPad(sec, 2));
+    timer--;
+    
     if (timer == 0) {
         clearInterval(counter);
         resetCount();
         openModal('인증시간이 만료 되었습니다');
     }
 
-    $('.timeCount').text(zeroPad(min, 2) + ':' + zeroPad(sec, 2));
-    timer--;
+   
 }
 
 function setCountDown() {
-    timer = 60 * 3;
+    timer = 60*3;
     counter = setInterval(countDown, 1000); //1초마다 반복적으로 countDown() 실행
     openModal('인증번호가 발송 되었습니다');
 }
 
 //이메일 중복확인  & 인증번호 받기
 authBtn.addEventListener('click', function() {
-    getIsDuplicatedPage('emailCerti', $('#emailCerti').val()) //이메일 중복검사 ajax 호출
+    getIsDuplicatedPage('email', $('#email').val()) //이메일 중복검사 ajax 호출
         .then(result => {
             if (!result) {
                 setCountDown();

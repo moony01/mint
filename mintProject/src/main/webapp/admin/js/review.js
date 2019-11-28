@@ -10,7 +10,7 @@ function drawReview(data) {
 		let review = `<tr class="subject_wrap" id="review_${item.seq}">
 						<td><input type="checkbox" class="checkbox-one" value="${item.seq}"></td>
 						<td>${item.seq}</td>
-						<td>${item.subject}</td>
+						<td style="cursor:pointer;">${item.subject}</td>
 						<td>${item.id}</td>
 						<td>${item.logtime}</td>
 						<td><button type="button" class="btn btn-primary delBtn" data = "${item.seq}">선택 삭제</button></td>

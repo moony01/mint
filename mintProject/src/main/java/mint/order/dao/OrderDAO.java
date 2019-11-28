@@ -34,4 +34,6 @@ public interface OrderDAO {
 
 	public Map<String, String> getMyOrderDetails(String ordernumber);
 
+	public int getOrderTotalArticle();
+
 }

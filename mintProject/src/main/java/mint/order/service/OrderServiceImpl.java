@@ -79,5 +79,10 @@ public class OrderServiceImpl implements OrderService {
 	public Map<String, String> getMyOrderDetails(String ordernumber) {
 		return orderDAO.getMyOrderDetails(ordernumber);
 	}
+
+	@Override
+	public int getOrderTotalArticle() {
+		return orderDAO.getOrderTotalArticle();
+	}
 	
 }

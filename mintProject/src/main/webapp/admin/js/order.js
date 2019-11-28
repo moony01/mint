@@ -6,6 +6,7 @@
 let option = $('.select-box option:selected').val();
 let searchValue;
 let cbxOne;
+let pg; 
 
 //처음 로드될 때 ajax 로 리스트 불러오기 .
 $().ready(function(){
@@ -31,23 +32,29 @@ function getListBySearch(btn){
 	.catch(printError);
 }
 
-function getList(option, searchValue){
+function getListByPaging(pg){
+	getList(option, searchValue, pg)
+	.then(printList)
+	.catch(printError);	
+	
+}
+
+function getList(option, searchValue, pg){
 	if(searchValue == '') searchValue = 'undefined';
 	return $.ajax({
 		type: 'post',
 		url: '/mintProject/admin/sales/order/'+searchValue+'/'+option,
-		//data: {'pg':  pg},
+		data: {'pg':  pg},
 		dataType: 'json',
 
 	});
 }
 
 function printList(result){
-	let pg = result.pg;
+	pg = result.pg;
 	let list = result.list;
 	let totalArticle = result.totalArticle;
 	let currentPage = pg;
-	let addr = result.addr;
 	
 	$('.table-order tr:gt(0)').remove();
 	$('.pagination li').remove();
@@ -81,7 +88,7 @@ function printList(result){
 	$('.status3').removeAttr('onclick');
 	$('.status3').attr('class', 'nonClick');			
 	
-	//paging(totalArticle, currentPage, addr);
+	paging(totalArticle, currentPage);
 
 }
 
@@ -122,4 +129,51 @@ $('.checkbox-all').on('change', function cbxChecked(){
 
 function printError(err){
 	console.log(err);
+}
+
+
+//페이징 처리
+function paging(totalArticle, currentPage){
+	let pageBlock = 10;
+	let pageSize = 10;
+	let temp = Math.ceil(currentPage / pageBlock);
+	let totalPage = Math.floor((totalArticle+pageSize-1) / pageSize);
+	let startPage = Math.ceil((temp-1)/pageBlock) * pageBlock +1; 
+	let endPage = startPage + pageBlock -1;
+
+	if(endPage > totalPage) endPage = totalPage;
+
+	if(startPage > pageBlock){
+		$('.prev').append($('<a/>', {
+			class: 'page-link', 
+			href: 'javascript:void(0)',
+			onclick: 'getListByPaging(' +(startPage-1)+ ')',
+			text: '<'
+		})).appendTo('.pagination');
+	}
+
+	for(i = startPage; i <= endPage ; i++) {
+		$('<li/>').attr('class', 'page-item pg').append($('<a/>', {
+			class: 'page-link', 
+			href: 'javascript:void(0)',
+			onclick: 'getListByPaging('+i+')',
+			text: i
+		})).appendTo('.pagination');
+		
+		if(i == currentPage) {
+			$('.pg').attr('class', 'page-item active');
+		} else {
+			$('.pg').removeAttr('class', 'active');
+		}	
+	}
+	
+	if(endPage < totalPage) {
+		$('.next').append($('<a/>', {
+			class: 'page-link', 
+			href: 'javascript:void(0)',
+			onclick: 'getListByPaging('+(endPage+1)+')',
+			text: '>'
+		})).appendTo('.pagination');
+	}
+
 }

@@ -93,7 +93,8 @@ public class MemberDAOMybatis implements MemberDAO {
 
 	@Override
 	public List<ProductDTO> getProductList(Map<String, String> map) {
-		return sqlSession.selectList("memberSQL.getProductList", map);
+		
+		return sqlSession.selectList("memberSQL.getProductList1", map);
 	}
 
 	@Override

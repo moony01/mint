@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 	<div class="main__title">
         <h2 class="out">회원 관리</h2>
@@ -60,10 +61,11 @@
 		            </tr>
 			            
 	                <c:forEach items="${list }" var="product">
+	                
 		                <tr class="th--dark">
 		                	<td class="col-md-3">${product.productCode }</td>
 		                	<td class="col-md-3">${product.mainSubject }</td>
-		                	<td class="col-md-3">${product.star }</td>
+		                	<td class="col-md-3"><fmt:formatNumber value="${product.star/10 }" pattern="0.0" />점</td>
 	                	</tr>
 	                </c:forEach>
 		        </table>

@@ -26,10 +26,10 @@
 		                    <li><a href="/mintProject/productList/getProductList?subCategory=${list.get(0).getSubCategory()}&selectGubun=4&gubun=${gubun}&pg=1">높은 가격순</a></li>
 	            		</c:if>
 	            		<c:if test="${gubun == 3}">
-	                		<li><a href="/mintProject/productList/getProductList?selectGubun=1&headGubun=${headGubun}&selectGubun=1&gubun=${gubun}&pg=1">신상품순</a></li>
-		                    <li><a href="/mintProject/productList/getProductList?selectGubun=2&headGubun=${headGubun}&selectGubun=2&gubun=${gubun}&pg=1">인기상품순</a></li>
-		                    <li><a href="/mintProject/productList/getProductList?selectGubun=3&headGubun=${headGubun}&selectGubun=3&gubun=${gubun}&pg=1">낮은 가격순</a></li>
-		                    <li><a href="/mintProject/productList/getProductList?selectGubun=4&headGubun=${headGubun}&selectGubun=4&gubun=${gubun}&pg=1">높은 가격순</a></li>
+	                		<li><a href="/mintProject/productList/getProductList?selectGubun=1&headGubun=${headGubun}&gubun=${gubun}&pg=1">신상품순</a></li>
+		                    <li><a href="/mintProject/productList/getProductList?selectGubun=2&headGubun=${headGubun}&gubun=${gubun}&pg=1">인기상품순</a></li>
+		                    <li><a href="/mintProject/productList/getProductList?selectGubun=3&headGubun=${headGubun}&gubun=${gubun}&pg=1">낮은 가격순</a></li>
+		                    <li><a href="/mintProject/productList/getProductList?selectGubun=4&headGubun=${headGubun}&gubun=${gubun}&pg=1">높은 가격순</a></li>
 	            		</c:if>          
                 	</c:if>
                 </ul>

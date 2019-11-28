@@ -64,7 +64,91 @@
 		delete from qnaboard
 		where seq = #{seq}
 	</delete>
-
+	
+	<!-- 관리자 qnaboard 총 갯수 조회 -->
+	<select id="getAdminQnaBoardCnt" parameterType="java.util.Map" resultType="Integer">
+		select count(*) cnt
+		  from qnaboard
+		<if test="searchOption==null">
+        	<choose>
+           		<when test="selectGubun==0">
+         where REPLYSTATUS = 0 		
+           		</when>
+           		<when test="selectGubun==1">
+         where REPLYSTATUS = 1 	
+           		</when>
+           		<when test="selectGubun==null||selectGubun==9">
+           		</when>
+           	</choose>
+            </if>
+            <if test="searchOption==1">
+         where subject like '%'||#{keyword}||'%' 
+            </if>
+           <if test="searchOption==2">
+         where id like '%'||#{keyword}||'%'  
+            </if>
+            <if test="searchOption==3">
+         where content like '%'||#{keyword}||'%'  
+            </if>
+            <if test="searchOption==4">
+         where ordernumber like '%'||#{keyword}||'%'  
+            </if>	  
+	</select>
+	
+	<!-- 관리자 qnaboard 리스트 조회 -->
+	<select id="getAdminQnaBoardList" parameterType="java.util.Map" resultType="qnaBoard">
+		select *
+		  from (
+		        select rownum rn
+		            , tt.*
+		         from (   
+		              select *
+		                from qnaboard
+		                <if test="searchOption==null">
+		                	<choose>
+		                		<when test="selectGubun==0">
+		               where REPLYSTATUS = 0 		
+		                		</when>
+		                		<when test="selectGubun==1">
+		               where REPLYSTATUS = 1 	
+		                		</when>
+		                		<when test="selectGubun==null||selectGubun==9">
+		                		</when>
+		                	</choose>
+		                </if>
+		                <if test="searchOption==1">
+		              where subject like '%'||#{keyword}||'%' 
+		               </if>
+		               <if test="searchOption==2">
+		              where id like '%'||#{keyword}||'%'  
+		               </if>
+		                <if test="searchOption==3">
+		              where content like '%'||#{keyword}||'%'  
+		               </if>
+		                <if test="searchOption==4">
+		              where ordernumber like '%'||#{keyword}||'%'  
+		               </if>
+		               ) tt
+		       )
+		 where rn between #{startNum} and #{endNum}               
+	</select>
+	
+	<!-- 관리자 qnaboard 답변하기 위한 질문 1개 내용 조회-->
+	<select id="getAdminQnaReply" parameterType="java.util.Map" resultType="qnaBoard">
+		select * 
+		  from qnaboard
+		 where seq = #{seq}  
+	</select>
+	
+	<!-- 관리자 qnaboard 답변하기  -->
+	<update id="updateAdminReply" parameterType="java.util.Map">
+		update qnaboard
+		   set REPLYCONTENT = #{content}
+		     , REPLYSTATUS = 1
+		     , LOGTIMEA = sysdate
+		 where seq = #{seq}    
+	</update>
+	
 	<!-- <insert id="imageboardWrite" parameterType="imageboard">
 		insert into imageboard values(seq_imageboard.nextval
 									, #{imageId}

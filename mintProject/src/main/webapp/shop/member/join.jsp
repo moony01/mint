@@ -80,9 +80,9 @@ pageEncoding="UTF-8"%>
                 />
             </div>
 
-            <div class="join-check" id="checkRepwd">
-                <div id="checkRepwd-1">
-                    동일한 비밀번호를 입력해주세요.
+            <div class="join-check" id="checkName">
+                <div id="checkName-1">
+                    이름을 입력해주세요
                 </div>
             </div>
 
@@ -110,16 +110,19 @@ pageEncoding="UTF-8"%>
             </div>
             <div class="join-col">
                 <div class="join-title"></div>
-                <input
-                    type="text"
-                    class="join-input input--lg"
-                    name="emailCerti"
-                />
-                <div class="join-btn btn--white">
+                <div class="join__email">
+                    <input
+                        type="text"
+                        class="join-input input--lg"
+                        name="emailCerti"
+                        maxlength="6"
+                        id="emailCerti"
+                    />
+                    <div class="time-count"></div>
+                </div>
+                <div class="join-btn btn--white btn-certiAuthKey">
                     인증번호 확인
                 </div>
-                <br />
-                <div class="timeCount" style="display: block;">남은시간:</div>
             </div>
             <div class="join-col">
                 <div class="join-title">배송 주소</div>
@@ -203,5 +206,21 @@ pageEncoding="UTF-8"%>
         </div>
     </form>
 </section>
-<script src="/mintProject/shop/js/join.js"></script>
+<div class="notice-modal hidden">
+    <div class="notice-modal__overlay"></div>
+    <div class="notice-modal__content">
+        <div class="notice-modal__header">
+            <span class="notice-modal__tit">알림메시지</span>
+            <button class="notice-modal__close-btn"></button>
+        </div>
+        <div class="notice-modal__message"></div>
+        <div class="notice-modal__footer">
+            <button class="notice-modal__yes-btn">
+                확인
+            </button>
+        </div>
+    </div>
+</div>
+
 <script src="/mintProject/shop/js/authFunction.js"></script>
+<script src="/mintProject/shop/js/join.js"></script>

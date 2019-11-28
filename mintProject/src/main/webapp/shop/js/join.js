@@ -3,6 +3,25 @@ const checkIdBtn = document.querySelector('.btn-checkId');
 let authBtn = document.querySelector('.btn-auth');
 let certiAuthBtn = document.querySelector('.btn-certiAuthKey');
 let emailCerti = document.getElementsByName('emailCerti')[0];
+
+const modal = document.querySelector('.notice-modal'),
+    overlay = modal.querySelector('.notice-modal__overlay'),
+    closeBtn = modal.querySelector('.notice-modal__close-btn'),
+    yesBtn = modal.querySelector('.notice-modal__yes-btn');
+
+function closeModal() {
+    modal.classList.add('hidden');
+}
+
+function openModal(text) {
+    modal.classList.remove('hidden');
+    $('notice-modal__message').text(text);
+}
+
+overlay.addEventListener('click', closeModal);
+closeBtn.addEventListener('click', closeModal);
+yesBtn.addEventListener('click', closeModal);
+
 //회원가입============================================================================================================
 // 다음 우편번호
 addrBtn.addEventListener('click', function() {
@@ -56,35 +75,80 @@ addrBtn.addEventListener('click', function() {
         }).open();
     });
 });
+let timer, counter;
 
-//아이디 중복확인
-// checkIdBtn.addEventListener('click', function() {
-//     let key = this.previousElementSibling.getAttribute('name');
-//     let value = this.previousElementSibling.value;
-//     getIsDuplicatedPage(key, value)
-//         .then(printIsDuplicated)
-//         .catch(printError);
-// });
+function resetCount() {
+    $('.timeCount').text();
+    $('.btn-certiAuthKey')
+        .css('pointer-events', 'none')
+        .css('opacity', 0.3);
+}
+function activeCount() {
+    $('.btn-certiAuthKey')
+        .css('pointer-events', 'visible')
+        .css('opacity', 1);
+}
+
+function printAuthConfirm(result) {
+    if (result == 'true') {
+        openModal('인증이 완료되었습니다');
+        clearInterval(counter);
+    } else {
+        openModal('인증번호가 틀렸습니다.');
+    }
+}
+
+//타이머에 사용하는 함수=============================================================================
+
+//분, 초의 자릿수를 2자리로 맞춤. ex) 2분 9초 => 02:09
+function zeroPad(number, width) {
+    number = number + '';
+    return number.length >= width
+        ? number
+        : new Array(width - number.length + 1).join('0') + number;
+}
+
+//이메일 인증 시 시간 제한 3분
+function countDown() {
+    activeCount();
+    let min = parseInt(timer / 60);
+    let sec = timer % 60;
+
+    if (timer == 0) {
+        clearInterval(counter);
+        resetCount();
+        openModal('인증시간이 만료 되었습니다');
+    }
+
+    $('.timeCount').text(zeroPad(min, 2) + ':' + zeroPad(sec, 2));
+    timer--;
+}
+
+function setCountDown() {
+    timer = 60 * 3;
+    counter = setInterval(countDown, 1000); //1초마다 반복적으로 countDown() 실행
+    openModal('인증번호가 발송 되었습니다');
+}
 
 //이메일 중복확인  & 인증번호 받기
 authBtn.addEventListener('click', function() {
-    let key = this.previousElementSibling.getAttribute('name');
-    let value = this.previousElementSibling.value;
-
-    getIsDuplicatedPage(key, value) //이메일 중복검사 ajax 호출
-        .then(printIsDuplicated) // success: function(result)
-        .then(setCountDown) // if(!result)(중복되지않음) => 타이머 실행
-        .then(getAuthCheckPage) // if(!result)(중복되지않음) => 인증번호 발송
+    getIsDuplicatedPage('emailCerti', $('#emailCerti').val()) //이메일 중복검사 ajax 호출
+        .then(result => {
+            if (!result) {
+                setCountDown();
+                getAuthCheckPage();
+            } else {
+                openModal('이미 존재하는 이메일입니다');
+            }
+        }) // success: function(result)
         .catch(printError);
 });
 
-emailCerti.addEventListener('focus', function() {
-    $('.btn--white')
-        .css('background-color', '#45b8ac')
-        .css('pointer-events', 'visible')
-        .css('color', '#fff')
-        .css('opacity', 1);
-});
+// emailCerti.addEventListener('focus', function() {
+//     $('.btn--white')
+//         .css('pointer-events', 'visible')
+//         .css('opacity', 1);
+// });
 
 //인증번호 확인
 certiAuthBtn.addEventListener('click', function() {
@@ -93,7 +157,7 @@ certiAuthBtn.addEventListener('click', function() {
         .catch(printError);
 });
 
-//회원가입 버튼 클릭
+// 회원가입 버튼 클릭
 // $('.btn--lg').click(function() {
 //     getJoinPage()
 //         .then(function() {
@@ -104,12 +168,6 @@ certiAuthBtn.addEventListener('click', function() {
 // });
 
 //getAuthConfirmPage() 의 sucess result
-function printAuthConfirm(result) {
-    if (result == 'true') {
-        alert('인증이 완료되었습니다. ');
-        clearInterval(counter);
-    } else alert('인증번호가 잘못되었거나, 시간이 만료되었습니다.');
-}
 
 function getJoinPage() {
     return $.ajax({
@@ -117,39 +175,6 @@ function getJoinPage() {
         url: '/mintProject/shop/member/joinOk',
         data: $('#join-form').serialize(),
     });
-}
-
-//타이머에 사용하는 함수=============================================================================
-let timer, counter;
-//이메일 인증 시 시간 제한 3분
-function countDown() {
-    let min = parseInt(timer / 60);
-    let sec = timer % 60;
-
-    if (timer == 0) {
-        //제한시간이 지나면 실행중인 루프 종료.
-        clearInterval(counter);
-    }
-
-    $('.timeCount').text(zeroPad(min, 2) + ':' + zeroPad(sec, 2));
-    timer--;
-}
-
-//분, 초의 자릿수를 2자리로 맞춤. ex) 2분 9초 => 02:09
-function zeroPad(number, width) {
-    number = number + '';
-    return number.length >= width
-        ? number
-        : new Array(width - number.length + 1).join('0') + number;
-}
-
-function setCountDown(result) {
-    if (!result) {
-        timer = 60 * 3;
-        counter = setInterval(countDown, 1000); //1초마다 반복적으로 countDown() 실행
-    }
-
-    return result;
 }
 
 const checkJoin = () => {
@@ -188,20 +213,20 @@ const checkJoin = () => {
             if (validateId(value)) {
                 checkId1.style.color = SUCESS_COLOR;
                 checkId1.state = true;
+
+                getIsDuplicatedPage('id', value).then(result => {
+                    if (!result) {
+                        checkId2.style.color = SUCESS_COLOR;
+                        checkId2.state = true;
+                    } else {
+                        checkId2.style.color = ERROR_COLOR;
+                        checkId2.state = false;
+                    }
+                });
             } else {
                 checkId1.style.color = ERROR_COLOR;
                 checkId1.state = false;
             }
-
-            getIsDuplicatedPage('id', value).then(result => {
-                if (!result) {
-                    checkId2.style.color = SUCESS_COLOR;
-                    checkId2.state = true;
-                } else {
-                    checkId2.style.color = ERROR_COLOR;
-                    checkId2.state = false;
-                }
-            });
         });
     }
     checkingId();
@@ -269,15 +294,14 @@ const checkJoin = () => {
     function checkingName() {
         nameInput.addEventListener('blur', ({ target }) => {
             const { value } = target;
-            console.log(value);
 
             checkName.style.display = 'block';
             if (value) {
                 checkName1.style.color = SUCESS_COLOR;
-                checkName1.state = 'true';
+                checkName1.state = true;
             } else {
                 checkName1.style.color = ERROR_COLOR;
-                checkName1.state = 'false';
+                checkName1.state = false;
             }
         });
     }
@@ -295,7 +319,17 @@ const checkJoin = () => {
                 checkPwd.style.display = 'block';
             } else if (!checkRepwd1.state) {
                 repwdInput.focus();
-                repwd.style.display = 'block';
+                checkRepwd.style.display = 'block';
+            } else if (!checkName1.state) {
+                nameInput.focus();
+                checkName.style.display = 'block';
+            } else {
+                getJoinPage()
+                    .then(function() {
+                        alert('회원가입이 완료되었습니다. ');
+                        location.href = '/mintProject/shop/main/index';
+                    })
+                    .catch(printError);
             }
         });
     }

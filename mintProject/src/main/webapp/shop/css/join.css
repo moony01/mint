@@ -18,7 +18,7 @@
 
 .join-col {
     display: flex;
-    margin-bottom: 24px;
+    margin-top: 24px;
     position: relative;
 }
 .join-col:first-of-type {
@@ -161,4 +161,18 @@
     margin: 45px auto 0 auto;
     display: flex;
     justify-content: center;
+}
+/* 이메일 */
+.join__email {
+    position: relative;
+}
+.time-count {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: #b3130b;
+    top: 0;
+    right: 8px;
 }

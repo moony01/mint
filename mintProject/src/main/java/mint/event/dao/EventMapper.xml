@@ -23,20 +23,79 @@
 						 		,#{eventStatus})
 		</if>
 	</insert>
-
+	
 	<!-- 이벤트 리스트 가져오기 -->
 	<select id="getEventList" parameterType="java.util.Map" resultType="event">
 		<![CDATA[
-			select * from (select rownum rn, tt.* from
-		 (select * from event order by seq desc) tt) where rn >= #{startNum} and rn<= #{endNum}
+			select * from 
+				(select rownum rn, tt.* from
+		 			(select * from event order by seq desc)
+		 		 tt)
+		 	where rn >= #{startNum}
+		 	  and rn <= #{endNum}
 		]]>  
 	</select>
 
+	<!-- 이벤트 정보 가져오기 -->
+	<select id="getEvent" parameterType="Integer" resultType="event">
+		select * from event where seq=#{seq}
+	</select>
+	
 	<!-- 이벤트 총 개수 구하기 -->
 	<select id="getTotalEvent" resultType="Integer">
 		select count(*) from event
 	</select>
 
+	<!-- 이벤트 리스트 가져오기 -->
+	<select id="getProductList" parameterType="java.util.Map" resultType="product">
+		
+		select * from 
+			(select rownum rn, tt.* from
+	 			(select * from product
+	 			<where>
+	 				<if test="searchOption==null">
+	 					<if test="categorySelect != 9">
+					  	mainCategory = #{categorySelect}
+					  	</if>
+					</if>
+					<if test="searchOption==1">
+		              and productCode like '%'||#{keyword}||'%' 
+					</if>
+					<if test="searchOption==2">
+		              and mainSubject like '%'||#{keyword}||'%'  
+					</if>
+					<if test="searchOption==3">
+		              and supplierCode like '%'||#{keyword}||'%'  
+					</if>
+	 			</where>
+	 			)
+	 		tt)
+	 	where rn &gt;= #{startNum} and rn &lt;= #{endNum}
+	</select>
+	
+	<!-- 상품 총 개수 구하기 -->
+	<select id="getTotalProduct" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from product
+	</select>
+
+	<!-- 이벤트 수정 -->
+	<update id="eventModify" parameterType="java.util.Map">
+			update event set subject=#{subject}
+			<if test='isPeriodOn == 1'>
+				, startDate=(to_date(#{startDate},'yyyy-MM-dd HH24:mi'))
+				, endDate=(to_date(#{endDate},'yyyy-MM-dd HH24:mi'))
+			</if>
+			<if test='isPeriodOn == 0'>
+				, startDate=null
+				, endDate=null
+			</if>
+				, logtime=sysdate
+				, productCode=#{productCode}
+				, discountRate=#{discountRate}
+				, eventStatus=#{eventStatus} 
+			where seq=#{seq}
+	</update>
+	
 	<!-- 이벤트 삭제 -->
 	<delete id="eventDelete" parameterType="java.util.Map">
 		delete event where seq in 
@@ -44,34 +103,6 @@
 			#{seq}
 		</foreach>
 	</delete>
-
-
-	<!-- 이벤트 정보 가져오기 -->
-	<select id="getEvent" parameterType="Integer" resultType="event">
-		select * from event where seq=#{seq}
-	</select>
-	
-	<!-- 이벤트 수정 -->
-	<update id="eventModify" parameterType="java.util.Map">
-			update event set subject=#{subject}
-			<if test='isPeriodOn == 1'>
-				, startDate=(to_date(#{startDate},'yyyy-MM-dd HH24:mi')), endDate=(to_date(#{endDate},'yyyy-MM-dd HH24:mi'))
-			</if>
-			<if test='isPeriodOn == 0'>
-				, startDate=null, endDate=null
-			</if>
-			, logtime=sysdate, productCode=#{productCode}, discountRate=#{discountRate}, eventStatus=#{eventStatus} where seq=#{seq}
-	</update>
-	
-	<!-- 이벤트 상품 할인율 수정 (이벤트 실행) -->
-	<update id="eventProductUpdate" parameterType="java.util.Map">
-		update product set discountRate = #{discountRate} where productCode = #{productCode}
-	</update>
-	
-	<!-- 이벤트 상품 할인율 수정 (이벤트 종료) -->
-	<update id="eventEndProductUpdate" parameterType="java.util.Map">
-		update product set discountRate = #{prevDiscountRate} where productCode = #{productCode}
-	</update>
 	
 	<!-- 이벤트 검색 -->
 	<select id="eventSearch" parameterType="java.util.Map" resultType="event">
@@ -113,19 +144,40 @@
 
 	
 	<!-- 이벤트 상품 가져오기 -->
-	<select id="getProductList" parameterType="java.util.Map" resultType="product">
+	<select id="getEventProductList" parameterType="java.util.Map" resultType="product">
 		select * from product where productCode in
 		<foreach collection="array" item="productCode" index="i" open="(" separator="," close=")">
 			#{productCode}
 		</foreach>
 	</select>
 	
+	<!-- 이벤트 상품 할인율 수정 (이벤트 실행) -->
+	<update id="eventProductUpdate" parameterType="java.util.Map">
+			update product 
+			set discountRate = #{discountRate} 
+			where productCode = #{productCode};
+	</update>
+	
+	<!-- 이벤트 상품 할인율 수정 (이벤트 종료) -->
+	<update id="eventEndProductUpdate" parameterType="java.util.Map">
+			update product 
+			set discountRate = #{prevDiscountRate} 
+			where productCode = #{productCode};
+			
+			update event 
+			set eventStatus = 0;
+	</update>
+	
+	
 	<!-- Event테이블 event seq로 productcode prevdiscountrate, discountrate 예쁘게 가져오기 -->
 	<select id="getEventProduct" parameterType="int" resultType="java.util.Map">
 		 <![CDATA[
-		with eventproducttable as (
-		    select productcode, discountrate, prevdiscountrate from event where seq=${seq}
-		)
+		with eventproducttable as
+			(select productcode
+				  , discountrate
+				  , prevdiscountrate 
+			 from event 
+			 where seq=${seq})
 		select trim(regexp_substr(productcode, '[^,]+', 1, level)) as "productCode"
 			  ,trim(regexp_substr(discountrate, '[^,]+', 1, level)) as "discountRate"
 			  ,trim(regexp_substr(prevdiscountrate, '[^,]+', 1, level)) as "prevDiscountRate"

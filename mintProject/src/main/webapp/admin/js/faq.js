@@ -37,15 +37,21 @@ $('#categorySelect').change(function(){
 	});
 });
 
-/* 검색어 입력시 작동으로 버튼에 포커스 */
-$('.searchTerm').change(function(){
-	// 검색 버튼에 포커스
-	$('.searchButton').focus();
+/* 엔터키로 검색 기능  */
+$(".searchTerm").keypress(function(e){
+	if(e.which == 13){
+		faqSearch();
+	}
 });
-
 
 /* 검색시 게시판 리스트 불러오기 */
 $('.searchButton').click(function(){
+	faqSearch();
+});
+
+
+/* 검색 기능 */
+function faqSearch(){
 	if(!$('.searchTerm').val()){
 		alert('검색어를 입력해주세요');
 	} else {
@@ -66,8 +72,7 @@ $('.searchButton').click(function(){
 			}
 		});
 	}
-	
-});
+}
 
 /* FAQ 템플릿 */
 function getAdminFAQList(result){

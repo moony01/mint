@@ -53,24 +53,24 @@ function eventRow(content){
 	if($(content).parent().next().css('display') === 'none'){
 		$('.tb-view').css('display', 'none');
 		$(content).parent().next().css('display', 'table-row');
-		getProductList($(content).prev().prev().children().val());
+		getEventProductList($(content).prev().prev().children().val());
 	} else if($(content).parent().next().css('display') === 'table-row'){
 		$('.tb-view').css('display', 'none');
 	}
 }
 
 /* 이벤트 해당 상품 목록 가져오기 */
-function getProductList(seq){
+function getEventProductList(seq){
 	$('.productRow').remove();
 	
 	// 상품 정보 가져오기 (ProductDTO)
 	$.ajax({
 		type:'post',
-		url:'/mintProject/admin/service/getProductList',
+		url:'/mintProject/admin/service/getEventProductList',
 		data:'seq='+seq,
 		dataType:'json',
 		success: function(result){
-			productListTemp(result);
+			eventProductListTemp(result);
 		},
 		error: function(error){
 			console.error(error);
@@ -154,13 +154,13 @@ function eventListTemp(result){
 }
 
 /* 이벤트 해당 상품 목록 템플릿 */
-function productListTemp(result){
-	const $productTable = $('.event-table');
-	let products = result.list;
+function eventProductListTemp(result){
+	const $eventProductTable = $('.event-table');
+	let eventProducts = result.list;
 	let $pfrag = $(document.createDocumentFragment());
 
 	// 구조분해할당, 템플릿 리터럴
-	for(let i=0; i<products.length; i++){
+	for(let i=0; i<eventProducts.length; i++){
 		const {
 			productStatus,
 			thumbnail,
@@ -170,17 +170,17 @@ function productListTemp(result){
 			discountRate,
 			price,
 			star,
-		} = products[i];
+		} = eventProducts[i];
 		
 		// 할인가 계산
-		let eventPrice = products[i].price-((products[i].price)/100*products[i].discountRate);
+		let eventPrice = price-((price)/100*discountRate);
 
-		let productRow = `
-			<tr class="productRow">
+		let eventProductRow = `
+			<tr class="eventProductRow">
 				<td><img class="thumb" src="/mintProject/shop/storage/mint/product/${thumbnail}"></td>
 				<td class="productstatus${productStatus}">${
 					(() => {
-						if(products[i].productStatus === 0) return '판매중';
+						if(productStatus === 0) return '판매중';
 						else return '판매중지';
 					})()}</td>
 				<td>${mainSubject}</td>
@@ -192,9 +192,9 @@ function productListTemp(result){
 				<td>${eventPrice}</td>
 			</tr>
 			`;
-		$pfrag.append($(productRow));
+		$pfrag.append($(eventProductRow));
 	}
-	$productTable.append($pfrag);
+	$eventProductTable.append($pfrag);
 }
 
 /* 이벤트 검색 */

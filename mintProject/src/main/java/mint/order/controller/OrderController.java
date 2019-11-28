@@ -118,16 +118,24 @@ public class OrderController {
 		String id = (String)session.getAttribute("memId");
 		ArrayList<String> productCode = (ArrayList<String>) order.get("productCode");
 		ArrayList<String> qty = (ArrayList<String>) order.get("qty");
+		ArrayList<String> price = (ArrayList<String>) order.get("price");
+		ArrayList<String> discountRate = (ArrayList<String>) order.get("discountRate");
+		
 		
 		order.remove("productCode");
 		order.remove("qty");
+		order.remove("price");
+		order.remove("discountRate");
 		order.put("id", id);
+		System.out.println("order : "+order);
 		orderService.insertOrderInfo(order);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		for(int i=0; i<productCode.size(); i++) {
 			map.put("productCode", productCode.get(i));
 			map.put("qty", qty.get(i));
+			map.put("price", price.get(i));
+			map.put("discountRate", discountRate.get(i));
 			map.put("id", id);
 			orderService.insertOrderDetail(map);
 			orderService.updateProductStock(map);

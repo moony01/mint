@@ -34,8 +34,8 @@ pageEncoding="UTF-8"%>
 	<div>주문자 주소2 : ${memberDTO.addr2 }</div>
 	<div>주문자 보유 포인트 : <span id="memberPoint">${memberDTO.point }</span></div>
 	<br />
-	<div>적립예정인 적립금 : ${totalPoint }</div>
-	<div>배송비 : ${deleveryPrice }</div>
+	<div>적립예정인 적립금 : <span id="totalPoint">${totalPoint }</span></div>
+	<div>배송비 : <span id="deleveryPrice">${deleveryPrice }</span></div>
 	<div>최종결제금액 : <span id="lastPrice"></span></div>
 </div>
 
@@ -101,8 +101,8 @@ pageEncoding="UTF-8"%>
 			<tr class="shipping-tb__addr">
 				<th class="size-2">주소</th>
 				<td class="size-10">
-					<input type="text" class="shipping-tb__addr1" id="addr1" value="${memberDTO.addr1 }" readonly />
-					<input type="text" class="shipping-tb__addr2" id="addr2" value="${memberDTO.addr2 }" />
+					<input type="text" class="shipping-tb__addr1" id="delivery_addr1" value="${memberDTO.addr1 }" readonly />
+					<input type="text" class="shipping-tb__addr2" id="delivery_addr2" value="${memberDTO.addr2 }" />
 					<button class="shipping-tb__search" id="addrSearchBtn">우편번호 찾기 </button>
 				</td>
 			</tr>
@@ -121,7 +121,7 @@ pageEncoding="UTF-8"%>
 			<tr class="shipping-tb__ask">
 				<th class="size-2">배송 요청사항</th>
 				<td class="size-10">
-					<textarea name="" id="" class="shipping-tb__textarea" maxlength="50" ></textarea>
+					<textarea name="request" id="request" class="shipping-tb__textarea" maxlength="50" ></textarea>
 				</td>
 			</tr>
 		</table>
@@ -201,7 +201,7 @@ pageEncoding="UTF-8"%>
 		</table>
 	</div>
 	</div>
-	<button id="btnPayment" class="myorder-writeBtn">결제하기</button>
+	<button id="btnPayment" class="myorder-writeBtn" style="cursor: pointer;">결제하기</button>
 </div>
 <script src="/mintProject/shop/js/order.js"></script>
 <script type="text/javascript">

@@ -87,4 +87,9 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	@Override
+	public List<Map<String, String>> getSupplierSalesData(Map<String, String> map) {
+		return memberDAO.getSupplierSalesData(map);
+	}
+
 }

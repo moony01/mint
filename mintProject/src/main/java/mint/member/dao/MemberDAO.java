@@ -38,5 +38,7 @@ public interface MemberDAO {
 
 	public String getTotPricePrevMonth(Map<String, String> map);
 
+	public List<Map<String, String>> getSupplierSalesData(Map<String, String> map);
+
 
 }

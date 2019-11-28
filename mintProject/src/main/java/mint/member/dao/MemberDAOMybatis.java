@@ -87,20 +87,17 @@ public class MemberDAOMybatis implements MemberDAO {
 			return sqlSession.selectList("memberSQL.getListBySMS", map);
 		} else {
 			return sqlSession.selectList("memberSQL.getList", map); // 기본 sorting만 해서 리스트 뿌리기
-			
 		}
 	}
 
 	@Override
 	public List<ProductDTO> getProductList(Map<String, String> map) {
-		
-		return sqlSession.selectList("memberSQL.getProductList1", map);
+		return sqlSession.selectList("memberSQL.getProductList", map);
 	}
 
 	@Override
 	public void updateByAdmin(Map<String, Object> map) {
 		sqlSession.update("memberSQL.updateByAdmin", map);
-		
 	}
 
 	@Override
@@ -120,6 +117,11 @@ public class MemberDAOMybatis implements MemberDAO {
 			totalPrice = "0";
 		}
 		return totalPrice;
+	}
+
+	@Override
+	public List<Map<String, String>> getSupplierSalesData(Map<String, String> map) {
+		return sqlSession.selectList("memberSQL.getSupplierSalesData", map);
 	}
 
 }

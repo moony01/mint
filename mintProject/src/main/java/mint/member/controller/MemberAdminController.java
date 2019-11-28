@@ -18,6 +18,7 @@ import mint.member.bean.MemberDTO;
 import mint.member.bean.SupplierDTO;
 import mint.member.service.MemberService;
 import mint.product.bean.ProductDTO;
+import net.sf.json.JSONArray;
 
 /**
  * 191113
@@ -163,9 +164,12 @@ public class MemberAdminController {
 		
 		SupplierDTO supplierDTO = memberService.getSupplierBy(map); //판매자 기본정보
 		List<ProductDTO> list = memberService.getProductList(map); //판매자 판매정보
+		List<Map<String, String>> listForChart = memberService.getSupplierSalesData(map);
+		JSONArray jsonArray = JSONArray.fromObject(listForChart);
 		
 		mav.addObject("supplierDTO", supplierDTO);
 		mav.addObject("list", list);
+		mav.addObject("jsonArray", jsonArray);
 		
 		mav.addObject("display", "/admin/member/supplierView.jsp");
 		mav.setViewName("/admin/main/admin");

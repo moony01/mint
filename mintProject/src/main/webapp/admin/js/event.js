@@ -310,7 +310,7 @@ function eventExecute(result){
 					}
 				});
 			}, startCount);
-			
+
 		} else if(eventStatus === 1 && endCount <= 0) {
 			console.log('event '+eventSubject+' : '+'eventStatus : '+eventStatus
 					+' startCount : '+startCount+' endCount : '+endCount);
@@ -322,7 +322,7 @@ function eventExecute(result){
 			
 			// 이전 할인율로 update하기
 			endEvent(productCode, prevDiscountRate);
-		} else if(eventStatus === 0){
+		} else if(eventStatus === 0 && prevDiscountRate !== discountRate){
 			console.log('event '+eventSubject+' : '+'eventStatus : '+eventStatus
 					+' startCount : '+startCount+' endCount : '+endCount);
 			// 진행 안함 (진행중이었다가 상태 변경한 것 포함)
@@ -332,7 +332,7 @@ function eventExecute(result){
 			}, endCount);
 			
 			// 이전 할인율로 update하기
-			endEvent(productCode, prevDiscountRate);
+			endEvent(productCode, prevDiscountRate);	
 		}
 	}	
 }

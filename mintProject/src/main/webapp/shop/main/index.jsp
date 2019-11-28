@@ -225,8 +225,9 @@
 			<li class="gnb__item"><a
 				href="/mintProject/productList/getProductList?gubun=3&headGubun=3&pg=1"><span>알뜰쇼핑</span></a>
 			</li>
-			<li class="gnb__item"><a
-				href="/mintProject/productList/getProductList?gubun=3&headGubun=4&pg=1"><span>이벤트</span></a>
+			<li class="gnb__item">
+				<!--<a href="/mintProject/productList/getProductList?gubun=3&headGubun=4&pg=1">-->
+				<a href="/mintProject/shop/goods/event"><span>이벤트</span></a>
 			</li>
 			<li class="gnb__search"><input type="text"
 				class="gnb__search-txt" id="sword_m" name="sword" />

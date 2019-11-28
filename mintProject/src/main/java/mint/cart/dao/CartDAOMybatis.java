@@ -20,8 +20,9 @@ public class CartDAOMybatis implements CartDAO {
 	}
 
 	@Override
-	public void cartListDelete(Map<String, String> map) {
+	public int cartListDelete(Map<String, String> map) {
 		sqlSession.delete("cartSQL.cartListDelete", map);
+		return sqlSession.selectOne("cartSQL.getCartCount", map);
 	}
 
 	@Override
@@ -37,5 +38,11 @@ public class CartDAOMybatis implements CartDAO {
 	@Override
 	public int getCartCount(String id) {
 		return sqlSession.selectOne("cartSQL.getCartCount", id);
+	}
+
+	@Override
+	public int cartSoldOutDelete(Map<String, Object> map) {
+		sqlSession.delete("cartSQL.cartSoldOutDelete", map);
+		return sqlSession.selectOne("cartSQL.getCartCount", map);
 	}
 }

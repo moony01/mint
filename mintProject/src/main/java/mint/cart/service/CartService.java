@@ -9,10 +9,12 @@ public interface CartService {
 	
 	public List<Map<String,String>> getCartList(Map<String, String> map);
 
-	public void cartListDelete(Map<String, String> map);
+	public int cartListDelete(Map<String, String> map);
 
 	public int getSameCart(Map<String, String> map);
 
 	public void addCartProduct(Map<String, String> map);
+
+	public int cartSoldOutDelete(Map<String, Object> map);
 
 }

@@ -50,17 +50,17 @@ function printProductQnaBoard(result){
 								</tr>`;
 		if(reply=='답변완료'){
 			productQnaBoard = productQnaBoard+`<tr class="content_wrap qna_${i}">
-													<td colspan="6" style="text-align:left;"><pre>${CONTENT}</pre></td>
+													<td colspan="6" style="text-align:left; padding : 10px;"><pre>${CONTENT}</pre></td>
 												</tr>
 												<tr class="content_wrap qna_${i}">
-													<td colspan="6" style="text-align:left;"><pre>${REPLYCONTENT}</pre></td>
+													<td colspan="6" style="text-align:left; padding : 10px;"><pre>${REPLYCONTENT}</pre></td>
 												</tr>`;
 		} else if(reply='답변대기'){
 			productQnaBoard = productQnaBoard+`<tr class="content_wrap qna_${i}">
-													<td colspan="6" style="text-align:left;"><pre>${CONTENT}</pre></td>
+													<td colspan="6" style="text-align:left; padding : 10px;"><pre>${CONTENT}</pre></td>
 												</tr>
 												<tr class="content_wrap qna_${i}">
-													<td colspan="6">
+													<td colspan="6" style="text-align:center; padding : 10px;">
 														<textarea style="width:100%; height:195px; resize:none;"></textarea><input type='button' value="답변등록" id="reply_btn" style="margin-top:10px;">
 													</td>
 												</tr>`;

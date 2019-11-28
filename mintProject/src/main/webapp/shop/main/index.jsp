@@ -46,6 +46,9 @@
 <script src="https://unpkg.com/swiper/js/swiper.js"></script>
 <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 
+<!-- 스윗 알러트 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <link rel="stylesheet"
 	href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" />
 

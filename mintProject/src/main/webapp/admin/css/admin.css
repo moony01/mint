@@ -40,6 +40,8 @@ td,th,tr{
     width:200px;
     font-weight: 700;
     background-color: #F6F6F6;
+    padding-left: 7px;
+    padding-top: 7px;
 }
 .list a::before{
     content: "-";

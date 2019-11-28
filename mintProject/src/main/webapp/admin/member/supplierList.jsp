@@ -28,16 +28,16 @@
     <form name="supplier">
 	    <div class="container">
 	        <div class="main__select" style="display:inline-block; justify-content: flex-start;">
-	            <select name="" id="" class="select-box" onchange="getListByOption($(this))">
+	            <select name="" id="" class="select-box" onchange="getListByOption($(this))" style="width: 90.5px;">
 	                <option value="0">전체</option>
-	                <option value="1">상호명 오름차순</option>
+	                <option value="1">상호명 가나다순</option>
 	                <option value="3">상태</option>
-	                <option value="4">계약일 내림차순</option>
+	                <option value="4">계약일 최신순</option>
 	            </select>
 	        </div>
 	        
 	        <div class="searches">
-	            <input type="text" name="daterange" class="daterange-txt">
+	            <input type="text" name="daterange" class="daterange-txt" style="padding-left: 23px; width:150px;">
 	            <div class="search">
 	                <p class="searchButton daterange-search-btn" onclick="getListBySearch($(this))">
 	                <i class="fa fa-search"></i>
@@ -68,8 +68,8 @@
 	                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">상태 변경</button>
 	            </div>
                 <div class="searches">
-                	<label style="text-align: center; vertical-align: middle;">상호명 검색</label> &emsp; 
-                	<input type="text" name="searchValue" class="daterange-txt" placeholder="검색 해주세요">
+                	<label style="margin-top: 12px;">상호명 검색</label> &emsp; 
+                	<input type="text" name="searchValue" class="daterange-txt" placeholder="검색 해주세요" style="padding-left: 10px;">
                     <div class="search">
                         <p class="searchButton daterange-search-btn" onclick="getListBySearch($(this))">
                             <i class="fa fa-search"></i>

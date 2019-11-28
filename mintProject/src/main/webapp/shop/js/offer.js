@@ -1,12 +1,9 @@
 //제안 글쓰기 & 수정
 $('.board-write__write-btn').click(function(){
-	$('div[class^=div-offer-]').empty();
 	let choice = document.querySelector(".board-write__subject-select").value;
-	
-	if(choice == '선택') $('.div-offer-category').append('카테고리 항목을 선택하세요. ').css('color', 'red');
-	else if($('.board-write__subject-txt').val() == '') $('.div-offer-subject').append('제목을 입력하세요 ').css('color', 'red');
-	else if($('#content').val() == '') alert('내용을 입력하세요. ');
-	else {
+	if(choice == '선택' || $('.board-write__subject-txt').val() == '' || $('#content').val() == ''){
+		swal('필수 항목을 입력해주세요. ');
+	} else {
 		let formData = new FormData($('#offerWriteForm')[0]);
 		getOfferBoardWrite(formData);
 		

@@ -4,8 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 	<div class="main__title">
-        <h2 class="out">오더 관리</h2>
-       <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>오더 관리</span></a>
+        <h2 class="out">주문 관리</h2>
+       <a href="" class="pa-title"><i class="fas fa-money-check-alt"></i><span>주문 관리</span></a>
         <span class="ar-title">></span>        
         <a href="" class="ch-title now-title">주문 상세보기</a> 
     </div>
@@ -103,6 +103,7 @@
 	      </div>
 	      
 	    <div class="modal-footer">
-	        <button type="button" class="btn btn-primary" onclick="location.href='/mintProject/admin/sales/order'">목록으로</button>
+	        <button type="button" class="btn btn-primary" 
+	        	onclick="location.href='/mintProject/admin/sales/order'" style="margin-right : 85px;">목록으로</button>
 	    </div>
 	      

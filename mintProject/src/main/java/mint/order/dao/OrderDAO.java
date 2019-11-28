@@ -36,4 +36,6 @@ public interface OrderDAO {
 
 	public int getOrderTotalArticle();
 
+	public void minusMemberPoint(Map<String, Object> order);
+
 }

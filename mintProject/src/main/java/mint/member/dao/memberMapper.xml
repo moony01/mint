@@ -182,4 +182,8 @@
 		update product set productStatus = ${updateValue} where ${key} in (${value})
 	</update>
 	
+	<update id="minusMemberPoint" parameterType="java.util.Map">
+		update member set point = point - #{pointuse} where id=#{id}
+	</update>
+	
 </mapper>

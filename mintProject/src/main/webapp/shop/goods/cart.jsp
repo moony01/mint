@@ -7,6 +7,7 @@
 .btn_delete_point{background: none; border: none;}
 .btn_delete_point img{width: 15px;}
 </style>
+
 <div class="wrap cart">
     <div class="my-cart__header">
         <div class="my-cart__tit">장바구니</div>
@@ -146,9 +147,22 @@ document.getElementById('placeAnOrder').onclick = function(){
 	document.body.appendChild(form);
 	
 	var passPrice = parseInt($('#amountTotal').text());
+	let stockTest = new Array();
+	let cnt = $('.qty').length;
+	console.log(cnt);
+	for(i=0; i<cnt; i++) {
+		stockTest[i] = $('.stock').eq(i).val();
+		console.log(stockTest);
+		if(stockTest[i] == 0) {
+			alert('품절상품이있습니다 품절상품을 삭제해주세요.');
+			return;
+		}
+	}
+	
 	if(passPrice==0) {
 		alert("결제할 항목을 선택하세요");
-	}else {
+	}
+	else {
 		if(confirm("결제를 진행하시겠습니까?")) {
 			$('#process').submit();
 			console.log(form);

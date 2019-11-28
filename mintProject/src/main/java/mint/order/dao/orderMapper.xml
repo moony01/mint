@@ -100,7 +100,7 @@
 		    #{buyer_postcode},
 		    #{request},
 		    sysdate,
-		    0,
+		    1,
 		    #{fprice},
 		    #{dprice},
 		    #{pointuse},

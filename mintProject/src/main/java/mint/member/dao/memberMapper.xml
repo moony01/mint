@@ -141,7 +141,7 @@
 		desc </if>
 	</select>
 	
-	<select id="getProductList1" parameterType="java.util.Map" resultType="product">
+	<select id="getProductList" parameterType="java.util.Map" resultType="product">
 		<!-- select productcode, mainsubject, trunc(sum(star)/count(*)) as star from product
 		left join supplier using(supplierCode)
 		group by(supplierCode, productcode, mainsubject)
@@ -154,6 +154,17 @@
 		having supplierCode= #{value}
         order by productcode asc
 		
+	</select>
+	
+	<!-- 해당 판매자  매출 -->
+	<select id="getSupplierSalesData" parameterType="java.util.Map" resultType="java.util.Map">
+		select sum(od.qty*(od.price-od.price*od.discountRate/100)) as sales, 
+			   (to_date(to_char(oi.logtime,'YYYYMMDD'),'YYYYMMDD') - to_date('19700101','YYYYMMDD')) * (1*24*60*60*1000) as logtime
+		from   orderInfo oi
+		join   orderDetails od using(orderNumber)
+		join   product using(productCode)
+		where  supplierCode = #{value}
+		group  by logtime
 	</select>
 	
 	<update id="updateByAdmin" parameterType="java.util.Map">

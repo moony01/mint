@@ -35,4 +35,6 @@ public interface MemberService {
 
 	public void updateProductStatus(Map<String, Object> map);
 
+	public List<Map<String, String>> getSupplierSalesData(Map<String, String> map);
+
 }

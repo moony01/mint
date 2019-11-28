@@ -71,6 +71,11 @@ td,th,tr{
     font-size: 1.2em;
 }
 
+.sub__title {
+	border-bottom: 2px solid #45b8ac;
+	font-size: 1.5em;
+}
+
 /* 부모 타이틀 */
 .pa-title{
     display: inline-block;

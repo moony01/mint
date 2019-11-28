@@ -150,13 +150,14 @@
 		]]>
 	</select>
 	
-	<!-- 매출 -->
+	<!-- 전체 매출 -->
 	<select id="getSalesData" resultType="java.util.Map">
-		select sum(fprice) as sales, to_char(logtime,'yyyy-MM-DD') as logtime
-		from   orderInfo
-		group  by to_char(logtime,'yyyy-MM-DD')
+		select sum(fprice) as sales, (to_date(to_char(oi.logtime,'YYYYMMDD'),'YYYYMMDD') - to_date('19700101','YYYYMMDD')) * (1*24*60*60*1000) as logtime
+		from   orderInfo oi
+		group  by (to_date(to_char(oi.logtime,'YYYYMMDD'),'YYYYMMDD') - to_date('19700101','YYYYMMDD')) * (1*24*60*60*1000)
 		order  by logtime
 	</select>
+	<!-- 오늘 판매량 순위 -->
 	<select id="getProductData" resultType="java.util.Map">
 		select sum(qty) as count, mainSubject 
 		  from orderDetails
@@ -168,6 +169,7 @@
 		 group by mainSubject
 		 order by count desc
 	</select>
+	<!-- 이번 달 카테고리별 판매율 -->
 	<select id="getCategoryData" resultType="java.util.Map">
 		select sum(qty) as count
 		     , mainCategory

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -240,7 +241,11 @@
 			<li class="gnb__cart"><img
 				src="https://res.kurly.com/pc/ico/1908/ico_cart_x2_v2.png"
 				alt="장바구니" onclick="location.href='/mintProject/shop/goods/cart';" />
-				<span class="gnb__cart-count">${memCart }</span></li>
+				
+				<c:if test="${memCart != null }">
+					<span class="gnb__cart-count">${memCart }</span>
+				</c:if>
+			</li>
 		</ul>
 	</nav>
 
@@ -256,5 +261,5 @@
         $('#logoutForm').append(
             '<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">',
         );
-    </script>
+</script>
 </html>

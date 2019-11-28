@@ -84,7 +84,7 @@
 .gnb__item:first-of-type > a > span {
     padding-left: 0;
 }
-.gnb__item:last-of-type > a > span {
+.gnb__item:nth-of-type(5) > a > span {
     border-right: none;
 }
 
@@ -116,6 +116,7 @@
 .gnb__menu:last-of-type {
     border: none;
 }
+
 .gnb__menu > li > a {
     display: block;
     font-size: 13px;

@@ -1,20 +1,14 @@
-.join{
+.join {
     background-color: #f9f9f9;
 }
-.join-content{
+.join-content {
     width: 640px;
     margin: 0 auto;
-    padding : 28px 26px;
-    background: #FFFFFF;
+    padding: 28px 26px;
+    background: #ffffff;
 }
 
-
-.join-col{
-    display: flex;
-    margin-bottom: 24px;
-    position: relative;
-}
-.join-title{
+.join-title {
     line-height: 40px;
     width: 120px;
     font-weight: 700;
@@ -22,7 +16,27 @@
     color: #333;
 }
 
-.join-btn{
+.join-col {
+    display: flex;
+    margin-bottom: 24px;
+    position: relative;
+}
+.join-col:first-of-type {
+    margin-top: 0;
+}
+
+.join-check {
+    padding-left: 120px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #b3130b;
+    display: none;
+}
+.join-check > div {
+    line-height: 20px;
+}
+
+.join-btn {
     cursor: pointer;
     height: 40px;
     text-align: center;
@@ -30,58 +44,58 @@
     border-radius: 3px;
     line-height: 40px;
     font-size: 14px;
-    border: 1px solid #45b8ac;    
+    border: 1px solid #45b8ac;
 }
 
-.btn--primary{
+.btn--primary {
     background-color: #45b8ac;
     color: #fff;
     width: 150px;
 }
-.btn--white{
-    background-color:white;
+.btn--white {
+    background-color: white;
     color: #45b8ac;
     width: 150px;
     pointer-events: none;
     opacity: 0.3;
 }
-.btn--lg{
+.btn--lg {
     width: 320px;
     height: 53px;
     line-height: 53px;
 }
-.btn-addr{
+.btn-addr {
     margin-left: 0px;
 }
-.join-input{
+.join-input {
     padding: 0 9px;
     border: 1px solid #ccc;
     font-size: 14px;
     color: #333;
 }
-.input--full{
+.input--full {
     width: 460px;
     height: 40px;
 }
-.input--lg{
+.input--lg {
     width: 300px;
     height: 40px;
 }
-.input--sm{
+.input--sm {
     width: 100px;
     padding: 10px;
 }
-.join-input::placeholder{
+.join-input::placeholder {
     opacity: 0.4;
 }
-.join__radio-group{
+.join__radio-group {
     display: flex;
     position: relative;
-    top:15px;
+    top: 15px;
 }
 
 /* radio 버튼 커스텀 */
-.radion-container{
+.radion-container {
     display: block;
     position: relative;
     padding-left: 20px;
@@ -94,12 +108,12 @@
     -ms-user-select: none;
     user-select: none;
 }
-.join__radio-group input{
+.join__radio-group input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
 }
-.checkmark{
+.checkmark {
     position: absolute;
     top: 0;
     left: -5px;
@@ -110,43 +124,41 @@
     z-index: 30;
 }
 .checkmark::after {
-    content:"";
+    content: '';
     position: absolute;
     display: none;
     top: 7px;
-	left: 6.8px;
-	width: 5px;
-	height: 5px;
+    left: 6.8px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: white;
 }
 
-.join__radio-group input:checked ~.checkmark{
-    background-color:#45b8ac;  
+.join__radio-group input:checked ~ .checkmark {
+    background-color: #45b8ac;
 }
 .radion-container input:checked ~ .checkmark:after {
     display: block;
-  }
+}
 
 /* 생년월일 */
-.join__birth{
+.join__birth {
     display: flex;
     height: 40px;
 }
-.join__birth-col{
-    margin-right: 10px  ;
+.join__birth-col {
+    margin-right: 10px;
 }
 .join__birth-col > .join-input,
-.join__birth-col > .join-input::placeholder{
+.join__birth-col > .join-input::placeholder {
     text-align: center;
 }
 
 /* 회원가입 하기 버튼 */
-.join__submit-wrap{
+.join__submit-wrap {
     width: 640px;
     margin: 45px auto 0 auto;
     display: flex;
     justify-content: center;
 }
-
-

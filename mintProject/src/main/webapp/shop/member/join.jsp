@@ -115,7 +115,7 @@ pageEncoding="UTF-8"%>
                     class="join-input input--lg"
                     name="emailCerti"
                 />
-                <div class="join-btn btn--white">
+                <div class="join-btn btn--white btn-certiAuthKey">
                     인증번호 확인
                 </div>
                 <br />

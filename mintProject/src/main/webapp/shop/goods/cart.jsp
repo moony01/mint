@@ -4,6 +4,8 @@
 
 <style>
 .cart th, .cart td{vertical-align: middle;}
+.btn_delete_point{background: none; border: none;}
+.btn_delete_point img{width: 15px;}
 </style>
 <%-- 기존 사용중이던 cart.jsp => 하기 승호님 레이아웃으로 변경됨. 
 내용 확인 후 지워주세요. 
@@ -94,6 +96,7 @@
                 <th id="thInfo">상품 정보</th>
 				<th id="thCount">수량</th>
 				<th id="thCost">상품금액</th>
+				<th></th>
             </tr>
 			
 			<!-- DB에서 cart 데이터 불러오는 곳 -->
@@ -114,7 +117,6 @@
             <div class="cart-amount__item">
                 <div class="cart-amount__tit">상품 금액</div>
                 <div class="cart-amount__price">
-                    <!-- amountNum = js -->
                     <span id="amountPrice"></span> 원
                 </div>
             </div>
@@ -124,7 +126,6 @@
             <div class="cart-amount__item">
                 <div class="cart-amount__tit">상품 할인금액</div>
                 <div class="cart-amount__price">
-                    <!-- amountNum = js -->
                     -<span id="amountSale"></span> 원
                 </div>
             </div>
@@ -134,8 +135,7 @@
             <div class="cart-amount__item">
                 <div class="cart-amount__tit">배송비</div>
                 <div class="cart-amount__price">
-                    <!-- amountNum = js -->
-                    <span id="amountCourier">0</span> 원
+                    <span id="amountCourier"></span> 원
                 </div>
             </div>
             <div class="cart-amount__deco">
@@ -143,8 +143,7 @@
             </div>
             <div class="cart-amount__item amount-total">
                 <div class="cart-amount__tit">결제예정금액</div>
-                <div class="cart-amount__price">
-                    <!-- amountNum = js -->
+                <div class="cart-amount__price" style="padding-top: 28px;">
                     <span id="amountTotal"></span> 원
                 </div>
                 
@@ -219,7 +218,7 @@ document.getElementById('placeAnOrder').onclick = function(){
 	document.body.appendChild(form);
 	
 	var passPrice = parseInt($('#amountTotal').text());
-	if(passPrice==3000) {
+	if(passPrice==0) {
 		alert("결제할 항목을 선택하세요");
 	}else {
 		if(confirm("결제를 진행하시겠습니까?")) {

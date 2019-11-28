@@ -20,8 +20,8 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public void cartListDelete(Map<String, String> map) {
-		cartDAO.cartListDelete(map);
+	public int cartListDelete(Map<String, String> map) {
+		return cartDAO.cartListDelete(map);
 	}
 
 	@Override
@@ -32,7 +32,11 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public void addCartProduct(Map<String, String> map) {
 		cartDAO.addCartProduct(map);
-		
+	}
+
+	@Override
+	public int cartSoldOutDelete(Map<String, Object> map) {
+		return cartDAO.cartSoldOutDelete(map);
 	}
 
 }

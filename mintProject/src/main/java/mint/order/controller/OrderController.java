@@ -121,7 +121,6 @@ public class OrderController {
 		ArrayList<String> price = (ArrayList<String>) order.get("price");
 		ArrayList<String> discountRate = (ArrayList<String>) order.get("discountRate");
 		
-		
 		order.remove("productCode");
 		order.remove("qty");
 		order.remove("price");

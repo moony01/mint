@@ -128,6 +128,7 @@ public class OrderController {
 		order.put("id", id);
 		System.out.println("order : "+order);
 		orderService.insertOrderInfo(order);
+		orderService.minusMemberPoint(order);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		for(int i=0; i<productCode.size(); i++) {

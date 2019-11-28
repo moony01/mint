@@ -112,4 +112,11 @@ public class OrderDAOMybatis implements OrderDAO {
 		return sqlSession.selectOne("orderSQL.getOrderTotalArticle");
 	}
 
+	@Override
+	public void minusMemberPoint(Map<String, Object> order) {
+		
+		sqlSession.update("memberSQL.minusMemberPoint", order);
+		
+	}
+
 }

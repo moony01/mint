@@ -44,6 +44,8 @@ $(document).ready(function(){
 					let price2 = PRICE - discoutPrice;//상품할인적용가
 					let savingPrice = 0;//적립금
 					
+					// 여기서
+					
 					let customCart = `
 						<tr class="viewDel">
 							<input type="hidden" class="productCode" value="${PRODUCTCODE }">
@@ -126,7 +128,7 @@ function hide_stock() {
 	console.log(stock);
 	for(i=0; i<prdCnt; i++) {
 		if(stock[i] == 0) {
-			$(".stock").eq(i).parents(".viewDel").css("background", "red").addClass("soldOut");
+			$(".stock").eq(i).parents(".viewDel").css("background", "white").css("opacity", "20%").addClass("soldOut");
 		}
 	}
 }

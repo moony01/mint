@@ -50,6 +50,26 @@ public class QnaBoardDAOMybatis implements QnaBoardDAO {
 	public void qnaBoardDelete(int seq) {
 		sqlsession.delete("qnaBoardSQL.qnaBoardDelete", seq);
 		
+	}
+
+	@Override
+	public int getAdminQnaBoardCnt(Map<String, String> map) {
+		return sqlsession.selectOne("qnaBoardSQL.getAdminQnaBoardCnt", map);
+	}
+
+	@Override
+	public List<QnaBoardDTO> getAdminQnaBoardList(Map<String, String> map) {
+		return sqlsession.selectList("qnaBoardSQL.getAdminQnaBoardList", map);
+	}
+
+	@Override
+	public QnaBoardDTO getAdminQnaReply(Map<String, String> map) {
+		return sqlsession.selectOne("qnaBoardSQL.getAdminQnaReply", map);
+	}
+
+	@Override
+	public int updateAdminReply(Map<String, String> map) {
+		return sqlsession.update("qnaBoardSQL.updateAdminReply", map);
 	}                                            
 
 }

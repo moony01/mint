@@ -43,36 +43,8 @@ pre {
         <ul class="pagination">
         	  <li class="page-item prev"></li>
               <li class="page-item next"></li>
-            <!-- <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-            <li class="page-item"><a class="page-link" href="#">&lsaquo;</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">&rsaquo;</a></li>
-            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li> -->
         </ul>
     </div>
-    <!-- <div class="main__btns">
-        <form action="" id="searchForm">
-            <div class="searches">
-                <select name="" id="" class="select-box">
-                    <option value="">제목</option>
-                    <option value="">작성자</option>
-                    <option value="">내용</option>
-                    <option value="">주문번호</option>
-                </select>
-                <div class="search">
-                    <input type="text" class="searchTerm" placeholder="검색 해주세요!!">
-                    <button type="submit" class="searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-        <div>
-            <button type="button" class="btn btn-primary">선택 삭제</button>
-        </div>
-    </div> -->
 </div>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/mintProject/admin/js/productQna.js"></script>

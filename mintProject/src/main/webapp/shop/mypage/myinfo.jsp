@@ -48,13 +48,7 @@
             </div>
             <div class="join-col">
                 <div class="join-title">이메일*</div>
-                <input type="text" class="join-input input--lg" name="email" value="${memberDTO.email }">
-                <div class="join-btn btn--primary">인증번호 받기</div>
-            </div>
-            <div class="join-col">
-                <div class="join-title"></div>
-                <input type="text" class="join-input input--lg" name="emailCerti" readonly>
-                <div class="join-btn btn--white">인증번호 확인</div>
+                <input type="text" class="join-input input--lg" name="email" value="${memberDTO.email }" readonly="readonly">
             </div>
         </div>
         <h3 class="my-page__sub-title">추가 정보</h3> 

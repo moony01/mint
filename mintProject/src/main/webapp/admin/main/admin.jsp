@@ -39,7 +39,7 @@
 </head>
 <body>
     <header class="header">
-        <h1>
+        <h1 onclick="location.href='/mintProject/admin/main/admin'" style="cursor: pointer;">
             관리자 페이지
         </h1>
         <div class="admin-info">
@@ -85,21 +85,20 @@
                 </div>
                 <ul class="list">
                     <li><a href="/mintProject/admin/service/faq">FAQ 관리</a></li>
-                    <li><a href="/mintProject/admin/service/getAdminQnaBoardList?pg=1">1:1문의 관리</a></li>
+                    <li><a href="/mintProject/admin/service/getAdminQnaBoardList">1:1문의 관리</a></li>
                     <li><a href="/mintProject/admin/service/notice">공지사항 관리</a></li>
-                    <li><a href="/mintProject/admin/service/productQna">상품 qna관리</a></li>
-                    <li><a href="/mintProject/admin/service/review">후기관리</a></li>
+                    <li><a href="/mintProject/admin/service/productQna">상품문의 관리</a></li>
+                    <li><a href="/mintProject/admin/service/review">후기 관리</a></li>
                     <li><a href="/mintProject/admin/service/offer">상품제안 관리</a></li>
                 </ul>
             </div>
             <div class="sales-manage">
                 <div class="nav__item" >
-                    <i class=""></i>
-                    <span>매출</span>
+                    <i class="fas fa-money-check-alt"></i>
+                    <span>주문</span>
                 </div>
                 <ul class="list">
-                    <li><a href="/mintProject/admin/sales/order">오더 관리</a></li>
-                    <li><a href="/mintProject/admin/sales">매출 관리</a></li>
+                    <li><a href="/mintProject/admin/sales/order">주문 관리</a></li>
                 </ul>
             </div>
         </nav>

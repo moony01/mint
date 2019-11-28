@@ -10,7 +10,7 @@
 	<a href="" class="ch-title now-title">판매자 상세보기</a> 
 </div>
 <div class="container">	
-	<h2 class="main__title sub__title">판매자 상세정보</h2>
+	<h2 class="main__title">판매자 상세정보</h2>
 	<table class="table table-bordered table-member">
 	    <tr class="th--dark">
 	        <th class="col-md-3">사업자 번호</th>
@@ -51,7 +51,7 @@
 </div>
 	       
 <div class="container">
-	<h2 class="main__title sub__title">판매 등록 상품 </h2>   
+	<h2 class="main__title">판매 등록 상품 </h2>   
 	<table class="table table-bordered table-member">
        <tr class="th--dark">
            <th class="col-md-3" >상품코드</th>
@@ -70,12 +70,13 @@
 </div>
 
 <div class="container">
-	<h2 class="main__title sub__title" style="margin-bottom: 0px;">매출 차트 </h2> 
+	<h2 class="main__title" style="margin-bottom: 0px;">매출 차트 </h2> 
 	<div id="supplierSalesChart" style="width: 100%; height: 400px; padding-top: 20px;"></div>  
 </div>
 
 <div class="modal-footer">
-	<button type="button" class="btn btn-primary" onclick="location.href='/mintProject/admin/member/supplierList'">목록으로</button>
+	<button type="button" class="btn btn-primary" 
+		onclick="location.href='/mintProject/admin/member/supplierList'" style="margin-right : 93px;">목록으로</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

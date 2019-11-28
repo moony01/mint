@@ -23,8 +23,8 @@
 </style>
 
 <div class="main__title">
-        <h2 class="out">오더 관리</h2>
-        <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>오더 관리</span></a>
+        <h2 class="out">주문 관리</h2>
+        <a href="" class="pa-title"><i class="fas fa-money-check-alt"></i><span>주문 관리</span></a>
         <span class="ar-title">></span>        
         <a href="" class="ch-title now-title">주문 목록</a>        
     </div>
@@ -43,7 +43,7 @@
 	        </div>
 	        
 	        <div class="searches">
-	            <input type="text" name="daterange">
+	            <input type="text" name="daterange" style="padding-left: 23px; width:150px;">
 	            <div class="search">
 	                <p class="searchButton daterange-search-btn" onclick="getListBySearch($(this))">
 	                <i class="fa fa-search"></i>

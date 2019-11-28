@@ -32,16 +32,15 @@
             <input type="hidden" name="pg" value="${pg }">
             <div class="board-write">
                 <div class="board-write__subject">
-                    <div class="board-write__title">제목</div>
+                    <div class="board-write__title">제목*</div>
                     <div class="board-write__subject-inputs">
                             <select name="category" id="" class="board-write__subject-select">
                                 <option value="선택">선택</option>
-                                <option value="신선제품">신선제품</option>
-                                <option value="정육/달걀">정육/달걀</option>
-                                <option value="양념/반찬">양념/반찬</option>
-                                <option value="Home Dining">Home Dining</option>
-                                <option value="Deli/Bakery">Deli/Bakery</option>
-                                <option value="Daily+">Daily+</option>
+                                <option value="농산물">농산물</option>
+                                <option value="수산물">수산물</option>
+                                <option value="축산물">축산물</option>
+                                <option value="일반식품">일반식품</option>
+                                <option value="반찬류">반찬류</option>
                                 <option value="기타">기타</option>
                             </select> 
                             <div class="div-offer-category"></div>
@@ -50,7 +49,7 @@
                     </div>
                 </div>
                 <div class="board-write__content">
-                    <div class="board-write__title">내용</div>
+                    <div class="board-write__title">내용*</div>
                     <textarea name="content" id="content"></textarea>
                     <div class="div-offer-content"></div>
                 </div>

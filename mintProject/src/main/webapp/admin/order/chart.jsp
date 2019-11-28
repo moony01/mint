@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
 
-<div class="main__title">
+<!-- <div class="main__title">
     <h2 class="out">매출 관리</h2>
-    <a href="" class="pa-title"><i class="fas fa-tasks"></i><span>매출 관리</span></a>
+    <a href="" class="pa-title"><i class="fas fa-money-check-alt"></i><span>매출 관리</span></a>
     <span class="ar-title">></span>        
     <a href="" class="ch-title now-title">매출 차트</a>        
-</div>	
+</div>	 -->
 <div class="container"> 
-	<h2 class="main__title sub__title">전체 매출</h2>
+	<h2 class="main__title sub__title" style="margin-top: 30px;">전체 매출</h2>
 	<div class="chart-wrap" >
 		<div id="totalSalesContainer" style="width: 100%; height: 400px; margin-bottom: 30px;"></div>
 	</div>

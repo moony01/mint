@@ -53,7 +53,7 @@
 	           <tr class="qna-view__conent"> 
 	            	<td colspan="5">
                     	<c:if test="${suggestBoardDTO.imgName != null }">
-                    		<img alt="" src="/mintProject/shop/storage/member/productQna/${suggestBoardDTO.imgName}" width="400px" height="300px"><br>
+                    		<img alt="" src="/mintProject/shop/storage/member/offer/${suggestBoardDTO.imgName}" width="400px" height="300px"><br>
                     	</c:if>
                     	<pre style="background-color: #fff; ">${suggestBoardDTO.content }</pre>
                     	<c:if test="${suggestBoardDTO.replyStatus == 0 }">

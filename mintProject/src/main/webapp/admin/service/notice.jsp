@@ -26,7 +26,7 @@
     			<tr class="tb-content">
 		            <td><input type="checkbox" class="boardCheck"></td>
 		            <td>${noticeBoardDTO.seq }</td>
-		            <td class="table--left">${noticeBoardDTO.subject }</td>
+		            <td class="table--left" onclick="noticeBoardView(${noticeBoardDTO.seq})">${noticeBoardDTO.subject }</td>
 		            <td>${noticeBoardDTO.logtime }</td>
 		            <td>${noticeBoardDTO.id }</td>
         		</tr>
@@ -40,7 +40,7 @@
 	</div>
 
 	<div id="noticeBoardSearchForm">
-		<input type="hidden" name="pg" value="${pg }">
+		<input type="hidden" name="pg" id="pg" value="${pg }">
         <div class="searches">
 		    <select id="selectBox" class="select-box">
 		        <option value="subject">제목</option>
@@ -57,7 +57,7 @@
 	</div>
     <div class="main__btns">
 	    <button type="button" class="btn btn-primary" onClick="selectDeleteBoard()">선택 삭제</button>
-	    <button type="button" class="btn btn-danger" onClick="insertBoard()">게시판 등록</button>
+	    <button type="button" class="btn btn-danger" onClick="location.href='/mintProject/admin/service/noticeWrite'">게시판 등록</button>
     </div>
 </div>
 <script type="text/javascript" src="/mintProject/admin/js/notice.js"></script>

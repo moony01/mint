@@ -130,10 +130,27 @@ function selectDeleteBoard() {
 					console.log(err);
 				}
 			});
-			
 		}
 	}
 }
+
+//게시물 보기
+function noticeBoardView(seq) {
+	let pg = $('#pg').val();
+	location.href='/mintProject/admin/service/noticeView?seq='+seq+'&pg='+pg;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -46,4 +46,19 @@ public class NoticeBoardDAOMybatis implements NoticeBoardDAO {
 		sqlSession.delete("noticeBoardSQL.noticeBoardDelete", map);
 	}
 
+	@Override
+	public void noticeBoardWrite(Map<String, String> map) {
+		sqlSession.insert("noticeBoardSQL.noticeBoardWrite", map);
+	}
+
+	@Override
+	public NoticeBoardDTO getNoticeBoardArticle(int seq) {
+		return sqlSession.selectOne("noticeBoardSQL.getNoticeBoardArticle", seq);
+	}
+
+	@Override
+	public void noticeBoardModify(Map<String, String> map) {
+		sqlSession.update("noticeBoardSQL.noticeBoardModify", map);
+	}
+
 }

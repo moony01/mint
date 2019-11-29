@@ -19,4 +19,10 @@ public interface NoticeBoardService {
 
 	public void noticeBoardDelete(Map<String, Object> map);
 
+	public void noticeBoardWrite(Map<String, String> map);
+
+	public NoticeBoardDTO getNoticeBoardArticle(int seq);
+
+	public void noticeBoardModify(Map<String, String> map);
+
 }

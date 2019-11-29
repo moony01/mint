@@ -11,6 +11,7 @@
 		<typeAlias type="mint.productQnaBoard.bean.ProductQnaBoardDTO" alias="productQnaBoard"/>
 		<typeAlias type="mint.event.bean.EventDTO" alias="event"/>
 		<typeAlias type="mint.product.bean.ProductDTO" alias="product"/>
+		<typeAlias type="mint.product.bean.StockAlarmDTO" alias="stock"/>
 		<typeAlias type="mint.cart.bean.CartDTO" alias="cart"/>
 		<typeAlias type="mint.order.bean.OrderAndSalesDTO" alias="orderAndSales"/>
 		<typeAlias type="mint.order.bean.OrderInfoDTO" alias="orderInfo"/>

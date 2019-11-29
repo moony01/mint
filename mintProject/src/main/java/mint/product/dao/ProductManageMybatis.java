@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import mint.product.bean.ProductDTO;
+import mint.product.bean.StockAlarmDTO;
 
 @Transactional
 @Repository("productManageDAO")
@@ -85,6 +86,37 @@ public class ProductManageMybatis implements ProductManageDAO {
 	@Override
 	public List<ProductDTO> getProductListMain(int number) {
 		return sqlSession.selectList("productManageSQL.getProductListMain", number);
+	}
+	
+	@Override
+	public int getProductAlarmCnt(int productCode) {
+		return sqlSession.selectOne("productManageSQL.getProductAlarmCnt", productCode);
+	}
+
+	@Override
+	public int getProductStockCnt(int productCode) {
+		return sqlSession.selectOne("productManageSQL.getProductStockCnt", productCode);
+	}
+
+	@Override
+	public List<StockAlarmDTO> getProductAlarmList(int productCode) {
+		return sqlSession.selectList("productManageSQL.getProductAlarmList", productCode);
+	}
+
+	@Override
+	public int getSameAlarmCnt(Map<String, String> map) {
+		return sqlSession.selectOne("productManageSQL.getSameAlarmCnt", map);
+	}
+
+	@Override
+	public void addStockAlarm(Map<String, String> map) {
+		sqlSession.insert("productManageSQL.addStockAlarm", map);
+	}
+
+	@Override
+	public void StockAlarmDelete(int productCode) {
+		sqlSession.delete("productManageSQL.StockAlarmDelete", productCode);
+		
 	}
 
 }

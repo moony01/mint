@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mint.product.bean.ProductDTO;
+import mint.product.bean.StockAlarmDTO;
 import mint.product.dao.ProductManageDAO;
 
 
@@ -84,5 +85,36 @@ public class ProductManageServiceImpl implements ProductManageService{
 	@Override
 	public List<ProductDTO> getProductListMain(int number) {
 		return productManageDAO.getProductListMain(number);
+	}
+	
+	@Override
+	public int getProductAlarmCnt(int productCode) {
+		return productManageDAO.getProductAlarmCnt(productCode);
+	}
+
+	@Override
+	public int getProductStockCnt(int productCode) {
+		return productManageDAO.getProductStockCnt(productCode);
+	}
+
+	@Override
+	public List<StockAlarmDTO> getProductAlarmList(int productCode) {
+		return productManageDAO.getProductAlarmList(productCode);
+	}
+
+	@Override
+	public int getSameAlarmCnt(Map<String, String> map) {
+		return productManageDAO.getSameAlarmCnt(map);
+	}
+
+	@Override
+	public void addStockAlarm(Map<String, String> map) {
+		productManageDAO.addStockAlarm(map);
+	}
+
+	@Override
+	public void StockAlarmDelete(int productCode) {
+		productManageDAO.StockAlarmDelete(productCode);
+		
 	}
 }

@@ -80,4 +80,9 @@ public class ProductManageServiceImpl implements ProductManageService{
 	public int productUpdate(ProductDTO productDTO) {
 		return productManageDAO.productUpdate(productDTO);
 	}
+
+	@Override
+	public List<ProductDTO> getProductListMain(int number) {
+		return productManageDAO.getProductListMain(number);
+	}
 }

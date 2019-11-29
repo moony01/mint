@@ -289,5 +289,28 @@
 			 , discountRate = #{discountRate}
 		 where productcode = #{productCode} 	 
 	</update>
+	
+	
+	<!-- 메인에서 -->
+	<select id="getProductListMain" parameterType="int" resultType="product">
+		
+		select * from
+		(select rownum rn, temp.* from 
+			(select productcode, stock, thumbnail, mainSubject, price, discountRate from product 
+			<if test="number == 0">
+			order by productcode desc) temp)
+			</if>
+			<if test="number == 1">
+			order by stock desc) temp)
+			</if>
+			<if test="number == 2">
+			<![CDATA[
+			where discountRate >= 10) temp)
+			]]>
+			</if>
+			<![CDATA[
+			where stock > 0 and rn between 1 and 10
+			]]>
+	</select>
 </mapper>
 

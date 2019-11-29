@@ -33,6 +33,8 @@ public interface ProductManageDAO {
 
 	public int productUpdate(ProductDTO productDTO);
 
+	public List<ProductDTO> getProductListMain(int number);
+
 
 
 }

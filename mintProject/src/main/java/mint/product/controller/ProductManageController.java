@@ -100,6 +100,8 @@ public class ProductManageController {
 
 			if (list != null || list.equals("")) {
 				mav.addObject("list", list);
+			}else {
+				mav.addObject("list", null);
 			}
 			// mainCategory : 1 //subCategory : 2 //headerGubun
 			mav.addObject("gubun", map.get("gubun"));
@@ -127,6 +129,8 @@ public class ProductManageController {
 
 			if (list != null || list.equals("")) {
 				mav.addObject("list", list);
+			}else {
+				mav.addObject("list", null);
 			}
 			// mainCategory : 1 //subCategory : 2 //headerGubun
 			mav.addObject("gubun", map.get("gubun"));
@@ -163,8 +167,13 @@ public class ProductManageController {
 		mav.addObject("display", "/shop/product/productView.jsp");
 		mav.setViewName("/shop/main/index");
 		mav.addObject("memId", (String) session.getAttribute("memId"));
-		mav.addObject("memLevel",String.valueOf(session.getAttribute("memLevel")));
 		
+		if(session.getAttribute("memLevel") == null) {
+			mav.addObject("memLevel", null);
+		}else {
+			mav.addObject("memLevel",String.valueOf(session.getAttribute("memLevel")));
+		}
+		 
 		return mav;
 	}
 

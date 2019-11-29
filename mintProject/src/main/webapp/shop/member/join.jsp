@@ -124,6 +124,11 @@ pageEncoding="UTF-8"%>
                     인증번호 확인
                 </div>
             </div>
+            <div class="join-check" id="checkEmail">
+                <div id="checkEmail-1">
+                    인증 완료
+                </div>
+            </div>
             <div class="join-col">
                 <div class="join-title">배송 주소</div>
                 <div class="join-btn btn--primary btn-addr">주소 검색</div>

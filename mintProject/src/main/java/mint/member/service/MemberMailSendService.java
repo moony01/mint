@@ -47,7 +47,8 @@ public class MemberMailSendService {
 
 		//인증메일 보내기
 		MimeMessage mail = mailSender.createMimeMessage();
-		String mailContent = "<h2> Market In Taste, MINT 입니다.  </h2><br>"
+		String mailContent = "<img src='https://i.pinimg.com/236x/b4/54/f7/b454f721310bbec9d41aa75fdb2ca4d5--typography-logo-design-typography.jpg' alt='' style='width : 200px;'>"
+				+"<h2> Market In Taste, MINT 입니다.  </h2><br>"
 				+ "회원님의 인증번호는 [" + authKey + "] 입니다. ";
 		
 		try {

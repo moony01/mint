@@ -195,43 +195,76 @@ function eventProductListTemp(result){
 	let eventProducts = result.list;
 	let eventInfos = result.eventProductList;
 	let $pfrag = $(document.createDocumentFragment());
+	let eventProductRow = null;
 	
 	// 구조분해할당, 템플릿 리터럴
 	for(let i=0; i<eventProducts.length; i++){
-		const {
-			productStatus,
-			thumbnail,
-			mainSubject,
-			productCode,
-			stock,
-			price,
-			star
-		} = eventProducts[i];
 		
+		if(eventInfos != null){	
+			const {
+				productStatus,
+				thumbnail,
+				mainSubject,
+				productCode,
+				stock,
+				price,
+				star
+			} = eventProducts[i];
+			const {
+				discountRate,
+				prevDiscountRate
+			} = eventInfos[i];
 		
-		const {
-			discountRate,
-			prevDiscountRate
-		} = eventInfos[i];
-		
-		let eventProductRow = `
-			<tr class="eventProductRow">
-				<td><input type="checkbox" class="pcheck" name="chk" value="${productCode}"></td>
-				<td><img class="thumb" src="/mintProject/shop/storage/mint/product/${thumbnail}"></td>
-				<td class="productstatus${productStatus}">${
-					(() => {
-						if(productStatus === 0) return '판매중';
-						else return '판매중지';
-					})()}</td>
-				<td>${mainSubject}</td>
-				<td>${productCode}</td>
-				<td>${stock}</td>
-				<td>${star}</td>
-				<td class="price">${price}</td>
-				<td><input type="text" size="2" maxlength="2" class="discountRate" value="${discountRate}"/>%</td>
-				<td>${prevDiscountRate}%</td>
-			</tr>
-			`;
+			eventProductRow = `
+				<tr class="eventProductRow">
+					<td><input type="checkbox" class="pcheck" name="chk" value="${productCode}"></td>
+					<td><img class="thumb" src="/mintProject/shop/storage/mint/product/${thumbnail}"></td>
+					<td class="productstatus${productStatus}">${
+						(() => {
+							if(productStatus === 0) return '판매중';
+							else return '판매중지';
+						})()}</td>
+					<td>${mainSubject}</td>
+					<td>${productCode}</td>
+					<td>${stock}</td>
+					<td>${star}</td>
+					<td class="price">${price}</td>
+					<td><input type="text" size="2" maxlength="2" class="discountRate" value="${discountRate}"/>%</td>
+					<td class="prevDiscountRate">${prevDiscountRate}%</td>
+				</tr>
+				`;
+		} else {
+			const {
+				productStatus,
+				thumbnail,
+				mainSubject,
+				productCode,
+				stock,
+				price,
+				discountRate,
+				star
+			} = eventProducts[i];
+
+			
+			eventProductRow = `
+				<tr class="eventProductRow">
+					<td><input type="checkbox" class="pcheck" name="chk" value="${productCode}"></td>
+					<td><img class="thumb" src="/mintProject/shop/storage/mint/product/${thumbnail}"></td>
+					<td class="productstatus${productStatus}">${
+						(() => {
+							if(productStatus === 0) return '판매중';
+							else return '판매중지';
+						})()}</td>
+					<td>${mainSubject}</td>
+					<td>${productCode}</td>
+					<td>${stock}</td>
+					<td>${star}</td>
+					<td class="price">${price}</td>
+					<td><input type="text" size="2" maxlength="2" class="discountRate"/>%</td>
+					<td class="prevDiscountRate">${discountRate}%</td>
+				</tr>
+				`;
+		}
 		$pfrag.append($(eventProductRow));
 	}
 	$eventProductTable.append($pfrag);
@@ -244,10 +277,13 @@ $('#addEventProductBtn').click(function(){
 	else {
 		// inputProductCode
 		let inputProductCode = [];
-		for(var i=0; i<cnt; i++) {
-			let value = $('.check').eq(i).val();
+		
+		$('.check:checked').each(function(i){	
+			let value = $(this).val();
+			console.log(value);
 			inputProductCode.push(value);
-		}
+		
+		});
 
 		$.ajax({
 			type:'post',
@@ -310,6 +346,17 @@ function dataManufacturing(){
 	input2.value = discountRate;
 	form.appendChild(input2);
 	
+	// prevDiscountRate
+	var input3 = document.createElement("input");
+	input3.name = 'prevDiscountRate';
+	input3.type = 'hidden';
+	let prevDiscountRate = [];
+	for(var i=0; i<amount; i++) {
+		let value = $('.prevDiscountRate').eq(i).text().replace('%','');
+		prevDiscountRate.push(value);
+	}
+	input3.value = prevDiscountRate;
+	form.appendChild(input3);
 }
 
 

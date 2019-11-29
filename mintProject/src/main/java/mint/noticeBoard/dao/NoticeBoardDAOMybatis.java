@@ -41,6 +41,9 @@ public class NoticeBoardDAOMybatis implements NoticeBoardDAO {
 		return sqlSession.selectOne("noticeBoardSQL.getNoticeBoardView", Integer.parseInt(seq));
 	}
 
-	
-	
+	@Override
+	public void noticeBoardDelete(Map<String, Object> map) {
+		sqlSession.delete("noticeBoardSQL.noticeBoardDelete", map);
+	}
+
 }

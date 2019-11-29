@@ -188,9 +188,7 @@ $('.prdCheck').on("click", function(){
 	chCount();
 });
 
-//상품 전체선택: fnck() 함수 안에서 정의되었는데, 해당 함수 안에 있지 않아도 상관 없어서 위치를 밖으로 뺐습니다. 
 //allCheck.on(): 본래 click 이벤트였는데, trigger로 불러오려니까 꼬이더라구요.. 그래서 change로 바꿨습니다. (allCheck(체크박스) 가 클릭되었을 때 = 체크박스 상태가 변경되었을때 라서 바꿔도 액션은 동일하게 들어감) 
-//제가 추가한 내용만 주석을 달아놨어요
 $('.allCheck').on('change', function(){
  	if($(this).prop('checked')) {
  		$(".prdCheck").prop("checked", true); 
@@ -205,8 +203,6 @@ $('.allCheck').on('change', function(){
  	total_calcul();
 });
 
-
- 
 //상품개수카운트 함수
 //제가 추가한 내용만 주석을 달아놨어요
 function chCount() {

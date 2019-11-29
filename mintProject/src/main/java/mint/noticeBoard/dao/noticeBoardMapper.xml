@@ -45,7 +45,10 @@
 		select * from noticeboard where seq=#{seq}
 	</select>
 	
-	
+	<!-- 게시판지우기 -->
+	<delete id="noticeBoardDelete" parameterType="java.util.Map">
+		delete from noticeboard where id=#{memId} and seq=#{seq}
+	</delete>
 	
 	
 </mapper>

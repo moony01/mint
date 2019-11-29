@@ -86,7 +86,7 @@
                 <ul class="list">
                     <li><a href="/mintProject/admin/service/faq">FAQ 관리</a></li>
                     <li><a href="/mintProject/admin/service/getAdminQnaBoardList?pg=1">1:1문의 관리</a></li>
-                    <li><a href="/mintProject/admin/service/notice">공지사항 관리</a></li>
+                    <li><a href="/mintProject/admin/service/notice?pg=1">공지사항 관리</a></li>
                     <li><a href="/mintProject/admin/service/productQna">상품문의 관리</a></li>
                     <li><a href="/mintProject/admin/service/review">후기 관리</a></li>
                     <li><a href="/mintProject/admin/service/offer">상품제안 관리</a></li>

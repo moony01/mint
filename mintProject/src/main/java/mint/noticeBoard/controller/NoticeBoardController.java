@@ -59,6 +59,7 @@ public class NoticeBoardController {
 	@RequestMapping(value="/shop/service/noticeBoardSearch", method=RequestMethod.POST)
 	public ModelAndView noticeBoardSearch(@RequestParam Map<String, Object> map,
 										  @RequestParam String[] check) {
+		System.out.println("map before = "+map);
 		
 		//1페이지당 5개씩
 		int endNum = Integer.parseInt((String)map.get("pg"))*5;
@@ -68,7 +69,10 @@ public class NoticeBoardController {
 		map.put("endNum", endNum+"");
 		map.put("checkbox", check);
 		
+		System.out.println("map after = "+map);
+		
 		List<NoticeBoardDTO> list = noticeBoardService.noticeBoardSearch(map);
+		System.out.println("list = "+list);
 		
 		//페이징 처리
 		int totalNotice = noticeBoardService.getSearchTotalNotice(map);//총글수
@@ -77,6 +81,8 @@ public class NoticeBoardController {
 		noticeBoardPaging.setPageSize(5);
 		noticeBoardPaging.setTotalNotice(totalNotice);
 		noticeBoardPaging.makeSearchPagingHTML();
+		
+		System.out.println(noticeBoardPaging);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);

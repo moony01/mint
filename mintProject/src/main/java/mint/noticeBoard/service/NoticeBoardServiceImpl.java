@@ -39,4 +39,9 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		return noticeBoardDAO.getNoticeBoardView(seq);
 	}
 
+	@Override
+	public void noticeBoardDelete(Map<String, Object> map) {
+		noticeBoardDAO.noticeBoardDelete(map);
+	}
+
 }

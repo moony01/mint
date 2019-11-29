@@ -13,9 +13,9 @@ document.getElementById('noticeSearchBtn').onclick = function(event, str) {
 	var keyword = $('input[name=keyword]').val();
 	
 	if(count==0){
-		alert("검색할 항목을 선택하세요");
+		alert("검색할 항목을 선택하세요.");
 	} else if(keyword==''){
-		alert("검색할 단어를 입력해주세요")
+		alert("검색할 단어를 입력해주세요.");
 	} else {
 		$.ajax({
 			type: 'post',

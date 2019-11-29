@@ -17,4 +17,6 @@ public interface NoticeBoardService {
 
 	public NoticeBoardDTO getNoticeBoardView(String seq);
 
+	public void noticeBoardDelete(Map<String, Object> map);
+
 }

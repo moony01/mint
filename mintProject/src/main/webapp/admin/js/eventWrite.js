@@ -1,12 +1,12 @@
 
 // modify일시 type이 mod로 넘어옴
 let type = $('input[name=type]').val();
-let seq = $('input[name=seq]').val();
-let pg = $('input[name=pg]').val();
+let pg = $('#pg').val();
 
 $(function(){
 	/* 수정할 때 정보 가져오기 */
 	if(type === 'mod'){
+		let seq = $('input[name=seq]').val();
 		// 이벤트 정보 가져오기
 		getEvent(seq);
 		// 이벤트 해당 상품 리스트 가져오기
@@ -15,7 +15,6 @@ $(function(){
 	
 	let searchOption = $('#searchOption').val()
 	let categorySelect = $('#categorySelect').val();
-	let pg2 = $('#pg2').val();
 	let keyword = $('#keyword').val();
 	
 	/* 상품 리스트 가져오기 */
@@ -24,7 +23,7 @@ $(function(){
 		url:'/mintProject/admin/service/getProductList',
 		data: 'searchOption='+searchOption+
 			 '&categorySelect='+categorySelect+
-			 '&pg2='+pg2+
+			 '&pg='+pg+
 			 '&keyword='+keyword,
 		dataType:'json',
 		success: function(result){
@@ -74,7 +73,7 @@ function getEventProductList(seq){
 }
 
 
-/* 기간설정 유무에 따른 input, datetimepicker(비)활성화 */
+/* 기간설정 유무에 따른 input, datetimepicker(비)활성화 (작동 안함. 문제 있음.) */
 $('.isPeriodOn').change(function(){
 	if($('.isPeriodOn').prop('checked')){
 		$('#datetimepickerStart').attr('disabled', false);
@@ -144,45 +143,50 @@ $('#dateEndBtn').click(function(){
 
 /* 상품 리스트 템플릿 */
 function getProductListTemp(result){
-	$('productRow').remove();
+
 	const $productTable = $('#productTable');
 	let products = result.list;
 	let $frag = $(document.createDocumentFragment());
+	let paging = result.paging; 
 	
-	// 구조분해할당, 템플릿 리터럴
-	for(let i=0; i<products.length; i++){
-		const {
-			thumbnail,
-			productStatus,
-			mainSubject,
-			productCode,
-			stock,
-			star,
-			price,
-			unit
-		} = products[i];
-		
-		let productRow = `
-			<tr class="productRow">
-				<td><input type="checkbox" class="check" name="chk" value="${productCode}"></td>
-				<td><img class="thumb" src="/mintProject/shop/storage/mint/product/${thumbnail}"></td>
-				<td class="productstatus${productStatus}">${
-					(() => {
-						if(productStatus === 0) return '판매중';
-						else return '판매중지';
-					})()}</td>
-				<td>${mainSubject}</td>
-				<td>${productCode}</td>
-				<td>${stock}</td>
-				<td>${star}</td>
-				<td>${price}</td>
-				<td>${unit}</td>
-				<td></td>
-			</tr>
-			`;
-		$frag.append($(productRow));
+	if(products.length == 0){
+		$productTable.append('<td colspan="10">데이터가 없습니다</td>');
+   	} else {
+		// 구조분해할당, 템플릿 리터럴
+		for(let i=0; i<products.length; i++){
+			const {
+				thumbnail,
+				productStatus,
+				mainSubject,
+				productCode,
+				stock,
+				star,
+				price,
+				discountRate
+			} = products[i];
+			
+			let productRow = `
+				<tr class="productRow">
+					<td><input type="checkbox" class="check" name="chk" value="${productCode}"></td>
+					<td><img class="thumb" src="/mintProject/shop/storage/mint/product/${thumbnail}"></td>
+					<td class="productstatus ${productStatus}">${
+						(() => {
+							if(productStatus === 0) return '판매중';
+							else return '판매중지';
+						})()}</td>
+					<td>${mainSubject}</td>
+					<td>${productCode}</td>
+					<td>${stock}</td>
+					<td>${star}</td>
+					<td>${price}</td>
+					<td>${discountRate}%</td>
+					<td></td>
+				</tr>
+				`;
+			$frag.append($(productRow));
+		}
+		$productTable.append($frag);
 	}
-	$productTable.append($frag);
 }
 
 /* 이벤트 해당 상품 리스트 템플릿 */
@@ -203,6 +207,7 @@ function eventProductListTemp(result){
 			price,
 			star
 		} = eventProducts[i];
+		
 		
 		const {
 			discountRate,
@@ -232,6 +237,33 @@ function eventProductListTemp(result){
 	$eventProductTable.append($pfrag);
 }
 
+/* 상품 추가 버튼 클릭시 */
+$('#addEventProductBtn').click(function(){
+	var cnt = $('.check:checked').length; // 체크된 항목 갯수 구하기
+	if(cnt===0) alert('상품을 먼저 선택하세요');
+	else {
+		// inputProductCode
+		let inputProductCode = [];
+		for(var i=0; i<cnt; i++) {
+			let value = $('.check').eq(i).val();
+			inputProductCode.push(value);
+		}
+
+		$.ajax({
+			type:'post',
+			url:'/mintProject/admin/service/addProduct',
+			data: 'inputProductCode='+inputProductCode,
+			dataType:'json',
+			success: function(result){
+				console.log(result);
+				eventProductListTemp(result);
+			},
+			error: function(error){
+				console.error(error);
+			}
+		});	
+	}
+});
 
 
 /* 글쓰기 버튼 클릭시 */
@@ -283,11 +315,16 @@ function dataManufacturing(){
 
 /* 등록,수정 ajax */
 function ajax(type){ 
+	var formData = new FormData($('#eventWriteForm')[0]);
+	
 	if(type === 'mod'){
 		return $.ajax({
 			type:'post',
 			url:'/mintProject/admin/service/eventModify',
-			data: $('#eventWriteForm').serialize(),
+			data: formData,
+			contentType : false,
+			enctype : 'multipart/form-data',
+			processData : false,
 			success: function(){
 				alert('수정 완료!');
 				location.href='/mintProject/admin/service/event';
@@ -301,10 +338,13 @@ function ajax(type){
 		return $.ajax({
 			type:'post',
 			url:'/mintProject/admin/service/eventWrite',
-			data: $('#eventWriteForm').serialize(),
+			data: formData,
+			contentType : false,
+			enctype : 'multipart/form-data',
+			processData : false,
 			success: function(){
 				alert('작성 완료!');
-				location.href='/mintProject/admin/service/event?pg='+pg;
+				location.href='/mintProject/admin/service/event';
 			},
 			error: function(error){
 				alert('작성 실패!');
@@ -316,7 +356,7 @@ function ajax(type){
 
 /* 이벤트 관리 리스트 이동 */
 $('#eventListBtn').click(function(){	
-	location.href='/mintProject/admin/service/event?pg='+pg;
+	location.href='/mintProject/admin/service/event';
 });
 
 /* 상품 체크박스 컨트롤 */
@@ -329,6 +369,14 @@ $('#chkAll').click(function(){
 $('#pchkAll').click(function(){
 	if($('#pchkAll').prop('checked')) $('.pcheck').prop('checked', true);
 	else $('.pcheck').prop('checked', false);
+});
+
+/* isPeriodOn 자동 변환 */
+$('#datetimepickerStart').change(function(){
+	$('.isPeriodOn:radio[value="1"]').attr('checked',true);
+});
+$('#datetimepickerEnd').change(function(){
+	$('.isPeriodOn:radio[value="1"]').attr('checked',true);
 });
 
 /* 할인율 일괄 적용 (DB를 거치지 않음) */

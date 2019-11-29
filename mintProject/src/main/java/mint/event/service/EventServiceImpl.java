@@ -22,13 +22,8 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public List<EventDTO> getEventList(Map<String, Integer> map) {
-		return eventDAO.getEventList(map);
-	}
-
-	@Override
-	public int getTotalEvent() {
-		return eventDAO.getTotalEvent();
+	public List<EventDTO> getEventList() {
+		return eventDAO.getEventList();
 	}
 	
 	@Override
@@ -49,11 +44,6 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public List<EventDTO> eventSearch(Map<String, Object> map) {
 		return eventDAO.eventSearch(map);
-	}
-
-	@Override
-	public int getSearchTotalEvent(Map<String, Object> map) {
-		return eventDAO.getSearchTotalEvent(map);
 	}
 
 	@Override

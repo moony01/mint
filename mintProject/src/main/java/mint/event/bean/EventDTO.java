@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @Component
 public class EventDTO {
-	private int seq;
+	private String seq;
 	private String subject;
 	private Date startDate;
 	private Date endDate;
@@ -21,5 +21,6 @@ public class EventDTO {
 	private String productCode;
 	private String discountRate;
 	private String prevDiscountRate;
-	private int eventStatus;
+	private String eventThumbnail;
+	private String eventStatus;
 }

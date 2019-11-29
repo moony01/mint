@@ -11,9 +11,7 @@ public interface EventService {
 
 	public void eventWrite(Map<String, Object> map);
 
-	public List<EventDTO> getEventList(Map<String, Integer> map);
-
-	public int getTotalEvent();
+	public List<EventDTO> getEventList();
 
 	public void eventModify(Map<String, Object> map);
 
@@ -22,8 +20,6 @@ public interface EventService {
 	public EventDTO getEvent(int seq);
 
 	public List<EventDTO> eventSearch(Map<String, Object> map);
-
-	public int getSearchTotalEvent(Map<String, Object> map);
 
 	public List<ProductDTO> getEventProductList(Map<String, Object> map);
 

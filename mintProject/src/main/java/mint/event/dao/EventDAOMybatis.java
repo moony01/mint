@@ -24,13 +24,8 @@ public class EventDAOMybatis implements EventDAO{
 	}
 
 	@Override
-	public List<EventDTO> getEventList(Map<String, Integer> map) {
-		return sqlSession.selectList("eventSQL.getEventList", map);
-	}
-
-	@Override
-	public int getTotalEvent() {
-		return sqlSession.selectOne("eventSQL.getTotalEvent");
+	public List<EventDTO> getEventList() {
+		return sqlSession.selectList("eventSQL.getEventList");
 	}
 
 	@Override
@@ -51,11 +46,6 @@ public class EventDAOMybatis implements EventDAO{
 	@Override
 	public List<EventDTO> eventSearch(Map<String, Object> map) {
 		return sqlSession.selectList("eventSQL.eventSearch", map);
-	}
-
-	@Override
-	public int getSearchTotalEvent(Map<String, Object> map) {
-		return sqlSession.selectOne("eventSQL.getSearchTotalEvent", map);
 	}
 
 	@Override

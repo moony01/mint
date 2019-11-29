@@ -100,7 +100,8 @@
 		
 		<%-- 이벤트 목록 --%>
 		<p class="subtitle">이벤트 목록</p>
-		 <table id="eventListTable" class="table table-bordered">
+
+		<table id="eventListTable" class="table table-bordered">
 	        <tr class="th--dark">
 	            <th class="col-md-1"><input type="checkbox" id="chkAll"></th>
 	            <th class="col-md-1">진행여부</th>
@@ -111,17 +112,7 @@
 	        </tr>
 	    	<%-- 이벤트 목록 리스트로 들어오는 곳 --%>
 	    </table>
-	    
-	    <div class="paging">
-	        <ul class="pagination">
-	            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-	            <li class="page-item"><a class="page-link" href="#">&lsaquo;</a></li>
-	
-	            <li class="page-item"><a class="page-link" href="#">&rsaquo;</a></li>
-	            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-	        </ul>
-	    </div>
-	    		
+	    	    		
 	    <div class="write-tb__btns">
 	        <button type="button" id="eventDeleteBtn" class="btn btn-danger">
 	    		<i class="fa fa-calendar-times" aria-hidden="true"></i>&nbsp;이벤트삭제</button>

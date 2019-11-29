@@ -39,7 +39,6 @@ $(function(){
 		dataType:'json',
 		success: function(result){
 			eventListTemp(result);
-			$('.pagination').html(result.eventPaging.pagingHTML);
 			eventExecute(result);
 		},
 		error: function(error){
@@ -61,7 +60,7 @@ function eventRow(content){
 
 /* 이벤트 해당 상품 목록 가져오기 */
 function getEventProductList(seq){
-	$('.productRow').remove();
+	$('.eventProductRow').remove();
 	
 	// 상품 정보 가져오기 (ProductDTO)
 	$.ajax({
@@ -210,7 +209,6 @@ $('#searchButton').click(function(){
 		dataType:'json',
 		success: function(result){
 			eventListTemp(result);
-			$('.pagination').html(result.eventPaging.pagingHTML);
 		},
 		error: function(error){
 			console.error(error);

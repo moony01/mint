@@ -30,14 +30,12 @@ public class EventPaging {
 		
 		if(endPage > totalP) endPage = totalP;
 		
-		
 		pagingHTML.append("<li class='page-item'><a class='page-link' href='"+addr+"?pg=1'><<</a></li>");
 		
 		if(currentPage == 1) 
 			pagingHTML.append("<li class='page-item'><a class='page-link' href='"+addr+"?pg=1'><</a></li>");
 		else 
 			pagingHTML.append("<li class='page-item'><a class='page-link' href='"+addr+"?pg="+(currentPage-1)+"'><</a></li>");
-		
 		
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
@@ -46,7 +44,6 @@ public class EventPaging {
 				pagingHTML.append("<li class='page-item'><a class='page-link' href='"+addr+"?pg="+i+"'>"+i+"</a></li>");
 		}
 		
-		
 		if(currentPage == endPage)
 			pagingHTML.append("<li class='page-item'><a class='page-link' href='"+addr+"?pg="+(endPage)+"'>></a></li>");
 		else 
@@ -54,36 +51,4 @@ public class EventPaging {
 			pagingHTML.append("<li class='page-item'><a class='page-link' href='"+addr+"?pg="+(endPage)+"'>>></a></li>");
 	}
 	
-	public void makeSearchPagingHTML() {
-		pagingHTML = new StringBuffer();
-		
-		int totalP = (totalEvent+pageSize-1)/pageSize;
-		
-		int startPage = (currentPage-1)/pageBlock*pageBlock+1;
-		int endPage = startPage+pageBlock-1;
-		
-		if(endPage > totalP) endPage = totalP;
-		
-		pagingHTML.append("<li class='page-item'><a class='page-link' onclick='"+addr+"("+(startPage)+")'><<</a></li>");
-		
-		if(currentPage == 1) 
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(startPage)+")'><</a></li>");
-		else 
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(currentPage-1)+")'><</a></li>");
-		
-		
-		for(int i=startPage; i<=endPage; i++) {
-			if(i==currentPage)
-				pagingHTML.append("<li class='page-item active'><a class='page-link' onclick='faqBoardSearchPaging("+(i)+")'>"+i+"</a></li>");
-			else
-				pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(i)+")'>"+i+"</a></li>");
-		}
-		
-		
-		if(currentPage == endPage)
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(endPage)+")'>></a></li>");
-		else 
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(currentPage+1)+")'>></a></li>");
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(endPage)+")'>>></a></li>");
-	}
 }

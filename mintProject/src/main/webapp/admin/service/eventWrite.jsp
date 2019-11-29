@@ -43,8 +43,7 @@
 	<div class="container">
 	    <span class="subtitle">기본정보</span>
 	<form id="eventWriteForm">
-		<%-- 수정용 pg, seq, type --%>
-	   	<input type="hidden" name="pg" value="${pg}">
+		<%-- 수정용 seq, type --%>
 		<input type="hidden" name="seq" value="${seq}">
 		<input type="hidden" name="type" value="${type}">
 	
@@ -79,12 +78,16 @@
 		            </button>
 	            </td>
 	        </tr>
+	        <tr>
+	       	 	<th>이벤트 대표 이미지</th>
+				<td>
+					<input id="event_thumbnail_img" name="event_thumbnail_img" accept=".jpg, .jpeg, .png" type="file">
+				</td>
+			</tr>
 	    </table>
 	    
 	    
 	    <span class="subtitle">상품선택</span>
-	    
-
 		<div class="searches">
 		    <div class="main__select">
 		        <select name="category" id="categorySelect" class="select-box">
@@ -102,9 +105,8 @@
 				<option value="3">판매자코드</option>
 			</select>
 			<div class="search">
-				<input type="hidden" id="pg2" value="${pg2}"> <input
-					type="text" name="keyword" id="keyword" class="searchTerm"
-					placeholder="검색어 입력">
+				<input type="hidden" id="pg" value="${pg}">
+				<input type="text" name="keyword" id="keyword" class="searchTerm" placeholder="검색어 입력">
 				<button type="button" class="searchButton">
 					<i class="fa fa-search"></i>
 				</button>
@@ -120,17 +122,12 @@
 				<th class="col-md-1">재고</th>
 				<th class="col-md-1">평점</th>
 				<th class="col-md-1">정상가</th>
-				<th class="col-md-1">단위</th>
+				<th class="col-md-1">현재할인율</th>
 	            <th class="col-md-1"></th>
 	        </tr>
 	    </table>
 	    <div class="paging">
 	        <ul class="pagination">
-	            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-	            <li class="page-item"><a class="page-link" href="#">&lsaquo;</a></li>
-	
-	            <li class="page-item"><a class="page-link" href="#">&rsaquo;</a></li>
-	            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
 	        </ul>
 	    </div>
 	    <div class="center_button">

@@ -7,33 +7,28 @@
 	<insert id="eventWrite" parameterType="java.util.Map" >
 		<if test='isPeriodOn == 1'>
 			insert into event values(SEQ_EVENT.nextval
-									,#{subject}
-									,to_date(#{startDate},'yyyy-MM-dd HH24:mi')
-									,to_date(#{endDate},'yyyy-MM-dd HH24:mi')
+									,#{eventDTO.subject}
+									,to_date(#{eventDTO.startDate},'yyyy-MM-dd HH24:mi')
+									,to_date(#{eventDTO.endDate},'yyyy-MM-dd HH24:mi')
 									,sysdate
-									,#{productCode}
-									,#{eventStatus})
+									,#{eventDTO.productCode}
+									,#{eventDTO.eventThumbnail}
+									,#{eventDTO.eventStatus})
 		</if>
 		<if test='isPeriodOn == 0'>
-			insert into event(seq,subject,logtime,productcode,eventstatus)
+			insert into event(seq,subject,logtime,productcode,eventthumbnail,eventstatus)
 						 values(SEQ_EVENT.nextval
-						 		,#{subject}
+						 		,#{eventDTO.subject}
 						 		,sysdate
-						 		,#{productCode}
-						 		,#{eventStatus})
+						 		,#{eventDTO.productCode}
+						 		,#{eventDTO.eventThumbnail}
+						 		,#{eventDTO.eventStatus})
 		</if>
 	</insert>
 	
 	<!-- 이벤트 리스트 가져오기 -->
-	<select id="getEventList" parameterType="java.util.Map" resultType="event">
-		<![CDATA[
-			select * from 
-				(select rownum rn, tt.* from
-		 			(select * from event order by seq desc)
-		 		 tt)
-		 	where rn >= #{startNum}
-		 	  and rn <= #{endNum}
-		]]>  
+	<select id="getEventList" resultType="event">
+		select * from event order by logtime
 	</select>
 
 	<!-- 이벤트 정보 가져오기 -->
@@ -41,41 +36,51 @@
 		select * from event where seq=#{seq}
 	</select>
 	
-	<!-- 이벤트 총 개수 구하기 -->
-	<select id="getTotalEvent" resultType="Integer">
-		select count(*) from event
-	</select>
-
-	<!-- 이벤트 리스트 가져오기 -->
+	<!-- 상품 리스트 가져오기 -->
 	<select id="getProductList" parameterType="java.util.Map" resultType="product">
-		
-		select * from 
-			(select rownum rn, tt.* from
-	 			(select * from product
-	 			<where>
-	 				<if test="searchOption==null">
-	 					<if test="categorySelect != 9">
+		select * from
+			 (select rownum rn, tt.* from
+				 (select * from product
+					<where>
+						<if test="searchOption==null">
+							<if test="categorySelect != 9">
 					  	mainCategory = #{categorySelect}
 					  	</if>
-					</if>
-					<if test="searchOption==1">
-		              and productCode like '%'||#{keyword}||'%' 
-					</if>
-					<if test="searchOption==2">
-		              and mainSubject like '%'||#{keyword}||'%'  
-					</if>
-					<if test="searchOption==3">
-		              and supplierCode like '%'||#{keyword}||'%'  
-					</if>
-	 			</where>
-	 			)
-	 		tt)
-	 	where rn &gt;= #{startNum} and rn &lt;= #{endNum}
+						</if>
+						<if test="searchOption==1">
+			              and productCode like '%'||#{keyword}||'%' 
+						</if>
+						<if test="searchOption==2">
+			              and mainSubject like '%'||#{keyword}||'%'  
+						</if>
+						<if test="searchOption==3">
+			              and supplierCode like '%'||#{keyword}||'%'  
+						</if>
+					</where>
+				)
+			tt)
+		where rn &gt;= #{startNum} and rn &lt;= #{endNum}
 	</select>
 	
 	<!-- 상품 총 개수 구하기 -->
 	<select id="getTotalProduct" parameterType="java.util.Map" resultType="Integer">
 		select count(*) from product
+		<where>
+			<if test="searchOption==null">
+				<if test="categorySelect != 9">
+					mainCategory = #{categorySelect}
+				</if>
+			</if>
+			<if test="searchOption==1">
+				and productCode like '%'||#{keyword}||'%'
+			</if>
+			<if test="searchOption==2">
+				and mainSubject like '%'||#{keyword}||'%'
+			</if>
+			<if test="searchOption==3">
+				and supplierCode like '%'||#{keyword}||'%'
+			</if>
+		</where>
 	</select>
 
 	<!-- 이벤트 수정 -->
@@ -123,26 +128,7 @@
 	 	</where>
 	</select>
 	
-	<!-- 이벤트 검색 결과 총 개수 -->
-	<select id="getSearchTotalEvent" parameterType="java.util.Map" resultType="Integer">
-	 	select count(*) from event
-	 	<where>
-		 	<if test='eventStatus != 9'>
-			 	eventStatus = #{eventStatus}
-		 	</if>
-		 	<if test='subject != ""'>
-		 		and subject like '%'||#{subject}||'%'
-		 	</if>
-		 	<if test='startDate != ""'>
-		 		and startDate &gt;= to_date(#{startDate},'yyyy-MM-dd')
-		 	</if>
-		 	<if test='endDate != ""'>                                                                                                                                                                                                                                                        
-		 		and endDate &lt;= to_date(#{endDate},'yyyy-MM-dd')
-		 	</if>
-		 </where>
-	</select>
 
-	
 	<!-- 이벤트 상품 가져오기 -->
 	<select id="getEventProductList" parameterType="java.util.Map" resultType="product">
 		select * from product where productCode in
@@ -153,19 +139,16 @@
 	
 	<!-- 이벤트 상품 할인율 수정 (이벤트 실행) -->
 	<update id="eventProductUpdate" parameterType="java.util.Map">
-			update product 
-			set discountRate = #{discountRate} 
-			where productCode = #{productCode};
+		update product 
+		set discountRate = #{discountRate} 
+		where productCode = #{productCode}
 	</update>
 	
 	<!-- 이벤트 상품 할인율 수정 (이벤트 종료) -->
 	<update id="eventEndProductUpdate" parameterType="java.util.Map">
-			update product 
-			set discountRate = #{prevDiscountRate} 
-			where productCode = #{productCode};
-			
-			update event 
-			set eventStatus = 0;
+		update product 
+		set discountRate = #{prevDiscountRate} 
+		where productCode = #{productCode}
 	</update>
 	
 	

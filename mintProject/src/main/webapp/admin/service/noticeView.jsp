@@ -12,31 +12,75 @@
     <table class="table table-bordered write-tb">
         <tr>
             <th>제목</th>
-            <td colspan="3" class="table--left">안녕하세요 반갑습니다 우엉이 먹고싶은데 어떻게 할까요??</td>
+            <td colspan="3" id="noticeSubject" class="table--left"></td>
         </tr>
         <tr>
             <th>작성자</th>
-            <td>민트</td>
+            <td id="noticeId"></td>
             <th>작성일</th>
-            <td>2019-11-07</td>
+            <td id="noticeLogtime"></td>
         </tr>
         <tr class="write-tb__content">
             <th>내용</th>
-            <td colspan="3" class="table--left">
-                <p>asd</p>
-                <p>asd</p>
-                <p>asd</p>
-                <p>asd</p>
-                <p>asd</p>
-                <p>asd</p>
-                <p>asd</p>
-                <p>asd</p>
+            <td id="noticeContent" colspan="3" class="table--left">
+                
             </td>
         </tr>
       
     </table>
     <div class="write-tb__btns">
-        <button type="button" class="btn btn-primary btn-lg">수정하기</button>
-        <button type="button" class="btn btn-success btn-lg">목록으로</button>
+        <button type="button" id="notModifyBtn" class="btn btn-primary btn-lg">수정하기</button>
+        <button type="button" class="btn btn-success btn-lg" onClick="location.href='/mintProject/admin/service/notice?pg=1'">목록으로</button>
     </div>   
 </div>
+
+<script type="text/javascript">
+$(function(){
+	$.ajax({
+		type:'post',
+		url:'/mintProject/admin/service/getNoticeView',
+		data: 'seq=${seq}&pg=${pg}',
+		dataType: 'json', 
+		success: function(result){
+			let dto = result.dto;
+			
+			$('#noticeSubject').append($('<p/>',{text:dto.subject}));
+			$('#noticeId').append($('<p/>',{text:dto.id}));
+			$('#noticeContent').append('<p>'+dto.content+'</p>');
+			$('#noticeLogtime').append('<p>'+dto.logtime+'</p>');
+			
+			/* 
+			if(result.memId == result.dto.id){
+				$('#boardViewBtnSpan').show();
+			} else {
+				$('#boardViewBtnSpan').hide();
+			}
+			*/
+		},
+		error: function(e){
+			console.log(e);
+		}
+	});	
+});
+
+$('#notModifyBtn').click(function(){
+	location.href='/mintProject/admin/service/noticeModifyForm?seq=${seq}&pg=${pg}&type=mod';
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

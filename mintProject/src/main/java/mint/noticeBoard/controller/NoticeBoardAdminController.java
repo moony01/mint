@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import mint.faqBoard.bean.FAQBoardDTO;
 import mint.noticeBoard.bean.NoticeBoardDTO;
 import mint.noticeBoard.bean.NoticeBoardPaging;
 import mint.noticeBoard.service.NoticeBoardService;
@@ -62,7 +63,79 @@ public class NoticeBoardAdminController {
 		noticeBoardService.noticeBoardDelete(map);
 	}
 	
+	@RequestMapping(value="/admin/service/noticeWrite")
+	public ModelAndView noticeWrite(ModelAndView mav) {
+		
+		mav.addObject("display", "/admin/service/noticeWrite.jsp");
+		mav.setViewName("/admin/main/admin");
+		return mav;
+	}
 	
+	@RequestMapping(value="/admin/service/noticeBoardWrite", method=RequestMethod.POST)
+	@ResponseBody
+	public void noticeBoardWrite(@RequestParam Map<String, String> map,
+								 HttpSession session) {
+		String id = (String)session.getAttribute("memId");
+		String filename = "filename.jpg";
+		map.put("id", id);
+		map.put("filename", filename);
+		System.out.println(map);
+		noticeBoardService.noticeBoardWrite(map);
+	}
+	
+	/* NOTICEBOARD 관리자 게시물 열람 페이지 이동 */
+	@RequestMapping(value="/admin/service/noticeView", method=RequestMethod.GET)
+	public String noticeView(@RequestParam int seq,
+							 @RequestParam int pg,
+							 Model model) {
+		model.addAttribute("seq", seq);
+		model.addAttribute("pg", pg);
+		model.addAttribute("display", "/admin/service/noticeView.jsp");
+		return "/admin/main/admin";
+	}
+	
+	/* FAQ관리자 게시물 정보 가져오기 (열람, 수정) */
+	@RequestMapping(value="/admin/service/getNoticeView", method=RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView getNoticeView(@RequestParam String seq,
+									  @RequestParam String pg,
+									  HttpSession session) {
+		NoticeBoardDTO noticeBoardDTO = noticeBoardService.getNoticeBoardArticle(Integer.parseInt(seq));
+		String id = (String)session.getAttribute("memId");
+
+		ModelAndView mav = new ModelAndView();
+		// 나중에 id로 먹일 것
+		mav.addObject("id", id);
+		mav.addObject("pg", pg);
+		mav.addObject("seq", seq);
+		mav.addObject("dto", noticeBoardDTO);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	/* FAQ게시판 게시물 수정 페이지 이동 */
+	@RequestMapping(value="/admin/service/noticeModifyForm", method=RequestMethod.GET)
+	public String noticeModifyForm(@RequestParam String seq,
+								   @RequestParam String pg,
+								   @RequestParam String type,
+								   Model model) {
+		NoticeBoardDTO noticeBoardDTO = noticeBoardService.getNoticeBoardArticle(Integer.parseInt(seq));
+		System.out.println(noticeBoardDTO);
+		model.addAttribute("pg", pg);
+		model.addAttribute("seq", seq);
+		model.addAttribute("type", type);
+		model.addAttribute("dto", noticeBoardDTO);
+		model.addAttribute("display", "/admin/service/noticeWrite.jsp");
+		return "/admin/main/admin";
+	}
+	
+	/* FAQ게시판 게시물 수정 기능 */
+	@RequestMapping(value="/admin/service/noticeBoardModify", method=RequestMethod.POST)
+	@ResponseBody
+	public void noticeBoardModify(@RequestParam Map<String, String> map) {
+		System.out.println(map);
+		noticeBoardService.noticeBoardModify(map);
+	}
 }
 
 

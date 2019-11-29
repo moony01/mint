@@ -32,10 +32,16 @@ function checkMemId(memId, memName){
 	
 }
 
-
 function search_from_main(){
 	location.href="/mintProject/shop/product/productSearch?sword="+$('#sword_m').val();
 }
+
+//엔터키 입력 가능
+$("#sword_m").keypress(function(e){
+	if(e.keyCode == 13){
+		location.href="/mintProject/shop/product/productSearch?sword="+$('#sword_m').val();
+	}
+});
 
 function search_from_spage(){
 	location.href="/mintProject/shop/product/productSearch?sword="+$('#sword_spg').val();

@@ -41,6 +41,7 @@
                 	<span class="goods-price__dc"></span>
             	</div>
              </c:if>
+             
 			<c:choose>
 				<c:when test="${memLevel ==  0}">
 					<div class="goods-grade">
@@ -58,6 +59,12 @@
 					<div class="goods-grade">
                			<span class="grade-icon">최우수 10%</span>
                 		<span class="grade-txt">개당 <span class="grade-point"><fmt:formatNumber type="currency" value = "${productDTO.price * 0.1}" currencyCode="KRW" pattern="#,###"/></span>원 적립</span>
+            		</div>
+				</c:when>
+				<c:when test="${memLevel ==  null }">
+					<div class="goods-grade">
+               			<span>로그인 후 적립혜택을 확인할 수 있습니다 </span>
+                		<span class="grade-txt"><span class="grade-point"><fmt:formatNumber type="currency" value ="" currencyCode="KRW" pattern="#,###"/></span></span>
             		</div>
 				</c:when>
 			</c:choose>
@@ -95,10 +102,20 @@
                     <span class=total></span>
                     <span class=won>원</span>
                 </div>
-                <div class="goods-total__point">
-                    <span class="point-logo">적립</span>
-                    <span class="point-txt">구매 시 <span class="point"></span>원 적립</span></span>
-                </div>
+                <c:choose>
+                	<c:when test="${memLevel !=  null}">
+                		<div class="goods-total__point">
+                    		<span class="point-logo">적립</span>
+                    		<span class="point-txt">구매 시 <span class="point"></span>원 적립</span>
+                		</div>
+                	</c:when>
+                	<c:otherwise>
+                		<div class="goods-total__point" style="display:none;">
+                    		<span class="point-logo">적립</span>
+                    		<span class="point-txt"><span class="point"></span></span>
+                		</div>
+                	</c:otherwise>
+                </c:choose>
             </div>
             <div class="goods-total__btns">
                 <!-- 벨류는 자동으로 변경됨 -->

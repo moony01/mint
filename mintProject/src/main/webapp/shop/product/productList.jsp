@@ -12,7 +12,7 @@
             <div class="product__sort">
                 <span class="sort up">신상품순</span>
                 <ul class="sort__list">
-                	<c:if test="${list.size() != 0 }">
+                	<c:if test="${list != null}">
                 		<c:if test="${gubun == 1}">
 	                		<li><a href="/mintProject/productList/getProductList?mainCategory=${list.get(0).getMainCategory()}&selectGubun=1&gubun=${gubun}&pg=1">신상품순</a></li>
 		                    <li><a href="/mintProject/productList/getProductList?mainCategory=${list.get(0).getMainCategory()}&selectGubun=2&gubun=${gubun}&pg=1">인기상품순</a></li>
@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="product__main">
-    	<c:if test="${list.size() != 0}">
+    	<c:if test="${list != null}">
     		<c:forEach var="list" items="${list}">
 		        <div class="product__item">
 		            <div class="product__thumb">
@@ -123,7 +123,6 @@ console.log("selectGubun :   "+ selectGubun)
 console.log("headGubun :   "+ headGubun)
 
 /* +"&mainCategory="+mainCategory+"&subCategory="+subCategory+"&gubun="+gubun+"&selectGubun="+selectGubun */
-
 
 paging(totalArticle, currentPage, addr);
 

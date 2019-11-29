@@ -344,6 +344,8 @@ reivewInit();
         					height : "70px",
         					width : "70px"
         				})).append("&emsp;&emsp;장바구니에 담겼습니다.");
+        				
+        				$('.gnb__cart-count').text(data.memCart);
 
         			}
         		},

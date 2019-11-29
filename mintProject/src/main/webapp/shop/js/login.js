@@ -1,6 +1,6 @@
 //로그인 ====================================================================================================================
 //페이지 로드 시 쿠키를 가져와 id의 text필드에 담기
-function getCookie(){
+function getCookieId(){
 	let rememberId = getCookie("rememberId");
 	$('#id').val(rememberId);
 	

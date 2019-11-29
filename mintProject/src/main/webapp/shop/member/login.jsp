@@ -39,7 +39,7 @@
 <script type='text/javascript'>
 let status = '${status}';
 checkStatus(status);
-getCookie();
+getCookieId();
 
 function loginWithKakao(){
 	//<![CDATA[

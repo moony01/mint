@@ -56,7 +56,7 @@
 		<if test="status != 5">
 			where status = #{status}
 		</if>
-		order by status asc, id asc) temp
+		order by orderNumber desc) temp
 		where rn between #{startNum} and #{endNum} 
 	</select>
 	

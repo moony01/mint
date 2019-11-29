@@ -13,7 +13,7 @@ public interface CartDAO {
 
 	public int getSameCart(Map<String, String> map);
 
-	public void addCartProduct(Map<String, String> map);
+	public int addCartProduct(Map<String, String> map);
 
 	public int getCartCount(String id);
 

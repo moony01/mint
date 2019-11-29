@@ -13,7 +13,7 @@ public interface CartService {
 
 	public int getSameCart(Map<String, String> map);
 
-	public void addCartProduct(Map<String, String> map);
+	public int addCartProduct(Map<String, String> map);
 
 	public int cartSoldOutDelete(Map<String, Object> map);
 

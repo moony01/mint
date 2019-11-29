@@ -77,9 +77,10 @@ public class CartController {
 			String id = (String)session.getAttribute("memId");
 			map.put("id", id);
 			
-			cartService.addCartProduct(map);
-			System.out.println("---- addCartProduct 성공 ----");
+			int count = cartService.addCartProduct(map);
+			session.setAttribute("memCart", count);
 			
+			mav.addObject("memCart", session.getAttribute("memCart"));
 			mav.addObject("gubun", 2);
 			mav.setViewName("jsonView");
 		}

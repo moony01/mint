@@ -8,7 +8,7 @@ $(function(){
 
 	$.ajax({
 		type:'post',
-		url:'/mintProject/admin/service/getEventList',
+		url:'/mintProject/shop/service/getEventList',
 		dataType:'json',
 		success: function(result){
 			eventExecute(result);
@@ -48,26 +48,28 @@ function eventExecute(result){
 
 /* 일일특가 카운트다운 실행 로직 */
 //참고 : https://guwii.com/bytes/easy-countdown-to-date-with-javascript-jquery/
-function dailySpecialCntDown(countTo, id){
-	 countTo = new Date(countTo).getTime();
-	  var now = new Date(),
-	      countTo = new Date(countTo),
-	      timeDifference = (countTo - now);
-	      
-	  var secondsInADay = 60 * 60 * 1000 * 24,
-	      secondsInAHour = 60 * 60 * 1000;
-	 hours = Math.floor((timeDifference % (secondsInADay)) / (secondsInAHour) * 1);
-	 mins = Math.floor(((timeDifference % (secondsInADay)) % (secondsInAHour)) / (60 * 1000) * 1);
-	 secs = Math.floor((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
-	 
-	 
+function dailySpecialCntDown(countTo, id) {
+	countTo = new Date(countTo).getTime();
+	var now = new Date()
+	  , countTo = new Date(countTo), timeDifference = (countTo - now);
+
+	var secondsInADay = 60 * 60 * 1000 * 24, secondsInAHour = 60 * 60 * 1000;
+		hours = Math.floor
+				((timeDifference % (secondsInADay)) / (secondsInAHour)* 1);
+		mins = Math.floor
+				(((timeDifference % (secondsInADay)) % (secondsInAHour))/ (60 * 1000) * 1);
+		secs = Math.floor
+				((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
+
 	var cntdwn = document.getElementById('dscd');
 	cntdwn.getElementsByClassName('hours')[0].innerHTML = hours;
 	cntdwn.getElementsByClassName('minutes')[0].innerHTML = mins;
 	cntdwn.getElementsByClassName('seconds')[0].innerHTML = secs;
-	
+
 	clearTimeout(dailySpecialCntDown.interval);
-	dailySpecialCntDown.interval = setTimeout(function(){ dailySpecialCntDown(countTo, 'dscd'); },1000);
+	dailySpecialCntDown.interval = setTimeout(function() {
+		dailySpecialCntDown(countTo, 'dscd');
+	}, 1000);
 }
 
 /* 일일특가 상품 정보 */
@@ -75,7 +77,7 @@ function dailySpecialInfo(seq, discountRate){
 	// 상품 정보 가져오기 (ProductDTO)
 	$.ajax({
 		type:'post',
-		url:'/mintProject/admin/service/getProductList',
+		url:'/mintProject/shop/service/getEventProductList',
 		data:'seq='+seq,
 		dataType:'json',
 		success: function(result){

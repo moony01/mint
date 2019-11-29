@@ -38,9 +38,6 @@
 	cursor: pointer;
 }
 
-.tb-row{
-	
-}
 .tb-view{
     display: none;
     text-align: left;

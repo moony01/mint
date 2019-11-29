@@ -10,10 +10,31 @@ $(function(){
 		// 이벤트 정보 가져오기
 		getEvent(seq);
 		// 이벤트 해당 상품 리스트 가져오기
-		getProductList(seq);
+		getEventProductList(seq);
 	}
 	
-
+	let searchOption = $('#searchOption').val()
+	let categorySelect = $('#categorySelect').val();
+	let pg2 = $('#pg2').val();
+	let keyword = $('#keyword').val();
+	
+	/* 상품 리스트 가져오기 */
+	$.ajax({
+		type:'post',
+		url:'/mintProject/admin/service/getProductList',
+		data: 'searchOption='+searchOption+
+			 '&categorySelect='+categorySelect+
+			 '&pg2='+pg2+
+			 '&keyword='+keyword,
+		dataType:'json',
+		success: function(result){
+			getProductListTemp(result);
+			$('.pagination').html(result.eventPaging.pagingHTML);
+		},
+		error: function(error){
+			console.error(error);
+		}
+	});
 });
 
 /* 이벤트 정보 가져오기 */
@@ -32,17 +53,19 @@ function getEvent(seq){
 	});	
 }
 
+
+
 /* 이벤트 해당 상품 목록 가져오기 */
-function getProductList(seq){
-	$('.productRow').remove();
+function getEventProductList(seq){
+	$('.eventProductRow').remove();
 	
 	$.ajax({
 		type:'post',
-		url:'/mintProject/admin/service/getProductList',
+		url:'/mintProject/admin/service/getEventProductList',
 		data:'seq='+seq,
 		dataType:'json',
 		success: function(result){
-			productListTemp(result);
+			eventProductListTemp(result);
 		},
 		error: function(error){
 			console.error(error);
@@ -119,16 +142,58 @@ $('#dateEndBtn').click(function(){
 	$('#datetimepickerEnd').datetimepicker('toggle');
 });
 
-
-/* 이벤트 해당 상품 목록 템플릿 */
-function productListTemp(result){
-	const $productTable = $('#eventProductTable');
+/* 상품 리스트 템플릿 */
+function getProductListTemp(result){
+	$('productRow').remove();
+	const $productTable = $('#productTable');
 	let products = result.list;
+	let $frag = $(document.createDocumentFragment());
+	
+	// 구조분해할당, 템플릿 리터럴
+	for(let i=0; i<products.length; i++){
+		const {
+			thumbnail,
+			productStatus,
+			mainSubject,
+			productCode,
+			stock,
+			star,
+			price,
+			unit
+		} = products[i];
+		
+		let productRow = `
+			<tr class="productRow">
+				<td><input type="checkbox" class="check" name="chk" value="${productCode}"></td>
+				<td><img class="thumb" src="/mintProject/shop/storage/mint/product/${thumbnail}"></td>
+				<td class="productstatus${productStatus}">${
+					(() => {
+						if(productStatus === 0) return '판매중';
+						else return '판매중지';
+					})()}</td>
+				<td>${mainSubject}</td>
+				<td>${productCode}</td>
+				<td>${stock}</td>
+				<td>${star}</td>
+				<td>${price}</td>
+				<td>${unit}</td>
+				<td></td>
+			</tr>
+			`;
+		$frag.append($(productRow));
+	}
+	$productTable.append($frag);
+}
+
+/* 이벤트 해당 상품 리스트 템플릿 */
+function eventProductListTemp(result){
+	const $eventProductTable = $('#eventProductTable');
+	let eventProducts = result.list;
 	let eventInfos = result.eventProductList;
 	let $pfrag = $(document.createDocumentFragment());
 	
 	// 구조분해할당, 템플릿 리터럴
-	for(let i=0; i<products.length; i++){
+	for(let i=0; i<eventProducts.length; i++){
 		const {
 			productStatus,
 			thumbnail,
@@ -137,20 +202,20 @@ function productListTemp(result){
 			stock,
 			price,
 			star
-		} = products[i];
+		} = eventProducts[i];
 		
 		const {
 			discountRate,
 			prevDiscountRate
 		} = eventInfos[i];
 		
-		let productRow = `
-			<tr class="productRow">
+		let eventProductRow = `
+			<tr class="eventProductRow">
 				<td><input type="checkbox" class="pcheck" name="chk" value="${productCode}"></td>
 				<td><img class="thumb" src="/mintProject/shop/storage/mint/product/${thumbnail}"></td>
 				<td class="productstatus${productStatus}">${
 					(() => {
-						if(products[i].productStatus === 0) return '판매중';
+						if(productStatus === 0) return '판매중';
 						else return '판매중지';
 					})()}</td>
 				<td>${mainSubject}</td>
@@ -162,9 +227,9 @@ function productListTemp(result){
 				<td>${prevDiscountRate}%</td>
 			</tr>
 			`;
-		$pfrag.append($(productRow));
+		$pfrag.append($(eventProductRow));
 	}
-	$productTable.append($pfrag);
+	$eventProductTable.append($pfrag);
 }
 
 
@@ -187,7 +252,7 @@ $('#eventWriteBtn').click(function(){
 // cart.jsp의 javascript 로직을 가져옴
 function dataManufacturing(){
 	let form = document.getElementById('eventWriteForm');
-	let amount = $('.productRow').length;
+	let amount = $('.eventProductRow').length;
 	
 	// productCode
 	var input1 = document.createElement("input");
@@ -252,6 +317,12 @@ function ajax(type){
 /* 이벤트 관리 리스트 이동 */
 $('#eventListBtn').click(function(){	
 	location.href='/mintProject/admin/service/event?pg='+pg;
+});
+
+/* 상품 체크박스 컨트롤 */
+$('#chkAll').click(function(){
+	if($('#chkAll').prop('checked')) $('.check').prop('checked', true);
+	else $('.check').prop('checked', false);
 });
 
 /* 이벤트 대상 상품 체크박스 컨트롤 */

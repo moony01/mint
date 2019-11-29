@@ -25,13 +25,17 @@ public interface EventService {
 
 	public int getSearchTotalEvent(Map<String, Object> map);
 
-	public List<ProductDTO> getProductList(Map<String, Object> map);
+	public List<ProductDTO> getEventProductList(Map<String, Object> map);
 
 	public void eventProductUpdate(List<Map<String, Object>> list);
 
 	public List<EventProductDTO> getEventProduct(int seq);
 
 	public void eventEndProductUpdate(List<Map<String, Object>> list);
+
+	public List<ProductDTO> getProductList(Map<String, Object> map);
+
+	public int getTotalProduct(Map<String, Object> map);
 
 
 }

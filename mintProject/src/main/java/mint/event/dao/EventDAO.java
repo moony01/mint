@@ -25,12 +25,16 @@ public interface EventDAO {
 
 	public int getSearchTotalEvent(Map<String, Object> map);
 
-	public List<ProductDTO> getProductList(Map<String, Object> map);
+	public List<ProductDTO> getEventProductList(Map<String, Object> map);
 
 	public void eventProductUpdate(Map<String, Object> map);
 
 	public List<EventProductDTO> getEventProduct(int seq);
 
 	public void eventEndProductUpdate(Map<String, Object> map);
+
+	public List<ProductDTO> getProductList(Map<String, Object> map);
+
+	public int getTotalProduct(Map<String, Object> map);
 
 }

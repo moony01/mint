@@ -30,8 +30,8 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public void addCartProduct(Map<String, String> map) {
-		cartDAO.addCartProduct(map);
+	public int addCartProduct(Map<String, String> map) {
+		return cartDAO.addCartProduct(map);
 	}
 
 	@Override

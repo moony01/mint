@@ -47,7 +47,6 @@ public class OrderAdminController {
 		map.put("endNum", endNum);
 		map.put("startNum", startNum);
 		List<OrderInfoDTO> list = orderService.getOrderList(map);
-		System.out.println("list(*): " + list.size());
 		mav.addObject("pg", pg);
 		mav.addObject("totalArticle", totalArticle);
 		mav.addObject("list", list);

@@ -64,7 +64,7 @@ function printList(result){
 			} else if(CATEGORY == 102){ CATEGORY = '수산물';
 			} else if(CATEGORY == 103){	CATEGORY = '축산물';
 			} else if(CATEGORY == 104) { CATEGORY = '일반식품';
-			} else if(CATEGORY == 104) {CATEGORY = '반찬류';
+			} else if(CATEGORY == 105) {CATEGORY = '반찬류';
 			}
 			
 			if(STATUS == 0) { STATUS = '판매중';

@@ -108,7 +108,10 @@ $(document).ready(function(){
 			dataType : 'text',
 			success : function(data){
 				if(data=='already'){ 
-					swal('이미 출석체크 하였습니다.'); 
+					swal({
+						text: '이미 출석체크 하였습니다.',
+						button: false
+					}); 
 				} 
 				else { attCheckin(); }
 			},

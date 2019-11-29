@@ -13,13 +13,31 @@ function getCookieId(){
 //login?status= 에 따라 url 변경 
 function checkStatus(status){
 	if(status == 'fail') { //로그인 실패 시 
-		swal("아이디 혹은 비밀번호가 틀립니다. ");
+		swal({
+			text : '아이디 혹은 비밀번호가 틀립니다. ',
+			icon : 'warning',
+			buttons : false
+		});
 	} else if(status == 'yet') { // 로그인 전에 인증 권한이 필요한 페이지를 요청했을 시
-		swal('로그인 후 이용 가능한 페이지 입니다.');
-		location.href='/mintProject/shop/member/login';
+		swal({
+			text : '로그인 후 이용 가능한 페이지 입니다. ',
+			icon : 'warning',
+			buttons : false,
+		}).then((value) => {
+			if(value){
+				location.href='/mintProject/shop/member/login';
+			}
+		});
 	} else if(status == 'already') { // 다른 브라우저에서 중복 로그인 되었을 시  
-		swal('다른 브라우저에서 로그인 되었습니다.');
-		location.href='/mintProject/shop/main/index';
+		swal({
+			text : '다른 브라우저에서 로그인 되었습니다. ',
+			icon : 'warning',
+			buttons : false,
+		}).then((value) => {
+			if(value){
+				location.href='/mintProject/shop/main/index';
+			}
+		});
 	}	
 }
 

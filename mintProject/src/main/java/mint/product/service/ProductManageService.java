@@ -33,5 +33,7 @@ public interface ProductManageService {
 
 	public int productUpdate(ProductDTO productDTO);
 
+	public List<ProductDTO> getProductListMain(int i);
+
 
 }

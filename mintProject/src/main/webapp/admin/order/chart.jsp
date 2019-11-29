@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<!-- <div class="main__title">
-    <h2 class="out">매출 관리</h2>
-    <a href="" class="pa-title"><i class="fas fa-money-check-alt"></i><span>매출 관리</span></a>
-    <span class="ar-title">></span>        
-    <a href="" class="ch-title now-title">매출 차트</a>        
-</div>	 -->
 <div class="container"> 
 	<h2 class="main__title sub__title" style="margin-top: 30px;">전체 매출</h2>
 	<div class="chart-wrap" >
@@ -25,6 +19,7 @@
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/data.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/broken-axis.js"></script>
 
 <script type="text/javascript">
 
@@ -73,6 +68,12 @@ function createTotalSalesChart(chartData){
 	       	name : 'test',
 	       	data : chartData,
         }],
+        xAxis : {
+			type : 'datetime',
+			tickWidth: 0,
+			tickInterval : 24 * 3600 * 1000, // one day,
+			ordinal : false
+		},
        	tooltip: {
 			pointFormat: '<b>{point.y:,.0f} 원</b><br/>',
 			valueDecimals: 2

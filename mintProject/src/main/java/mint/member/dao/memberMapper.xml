@@ -159,6 +159,7 @@
 		join   product using(productCode)
 		where  supplierCode = #{value}
 		group  by to_char(oi.logtime,'YYYYMMDD')
+		order  by to_char(oi.logtime,'YYYYMMDD')
 	</select>
 	
 	<update id="updateByAdmin" parameterType="java.util.Map">

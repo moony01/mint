@@ -83,6 +83,7 @@
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/data.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/broken-axis.js"></script>
 <script>
 $().ready(function(){
 	var data = ${jsonArray};
@@ -101,11 +102,18 @@ function createChart(chartData){
         }
     });
 	Highcharts.stockChart('supplierSalesChart',{
-		chart : {type : 'spline'},
+		chart : {type : 'line'}, 
 		colors: ['#3399CC'], 
 		series : [{
+			gapSize : 1,
 			data : chartData
 		}],
+		xAxis : {
+			type : 'datetime',
+			tickWidth: 0,
+			tickInterval : 24 * 3600 * 1000, // one day,
+			ordinal : false
+		},
 		tooltip : {
 			pointFormat: '<b>{point.y:,.0f} 원</b><br/>',
 			valueDecimals: 2

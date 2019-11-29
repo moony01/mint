@@ -8,19 +8,23 @@
 		<if test='isPeriodOn == 1'>
 			insert into event values(SEQ_EVENT.nextval
 									,#{eventDTO.subject}
-									,to_date(#{eventDTO.startDate},'yyyy-MM-dd HH24:mi')
-									,to_date(#{eventDTO.endDate},'yyyy-MM-dd HH24:mi')
+									,#{eventDTO.startDate}
+									,#{eventDTO.endDate}
 									,sysdate
 									,#{eventDTO.productCode}
-									,#{eventDTO.eventThumbnail}
-									,#{eventDTO.eventStatus})
+									,#{eventDTO.eventStatus}
+									,#{eventDTO.discountRate}
+									,#{eventDTO.prevDiscountRate}
+									,#{eventDTO.eventThumbnail})
 		</if>
 		<if test='isPeriodOn == 0'>
-			insert into event(seq,subject,logtime,productcode,eventthumbnail,eventstatus)
+			insert into event(seq,subject,logtime,productcode,discountrate,prevdiscountrate,eventthumbnail,eventstatus)
 						 values(SEQ_EVENT.nextval
 						 		,#{eventDTO.subject}
 						 		,sysdate
 						 		,#{eventDTO.productCode}
+						 		,#{eventDTO.discountRate}
+						 		,#{eventDTO.prevDiscountRate}
 						 		,#{eventDTO.eventThumbnail}
 						 		,#{eventDTO.eventStatus})
 		</if>
@@ -85,10 +89,10 @@
 
 	<!-- 이벤트 수정 -->
 	<update id="eventModify" parameterType="java.util.Map">
-			update event set subject=#{subject}
+			update event set subject=#{eventDTO.subject}
 			<if test='isPeriodOn == 1'>
-				, startDate=(to_date(#{startDate},'yyyy-MM-dd HH24:mi'))
-				, endDate=(to_date(#{endDate},'yyyy-MM-dd HH24:mi'))
+				, startDate=#{eventDTO.startDate}
+				, endDate=#{eventDTO.endDate}
 			</if>
 			<if test='isPeriodOn == 0'>
 				, startDate=null
@@ -97,7 +101,9 @@
 				, logtime=sysdate
 				, productCode=#{productCode}
 				, discountRate=#{discountRate}
-				, eventStatus=#{eventStatus} 
+				, prevDiscountRate=#{prevDiscountRate}
+				, eventStatus=#{eventStatus}
+				, eventthumbnail=#{eventThumbnail}
 			where seq=#{seq}
 	</update>
 	

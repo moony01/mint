@@ -70,7 +70,7 @@ addrBtn.addEventListener('click', function() {
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById(
-                    'addr1',
+                    'addr1'
                 ).value = `${addr} [${data.zonecode}]`;
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById('addr2').focus();
@@ -187,7 +187,7 @@ const checkJoin = () => {
         checkPwd,
         checkRepwd,
         checkName,
-        checkEmail,
+        checkEmail
     ] = checkContainer;
 
     const checkId1 = document.getElementById('checkId-1');

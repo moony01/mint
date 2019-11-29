@@ -290,7 +290,6 @@
 		 where productcode = #{productCode} 	 
 	</update>
 	
-	
 	<!-- 메인에서 -->
 	<select id="getProductListMain" parameterType="int" resultType="product">
 		
@@ -312,5 +311,55 @@
 			where stock > 0 and rn between 1 and 10
 			]]>
 	</select>
+	
+	<!-- 상품 수정한 물품이 재입고 알림 테이블에 있는지 확인 -->
+	<select id="getProductAlarmCnt" parameterType="Integer" resultType="Integer">
+		select count(*) cnt
+		  from stockalarm
+		 where productcode = #{productCode} 
+	</select>
+	
+	<!-- 그 상품이 재고가 0에서 추가했는지 확인 -->
+	<select id="getProductStockCnt" parameterType="Integer" resultType="Integer">
+		select stock
+		  from product
+		 where productcode = #{productCode} 
+	</select>
+	
+	<!-- 알람 리스트 조회 -->
+	<select id="getProductAlarmList" parameterType="Integer" resultType="stock">
+		select productcode
+             , WAITLISTEMAIL
+             , MAINSUBJECT
+          from product
+         inner join stockalarm
+         using (productcode)
+		 where productcode = #{productCode}  
+	</select>
+	
+	<!-- 재입고 알람 중복 방지 -->
+	<select id="getSameAlarmCnt" parameterType="java.util.Map" resultType="Integer">
+		select count(*) cnt
+		  from stockalarm
+		 where PRODUCTCODE = #{productCode}
+		   and WAITLISTEMAIL = #{memEmail} 
+	</select>
+	
+	<!-- 재입고 알람후 삭제 -->
+	<delete id="StockAlarmDelete" parameterType="Integer">
+		delete from
+		       stockalarm
+		 where PRODUCTCODE = #{productCode}       
+	</delete>
+	
+	<!-- 재입고 알림 추가 -->
+	<insert id="addStockAlarm" parameterType="java.util.Map">
+		insert 
+		  into stockalarm
+		values (
+		       #{productCode}	
+		     , #{memEmail}
+		       )
+	</insert>
 </mapper>
 

@@ -101,6 +101,7 @@
 	            <th>재고 수량</th>
 	            <td class="table--left">
 	            <input type="text" name="stock" value="${productDTO.stock }">
+	             <input type="hidden" name="orgStock" value="${productDTO.stock }">
 	            </td>
 	        </tr>
 	        <tr>

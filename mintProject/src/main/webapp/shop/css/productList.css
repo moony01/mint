@@ -3,7 +3,10 @@
     display: flex;
     justify-content: space-between;
 }
-
+.goods--align{
+	width:1010px;
+	margin : 0 auto;
+}
 .product__menu{
     width: 1000px;
     margin-top: 30px;

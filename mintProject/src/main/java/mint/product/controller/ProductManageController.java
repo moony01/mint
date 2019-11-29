@@ -7,10 +7,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.Message.RecipientType;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import mint.product.bean.ProductDTO;
+import mint.product.bean.StockAlarmDTO;
 import mint.product.service.ProductManageService;
 import mint.qnaBoard.bean.QnaBoardDTO;
 import net.sf.json.JSONArray;
@@ -29,16 +38,14 @@ import net.sf.json.JSONArray;
 public class ProductManageController {
 	@Autowired
 	private ProductManageService productManageService;
-
+	@Autowired 
+	private JavaMailSender mailSender;
+	
 	// 써머노트
 	@RequestMapping(value = "/admin/imageUpload", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String handleFileUpload(@RequestParam("uploadFile") MultipartFile multiPartFile) {
-		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/product/"; // 원하는
-																															// 위치
-																															// (storage로
-																															// 잡아주세요)
-
+		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/product/"; // 원하는위치 (storage로 잡아주세요)
 		String fileName = multiPartFile.getOriginalFilename();
 		File file = new File(filePath, fileName);
 		try {
@@ -61,8 +68,7 @@ public class ProductManageController {
 	@ResponseBody
 	public void productWrite(@ModelAttribute ProductDTO productDTO, @RequestParam MultipartFile product_img,
 			@RequestParam MultipartFile thumbnail_img) {
-		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/product/"; // 원하는
-																															// 위치
+		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/product/"; // 원하는 위치
 		try {
 			FileCopyUtils.copy(thumbnail_img.getInputStream(),
 					new FileOutputStream(new File(filePath, thumbnail_img.getOriginalFilename())));
@@ -157,7 +163,8 @@ public class ProductManageController {
 		mav.addObject("display", "/shop/product/productView.jsp");
 		mav.setViewName("/shop/main/index");
 		mav.addObject("memId", (String) session.getAttribute("memId"));
-
+		mav.addObject("memLevel",String.valueOf(session.getAttribute("memLevel")));
+		
 		return mav;
 	}
 
@@ -182,19 +189,17 @@ public class ProductManageController {
 		return mav;
 	}
 
-	// 관리자 상품 업데이트
+	// 관리자 상품 업데이트  - 상품 재고 0개인 수량을 수정하면 알림메일 같이 발송함
 	@RequestMapping(value = "/shop/product/updateProduct", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView updateProduct(@ModelAttribute ProductDTO productDTO, @RequestParam MultipartFile product_img,
-			@RequestParam MultipartFile thumbnail_img) {
+			@RequestParam MultipartFile thumbnail_img, @RequestParam String orgStock ) {
 		// 원하는 위치
-		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/product/"; 
-																															
+		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/product/";
+
 		// 메인사진
 		if (thumbnail_img.isEmpty()) {
 			System.out.println("thumbnail_img 값 안 넘어옴:" + thumbnail_img);
-//			productDTO.setThumbnail("");
-
 		} else {
 			try {
 				FileCopyUtils.copy(thumbnail_img.getInputStream(),
@@ -206,11 +211,9 @@ public class ProductManageController {
 			productDTO.setThumbnail(thumbnail_img.getOriginalFilename());
 
 		}
-
 		// 상품이미지사진(아래)
 		if (product_img.isEmpty()) {
 			System.out.println("product_img 값 안 넘어옴: " + product_img);
-//			productDTO.setProductImage("");
 		} else {
 			try {
 				FileCopyUtils.copy(product_img.getInputStream(),
@@ -220,39 +223,93 @@ public class ProductManageController {
 			}
 			System.out.println("product_img.getOriginalFilename() : " + product_img.getOriginalFilename());
 			productDTO.setProductImage(product_img.getOriginalFilename());
-
 		}
 
 		int updateCnt = productManageService.productUpdate(productDTO);
 		ModelAndView mav = new ModelAndView();
 		if (updateCnt == 1) {
 			System.out.println("일단 상품 수정 성공!");
-			
+			//재입고 메일로 알림 추가
+			if(orgStock.equals("0")) {
+				//상품 수정한 물품이 재입고 알림 테이블에 있는지 확인
+				int productAlarmCnt = productManageService.getProductAlarmCnt(productDTO.getProductCode());
+				//상품 수정한 물품이 재입고 알림 테이블에 있다면 
+				if(productAlarmCnt > 0) {
+					//그 상품이 재고를 추가했는지 확인
+					int productStockCnt = productManageService.getProductStockCnt(productDTO.getProductCode());
+					// 재고를 추가했다면
+					if(productStockCnt > 0) {
+						List<StockAlarmDTO> list = productManageService.getProductAlarmList(productDTO.getProductCode());
+						//재입고 매일 보내기
+						mailSendWithUserKey(list);
+						//재입고 알리고 난 후 그 상품코드는 삭제
+						productManageService.StockAlarmDelete(productDTO.getProductCode());
+					}
+				}
+			}
 			mav.addObject("display", "/admin/service/productUpdateOk.jsp");
 			mav.setViewName("/admin/main/admin");
 		}
 		return mav;
 	}
-
+	
+	//재입고 알람을 위한 메일전송 메서드
+	public void mailSendWithUserKey(List<StockAlarmDTO> list) {
+		for (int i = 0; i < list.size(); i++) {
+			//인증메일 보내기   
+			MimeMessage mail = mailSender.createMimeMessage();
+			String mailContent = "<img src='https://i.pinimg.com/236x/b4/54/f7/b454f721310bbec9d41aa75fdb2ca4d5--typography-logo-design-typography.jpg' alt='' style='width : 200px;'>"
+					+"<h2> Market In Taste, MINT 입니다.  </h2><br>"
+					+ list.get(0).getMainSubject()+ " 품목이 재입고 되었습니다. 감사합니다";
+			try {
+				mail.setSubject("[MINT] MINT" + list.get(0).getMainSubject()+ " 재입고 알림 메일입니다. ", "utf-8");
+				mail.setText(mailContent, "utf-8", "html");
+				mail.addRecipient(RecipientType.TO, new InternetAddress(list.get(i).getWaitListEmail()));
+				mailSender.send(mail);
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	//재입고 알림 신청
+	@RequestMapping(value="/shop/product/setProductAlarm", method=RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView setProductAlarm(@RequestParam Map<String,String>map,HttpSession session) {
+		System.out.println("setProductAlarm map : " + map);
+		ModelAndView mav = new ModelAndView();
+		
+		String memEmail = (String)session.getAttribute("memEmail");
+		
+		System.out.println("email : " + memEmail);
+		map.put("memEmail", memEmail);
+		
+		//재입고 알림 신청 중복 방지
+		int cnt = productManageService.getSameAlarmCnt(map);
+		
+		// cnt가 0보다 클 시 이미 등록되어 있는 재입고 알림.. 
+		if(cnt > 0) {
+			mav.addObject("gubun", 1);
+		}else {
+			productManageService.addStockAlarm(map);
+			mav.addObject("gubun", 2);
+		}
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
+	
 	// 관리자 상품리스트 조회
 	@RequestMapping(value = "/admin/productAdminList", method = RequestMethod.GET)
 	public ModelAndView productAdminList(@RequestParam Map<String, String> map) {
 		ModelAndView mav = new ModelAndView();
-
-		System.out.println("map : " + map);
-		
 		// 총 갯수
 		int totalArticle = productManageService.getCntProductAdminList(map);
 		System.out.println("totalArticle : " + totalArticle);
 		// 시작페이지와 끝 설정
 		setPagingNumber(map);
 
-		System.out.println("map : " + map);
-
 		List<ProductDTO> list = productManageService.getProductAdminList(map);
-
-		System.out.println("lize : " + list.size());
-
 		// 페이지
 		mav.addObject("pg", map.get("pg"));
 		// 조건에 따른 상품리스트 총 갯수
@@ -263,7 +320,7 @@ public class ProductManageController {
 		} else {
 			mav.addObject("categorySelect", map.get("categorySelect"));
 		}
-		//맨 아래 셀렉트 박스 구분
+		// 맨 아래 셀렉트 박스 구분
 		if (map.get("searchOption") == null) {
 			mav.addObject("searchOption", "3");
 			mav.addObject("keyword", "");
@@ -271,7 +328,7 @@ public class ProductManageController {
 			mav.addObject("searchOption", map.get("searchOption"));
 			mav.addObject("keyword", map.get("keyword"));
 		}
-		
+
 		mav.addObject("addr", "/mintProject/admin/productAdminList");
 		mav.addObject("list", list);
 		mav.addObject("display", "/admin/service/productAdminList.jsp");
@@ -315,6 +372,7 @@ public class ProductManageController {
 		mav.addObject("sword", sword);
 		mav.addObject("display", "/shop/product/productSearch.jsp");
 		mav.setViewName("/shop/main/index");
+		
 		return mav;
 	}
 

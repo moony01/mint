@@ -323,6 +323,7 @@ reivewInit();
 
 
     function openModal(){
+    	$('.notice-modal__message').html("");
     	if($("#sessionId").val() == ""){
     		$('.notice-modal__message').text("로그인 하신 후 장바구니 등록을 해주세요.")
     	}else{
@@ -336,14 +337,13 @@ reivewInit();
         		success : function(data){
         			if(data.gubun=='1'){
         				$('.notice-modal__message').text("이미 동일한 상품이 장바구니에 존재합니다.");
-        				
         			} else {
         				console.log($('#thumbImg').prop('src'));
         				$('.notice-modal__message').append($('<img>',{
         					src : $('#thumbImg').prop('src'),
         					height : "70px",
         					width : "70px"
-        				})).append("&emsp;&emsp;장바구니에 담겼습니다.");
+        				})).append("&emsp;장바구니에 담겼습니다.");
         				
         				$('.gnb__cart-count').text(data.memCart);
 
@@ -358,7 +358,6 @@ reivewInit();
     	 modal.classList.remove("hidden");
 		
     }
-
     saveBtn.addEventListener("click",openModal);
     overlay.addEventListener("click",closeModal);
     closeBtn.addEventListener("click",closeModal);
@@ -375,8 +374,6 @@ function qnaPaging(totalArticle, currentPage, addr){
 	let totalPage = Math.floor((totalArticle+pageSize-1) / pageSize);
 	let startPage = Math.ceil((temp-1)/pageBlock) * pageBlock +1; 
 	let endPage = startPage + pageBlock -1;
-	
-	
 	
 	if(endPage > totalPage){
 		endPage = totalPage;
@@ -466,6 +463,27 @@ function reviewPaging(totalArticle, currentPage){
 
 }
 
+//재입고 알림 신청
+$("#stockAlarm_btn").click(function(){
+	$.ajax({
+		type : "post",
+		url : "/mintProject/shop/product/setProductAlarm",	
+		data : "productCode="+$("#productCode").val(),
+		dataType : "json",
+		success : function(data){
+			$(".notice-modal").removeClass("hidden");
+			if(data.gubun=='1'){
+				$('.notice-modal__message').text("이미 재입고 신청알림이 등록되었습니다.");
+			}else if(data.gubun=='2'){
+				$('.notice-modal__message').text("재입고 알림 신청이 되었습니다.");
+			}
+		},
+		error : function(){
+			
+		}
+	});
+});
+	
 
 
 

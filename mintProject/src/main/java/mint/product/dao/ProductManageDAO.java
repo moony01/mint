@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import mint.product.bean.ProductDTO;
+import mint.product.bean.StockAlarmDTO;
 
 public interface ProductManageDAO {
 
@@ -34,7 +35,17 @@ public interface ProductManageDAO {
 	public int productUpdate(ProductDTO productDTO);
 
 	public List<ProductDTO> getProductListMain(int number);
+	
+	public int getProductAlarmCnt(int productCode);
 
+	public int getProductStockCnt(int productCode);
 
+	public List<StockAlarmDTO> getProductAlarmList(int productCode);
+
+	public int getSameAlarmCnt(Map<String, String> map);
+
+	public void addStockAlarm(Map<String, String> map);
+
+	public void StockAlarmDelete(int productCode);
 
 }

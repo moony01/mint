@@ -41,11 +41,26 @@
                 	<span class="goods-price__dc"></span>
             	</div>
              </c:if>
-			
-            <div class="goods-grade">
-                <span class="grade-icon">웰컴 5%</span>
-                <span class="grade-txt">개당 <span class="grade-point"><fmt:formatNumber type="currency" value = "${productDTO.price * 0.05}" currencyCode="KRW" pattern="#,###"/></span>원 적립</span>
-            </div>
+			<c:choose>
+				<c:when test="${memLevel ==  0}">
+					<div class="goods-grade">
+                		<span class="grade-icon">일반 5%</span>
+                		<span class="grade-txt">개당 <span class="grade-point"><fmt:formatNumber type="currency" value = "${productDTO.price * 0.05}" currencyCode="KRW" pattern="#,###"/></span>원 적립</span>
+            		</div>
+				</c:when>
+				<c:when test="${memLevel ==  1 }">
+					<div class="goods-grade">
+                		<span class="grade-icon">우수 7%</span>
+                		<span class="grade-txt">개당 <span class="grade-point"><fmt:formatNumber type="currency" value = "${productDTO.price * 0.07}" currencyCode="KRW" pattern="#,###"/></span>원 적립</span>
+            		</div>
+				</c:when>
+				<c:when test="${memLevel ==  2 }">
+					<div class="goods-grade">
+               			<span class="grade-icon">최우수 10%</span>
+                		<span class="grade-txt">개당 <span class="grade-point"><fmt:formatNumber type="currency" value = "${productDTO.price * 0.1}" currencyCode="KRW" pattern="#,###"/></span>원 적립</span>
+            		</div>
+				</c:when>
+			</c:choose>
             <dl class="goods-col">
                 <dt>판매 단위</dt>
                 <dd>${productDTO.unit}</dd>
@@ -88,10 +103,15 @@
             <div class="goods-total__btns">
                 <!-- 벨류는 자동으로 변경됨 -->
                 <!-- btn-off 이벤트 설정 못하게 하는 클래스 -->
-                <div class="g-btn btn-alaram btn-off">재입고 알림</div>
+                <c:if test="${productDTO.stock == 0}">
+                	<div class="g-btn btn-alaram btn-on" id="stockAlarm_btn">재입고 알림</div>
+                </c:if>
+                <c:if test="${productDTO.stock != 0}">
+                	<div class="g-btn btn-alaram btn-off">재입고 알림</div>
+                </c:if>
+                
                 <div class="g-btn btn-always">늘 사는 것</div>
                 <div class="g-btn btn-save">장바구니 담기</div>
-                
             </div>
         </div>
     </div>
@@ -152,10 +172,10 @@
                 <li><a href="#qna" class="qna_cnt"></a></li>
             </ul>
         
-            <div class="goods-detail__content">
-                <%-- <img src="/mintProject/shop/storage/mint/product/${productDTO.description }" alt=""> --%>
-               <%--  ${productDTO.description } --%>
-               ${productDTO.description }
+            <div class="goods-detail__content">        	
+                 <div class="goods--align">
+          			${productDTO.description }
+ 				</div>
             </div>
         </div>
         
@@ -170,7 +190,9 @@
             </ul>
             <div class="goods-detail__content">
                <!--  <img src="/mintProject/shop/storage/mint/icon/aa.jpg" alt=""> -->
-               	<img src="/mintProject/shop/storage/mint/product/${productDTO.productImage }" alt="">
+               <div class="goods--align">
+          			<img src="/mintProject/shop/storage/mint/product/${productDTO.productImage }" alt="">
+ 				</div>
             </div>
         </div>
 
@@ -183,7 +205,10 @@
                 <li><a href="#qna" class="qna_cnt"></a></li>
             </ul>
             <div class="goods-detail__content">
-                ${productDTO.details }
+ 				<div class="goods--align">
+ 					${productDTO.details }
+ 				</div>
+
             </div>
         </div>
 

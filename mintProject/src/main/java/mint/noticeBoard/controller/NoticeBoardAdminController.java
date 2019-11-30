@@ -1,5 +1,9 @@
 package mint.noticeBoard.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,11 +13,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import mint.faqBoard.bean.FAQBoardDTO;
@@ -76,9 +82,9 @@ public class NoticeBoardAdminController {
 	public void noticeBoardWrite(@RequestParam Map<String, String> map,
 								 HttpSession session) {
 		String id = (String)session.getAttribute("memId");
-		String filename = "filename.jpg";
+		
 		map.put("id", id);
-		map.put("filename", filename);
+		map.put("filename", "filename.jpg"); //filename 컬럼 얘기해봐야댐
 		System.out.println(map);
 		noticeBoardService.noticeBoardWrite(map);
 	}
@@ -94,7 +100,7 @@ public class NoticeBoardAdminController {
 		return "/admin/main/admin";
 	}
 	
-	/* FAQ관리자 게시물 정보 가져오기 (열람, 수정) */
+	/* NOTICEBOARD 게시물 정보 가져오기 (열람, 수정) */
 	@RequestMapping(value="/admin/service/getNoticeView", method=RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView getNoticeView(@RequestParam String seq,
@@ -113,7 +119,7 @@ public class NoticeBoardAdminController {
 		return mav;
 	}
 	
-	/* FAQ게시판 게시물 수정 페이지 이동 */
+	/* NOTICEBOARD 게시물 수정 페이지 이동 */
 	@RequestMapping(value="/admin/service/noticeModifyForm", method=RequestMethod.GET)
 	public String noticeModifyForm(@RequestParam String seq,
 								   @RequestParam String pg,
@@ -129,12 +135,28 @@ public class NoticeBoardAdminController {
 		return "/admin/main/admin";
 	}
 	
-	/* FAQ게시판 게시물 수정 기능 */
+	/* NOTICEBOARD 게시물 수정 기능 */
 	@RequestMapping(value="/admin/service/noticeBoardModify", method=RequestMethod.POST)
 	@ResponseBody
 	public void noticeBoardModify(@RequestParam Map<String, String> map) {
 		System.out.println(map);
 		noticeBoardService.noticeBoardModify(map);
+	}
+	
+	/* 써머노트 이미지 업로드 */
+	@RequestMapping(value = "/admin/service/imageUpload", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String handleFileUpload(@RequestParam("uploadFile") MultipartFile multiPartFile) {
+		//String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/member/noticeboard/"; // 원하는위치 (storage로 잡아주세요)
+		String filePath = "C:/Users/hanmoonhee/Documents/github/mint/mintProject/src/main/webapp/shop/storage/member/noticeboard/"; // 원하는위치 (storage로 잡아주세요)
+		String fileName = multiPartFile.getOriginalFilename();
+		File file = new File(filePath, fileName);
+		try {
+			FileCopyUtils.copy(multiPartFile.getInputStream(), new FileOutputStream(file)); // spring저장소에서 storage로 복사
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return fileName;
 	}
 }
 

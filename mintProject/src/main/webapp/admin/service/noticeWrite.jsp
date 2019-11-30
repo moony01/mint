@@ -12,7 +12,7 @@
  	<form id="noticeBoardWriteForm">
 	   	<input type="hidden" name="pg" value="${pg}">
 		<input type="hidden" name="seq" value="${seq}">
- 	     <table class="table table-bordered write-tb">
+ 	    <table class="table table-bordered write-tb">
 	         <tr>
 	             <th>제목</th>
 	             <td class="table--left"><input type="text" name="subject" id="subject" class="write-tb__input-txt"></td>
@@ -21,7 +21,7 @@
 	         <tr class="write-tb__content">
 	             <th>내용</th>
 	             <td class="table--left">
-	                 <textarea name="content" id="summernote"></textarea>
+	                 <textarea name="content" id="content"></textarea>
 	             </td>
 	         </tr>
 	         
@@ -45,29 +45,31 @@
  	</form>
   
  </div>
-<script type="text/javascript" src="/mintProject/admin/js/noticeWrite.js"></script>
 <script>
 let subject = '';
 let content = '';
 
-   $(document).ready(function(){
-
+$(document).ready(function(){
+	// modify일시 type이 mod로 넘어옴
+	let type = '"${type}"';
+	if(type === '"mod"'){
+		$('#subject').val(`${dto.subject}`);
+		$('#summernote').val(`${dto.content}`);
+	}
 	   
-		// modify일시 type이 mod로 넘어옴
-		let type = '"${type}"';
-		   if(type === '"mod"'){
-			$('#subject').val(`${dto.subject}`);
-			$('#summernote').val(`${dto.content}`);
-		}
-	   
-       $('#summernote').summernote({
-           placeholder:"내용을 입력해주세요",
-           height: 450,                 // set editor height
-           minHeight: null,             // set minimum height of editor
-           maxHeight: null,             // set maximum height of editor
-           focus: true   
-       });
-   })
+	$('#content').summernote({
+		placeholder:"내용을 입력해주세요",
+		height: 450,                 // set editor height
+		minHeight: null,             // set minimum height of editor
+		maxHeight: null,             // set maximum height of editor
+		focus: true,
+		callbacks: {
+			onImageUpload: function(files, editor, welEditable) {
+				sendFile(files[0], this); 
+			}
+	   	}
+	});
+})
 
 function noticeBoardWrite() {
 	let type = '"${type}"';
@@ -109,18 +111,29 @@ function noticeBoardWrite() {
 	}
 }
    
-   function preview(input){
-		if(input.files && input.files[0]){
-			var reader = new FileReader();
-			reader.onload = function(e){
-				if(input.id=='thumbnail-img'){
-					$('#preview-thumbnail-img').attr('src', e.target.result).width(150).height(150); 
-				}
-				
-			}
-			reader.readAsDataURL(input.files[0]);
+/* summernote에서 이미지 업로드시 실행할 함수 */
+function sendFile(file, editor){
+	/* 파일 전송을 위한 폼생성 */
+	data = new FormData();
+	data.append('uploadFile', file);
+	$.ajax({ // ajax를 통해 파일 업로드 처리
+		data : data,
+		type : 'POST',
+		url : '/mintProject/admin/service/imageUpload',
+		cache : false,
+		contentType : false,
+		enctype : 'multipart/form-data',
+		processData : false,
+		dataType : 'text',
+		success : function(data){
+			$(editor).summernote('editor.insertImage', '/mintProject/shop/storage/member/noticeboard/'+data);
+		},
+		error : function(err){
+			console.log(err);
 		}
-	}
+	});
+}
+
 </script>
 
 

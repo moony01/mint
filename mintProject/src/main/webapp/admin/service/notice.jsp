@@ -26,7 +26,7 @@
     			<tr class="tb-content">
 		            <td><input type="checkbox" class="boardCheck"></td>
 		            <td>${noticeBoardDTO.seq }</td>
-		            <td class="table--left" onclick="noticeBoardView(${noticeBoardDTO.seq})">${noticeBoardDTO.subject }</td>
+		            <td class="table--left" style="cursor: pointer;" onclick="noticeBoardView(${noticeBoardDTO.seq})">${noticeBoardDTO.subject }</td>
 		            <td>${noticeBoardDTO.logtime }</td>
 		            <td>${noticeBoardDTO.id }</td>
         		</tr>

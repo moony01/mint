@@ -356,7 +356,7 @@
 .service__seach-btn {
     height: 35px;
     width: 35px;
-    background-color: #795c90;
+    background-color: #45b8ac;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -365,7 +365,7 @@
 }
 .service__write-btn {
     cursor: pointer;
-    background-color: teal;
+    background-color: #45b8ac;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -38,6 +38,7 @@ $(function(){
 		url:'/mintProject/admin/service/getEventList',
 		dataType:'json',
 		success: function(result){
+			console.log(result);
 			eventListTemp(result);
 			eventExecute(result);
 		},
@@ -69,7 +70,7 @@ function getEventProductList(seq){
 		data:'seq='+seq,
 		dataType:'json',
 		success: function(result){
-			eventProductListTemp(result);
+			if(result.list.length > 0) eventProductListTemp(result);
 		},
 		error: function(error){
 			console.error(error);
@@ -83,7 +84,7 @@ function eventListTemp(result){
 	const $eventTable = $('#eventListTable');
 	let events = result.list;
 	let $frag = $(document.createDocumentFragment());
-	
+		
 	// 구조분해할당, 템플릿 리터럴
 	for(let i=0; i<events.length; i++){
 		const {
@@ -102,7 +103,7 @@ function eventListTemp(result){
 				<td><input type="checkbox" name="check" class="check" value=${seq}></td>
 				<td>${
 					(() => {
-						if(events[i].eventStatus === 1) return '진행함';
+						if(events[i].eventStatus === '1') return '진행함';
 						else return '진행안함';
 					})()}</td>
 				<td class="tb-subject" onclick="eventRow(this)">${subject}</td>
@@ -284,10 +285,11 @@ function eventExecute(result){
 		  , eventStatus = event[i].eventStatus
 		  , productCode = event[i].productCode
 		  , discountRate = event[i].discountRate
-		  , prevDiscountRate = event[i].prevDiscountRate;
-
+		  , prevDiscountRate = event[i].prevDiscountRate
+		  , seq = event[i].seq;
+		console.log(endCount);
 		/* 이벤트 진행 여부 */
-		if(eventStatus === 1 && endCount > 0){
+		if(eventStatus === '1' && endCount > 0){
 
 			console.log('event '+eventSubject+' : '+'eventStatus : '+eventStatus
 					+' startCount : '+startCount+' endCount : '+endCount);
@@ -309,7 +311,7 @@ function eventExecute(result){
 				});
 			}, startCount);
 
-		} else if(eventStatus === 1 && endCount <= 0) {
+		} else if(eventStatus === '1' && endCount <= 0) {
 			console.log('event '+eventSubject+' : '+'eventStatus : '+eventStatus
 					+' startCount : '+startCount+' endCount : '+endCount);
 			// 진행중 상태지만 이벤트 종료
@@ -319,8 +321,8 @@ function eventExecute(result){
 			}, endCount);
 			
 			// 이전 할인율로 update하기
-			endEvent(productCode, prevDiscountRate);
-		} else if(eventStatus === 0 && prevDiscountRate !== discountRate){
+			endEvent(seq, productCode, prevDiscountRate);
+		} else if(eventStatus === '0' && prevDiscountRate !== discountRate){
 			console.log('event '+eventSubject+' : '+'eventStatus : '+eventStatus
 					+' startCount : '+startCount+' endCount : '+endCount);
 			// 진행 안함 (진행중이었다가 상태 변경한 것 포함)
@@ -330,16 +332,17 @@ function eventExecute(result){
 			}, endCount);
 			
 			// 이전 할인율로 update하기
-			endEvent(productCode, prevDiscountRate);	
+			endEvent(seq, productCode, prevDiscountRate);	
 		}
 	}	
 }
 
-function endEvent(productCode, prevDiscountRate){
+function endEvent(seq, productCode, prevDiscountRate){
 	$.ajax({
 		type:'post',
 		url:'/mintProject/admin/service/eventEndProductUpdate',
-		data:'productCode='+productCode
+		data: 'seq='+seq
+			+'&productCode='+productCode
 			+'&prevDiscountRate='+prevDiscountRate,
 		success: function(){
 			console.log("되돌리기 성공!");

@@ -152,9 +152,15 @@
 	
 	<!-- 이벤트 상품 할인율 수정 (이벤트 종료) -->
 	<update id="eventEndProductUpdate" parameterType="java.util.Map">
-		update product 
-		set discountRate = #{prevDiscountRate} 
-		where productCode = #{productCode}
+		begin
+			update product 
+			set discountRate = #{prevDiscountRate} 
+			where productCode = #{productCode};
+		
+			update event 
+			set eventStatus = 0 
+			where seq = #{seq};
+		end;
 	</update>
 	
 	

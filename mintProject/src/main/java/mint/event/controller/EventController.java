@@ -3,16 +3,9 @@ package mint.event.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import mint.event.bean.EventDTO;
-import mint.event.bean.EventPaging;
 import mint.event.bean.EventProductDTO;
 import mint.event.service.EventService;
 import mint.product.bean.ProductDTO;
@@ -38,32 +30,34 @@ import mint.product.bean.ProductDTO;
  *	EventController
  * 	이벤트 컨트롤러
  * 
- * @version 1.11
+ * @version 1.12
  * @author LimChangHyun 
  *
  *	구현된 기능 : 이벤트 등록, 리스트 처리, 이벤트 삭제
  *  		     이벤트 상품 리스트, 이벤트 검색, 이벤트 연동, 일일특가
  *  			상품 추가, 상품 삭제
  *	불완전 기능 : 상품 검색(상품관리쪽과 겹침), 페이징 처리, 이벤트 수정
- *	이슈    1. 기간설정 없는 상시이벤트를 수정하려는 경우 startDate endDate 입력 input이 disabled 되지 않음
+ *	이슈 1. 기간 설정 안하고 등록/수정할 경우 typemismatch발생(DTO로 받아서 발생하는 문제)
  *		 2. 이벤트 등록/수정에 있는 상품 리스트 페이징을 비동기 AJAX 페이징으로 바꾸어야함
  *			(기존 페이징을 이용해 페이지 선택하면 모두 초기화 됨)
- *		 3. 이벤트 상품을 하나도 설정하지 않은 상태에서 등록한 이벤트를 수정할 시
- *			기존에 등록된 이벤트 상품을 가져오는 로직에서 nullpointexception발생 
  */
 
 @Controller
 public class EventController {
 	@Autowired
 	private EventService eventService;
-	@Autowired
-	private EventPaging eventPaging;
+
 	
 	/* 이벤트 페이지 이동 */
 	@RequestMapping(value="/shop/goods/event", method=RequestMethod.GET)
-	public String event(Model model) {
-		model.addAttribute("display", "/shop/goods/event.jsp");
-		return "/shop/main/index";
+	public ModelAndView event() {
+		List<EventDTO> list = eventService.getEventList();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.addObject("display", "/shop/goods/event.jsp");
+		mav.setViewName("/shop/main/index");
+		return mav;
 	}
 	
 	/* 이벤트 관리 페이지 이동 */
@@ -97,10 +91,8 @@ public class EventController {
 	@ResponseBody
 	public ModelAndView getEventList(@PathVariable String temp) {
 
-		// 이벤트 리스트 가져오기
 		List<EventDTO> list = eventService.getEventList();
 		
-		// Response
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
 		mav.setViewName("jsonView");
@@ -139,6 +131,7 @@ public class EventController {
 		// 1페이지당 10개씩
 		int endNum = Integer.parseInt(pg)*10;
 		int startNum = endNum-9;
+		
 		// 게시물 리스트 가져오기
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startNum", startNum);
@@ -151,17 +144,12 @@ public class EventController {
 		
 		// 총 갯수
 		int totalProduct = eventService.getTotalProduct(map);
-		eventPaging.setAddr("eventWriteForm");
-		eventPaging.setCurrentPage(Integer.parseInt(pg));
-		eventPaging.setPageBlock(5);
-		eventPaging.setPageSize(10);
-		eventPaging.setTotalEvent(totalProduct);
-		eventPaging.makePagingHTML();
-		
+
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("addr", "mintProject/admin/service/eventWriteForm");
+		mav.addObject("totalProduct", totalProduct);
 		mav.addObject("pg", pg);
 		mav.addObject("list", list);
-		mav.addObject("eventPaging", eventPaging);
 		mav.setViewName("jsonView");
 		return mav;
 	}
@@ -192,9 +180,6 @@ public class EventController {
 		EventDTO eventDTO = eventService.getEvent(Integer.parseInt(seq));
 		
 		// productcode를 배열로 변환하기
-		/**
-		 * nullpointerexception발생
-		 */
 		String[] array = eventDTO.getProductCode().split(",");
 
 		// 게시물 리스트 가져오기
@@ -218,7 +203,7 @@ public class EventController {
 						 , @RequestParam MultipartFile event_thumbnail_img
 						 , @RequestParam String isPeriodOn) {
 		// 위치
-		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/event/"; // 원하는
+		String filePath = "E:\\Web\\bitproject\\mint\\mintProject\\src\\main\\webapp\\shop\\storage\\mint\\event\\"; // 원하는
 		try {
 			FileCopyUtils.copy(event_thumbnail_img.getInputStream(),
 			new FileOutputStream(new File(filePath, event_thumbnail_img.getOriginalFilename())));
@@ -240,7 +225,7 @@ public class EventController {
 						  , @RequestParam MultipartFile event_thumbnail_img
 						  , @RequestParam String isPeriodOn) {
 		// 위치
-		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/event/"; // 원하는
+		String filePath = "E:/Web/bitproject/mint/mintProject/src/main/webapp/shop/storage/mint/event/"; // 원하는
 		try {
 			FileCopyUtils.copy(event_thumbnail_img.getInputStream(),
 			new FileOutputStream(new File(filePath, event_thumbnail_img.getOriginalFilename())));
@@ -313,8 +298,9 @@ public class EventController {
 	/* 이벤트 종료 (product table discountRate update) */
 	@RequestMapping(value="/admin/service/eventEndProductUpdate", method=RequestMethod.POST)
 	@ResponseBody
-	public void eventEndProductUpdate(@RequestParam String productCode,
-								   @RequestParam String prevDiscountRate) {
+	public void eventEndProductUpdate(@RequestParam String seq
+									, @RequestParam String productCode
+									, @RequestParam String prevDiscountRate) {
 		/**
 		 * 각각 toString() 된 상태로 'a, b, c' 의 형태로 패러미터 값이 넘어와야한다
 		 */
@@ -324,10 +310,12 @@ public class EventController {
 		
 		// Service단까지 들고갈 list 생성
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
 		try {
 			// 상품 개수만큼 Map생성 후 productCode, discountRate집어넣고
 			for(int i=0; i<productCodeArray.length; i++) {
 				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("seq", seq);
 				map.put("productCode", productCodeArray[i].trim());
 				map.put("prevDiscountRate", Integer.parseInt(prevDiscountRateArray[i].trim()));
 				// 최종적으로 list에 넣기

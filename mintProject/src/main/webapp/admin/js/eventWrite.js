@@ -9,32 +9,13 @@ $(function(){
 		let seq = $('input[name=seq]').val();
 		// 이벤트 정보 가져오기
 		getEvent(seq);
-		// 이벤트 해당 상품 리스트 가져오기
-		getEventProductList(seq);
 	}
 	
-	let searchOption = $('#searchOption').val()
-	let categorySelect = $('#categorySelect').val();
-	let keyword = $('#keyword').val();
+	getProductList(pg);
 	
-	/* 상품 리스트 가져오기 */
-	$.ajax({
-		type:'post',
-		url:'/mintProject/admin/service/getProductList',
-		data: 'searchOption='+searchOption+
-			 '&categorySelect='+categorySelect+
-			 '&pg='+pg+
-			 '&keyword='+keyword,
-		dataType:'json',
-		success: function(result){
-			getProductListTemp(result);
-			$('.pagination').html(result.eventPaging.pagingHTML);
-		},
-		error: function(error){
-			console.error(error);
-		}
-	});
 });
+
+
 
 /* 이벤트 정보 가져오기 */
 function getEvent(seq){
@@ -45,6 +26,11 @@ function getEvent(seq){
 		dataType:'json',
 		success: function(result){
 			eventInfo(result);
+			console.log(result);
+			// 이벤트 해당 상품이 있다면 리스트 가져오기
+			if(result.dto.productCode !== null){
+				getEventProductList(seq);				
+			}
 		},
 		error: function(error){
 			console.error(error);
@@ -73,7 +59,86 @@ function getEventProductList(seq){
 }
 
 
-/* 기간설정 유무에 따른 input, datetimepicker(비)활성화 (작동 안함. 문제 있음.) */
+/* 상품 리스트 가져오기 */
+var getProductList = function(pg){
+	let searchOption = $('#searchOption').val()
+	let categorySelect = $('#categorySelect').val();
+	let keyword = $('#keyword').val();
+	
+	$.ajax({
+		type:'post',
+		url:'/mintProject/admin/service/getProductList',
+		data: 'searchOption='+searchOption+
+			 '&categorySelect='+categorySelect+
+			 '&pg='+pg+
+			 '&keyword='+keyword,
+		dataType:'json',
+		success: function(result){
+			getProductListTemp(result);
+			paging(result);
+		},
+		error: function(error){
+			console.error(error);
+		}
+	});
+}
+
+/* 상품 AJAX 페이징 처리 */
+
+function paging(result){
+	console.log(result);
+	let addr = result.addr;
+	let totalProduct = result.totalProduct;
+	let currentPage = result.pg;
+	
+	let pageBlock = 3;
+	let pageSize = 5;
+	
+	let temp = Math.ceil(currentPage / pageBlock);
+	let totalPage = Math.floor((totalProduct + pageSize - 1) / pageSize);
+	let startPage = Math.ceil((temp-1)/pageBlock) * pageBlock +1; 
+	let endPage = startPage + pageBlock -1;
+	
+
+	let href = "";
+	
+	if(endPage > totalPage) endPage = totalPage;
+
+	if(startPage > pageBlock){
+		$('.prev').append($('<a/>', {
+			class: 'page-link', 
+			href: addr+'?pg='+(startPage-1),
+			text: '<'
+		})).appendTo('.pagination');
+	}
+	
+	
+	for(i = startPage; i <= endPage ; i++) {
+		$('<li/>').attr('class', 'page-item pg').append($('<a/>', {
+			class: 'page-link', 
+			href: addr+'?pg='+i,
+			text: i
+		})).appendTo('.pagination');
+		
+		if(i == currentPage) {
+			$('.pg').attr('class', 'page-item active');
+		} else {
+			$('.pg').removeAttr('class', 'active');
+		}	
+	}
+	
+	if(endPage < totalPage) {
+		$('.next').append($('<a/>', {
+			class: 'page-link', 
+			href: addr+'?pg='+(endPage+1),
+			text: '>'
+		})).appendTo('.pagination');
+	}
+
+}
+
+
+/* 기간설정 유무에 따른 input, datetimepicker(비)활성화 */
 $('.isPeriodOn').change(function(){
 	if($('.isPeriodOn').prop('checked')){
 		$('#datetimepickerStart').attr('disabled', false);
@@ -106,6 +171,7 @@ function eventInfo(result){
 	
 	// 기간설정
 	if(eventInfo.startDate === null && eventInfo.endDate === null){
+		// (작동 안함. 문제 있음.) 
 		$('.isPeriodOn:radio[value="0"]').attr('checked',true);
 	} else {
 		$('.isPeriodOn:radio[value="1"]').attr('checked',true);
@@ -196,7 +262,7 @@ function eventProductListTemp(result){
 	let eventInfos = result.eventProductList;
 	let $pfrag = $(document.createDocumentFragment());
 	let eventProductRow = null;
-	
+
 	// 구조분해할당, 템플릿 리터럴
 	for(let i=0; i<eventProducts.length; i++){
 		
@@ -280,7 +346,6 @@ $('#addEventProductBtn').click(function(){
 		
 		$('.check:checked').each(function(i){	
 			let value = $(this).val();
-			console.log(value);
 			inputProductCode.push(value);
 		
 		});
@@ -291,7 +356,6 @@ $('#addEventProductBtn').click(function(){
 			data: 'inputProductCode='+inputProductCode,
 			dataType:'json',
 			success: function(result){
-				console.log(result);
 				eventProductListTemp(result);
 			},
 			error: function(error){
@@ -308,6 +372,7 @@ $('#eventWriteBtn').click(function(){
 	dataManufacturing();
 	
 	if($('#eventSubject').val() === '') alert('이벤트명을 입력해주세요');
+	else if($('.eventProductRow').length === 0) alert('이벤트 상품을 추가해주세요');
 	else if($('.isPeriodOn').prop('checked')){
 		if($('#datetimepickerStart').val() == '' || $('#datetimepickerEnd').val() == ''){
 			alert('이벤트 기간을 설정해주세요');

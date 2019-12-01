@@ -21,75 +21,102 @@
 
 .mypage_top .grade_user {
     float: left;
-    width: 1000px;
+    width: 800px;
     height: 200px; 
     padding: 28px 0 30px 30px;
     background-color: #fff;
 }
-
+.mypage_top .grade_point {
+	margin: 0 0 0 10px;
+    float: left;
+    width: 200px;
+    height: 200px; 
+    padding: 28px 0 30px 30px;
+    background-color: #fff;
+}
 
 .mypage_top .list_mypage {
     float: right;
     width: 602px;
 }
 
+.name {
+	margin: 0 0 0 10px; 
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.text {
+	margin: 0 0 0 10px; 
+	font-size: 16px;
+    line-height: 28px;
+}
+
+.grade-icon{
+    display: inline-block;
+    border: 1px solid #949296;
+    color: #949296; 
+    height: 80px;
+    line-height: 80px;
+    padding: 0 8px;
+    border-radius: 12px;
+    font-weight: 500;
+    margin-right: 5px;
+    width: 80px; 
+    font-size: 15pt;
+    text-align: center;
+}
+
+.grade-icon-2{
+    display: inline-block;
+    border: 1px solid #949296;
+    background-color: #f4f4f4;
+    color: #949296; 
+  	height: 30px;
+    line-height: 26px;
+    padding: 0 8px;
+    border-radius: 12px;
+    font-weight: 500;
+    margin-top: 40px;
+    margin-right: 25px;
+    width: 200px;
+    font-size: 12pt;
+    text-align: center;
+   	float: right;
+}
+
+.date{
+	display: block;
+    padding-top: 12px;
+    font-size: 12px;
+    color: #999;
+    line-height: 16px;
+}
 </style>	
 	
 <div id="myPageTop" class="page_aticle mypage_top">
 	<div class="mypagetop_user">
 		<div class="inner_mypagetop">
 			<div class="grade_user">
-				<div class="grade">
-					<span class="memLevel"></span>
-					<div class="">
-						<div class="user">
-							<strong class="name">${memName }</strong> <span>님</span>
-						</div>
-						<div class="pointRate"></div>
+				<div>
+					<span class="grade-icon memLevel"></span>
+					<div style="display: inline-block;">
+						<strong class="name" >${memName }</strong><span class="text">님</span>
+						<div class="pointRate text"></div>
 					</div>
-					<div class="point"></div>
 				</div>
-				
+				<div>
+				<span class="grade-icon-2">전체 등급 보기</span>
+				<span class="grade-icon-2">다음 달 예상 등급 보기</span>
+				</div>
 			</div>
 			
-			<!-- <ul class="list_mypage">
-				<li class="user_reserve">
-					<div class="link">
-						<div class="tit">
-							적립금
-							
-						</div>
-						<a href="/shop/mypage/mypage_emoney.php" class="info"> 5,000 원
-							<img
-							src="https://res.kurly.com/pc/service/common/1905/ico_arrow_56x56.png"
-							alt="자세히 보기"> <span class="date">소멸 예정 0 원</span>
-						</a>
-					</div>
-				</li>
-				<li class="user_coupon">
-					<div class="link">
-						<div class="tit">
-							쿠폰
-							
-						</div>
-						<a href="/shop/mypage/mypage_coupon.php" class="info">0 개 <img
-							src="https://res.kurly.com/pc/service/common/1905/ico_arrow_56x56.png"
-							alt="자세히 보기"></a>
-					</div>
-				</li>
-				
-				<li class="user_kurlypass">
-					<div class="link">
-					<div class="tit">컬리패스</div>
-						
-						<a href="/shop/mypage/kurlypass.php" class="info info_link">
-							알아보기 <img
-							src="https://res.kurly.com/pc/service/common/1905/ico_arrow_56x56.png"
-							alt="자세히 보기">
-						</a>
-					</div>
-				</li>
-			</ul> -->
+			<div class="grade_point">
+				적립금
+				<div class="point name"><span class="text"> point</span></div>
+				<span class="date">소멸 예정 0 원</span>
+			</div>
+		
 		</div>
 		
 	</div>
@@ -124,7 +151,7 @@ $.ajax({
 	dataType: 'text',
 	success: function(result){
 		if(${memLevel } != 5) {
-			$('.point').append('누적 적립금 '+ result + ' point');
+			$('.point').prepend(result);
 		}
 	},
 	error: function(){}

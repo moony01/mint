@@ -47,7 +47,7 @@
 						</div>
 						<div class="pointRate"></div>
 					</div>
-					<div class="point">누적 적립금</div>
+					<div class="point"></div>
 				</div>
 				
 			</div>
@@ -97,29 +97,35 @@
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script>
-let memLevel = ${memLevel }; 
+let level; 
 let pointRate;
-if(memLevel == 0) {
-	memLevel = '일반';
+if(${memLevel } == 0) {
+	level = '일반';
 	pointRate = '5%';
-} else if(memLevel == 1) {
-	memLevel = '우수';
+} else if(${memLevel } == 1) {
+	level = '우수';
 	pointRate = '7%';
-} else if(memLevel == 2) {
-	memLevel = '최우수';
+} else if(${memLevel } == 2) {
+	level = '최우수';
 	pointRate = '10%';
+} else if (${memLevel } == 5) {
+	level = '관리자';
 }
 
-$('.memLevel').text(memLevel);
-$('.pointRate').append(pointRate + ' 적립');
+$('.memLevel').text(level);
+if(${memLevel } != 5) {
+	$('.pointRate').append(pointRate + ' 적립');
+	
+}
 
 $.ajax({
 	type:'post',
 	url: '/mintProject/shop/mypage/getPoint',
 	dataType: 'text',
 	success: function(result){
-		$('.point').append(result + ' point');
-		
+		if(${memLevel } != 5) {
+			$('.point').append('누적 적립금 '+ result + ' point');
+		}
 	},
 	error: function(){}
 });

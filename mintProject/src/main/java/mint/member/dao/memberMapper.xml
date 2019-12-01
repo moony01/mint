@@ -66,7 +66,7 @@
 	</update>
 	
 	<select id="getTotPricePrevMonth" parameterType="java.util.Map" resultType="String">
-		select fprice from orderInfo 
+		select sum(fprice) from orderInfo 
 		where logtime between to_date(#{startDate}, 'YYYYMMDD') and to_date(#{endDate}, 'YYYYMMDD') + 0.99999 
 		and id = #{id}
 	</select>

@@ -50,7 +50,7 @@ public class MemberLoginSuccessHandler implements AuthenticationSuccessHandler {
 		session.setAttribute("memId", memberDTO.getId());
 		session.setAttribute("memName", memberDTO.getName());
 		session.setAttribute("memEmail", memberDTO.getEmail());
-		session.setAttribute("memLevel", memberDTO.getMemLevel());
+		
 		SavedRequest savedRequest = requestCache.getRequest(request, response); // savedRequest 가져옴 
 			
 		if(!memberDTO.getId().equals("admin")) {
@@ -67,7 +67,7 @@ public class MemberLoginSuccessHandler implements AuthenticationSuccessHandler {
 			map.put("endDate", endDate);
 			map.put("id", memberDTO.getId());
 			
-			String totPrice = memberDAO.getTotPricePrevMonth(map);
+			String totPrice = memberDAO.getTotPricePrevMonth(map); // 전월의 구매실적 조회
 			int totalPrice = Integer.parseInt(totPrice);
 			
 			int memLevel = 0; 
@@ -80,12 +80,14 @@ public class MemberLoginSuccessHandler implements AuthenticationSuccessHandler {
 			}
 			
 			map.put("memLevel", memLevel+"");
-			memberDAO.updateMemLevel(map);
+			memberDAO.updateMemLevel(map); //전월의 구매실적에 따라 memLevel update
 			
 			// 장바구니에 담긴 상품 갯수 가져오기 
 			int count = cartDAO.getCartCount(memberDTO.getId());
 			session.setAttribute("memCart", count);	
 		}
+		
+		session.setAttribute("memLevel", memberDTO.getMemLevel());// memLevel session 에 담기
 		
 		if(memberDTO.getId().equals("admin")) { //관리자로 로그인 시 바로 관리자 메인 페이지로 이동
 			redirectStrategy.sendRedirect(request, response, "/admin/main/admin");

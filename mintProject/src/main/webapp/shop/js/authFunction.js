@@ -32,7 +32,7 @@ function printIsDuplicated(result) {
 // }
 
 function getAuthCheckPage() {
-    $.ajax({
+    return $.ajax({
         type: 'post',
         url: '/mintProject/shop/member/auth',
         data: {

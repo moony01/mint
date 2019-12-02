@@ -24,11 +24,6 @@ public class MainController {
 		List<ProductDTO> newList = productService.getProductListMain(1); // 신상품
 		List<ProductDTO> saleList = productService.getProductListMain(2); // 알뜰상품
 		
-		
-		System.out.println("recList: " + recList);
-		System.out.println("newList: " + newList);
-		System.out.println("saleList: " + saleList);
-		
 		mav.addObject("recList", recList);
 		mav.addObject("newList", newList);
 		mav.addObject("saleList", saleList);

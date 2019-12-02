@@ -44,16 +44,16 @@ function checkMemId(memId, memName) {
                 .append(
                     `<a href="#"> ${memName} 님 </a>
 					<ul class="my-page__menu">
-					<li><a href="/mintProject/shop/mypage/myOrderList">주문내역</a></li>
-					<li><a href="#">위시 리스트</a></li>
-					<li><a href="/mintProject/shop/mypage/review">상품 후기</a></li>
-					<li><a href="/mintProject/shop/mypage/myinfo_pwd">개인정보 수정</a></li>
-					<li><a href="/mintProject/shop/mypage/attendance">출석체크</a></li>
-					<li>
-					<form id="logoutForm" method="post" action="/mintProject/shop/member/logout">
-					<a href="javascript:void(0)" onclick="document.getElementById('logoutForm').submit();">로그아웃</a></li>
-					</form>
-			</ul>`,
+						<li><a href="/mintProject/shop/mypage/myOrderList">주문내역</a></li>
+						<li><a href="#">위시 리스트</a></li>
+						<li><a href="/mintProject/shop/mypage/review">상품 후기</a></li>
+						<li><a href="/mintProject/shop/mypage/myinfo_pwd">개인정보 수정</a></li>
+						<li><a href="/mintProject/shop/mypage/attendance">출석체크</a></li>
+						<li>
+						<form id="logoutForm" method="post" action="/mintProject/shop/member/logout">
+						<a href="javascript:void(0)" onclick="document.getElementById('logoutForm').submit();">로그아웃</a></li>
+						</form>
+					</ul>`,
                 );
         }
         $('ul.my-page >:first-child')

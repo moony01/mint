@@ -573,3 +573,25 @@
     padding-top: 55px;
     padding-bottom: 50px;
 }
+
+/* 페이지 탑 버튼 */
+.page-top-btn {
+    position: fixed;
+    z-index: 300;
+    right: 31px;
+    bottom: -70px;
+    width: 58px;
+    height: 58px;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    cursor: pointer;
+}
+.btn--up {
+    bottom: 30px;
+    opacity: 1;
+}
+@media (max-width: 1250px) {
+    .page-top-btn {
+        display: none;
+    }
+}

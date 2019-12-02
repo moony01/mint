@@ -254,8 +254,13 @@
 	</nav>
 
 	<jsp:include page="${display}" />
-
 	<footer class="footer"></footer>
+	<div class="page-top-btn">
+		<img
+			src="https://res.kurly.com/pc/service/common/1903/btn_pagetop_v2.png"
+			alt=""
+		/>
+	</div>
 </body>
 <script>
         let memId = '${memId}';

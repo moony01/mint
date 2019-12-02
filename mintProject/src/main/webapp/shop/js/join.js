@@ -92,9 +92,10 @@ function activeCount() {
 }
 
 function printAuthConfirm(result) {
+	const checkEmail = document.querySelector("#checkEmail-1");
     if (result == 'true') {
         openModal('인증이 완료되었습니다');
-        $('#checkEmail-1').state = true;
+        checkEmail.state = true;
         $('#checkEmail-1').css('color', SUCESS_COLOR);
         $('#checkEmail').css('display', 'block');
         

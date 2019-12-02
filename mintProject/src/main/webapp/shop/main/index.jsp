@@ -52,14 +52,15 @@
 <link rel="stylesheet"
 	href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" />
 
-<link rel="stylesheet" href="/mintProject/shop/css/style.css" />
 <link rel="stylesheet" href="/mintProject/shop/css/reset.css" />
+<link rel="stylesheet" href="/mintProject/shop/css/style.css" />
 <link rel="stylesheet" href="/mintProject/shop/css/service.css" />
 <link rel="stylesheet" href="/mintProject/shop/css/login.css" />
 <link rel="stylesheet" href="/mintProject/shop/css/join.css" />
 <link rel="stylesheet" href="/mintProject/shop/css/notice.css" />
 <link rel="stylesheet" href="/mintProject/shop/css/productList.css" />
 <link rel="stylesheet" href="/mintProject/shop/css/productView.css" />
+<link rel="stylesheet" href="/mintProject/shop/css/main.css">
 
 <script src="/mintProject/shop/js/index.js"></script>
 

@@ -92,12 +92,10 @@ function activeCount() {
 }
 
 function printAuthConfirm(result) {
-	const checkEmail1 = document.querySelector("#checkEmail-1");
     if (result == 'true') {
         openModal('인증이 완료되었습니다');
-        checkEmail1.state = true;
-        $('#checkEmail-1').css('color', SUCESS_COLOR);
-        $('#checkEmail').css('display','block');
+        $('#checkEmail-1').state = true;
+        $('#checkEmail-1').css('colo', SUCESS_COLOR);
         clearInterval(counter);
     } else {
         openModal('인증번호가 틀렸습니다.');
@@ -140,14 +138,12 @@ function setCountDown() {
 //이메일 중복확인  & 인증번호 받기
 authBtn.addEventListener('click', function() {
     const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    if (!regExp.test($('#email').val())) {
+    if (!regExp.test($('$email').val())) {
         openModal('이메일 형식이 올바르지 않습니다');
         return;
     }
     $('#checkEmail-1').css('color', ERROR_COLOR);
-    $('#checkEmail-1').css('color', ERROR_COLOR);
-    $('#emailCerti').val("");
-    $('#emailCerti').focus();
+    $('#checkEmail').css('dislay', 'block');
     $('#checkEmail-1').state = false;
 
     getIsDuplicatedPage('email', $('#email').val()) //이메일 중복검사 ajax 호출

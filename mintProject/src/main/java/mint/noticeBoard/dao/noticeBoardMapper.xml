@@ -52,7 +52,7 @@
 	
 	<!-- 글쓰기 -->
 	<insert id="noticeBoardWrite" parameterType="java.util.Map">
-		insert into noticeboard values(SEQ_NOTICEBOARD.nextval,#{id},#{subject},#{content},0,#{filename},sysdate)
+		insert into noticeboard values(SEQ_NOTICEBOARD.nextval,#{id},#{subject},#{content},0,sysdate)
 	</insert>
 	
 	<!-- noticeBoard 글 열람, 수정시 정보 가져오기 -->

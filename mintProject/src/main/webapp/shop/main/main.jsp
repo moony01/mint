@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <main class="main">
     <!-- 배너 -->
     <div class="main__banner">
@@ -52,82 +55,45 @@ pageEncoding="UTF-8"%>
         </div>
         <div class="swiper-container main__event-slide1">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <!-- 컨텐트가 슬라이더 안에 들어가는 아이템들 짝수 단위로 넣어주세요
+            <!-- 컨텐트가 슬라이더 안에 들어가는 아이템들 짝수 단위로 넣어주세요
                             컨테트는 swiper-slide요소 안에 있어야 돼요-->
+            <c:forEach items="${recList }" var="recProduct">
+                <div class="swiper-slide">
                     <div class="main__event-content">
-                        <img
-                            class="discount-rate"
-                            src="/mintProject/shop/storage/mint/icon/distate-20.png"
-                            alt=""
-                        />
+                        <c:if test="${recProduct.discountRate == 10}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${recProduct.discountRate == 20}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${recProduct.discountRate == 30}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${recProduct.discountRate == 40}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${recProduct.discountRate == 50}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png" alt="">
+		            	</c:if>
 
-                        <a href="">
+                        <a href="/mintProject/shop/product/productView?productCode=${recProduct.productCode}&subCategory=${recProduct.subCategory}">
                             <img
-                                src="https://img-cf.kurly.com/shop/data/goods/1543978436993l0.jpg"
+                                src="/mintProject/shop/storage/mint/product/${recProduct.thumbnail}"
                                 alt=""
                                 class="main__event-thumb"
                             />
                         </a>
                         <div class="main__event-info">
-                            <span class="info-name">[네니아] 물만두</span>
-                            <span class="info-price">11,880원</span>
-                            <span class="info-cost">13,200원</span>
+                            <span class="info-name">${recProduct.mainSubject }</span>
+                            <span class="info-price"><fmt:formatNumber type="currency" value = "${recProduct.price - (recProduct.price * (recProduct.discountRate * (1/100)))}" currencyCode="KRW" pattern="#,###"/>원</span>
+                            <c:if test="${recProduct.discountRate != 0}">
+                            <span class="info-cost"><fmt:formatNumber type="currency" value="${recProduct.price}" currencyCode="KRW" pattern="#,###"/>원</span>
+                        	</c:if>
                         </div>
                     </div>
                 </div>
-
-                <div class="swiper-slide">
-                    <div class="main__event-content">
-                        <a href="">
-                            <img
-                                src="https://img-cf.kurly.com/shop/data/goods/1543384498465l0.jpg"
-                                alt=""
-                                class="main__event-thumb"
-                            />
-                        </a>
-                        <div class="main__event-info">
-                            <span class="info-name">[네니아] 물만두</span>
-                            <span class="info-price">11,880원</span>
-                            <span class="info-cost">13,200원</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="main__event-content">
-                        <a href="">
-                            <img
-                                src="https://img-cf.kurly.com/shop/data/goods/1523423541918l0.jpg"
-                                alt=""
-                                class="main__event-thumb"
-                            />
-                        </a>
-                        <div class="main__event-info">
-                            <span class="info-name">[네니아] 물만두</span>
-                            <span class="info-price">11,880원</span>
-                            <span class="info-cost">13,200원</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="main__event-content">
-                        <a href="">
-                            <img
-                                src="https://img-cf.kurly.com/shop/data/goods/1574919797362l0.jpg"
-                                alt=""
-                                class="main__event-thumb"
-                            />
-                        </a>
-                        <div class="main__event-info">
-                            <span class="info-name"
-                                >[듀오락] 데일리키즈 프로바이오틱스 유산균 1통
-                                (30일분)</span
-                            >
-                            <span class="info-price">11,880원</span>
-                            <span class="info-cost">13,200원</span>
-                        </div>
-                    </div>
-                </div>
+			</c:forEach>
+  
             </div>
         </div>
         <button class="event-slide-btn slide-btn--right" id="event1-pre">
@@ -204,79 +170,42 @@ pageEncoding="UTF-8"%>
         </div>
         <div class="swiper-container main__event-slide2">
             <div class="swiper-wrapper">
+            <c:forEach items="${saleList }" var="saleProduct">
                 <div class="swiper-slide">
                     <div class="main__event-content">
-                        <img
-                            class="discount-rate"
-                            src="/mintProject/shop/storage/mint/icon/distate-20.png"
-                            alt=""
-                        />
-                        <a href="">
-                            <img
-                                src="https://img-cf.kurly.com/shop/data/goods/1543978436993l0.jpg"
-                                alt=""
-                                class="main__event-thumb"
-                            />
-                        </a>
-                        <div class="main__event-info">
-                            <span class="info-name">[네니아] 물만두</span>
-                            <span class="info-price">11,880원</span>
-                            <span class="info-cost">13,200원</span>
-                        </div>
-                    </div>
-                </div>
+                        <c:if test="${saleProduct.discountRate == 10}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${saleProduct.discountRate == 20}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${saleProduct.discountRate == 30}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${saleProduct.discountRate == 40}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${saleProduct.discountRate == 50}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png" alt="">
+		            	</c:if>
 
-                <div class="swiper-slide">
-                    <div class="main__event-content">
-                        <a href="">
+                        <a href="/mintProject/shop/product/productView?productCode=${saleProduct.productCode}&subCategory=${saleProduct.subCategory}">
                             <img
-                                src="https://img-cf.kurly.com/shop/data/goods/1543384498465l0.jpg"
+                                src="/mintProject/shop/storage/mint/product/${saleProduct.thumbnail}"
                                 alt=""
                                 class="main__event-thumb"
                             />
                         </a>
                         <div class="main__event-info">
-                            <span class="info-name">[네니아] 물만두</span>
-                            <span class="info-price">11,880원</span>
-                            <span class="info-cost">13,200원</span>
+                            <span class="info-name">${saleProduct.mainSubject }</span>
+                            <span class="info-price"><fmt:formatNumber type="currency" value = "${saleProduct.price - (saleProduct.price * (saleProduct.discountRate * (1/100)))}" currencyCode="KRW" pattern="#,###"/>원</span>
+                            <c:if test="${saleProduct.discountRate != 0}">
+                            <span class="info-cost"><fmt:formatNumber type="currency" value="${saleProduct.price}" currencyCode="KRW" pattern="#,###"/>원</span>
+                        	</c:if>
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide">
-                    <div class="main__event-content">
-                        <a href="">
-                            <img
-                                src="https://img-cf.kurly.com/shop/data/goods/1523423541918l0.jpg"
-                                alt=""
-                                class="main__event-thumb"
-                            />
-                        </a>
-                        <div class="main__event-info">
-                            <span class="info-name">[네니아] 물만두</span>
-                            <span class="info-price">11,880원</span>
-                            <span class="info-cost">13,200원</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="main__event-content">
-                        <a href="">
-                            <img
-                                src="https://img-cf.kurly.com/shop/data/goods/1574919797362l0.jpg"
-                                alt=""
-                                class="main__event-thumb"
-                            />
-                        </a>
-                        <div class="main__event-info">
-                            <span class="info-name"
-                                >[듀오락] 데일리키즈 프로바이오틱스 유산균 1통
-                                (30일분)</span
-                            >
-                            <span class="info-price">11,880원</span>
-                            <span class="info-cost">13,200원</span>
-                        </div>
-                    </div>
-                </div>
+			</c:forEach>
             </div>
         </div>
         <button class="event-slide-btn slide-btn--right" id="event2-pre">
@@ -341,79 +270,43 @@ pageEncoding="UTF-8"%>
         </div>
         <div class="swiper-container main__event-slide3">
             <div class="swiper-wrapper">
+            <c:forEach items="${newList }" var="newProduct">
                 <div class="swiper-slide">
                     <div class="main__event-content">
-                        <img
-                            class="discount-rate"
-                            src="/mintProject/shop/storage/mint/icon/distate-20.png"
-                            alt=""
-                        />
-                        <a href="">
-                            <img
-                                src="https://img-cf.kurly.com/shop/data/goods/1543978436993l0.jpg"
-                                alt=""
-                                class="main__event-thumb"
-                            />
-                        </a>
-                        <div class="main__event-info">
-                            <span class="info-name">[네니아] 물만두</span>
-                            <span class="info-price">11,880원</span>
-                            <span class="info-cost">13,200원</span>
-                        </div>
-                    </div>
-                </div>
+                        <c:if test="${newProduct.discountRate == 10}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${newProduct.discountRate == 20}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${newProduct.discountRate == 30}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${newProduct.discountRate == 40}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${newProduct.discountRate == 50}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png" alt="">
+		            	</c:if>
 
-                <div class="swiper-slide">
-                    <div class="main__event-content">
-                        <a href="">
+                        <a href="/mintProject/shop/product/productView?productCode=${newProduct.productCode}&subCategory=${newProduct.subCategory}">
                             <img
-                                src="https://img-cf.kurly.com/shop/data/goods/1543384498465l0.jpg"
+                                src="/mintProject/shop/storage/mint/product/${newProduct.thumbnail}"
                                 alt=""
                                 class="main__event-thumb"
                             />
                         </a>
                         <div class="main__event-info">
-                            <span class="info-name">[네니아] 물만두</span>
-                            <span class="info-price">11,880원</span>
-                            <span class="info-cost">13,200원</span>
+                            <span class="info-name">${newProduct.mainSubject }</span>
+                            <span class="info-price"><fmt:formatNumber type="currency" value = "${newProduct.price - (newProduct.price * (newProduct.discountRate * (1/100)))}" currencyCode="KRW" pattern="#,###"/>원</span>
+                            <c:if test="${newProduct.discountRate != 0}">
+                            <span class="info-cost"><fmt:formatNumber type="currency" value="${newProduct.price}" currencyCode="KRW" pattern="#,###"/>원</span>
+                        	</c:if>
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide">
-                    <div class="main__event-content">
-                        <a href="">
-                            <img
-                                src="https://img-cf.kurly.com/shop/data/goods/1523423541918l0.jpg"
-                                alt=""
-                                class="main__event-thumb"
-                            />
-                        </a>
-                        <div class="main__event-info">
-                            <span class="info-name">[네니아] 물만두</span>
-                            <span class="info-price">11,880원</span>
-                            <span class="info-cost">13,200원</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="main__event-content">
-                        <a href="">
-                            <img
-                                src="https://img-cf.kurly.com/shop/data/goods/1574919797362l0.jpg"
-                                alt=""
-                                class="main__event-thumb"
-                            />
-                        </a>
-                        <div class="main__event-info">
-                            <span class="info-name"
-                                >[듀오락] 데일리키즈 프로바이오틱스 유산균 1통
-                                (30일분)</span
-                            >
-                            <span class="info-price">11,880원</span>
-                            <span class="info-cost">13,200원</span>
-                        </div>
-                    </div>
-                </div>
+			</c:forEach>
+              
             </div>
         </div>
         <button class="event-slide-btn slide-btn--right" id="event3-pre">

@@ -278,6 +278,7 @@ function eventExecute(result){
 	var eventOngoing = null;
 
 	for(var i=0; i<event.length; i++){
+	
 		if(event[i].startDate < now) var startCount = 0;
 		else var startCount = event[i].startDate - now;
 		let endCount = event[i].endDate - now
@@ -287,10 +288,9 @@ function eventExecute(result){
 		  , discountRate = event[i].discountRate
 		  , prevDiscountRate = event[i].prevDiscountRate
 		  , seq = event[i].seq;
-		console.log(endCount);
+
 		/* 이벤트 진행 여부 */
 		if(eventStatus === '1' && endCount > 0){
-
 			console.log('event '+eventSubject+' : '+'eventStatus : '+eventStatus
 					+' startCount : '+startCount+' endCount : '+endCount);
 			// 이벤트 진행중이고 종료되지 않은 이벤트
@@ -322,7 +322,7 @@ function eventExecute(result){
 			
 			// 이전 할인율로 update하기
 			endEvent(seq, productCode, prevDiscountRate);
-		} else if(eventStatus === '0' && prevDiscountRate !== discountRate){
+		} else if(eventStatus === '0' && endCount > 0){
 			console.log('event '+eventSubject+' : '+'eventStatus : '+eventStatus
 					+' startCount : '+startCount+' endCount : '+endCount);
 			// 진행 안함 (진행중이었다가 상태 변경한 것 포함)

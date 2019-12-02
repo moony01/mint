@@ -84,7 +84,6 @@ public class NoticeBoardAdminController {
 		String id = (String)session.getAttribute("memId");
 		
 		map.put("id", id);
-		map.put("filename", "filename.jpg"); //filename 컬럼 얘기해봐야댐
 		System.out.println(map);
 		noticeBoardService.noticeBoardWrite(map);
 	}

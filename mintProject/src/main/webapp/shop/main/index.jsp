@@ -62,15 +62,11 @@
 <link rel="stylesheet" href="/mintProject/shop/css/productView.css" />
 <link rel="stylesheet" href="/mintProject/shop/css/main.css">
 
-<script src="/mintProject/shop/js/index.js"></script>
-
 <title>민트</title>
 </head>
 <body>
 	<header class="header">
-		<img
-			src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif"
-			alt="서울, 경기, 인천 샛별배송, 수도권 이외 지역 택배배송" class="header__deliver-img" />
+		
 		<ul class="my-page">
 			<li class="my-page__item"><a
 				href="/mintProject/shop/member/join">회원가입</a></li>
@@ -262,6 +258,7 @@
 		/>
 	</div>
 </body>
+<script src="/mintProject/shop/js/index.js"></script>
 <script>
         let memId = '${memId}';
         let memName = '${memName}';

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 
+<link rel="stylesheet" href="/mintProject/shop/css/service.css" />
 <div id="myPageTop" class="page_aticle mypage_top">
     <div class="mypagetop_user">
         <div class="inner_mypagetop">

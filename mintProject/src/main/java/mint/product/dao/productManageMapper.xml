@@ -295,7 +295,7 @@
 		
 		select * from
 		(select rownum rn, temp.* from 
-			(select productcode, stock, thumbnail, mainSubject, price, discountRate from product 
+			(select productcode, subCategory, mainSubject, thumbnail, stock, price, discountRate from product 
 			<if test="number == 0">
 			order by productcode desc) temp)
 			</if>

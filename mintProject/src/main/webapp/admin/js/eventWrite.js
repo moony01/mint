@@ -10,9 +10,9 @@ $(function(){
 		// 이벤트 정보 가져오기
 		getEvent(seq);
 	}
-	
+	// 상품 리스트 가져오기
 	getProductList(pg);
-	
+
 });
 
 
@@ -26,7 +26,7 @@ function getEvent(seq){
 		dataType:'json',
 		success: function(result){
 			eventInfo(result);
-			console.log(result);
+
 			// 이벤트 해당 상품이 있다면 리스트 가져오기
 			if(result.dto.productCode !== null){
 				getEventProductList(seq);				
@@ -84,9 +84,10 @@ var getProductList = function(pg){
 }
 
 /* 상품 AJAX 페이징 처리 */
-
 function paging(result){
-	console.log(result);
+	$('.page-item').remove();
+	$('.page-link').remove();
+	
 	let addr = result.addr;
 	let totalProduct = result.totalProduct;
 	let currentPage = result.pg;
@@ -102,6 +103,7 @@ function paging(result){
 
 	let href = "";
 	
+	
 	if(endPage > totalPage) endPage = totalPage;
 
 	if(startPage > pageBlock){
@@ -116,9 +118,9 @@ function paging(result){
 	for(i = startPage; i <= endPage ; i++) {
 		$('<li/>').attr('class', 'page-item pg').append($('<a/>', {
 			class: 'page-link', 
-			href: addr+'?pg='+i,
 			text: i
 		})).appendTo('.pagination');
+		
 		
 		if(i == currentPage) {
 			$('.pg').attr('class', 'page-item active');
@@ -134,7 +136,12 @@ function paging(result){
 			text: '>'
 		})).appendTo('.pagination');
 	}
-
+	
+	
+	
+	$('.page-link').on('click', function(event){
+		getProductList($(this).text());
+	});
 }
 
 
@@ -215,6 +222,8 @@ function getProductListTemp(result){
 	let $frag = $(document.createDocumentFragment());
 	let paging = result.paging; 
 	
+	$('.productRow').remove();
+	
 	if(products.length == 0){
 		$productTable.append('<td colspan="10">데이터가 없습니다</td>');
    	} else {
@@ -240,7 +249,7 @@ function getProductListTemp(result){
 							if(productStatus === 0) return '판매중';
 							else return '판매중지';
 						})()}</td>
-					<td>${mainSubject}</td>
+					<td><a href="/mintProject/shop/product/updateProductForm?productCode=${productCode}">${mainSubject}</a></td>
 					<td>${productCode}</td>
 					<td>${stock}</td>
 					<td>${star}</td>
@@ -347,7 +356,6 @@ $('#addEventProductBtn').click(function(){
 		$('.check:checked').each(function(i){	
 			let value = $(this).val();
 			inputProductCode.push(value);
-		
 		});
 
 		$.ajax({
@@ -501,7 +509,5 @@ $('#discountRateApplyBtn').click(function(){
 $('#deleteEventProductBtn').click(function(){
 	var cnt = $('.pcheck:checked').length; // 체크된 항목 갯수 구하기
 	if(cnt===0) alert('삭제할 항목을 먼저 선택하세요');
-	else {
-		$('.pcheck:checked').parent().parent().remove();
-	}
+	else $('.pcheck:checked').parent().parent().remove();
 });

@@ -99,6 +99,45 @@ public class EventController {
 		return mav;
 	}
 	
+	/* 이벤트 페이지 상품 리스트 */
+	@RequestMapping(value = "/goods/getEventProductList", method = RequestMethod.GET)
+	public ModelAndView getProductList(@RequestParam Map<String, Object> map) {
+		System.out.println("map : " + map);
+		ModelAndView mav = new ModelAndView();
+		
+		// EventDTO에서 productCode 가져오기
+		EventDTO eventDTO = eventService.getEvent(Integer.parseInt((String)map.get("seq")));
+				
+		// productcode를 배열로 변환하기
+		String[] array = eventDTO.getProductCode().split(",");
+
+		// 게시물 리스트 가져오기
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map.put("array", array);
+
+		List<ProductDTO> list = eventService.getEventProductList(map2);
+				
+		int totalArticle = list.size();
+	
+		// mainCategory : 1 //subCategory : 2 //headerGubun
+		mav.addObject("gubun", map.get("gubun"));
+		// 신상품 : 1 //별점순 : 2 // 낮은 가격순 : 3 // 높은 가격순 : 4
+		mav.addObject("selectGubun", map.get("selectGubun"));
+		//
+		// mav.addObject("headGubun", map.get("headGubun"));
+		// 페이지
+		mav.addObject("pg", map.get("pg"));
+		// 조건에 따른 상품리스트 총 갯수
+
+		mav.addObject("list", list);
+		mav.addObject("totalArticle", totalArticle);
+		mav.addObject("addr", "/mintProject/goods/getEventProductList");
+		mav.addObject("display", "/shop/product/productList.jsp");
+		mav.setViewName("/shop/main/index");
+
+		return mav;
+	} 
+
 	/* 이벤트 정보 가져오기 */
 	@RequestMapping(value="/admin/service/getEvent", method=RequestMethod.POST)
 	@ResponseBody
@@ -203,7 +242,7 @@ public class EventController {
 						 , @RequestParam MultipartFile event_thumbnail_img
 						 , @RequestParam String isPeriodOn) {
 		// 위치
-		String filePath = "E:\\Web\\bitproject\\mint\\mintProject\\src\\main\\webapp\\shop\\storage\\mint\\event\\"; // 원하는
+		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/event/"; // 원하는
 		try {
 			FileCopyUtils.copy(event_thumbnail_img.getInputStream(),
 			new FileOutputStream(new File(filePath, event_thumbnail_img.getOriginalFilename())));
@@ -225,7 +264,7 @@ public class EventController {
 						  , @RequestParam MultipartFile event_thumbnail_img
 						  , @RequestParam String isPeriodOn) {
 		// 위치
-		String filePath = "E:/Web/bitproject/mint/mintProject/src/main/webapp/shop/storage/mint/event/"; // 원하는
+		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/event/"; // 원하는
 		try {
 			FileCopyUtils.copy(event_thumbnail_img.getInputStream(),
 			new FileOutputStream(new File(filePath, event_thumbnail_img.getOriginalFilename())));

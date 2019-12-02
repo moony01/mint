@@ -146,6 +146,7 @@ authBtn.addEventListener('click', function() {
     }
     $('#checkEmail-1').css('color', ERROR_COLOR);
     $('#checkEmail').css('display', 'block');
+    $('#checkEmail').val('');
     $('#checkEmail-1').state = false;
 
     getIsDuplicatedPage('email', $('#email').val()) //이메일 중복검사 ajax 호출

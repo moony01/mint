@@ -1,22 +1,22 @@
-.searches{
-	display:flex;
-	justify-content :flex-end;
-	margin-bottom:15px;
+.searches {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
 }
-.daterange-txt{
-	width:130px;
-	padding-left:8px;
+.daterange-txt {
+    width: 130px;
+    padding-left: 8px;
 }
-.daterange-search-btn{
-	all:unset;
-	cursor:pointer;
-	width:36px;
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	font-size:16px;
-	background-color:#45b8ac;
-	color:white;
+.daterange-search-btn {
+    all: unset;
+    cursor: pointer;
+    width: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    background-color: #45b8ac;
+    color: white;
 }
 
 .service,
@@ -69,8 +69,8 @@
 }
 
 /* 메인 타이틀 */
-.service__main{
-	width:820px;
+.service__main {
+    width: 820px;
 }
 .service__main-title {
     font-size: 24px;
@@ -1154,4 +1154,103 @@
 .current-state {
     color: white;
     background-color: #45b8ac;
+}
+
+/* 마이페이지 정보 */
+.mypage-info {
+    margin-top: 10px;
+}
+.mypage_top {
+    width: 100%;
+    padding: 50px 0;
+    margin-bottom: -20px;
+    background-color: #f7f7f7;
+}
+
+.mypage_top .mypagetop_user {
+    overflow: hidden;
+    width: 1050px;
+    margin: 0 auto;
+}
+
+.mypage_top .inner_mypagetop {
+    overflow: hidden;
+    width: 100%;
+}
+
+.mypage_top .grade_user {
+    float: left;
+    width: 600px;
+    height: 200px;
+    padding: 20px 0 0 20px;
+    background-color: #fff;
+}
+.mypage_top .grade_point {
+    margin: 0 0 0 10px;
+    float: left;
+    width: 300px;
+    height: 200px;
+    font-size: 16px;
+    padding: 28px 0 30px 30px;
+    background-color: #fff;
+}
+
+.mypage_top .list_mypage {
+    float: right;
+    width: 602px;
+}
+
+.name {
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 6px;
+}
+
+.text {
+    font-size: 16px;
+    line-height: 28px;
+}
+
+.grade-icon {
+    display: inline-block;
+    border: 1px solid #949296;
+    color: #949296;
+    height: 80px;
+    line-height: 80px;
+    padding: 0 8px;
+    border-radius: 12px;
+    font-weight: 500;
+    margin-right: 5px;
+    width: 80px;
+    font-size: 15pt;
+    text-align: center;
+}
+
+.grades {
+    display: flex;
+    margin-top: 20px;
+}
+.grade-icon-2 {
+    display: inline-block;
+    border: 1px solid #949296;
+    background-color: #f4f4f4;
+    color: #949296;
+    height: 30px;
+    line-height: 26px;
+    padding: 0 8px;
+    border-radius: 12px;
+    font-weight: 500;
+    margin-right: 25px;
+    width: 200px;
+    font-size: 12pt;
+    cursor: pointer;
+    text-align: center;
+}
+
+.date {
+    display: block;
+    padding-top: 12px;
+    font-size: 12px;
+    color: #999;
+    line-height: 16px;
 }

@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>
     <div class="mypagetop_user">
         <div class="inner_mypagetop">
             <div class="grade_user">
-                <div>
+                <div class="users-desc">
                     <span class="grade-icon memLevel"></span>
                     <div class="mypage-info">
                         <strong class="name">${memName }</strong

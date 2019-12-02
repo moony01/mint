@@ -1158,7 +1158,7 @@
 
 /* 마이페이지 정보 */
 .mypage-info {
-    margin-top: 10px;
+    padding: 10px 0 0 10px;
 }
 .mypage_top {
     width: 100%;
@@ -1177,7 +1177,9 @@
     overflow: hidden;
     width: 100%;
 }
-
+.users-desc {
+    display: flex;
+}
 .mypage_top .grade_user {
     float: left;
     width: 600px;

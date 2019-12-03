@@ -128,13 +128,7 @@ pageEncoding="UTF-8"%>
 
         <div class="main__special-content">
             <a class="main__special-thumb" href="">
-                <img
-                    class="discount-rate"
-                    src="/mintProject/shop/storage/mint/icon/distate-20.png"
-                    alt=""
-                />
                 <div class="ds-thumbnail special-thumb"></div>
-
                 <div class="main__special-count">
                     <div class="special-count" id="dscd">
 					  <span class="timeel hours">00</span>
@@ -226,8 +220,7 @@ pageEncoding="UTF-8"%>
 	            <li class="news__item">
 	                <a href=""
 	                    ><img
-	                        src="/mintProject/shop/storage/mint/event/${eventList.eventThumbnail}"
-	                        alt=""
+	                        style="background-image:url(http://localhost:8080/mintProject/shop/storage/mint/event/${eventList.eventThumbnail})"
 	                        class="news__thumb"
 	                /></a>
 	                <div class="news__subject">${eventList.subject}</div>

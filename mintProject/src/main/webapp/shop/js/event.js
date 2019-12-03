@@ -93,7 +93,7 @@ function dailySpecialInfo(seq, discountRate){
 			$('.ds-subsubject').text(subSubject);
 			$('.ds-price').text(price+'원');
 			$('.ds-eventprice').text(eventPrice+'원');
-			$('.ds-thumbnail').addClass('dailyspecial-thumb').css({'background-image':'url(http://localhost:8080/mintProject/shop/storage/mint/product/'+thumbnail+')'});
+			$('.ds-thumbnail').addClass('dailyspecial-thumb').css({'background-image':'url(/mintProject/shop/storage/mint/product/'+thumbnail+')'});
 
 			if(discountRate === '10'){
 				$('.main__special-thumb').append('<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png"/>');				

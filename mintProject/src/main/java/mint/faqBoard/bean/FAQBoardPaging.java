@@ -63,26 +63,59 @@ public class FAQBoardPaging {
 		
 		if(endPage > totalP) endPage = totalP;
 		
-		pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(startPage)+")'><<</a></li>");
+		pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqSearch("+(startPage)+")'><<</a></li>");
 		
 		if(currentPage == 1) 
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(startPage)+")'><</a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqSearch("+(startPage)+")'><</a></li>");
 		else 
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(currentPage-1)+")'><</a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqSearch("+(currentPage-1)+")'><</a></li>");
 		
 		
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
-				pagingHTML.append("<li class='page-item active'><a class='page-link' onclick='faqBoardSearchPaging("+(i)+")'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item active'><a class='page-link' onclick='faqSearch("+(i)+")'>"+i+"</a></li>");
 			else
-				pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(i)+")'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqSearch("+(i)+")'>"+i+"</a></li>");
 		}
 		
 		
 		if(currentPage == endPage)
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(endPage)+")'>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqSearch("+(endPage)+")'>></a></li>");
 		else 
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(currentPage+1)+")'>></a></li>");
-			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqBoardSearchPaging("+(endPage)+")'>>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqSearch("+(currentPage+1)+")'>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqSearch("+(endPage)+")'>>></a></li>");
+	}
+	
+	public void makeCategoryPagingHTML() {
+		pagingHTML = new StringBuffer();
+		
+		int totalP = (totalArticle+pageSize-1)/pageSize;
+		
+		int startPage = (currentPage-1)/pageBlock*pageBlock+1;
+		int endPage = startPage+pageBlock-1;
+		
+		if(endPage > totalP) endPage = totalP;
+		
+		pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqCategory("+(startPage)+")'><<</a></li>");
+		
+		if(currentPage == 1) 
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqCategory("+(startPage)+")'><</a></li>");
+		else 
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqCategory("+(currentPage-1)+")'><</a></li>");
+		
+		
+		for(int i=startPage; i<=endPage; i++) {
+			if(i==currentPage)
+				pagingHTML.append("<li class='page-item active'><a class='page-link' onclick='faqCategory("+(i)+")'>"+i+"</a></li>");
+			else
+				pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqCategory("+(i)+")'>"+i+"</a></li>");
+		}
+		
+		
+		if(currentPage == endPage)
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqCategory("+(endPage)+")'>></a></li>");
+		else 
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqCategory("+(currentPage+1)+")'>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' onclick='faqCategory("+(endPage)+")'>>></a></li>");
 	}
 }

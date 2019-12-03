@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- FAQ페이지 접속용 hidden pg -->
-<input type="hidden" name="pg" id="pg" value="${pg }">
+
 <section class="service">
     <div class="snb">
         <h2 class="snb__title">고객센터</h2>
@@ -17,6 +16,7 @@
             <span class="title_sub">고객님들께서 가장 자주하시는 질문을 모두 모았습니다.</span>
         </h2>
 		<form id="faqBoardForm">
+		<input type="hidden" name="pg" id="pg" value="${pg}">
 	        <select name="category" id="categorySelect" class="select-box">
 	            <option value="9">선택</option>
 	            <option value="0">회원 문의</option>
@@ -40,7 +40,6 @@
 	            </ul>  	
 	        </div>
 	        <div class="service__search">
-	        	<input type="hidden" name="pg" value="${pg}">
 	            <div class="service__sel-box">
 	            </div>
 	            <div class="service__serch-box">

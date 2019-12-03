@@ -8,7 +8,7 @@
 	 swal({
 			text : '접근 권한이 없는 페이지입니다. \n 메인 화면으로 이동합니다. ',
 			icon : 'warning',
-			timer : 3000,
+			timer : 1500,
 			buttons : false,
 		})
 	 location.href='/mintProject/shop/main/index';

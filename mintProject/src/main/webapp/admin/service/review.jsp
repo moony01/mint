@@ -16,11 +16,10 @@
       
         <table class="table table-bordered table-member">
             <tr class="th--dark">
-                <th class="col-md-1"><input type="checkbox" class="checkbox-all"></th>
                 <th class="col-md-1">번호</th>
                 <th class="col-md-4">제목</th>
-                <th class="col-md-2">아이디</th>
-                <th class="col-md-2">작성일</th>
+                <th class="col-md-1">아이디</th>
+                <th class="col-md-1">작성일</th>
                 <th class="col-md-1">비고</th>
             </tr>
 

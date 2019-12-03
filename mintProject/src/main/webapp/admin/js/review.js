@@ -8,7 +8,6 @@ let $frag = $(document.createDocumentFragment());
 function drawReview(data) {
 	data.forEach(function(item){
 		let review = `<tr class="subject_wrap" id="review_${item.seq}">
-						<td><input type="checkbox" class="checkbox-one" value="${item.seq}"></td>
 						<td>${item.seq}</td>
 						<td style="cursor:pointer;" class="table--left">${item.subject}</td>
 						<td>${item.id}</td>
@@ -18,7 +17,7 @@ function drawReview(data) {
 					<tr class="content_wrap review_${item.seq}">
 						<td colspan="6" style="text-align:left; padding: 15px 0px 15px 15px;">
 						<img src="/mintProject/shop/storage/member/review/${item.imgName}" alt="" style="vertical-align:unset; width: 300px; padding-bottom:5px;">
-						<pre style="background-color: #fff;">${item.content}</pre></td>
+						<pre>${item.content}</pre></td>
 					</tr>`;
 	
 		$frag.append($(review));
@@ -65,18 +64,3 @@ function getReview () {
 	});
 }
 
-
-//전체선택
-$('.checkbox-all').on('change', function cbxChecked(){
-	let cbxOne  = $('.checkbox-one');
-	if(this.checked) {
-		for (var i = 0; i < cbxOne.length; i++) {
-			cbxOne.eq(i).prop('checked', true);
-		}
-	} else {
-		for (var i = 0; i < cbxOne.length; i++) {
-			cbxOne.eq(i).prop('checked', false);
-		}
-	}
-	
-});

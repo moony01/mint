@@ -80,4 +80,9 @@ public class EventServiceImpl implements EventService {
 		return eventDAO.getTotalProduct(map);
 	}
 
+	@Override
+	public List<EventDTO> getEventListMain() {
+		return eventDAO.getEventListMain();
+	}
+
 }

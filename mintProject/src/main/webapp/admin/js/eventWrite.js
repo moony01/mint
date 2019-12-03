@@ -82,7 +82,10 @@ var getProductList = function(pg){
 		}
 	});
 }
-
+/* 상품 검색 */
+$(".searchButton").click(function(){
+	getProductList(1);
+});
 /* 상품 AJAX 페이징 처리 */
 function paging(result){
 	$('.page-item').remove();
@@ -92,7 +95,7 @@ function paging(result){
 	let totalProduct = result.totalProduct;
 	let currentPage = result.pg;
 	
-	let pageBlock = 5;
+	let pageBlock = 10;
 	let pageSize = 10;
 	
 	let temp = Math.ceil(currentPage / pageBlock);
@@ -165,9 +168,9 @@ function eventInfo(result){
 	let endDate = moment(eventInfo.endDate).format('YYYY/MM/DD HH:mm');
 	
 	// 진행여부
-	if(eventInfo.eventStatus === 0){
+	if(eventInfo.eventStatus === '0'){
 		$('.eventStatus:radio[value="0"]').attr('checked',true); 
-	} else if(eventInfo.eventStatus === 1){
+	} else if(eventInfo.eventStatus === '1'){
 		$('.eventStatus:radio[value="1"]').attr('checked',true); 
 	}
 	// 이벤트명

@@ -4,7 +4,7 @@
 <mapper namespace="eventSQL">
 	
 	<!-- 이벤트 등록 -->
-	<insert id="eventWrite" parameterType="java.util.Map" >
+	<insert id="eventWrite" parameterType="java.util.Map">
 		<if test='isPeriodOn == 1'>
 			insert into event values(SEQ_EVENT.nextval
 									,#{eventDTO.subject}
@@ -99,12 +99,14 @@
 				, endDate=null
 			</if>
 				, logtime=sysdate
-				, productCode=#{productCode}
-				, discountRate=#{discountRate}
-				, prevDiscountRate=#{prevDiscountRate}
-				, eventStatus=#{eventStatus}
-				, eventthumbnail=#{eventThumbnail}
-			where seq=#{seq}
+				, productCode=#{eventDTO.productCode}
+				, discountRate=#{eventDTO.discountRate}
+				, prevDiscountRate=#{eventDTO.prevDiscountRate}
+				, eventStatus=#{eventDTO.eventStatus}
+				<if test="eventThumbnail != null">
+				, eventthumbnail=#{eventDTO.eventThumbnail}
+				</if>
+			where seq=#{eventDTO.seq}
 	</update>
 	
 	<!-- 이벤트 삭제 -->
@@ -180,4 +182,16 @@
 		connect by level <= regexp_count(discountrate, ',') + 1
 		]]>
 	</select>
+	
+	<!-- 메인 화면 이벤트 노출 -->
+	<select id="getEventListMain" resultType="event">
+		select * from
+			(select rownum rn, temp.* from 
+				(select subject, eventThumbnail from event where eventStatus = 1 order by startDate)
+			 temp)
+		<![CDATA[
+		where rn between 1 and 3
+		]]>
+	</select>
+	
 </mapper>

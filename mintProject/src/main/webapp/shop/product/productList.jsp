@@ -534,6 +534,8 @@ function paging(totalArticle, currentPage, addr){
 		renderCategoryNew('NEW');
 	}else if(headGubun ==='2'){
 		renderCategoryNew('베스트');
-	}
+	}else if(headGubun === '3'){
+        renderCategoryNew('알뜰상품');
+    }
 
 </script>

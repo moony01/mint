@@ -80,10 +80,8 @@
 	        </tr>
 	        <tr>
 	       	 	<th>이벤트 대표 이미지</th>
-				<td>
-					<input id="event_thumbnail_img" name="event_thumbnail_img" accept=".jpg, .jpeg, .png" type="file">
-					
-					
+				<td class="table--left event-Thumbnail">
+					<input id="event_thumbnail_img" name="event_thumbnail_img" accept=".jpg, .jpeg, .png" type="file">					
 				</td>
 			</tr>
 	    </table>

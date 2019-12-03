@@ -36,6 +36,7 @@
 		join   product using (productCode)
 		join   orderInfo using (ordernumber)
 		where  orderNumber = #{ordernumber}
+		order by orderNumber desc
 	</select>
 	<select id="getMyOrderDetails" parameterType="String" resultType="java.util.Map">
 		select m.name as memname, m.tel as memtel, m.email as mememail, oi.addr1 as addr1, oi.addr2 as addr2, oi.tel as tel,
@@ -110,7 +111,7 @@
 	
 	<insert id="insertOrderDetail" parameterType="java.util.Map">
 		<selectKey keyProperty="orderNumber" resultType="Long" order="BEFORE">
-			select orderNumber from orderInfo where id=#{id} and rownum = 1 order by orderNumber desc
+			select max(orderNumber) from orderInfo where id=#{id}
 		</selectKey>
 		
 		insert into orderDetails values (

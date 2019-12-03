@@ -133,31 +133,25 @@ pageEncoding="UTF-8"%>
                     src="/mintProject/shop/storage/mint/icon/distate-20.png"
                     alt=""
                 />
-                <img
-                    src="https://img-cf.kurly.com/shop/data/goods/1574932903992z0.jpg"
-                    alt=""
-                    class="special-thumb"
-                />
+                <div class="ds-thumbnail special-thumb"></div>
+
                 <div class="main__special-count">
-                    <div class="special-count">15:25:00</div>
-                    남음
+                    <div class="special-count" id="dscd">
+					  <span class="timeel hours">00</span>
+					  <span class="timeel timeRefHours">시간</span>
+					  <span class="timeel minutes">00</span>
+					  <span class="timeel timeRefMinutes">분</span>
+					  <span class="timeel seconds">00</span>
+					  <span class="timeel timeLeft">초 남음</span>
+					</div>
                 </div>
             </a>
             <div class="main__special-info">
-                <div class="main__special-subject">
-                    [미스터비엣] 인스턴트 커피 더블세트 (블랙 + 4in1)
-                </div>
-
-                <div class="main__special-desc">
-                    베트남의 맛과 향기를 그대로
-                </div>
+                <div class="ds-mainsubject main__special-subject"></div>
+                <div class="ds-subsubject main__special-desc"></div>
                 <div class="main__speical-total">
-                    <span class="main__special-price">
-                        8,650원
-                    </span>
-                    <span class="main__special-cost">
-                        17,300원
-                    </span>
+                    <span class="ds-eventprice main__special-price"></span>
+                    <span class="ds-price main__special-cost"></span>
                 </div>
             </div>
         </div>
@@ -166,7 +160,7 @@ pageEncoding="UTF-8"%>
     <!-- 알뜰 상품 슬라이더 -->
     <div class="main__event">
         <div class="main__event-tit">
-            <a href="">알뜰 상품</a>
+            <a href="/mintProject/productList/getProductList?gubun=3&headGubun=3&pg=1">알뜰 상품</a>
         </div>
         <div class="swiper-container main__event-slide2">
             <div class="swiper-wrapper">
@@ -225,7 +219,7 @@ pageEncoding="UTF-8"%>
     <!-- 이벤트 소식 -->
     <div class="main__news">
         <div class="main__event-tit">
-            <a href="">이벤트 소식</a>
+            <a href="/mintProject/shop/goods/event">이벤트 소식</a>
         </div>
         <ul class="news__list">
             <li class="news__item">
@@ -266,7 +260,7 @@ pageEncoding="UTF-8"%>
     <!-- 신상품 슬라이더 -->
     <div class="main__event">
         <div class="main__event-tit">
-            <a href="">오늘의 신상품</a>
+            <a href="/mintProject/productList/getProductList?gubun=3&headGubun=1&pg=1">오늘의 신상품</a>
         </div>
         <div class="swiper-container main__event-slide3">
             <div class="swiper-wrapper">
@@ -324,11 +318,7 @@ pageEncoding="UTF-8"%>
     </div>
 </main>
 
-<%-- 일일특가 --%>
-일일특가
-<br>
-24시간 동안만 진행되는 깜짝 특가!
-<br>
+
 
 <%-- 일일특가 임시 카운트다운 --%>
 <div class="dailyspecial-countdown" id="dscd">

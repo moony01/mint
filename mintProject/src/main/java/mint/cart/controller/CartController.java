@@ -68,6 +68,10 @@ public class CartController {
 		ModelAndView mav = new ModelAndView();
 		
 		//카드 담을때 같은 상품이 있나 확인
+		//아이디 추가_20191202
+		String memId = (String) session.getAttribute("memId");
+		map.put("memId", memId);
+		
 		int cnt  = cartService.getSameCart(map);
 		
 		if(cnt > 0) {

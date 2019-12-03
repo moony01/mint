@@ -92,26 +92,23 @@ function paging(result){
 	let totalProduct = result.totalProduct;
 	let currentPage = result.pg;
 	
-	let pageBlock = 3;
-	let pageSize = 5;
+	let pageBlock = 5;
+	let pageSize = 10;
 	
 	let temp = Math.ceil(currentPage / pageBlock);
 	let totalPage = Math.floor((totalProduct + pageSize - 1) / pageSize);
 	let startPage = Math.ceil((temp-1)/pageBlock) * pageBlock +1; 
 	let endPage = startPage + pageBlock -1;
 	
-
-	let href = "";
-	
 	
 	if(endPage > totalPage) endPage = totalPage;
 
 	if(startPage > pageBlock){
-		$('.prev').append($('<a/>', {
+		$('.pagination').append($('<a/>', {
 			class: 'page-link', 
 			href: addr+'?pg='+(startPage-1),
 			text: '<'
-		})).appendTo('.pagination');
+		}));
 	}
 	
 	
@@ -130,11 +127,11 @@ function paging(result){
 	}
 	
 	if(endPage < totalPage) {
-		$('.next').append($('<a/>', {
+		$('.pagination').append($('<a/>', {
 			class: 'page-link', 
 			href: addr+'?pg='+(endPage+1),
 			text: '>'
-		})).appendTo('.pagination');
+		}));
 	}
 	
 	
@@ -185,6 +182,8 @@ function eventInfo(result){
 		$('#datetimepickerStart').val(startDate);
 		$('#datetimepickerEnd').val(endDate);
 	}
+	// 섬네일
+	$('.event-Thumbnail').append('<span><a>'+eventInfo.eventThumbnail+'</a></span>');
 			
 }
 
@@ -358,6 +357,12 @@ $('#addEventProductBtn').click(function(){
 			inputProductCode.push(value);
 		});
 
+		let presentProductCode = [];
+		for(var i=0; i < $('.eventProductRow').length; i++) {
+			let value = $('.pcheck').eq(i).val();
+			presentProductCode.push(value);
+		}
+		
 		$.ajax({
 			type:'post',
 			url:'/mintProject/admin/service/addProduct',
@@ -370,6 +375,10 @@ $('#addEventProductBtn').click(function(){
 				console.error(error);
 			}
 		});	
+		
+		
+		
+		
 	}
 });
 

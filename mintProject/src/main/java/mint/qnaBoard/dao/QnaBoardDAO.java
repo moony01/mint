@@ -10,7 +10,7 @@ public interface QnaBoardDAO {
 
 	public List<QnaBoardDTO> getQnaBoardList(Map<String, String> map);
 
-	public List<OrderAndSalesDTO> getOrderList(String email);
+	public List<Map<String,String>> getOrderList(String memId);
 
 	public void qnaBoardWrite(QnaBoardDTO qnaBoardDTO);
 

@@ -83,6 +83,7 @@ public class EventController {
 		model.addAttribute("seq", seq);
 		model.addAttribute("type", type);
 		model.addAttribute("display", "/admin/service/eventWrite.jsp");
+		model.addAttribute("filePath", "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/product/");
 		return "/admin/main/admin";
 	}
 	
@@ -118,7 +119,7 @@ public class EventController {
 		List<ProductDTO> list = eventService.getEventProductList(map2);
 				
 		int totalArticle = list.size();
-	
+		
 		// mainCategory : 1 //subCategory : 2 //headerGubun
 		mav.addObject("gubun", map.get("gubun"));
 		// 신상품 : 1 //별점순 : 2 // 낮은 가격순 : 3 // 높은 가격순 : 4
@@ -285,6 +286,7 @@ public class EventController {
 	@RequestMapping(value="/admin/service/eventDelete", method=RequestMethod.POST)
 	@ResponseBody
 	public void eventDelete(@RequestParam String[] check) {
+		// 파일 삭제도 추가해야함
 		Map<String, String[]> map = new HashMap<String,String[]>();
 		map.put("array", check);
 		eventService.eventDelete(map);

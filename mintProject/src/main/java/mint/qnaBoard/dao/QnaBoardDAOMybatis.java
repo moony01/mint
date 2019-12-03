@@ -23,11 +23,8 @@ public class QnaBoardDAOMybatis implements QnaBoardDAO {
 	}
 
 	@Override
-	public List<OrderAndSalesDTO> getOrderList(String email) {
-		//회원가입이 일단 없으므로 임시로 테스트함..
-		String eemail = "sonsangz@naver.com";
-		
-		return sqlsession.selectList("qnaBoardSQL.getOrderList", eemail);
+	public List<Map<String,String>> getOrderList(String memId) {
+		return sqlsession.selectList("qnaBoardSQL.getOrderList", memId);
 	}
 
 	@Override

@@ -201,7 +201,7 @@
     display: flex;
     height: 330px;
 }
-.board-write__write-btn {
+.board-write__write-btn, .board-modify__modify-btn  {
     cursor: pointer;
     margin-top: 50px;
     width: 160px;
@@ -1213,7 +1213,7 @@
     line-height: 28px;
 }
 
-.grade-icon {
+.grade-icon-1 {
     display: inline-block;
     border: 1px solid #949296;
     color: #949296;

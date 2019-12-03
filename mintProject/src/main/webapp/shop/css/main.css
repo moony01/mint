@@ -229,6 +229,16 @@
     margin-top: 17px;
 }
 
+/* 임창현 이벤트 이미지 css 추가 */
+.dailyspecial-thumb{
+	background-position:50% 50%;
+	background-size:cover;
+}
+.news__thumb {
+	background-position:60% 50%;
+	background-size:cover;
+}
+
 
 /* 모바일 사이즈 */
 @media (min-width: 320px) and (max-width: 480px) {

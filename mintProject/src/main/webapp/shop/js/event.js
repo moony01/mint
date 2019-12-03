@@ -93,17 +93,17 @@ function dailySpecialInfo(seq, discountRate){
 			$('.ds-subsubject').text(subSubject);
 			$('.ds-price').text(price+'원');
 			$('.ds-eventprice').text(eventPrice+'원');
-			$('.ds-thumbnail').html('<img class="dailyspecial-thumb" src="/mintProject/shop/storage/mint/product/'+thumbnail+'">');
-			console.log(discountRate);
-			if(discountRate === 10){
+			$('.ds-thumbnail').addClass('dailyspecial-thumb').css({'background-image':'url(http://localhost:8080/mintProject/shop/storage/mint/product/'+thumbnail+')'});
+
+			if(discountRate === '10'){
 				$('.main__special-thumb').append('<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png"/>');				
-			}else if(discountRate === 20){
+			}else if(discountRate === '20'){
 				$('.main__special-thumb').append('<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png"/>');			
-			}else if(discountRate === 30){
+			}else if(discountRate === '30'){
 				$('.main__special-thumb').append('<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png"/>');				
-			}else if(discountRate === 40){
+			}else if(discountRate === '40'){
 				$('.main__special-thumb').append('<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png"/>');				
-			}else if(discountRate === 50){
+			}else if(discountRate === '50'){
 				$('.main__special-thumb').append('<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png"/>');				
 			}
 		},

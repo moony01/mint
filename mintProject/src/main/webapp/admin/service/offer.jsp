@@ -32,15 +32,7 @@
     </table>
     <div class="paging">
         <ul class="pagination">
-        	  <li class="page-item prev"></li>
-              <li class="page-item next"></li>
-            <!-- <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-            <li class="page-item"><a class="page-link" href="#">&lsaquo;</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">&rsaquo;</a></li>
-            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li> -->
+           
         </ul>
     </div>
     <div class="main__btns">

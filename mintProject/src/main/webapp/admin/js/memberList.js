@@ -16,6 +16,17 @@ $().ready(function(){
 	.catch();
 });
 
+//엔터키 입력 가능
+$('#sword_m').keypress(function(e) {
+    if (e.keyCode == 13) {
+    	searchValue = $('#sword_m').val();
+        
+        getList(option, searchValue)
+    	.then(printList)
+    	.catch();
+    }
+});
+
 //ajax로 옵션에 따라 list 가져옴. 
 function getListByOption(select){
 	option = select.children('option:selected').val();

@@ -69,7 +69,7 @@
 	            </div>
                 <div class="searches">
                 	<label style="margin-top: 12px;">상호명 검색</label> &emsp; 
-                	<input type="text" name="searchValue" class="daterange-txt" placeholder="검색 해주세요" style="padding-left: 10px;">
+                	<input type="text" name="searchValue" id="sword_m" class="daterange-txt" placeholder="검색 해주세요" style="padding-left: 10px;">
                     <div class="search">
                         <p class="searchButton daterange-search-btn" onclick="getListBySearch($(this))">
                             <i class="fa fa-search"></i>

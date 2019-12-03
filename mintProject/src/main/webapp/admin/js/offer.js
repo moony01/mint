@@ -90,14 +90,23 @@ function paging(totalArticle, currentPage, addr){
 	let endPage = startPage + pageBlock -1;
 
 	if(endPage > totalPage) endPage = totalPage;
+	
+	$('<li/>').attr('class', 'page-item prev-first').append($('<a/>', {
+		class: 'page-link', 
+		href: 'javascript:void(0)',
+		onclick: 'getSuggestBoardByOption(' + 1 + ')',
+		text: '<<'
+	})).appendTo('.pagination');
+	
 
 	if(startPage > pageBlock){
-		$('.prev').append($('<a/>', {
+		$('<li/>').attr('class', 'page-item prev').append($('<a/>', {
 			class: 'page-link', 
 			href: 'javascript:void(0)',
 			onclick: 'getSuggestBoardByOption(' +(startPage-1)+ ')',
 			text: '<'
 		})).appendTo('.pagination');
+
 	}
 
 	for(i = startPage; i <= endPage ; i++) {
@@ -116,12 +125,20 @@ function paging(totalArticle, currentPage, addr){
 	}
 	
 	if(endPage < totalPage) {
-		$('.next').append($('<a/>', {
+		$('<li/>').attr('class', 'page-item next').append($('<a/>', {
 			class: 'page-link', 
 			href: 'javascript:void(0)',
 			onclick: 'getSuggestBoardByOption('+(endPage+1)+')',
 			text: '>'
 		})).appendTo('.pagination');
 	}
+	
+	$('<li/>').attr('class', 'page-item prev-last').append($('<a/>', {
+		class: 'page-link', 
+		href: 'javascript:void(0)',
+		onclick: 'getSuggestBoardByOption(' + endPage + ')',
+		text: '>>'
+	})).appendTo('.pagination');
+	
 
 }

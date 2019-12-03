@@ -53,8 +53,8 @@ $('.btnDelete').click(function(){
 
 //페이징 처리
 function paging(totalArticle, currentPage, addr){
-	let pageBlock = 3;
-	let pageSize = 3;
+	let pageBlock = 5;
+	let pageSize = 5;
 	let temp = Math.ceil(currentPage / pageBlock);
 	let totalPage = Math.floor((totalArticle+pageSize-1) / pageSize);
 	let startPage = Math.ceil((temp-1)/pageBlock) * pageBlock +1; 

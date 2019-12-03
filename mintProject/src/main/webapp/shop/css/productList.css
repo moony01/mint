@@ -137,6 +137,23 @@
 .product__thumb {
     position: relative;
 }
+/* 솔드아웃 */
+.sold-out {
+    opacity: 0.6;
+}
+.sold-out::after {
+    content: '준비중인 상품입니다.';
+    position: absolute;
+    top: 45%;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-weight: 700;
+    font-size: 28px;
+    color: #fff;
+}
 /* 할인율 이미지 */
 .discount-rate {
     width: 66px;

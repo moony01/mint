@@ -3,7 +3,8 @@
     margin: 0 auto;
 }
 .header {
-    width: 100%;
+    width: 1050px;
+    margin: 0 auto;
     position: relative;
 }
 .header__deliver-img {
@@ -38,8 +39,10 @@
     display: flex;
     justify-content: center;
     position: relative;
+    width: 550px;
     height: 80px;
     top: -10px;
+    margin: 0 auto;
 }
 .header__main-logo {
     width: 100px;

@@ -238,7 +238,7 @@
 	#lnbMenu{display: block;}
 	.menu_shortcut{display: block;}
 	
-	.header{position: fixed; z-index: 2;}
+	.header{position: fixed; z-index: 2; width: 100%;}
 	.header .header__main-wrap{height: 60px; top: 0; background: #45b8ac;}
 	.header .header__main-logo{width: 15vw; position: relative; top: 50%; transform: translateY(-50%);}
 	.header .cart_count{

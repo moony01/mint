@@ -60,7 +60,7 @@
 .gnb__list {
     display: flex;
     align-items: center;
-    width: 1050px;
+    min-width: 1050px;
     margin: 0 auto;
     position: relative;
 }
@@ -241,7 +241,7 @@
     border-bottom: #e3e7ee 1px solid;
     width: 100%;
     top: 0;
-    z-index: 100;
+    z-index: 150;
 }
 .footer {
     height: 200px;

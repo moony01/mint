@@ -1,100 +1,184 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
 }
 body {
-	line-height: 1;
+    line-height: 1;
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+    list-style: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+    quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
-a,a:hover,a:active{
+a,
+a:hover,
+a:active {
     text-decoration: none;
     color: black;
 }
-*,*:after,*:before{
-	box-sizing: border-box;
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
 }
 
-body{
-	min-width: 1080px;
-	font-family: 'Noto Sans KR', sans-serif;
-	background:#FFFFFF;
-	font-size: 12px;
-	font-weight: 400;
+body {
+    min-width: 1080px;
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #ffffff;
+    font-size: 12px;
+    font-weight: 400;
 }
-.size-1{
-	width: 8.33%;
+.size-1 {
+    width: 8.33%;
 }
-.size-2{
-	width: 16.66%;
+.size-2 {
+    width: 16.66%;
 }
-.size-3{
-	width: 25%;
+.size-3 {
+    width: 25%;
 }
-.size-4{
-	width: 33.32%;
+.size-4 {
+    width: 33.32%;
 }
-.size-5{
-	width: 41.66%;
+.size-5 {
+    width: 41.66%;
 }
-.size-6{
-	width: 50%;
+.size-6 {
+    width: 50%;
 }
-.size-7{
-	width: 58.31%;
+.size-7 {
+    width: 58.31%;
 }
-.size-8{
-	width: 66.64%;
+.size-8 {
+    width: 66.64%;
 }
-.size-9{
-	width: 75%;
+.size-9 {
+    width: 75%;
 }
-.clearfix::after{
-	content: "";
-	display: block;
-	clear: both;
+.clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
 }
-.out{
-	position: absolute;
-	top: -9999px;
+.out {
+    position: absolute;
+    top: -9999px;
 }
-
-tr,td,th{
-	vertical-align:middle;
+pre {
+    all: unset;
 }

@@ -157,7 +157,7 @@ pageEncoding="UTF-8"%>
 				<th><hr class="tb-line" /></th>
 				<td><hr class="tb-line" /></td>
 			</tr>
-			<tr class="bill-tb__col_sale">
+			<tr class="bill-tb__col_sale bill-tb__col">
 				<th>상품할인금액</th>
 				<td>- <span></span> 원</td>
 			</tr>
@@ -167,7 +167,7 @@ pageEncoding="UTF-8"%>
 					<span>${deleveryPrice }</span> 원
 				</td>
 			</tr>
-			<tr class="bill-tb__col_point">
+			<tr class="bill-tb__col_point bill-tb__col">
 				<th>적립금사용</th>
 				<td><span class="pointUse"></span> 원</td>
 			</tr>

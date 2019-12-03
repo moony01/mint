@@ -595,3 +595,19 @@
         display: none;
     }
 }
+
+.member-benefit {
+    width: 700px;
+    position: relative;
+}
+.member-benefit img {
+    width: 700px;
+    height: 700px;
+}
+
+#modal-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 200;
+}

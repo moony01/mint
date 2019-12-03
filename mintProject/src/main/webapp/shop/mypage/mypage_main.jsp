@@ -15,7 +15,9 @@ pageEncoding="UTF-8"%>
                     </div>
                 </div>
                 <div class="grades">
-                    <span class="grade-icon-2">전체 등급 보기</span>
+                    <span class="grade-icon-2" id="allBenefits"
+                        >전체 등급 보기</span
+                    >
                     <span class="grade-icon-2">다음 달 예상 등급 보기</span>
                 </div>
             </div>
@@ -30,39 +32,70 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 </div>
+<div class="notice-modal hidden">
+    <div class="notice-modal__overlay"></div>
+    <div class="notice-modal__content member-benefit">
+        <div class="member-benefit__wrapper">
+            <div class="notice-modal__close-btn" id="modal-close"></div>
+            <img
+                src="/mintProject/shop/storage/mint/icon//member-benefit.png"
+                alt=""
+            />
+        </div>
+    </div>
+</div>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script>
-    let level;
-    let pointRate;
-    if(${memLevel } == 0) {
-    	level = '일반';
-    	pointRate = '5%';
-    } else if(${memLevel } == 1) {
-    	level = '우수';
-    	pointRate = '7%';
-    } else if(${memLevel } == 2) {
-    	level = '최우수';
-    	pointRate = '10%';
-    } else if (${memLevel } == 5) {
-    	level = '관리자';
+        let level;
+        let pointRate;
+        if(${memLevel } == 0) {
+        	level = '일반';
+        	pointRate = '5%';
+        } else if(${memLevel } == 1) {
+        	level = '우수';
+        	pointRate = '7%';
+        } else if(${memLevel } == 2) {
+        	level = '최우수';
+        	pointRate = '10%';
+        } else if (${memLevel } == 5) {
+        	level = '관리자';
+        }
+
+        $('.memLevel').text(level);
+        if(${memLevel } != 5) {
+        	$('.pointRate').append(pointRate + ' 적립');
+
+        }
+
+        $.ajax({
+        	type:'post',
+        	url: '/mintProject/shop/mypage/getPoint',
+        	dataType: 'text',
+        	success: function(result){
+        		if(${memLevel } != 5) {
+        			$('.point').prepend(result);
+        		}
+        	},
+        	error: function(){}
+        });
+
+
+    const modal = document.querySelector('.notice-modal'),
+        overlay = modal.querySelector('.notice-modal__overlay'),
+        closeBtn = modal.querySelector('#modal-close'),
+        benefitOpenBtn = document.querySelector("#allBenefits");
+
+
+    function closeModal() {
+        modal.classList.add('hidden');
     }
 
-    $('.memLevel').text(level);
-    if(${memLevel } != 5) {
-    	$('.pointRate').append(pointRate + ' 적립');
-
+    function openModal() {
+        modal.classList.remove('hidden');
     }
 
-    $.ajax({
-    	type:'post',
-    	url: '/mintProject/shop/mypage/getPoint',
-    	dataType: 'text',
-    	success: function(result){
-    		if(${memLevel } != 5) {
-    			$('.point').prepend(result);
-    		}
-    	},
-    	error: function(){}
-    });
+    benefitOpenBtn.addEventListener("click",openModal)
+    overlay.addEventListener('click', closeModal);
+    closeBtn.addEventListener('click', closeModal);
 </script>

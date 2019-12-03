@@ -71,7 +71,7 @@ public class ProductQnaBoardController {
 	}
 	
 	@RequestMapping(value="/shop/product/productQnaBoardList")
-	public String productQnaBoardList(@RequestParam (required = false, defaultValue = "1")String pg, String productCode, HttpSession session, Model model) {
+	public String productQnaBoardList(@RequestParam (required = false, defaultValue = "1")String pg, String productCode, String subCategory, HttpSession session, Model model) {
 		int totalArticle = 0;
 		List<Map<String, Object>> list = null;
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -86,36 +86,19 @@ public class ProductQnaBoardController {
 		model.addAttribute("totalArticle", totalArticle);
 		model.addAttribute("addr", "/shop/product/productQnaBoardList");
 		model.addAttribute("list", list);
+		model.addAttribute("productCode", productCode);
+		model.addAttribute("subCategory", subCategory);
 		model.addAttribute("memId",(String)session.getAttribute("memId"));
 		return "/shop/product/productView_productQna";
 	}
 	
-	@RequestMapping(value="/shop/service/productQnaBoardModifyForm")
-	public String productQnaModifyForm(@RequestParam String productCode, String seq, Model model, HttpSession session) { // 여기서 seq는 rn이 아니가 pk seq
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("productCode", productCode);
-		map.put("seq", seq);
-		
-//		ProductQnaBoardDTO productQnaBoardDTO = productQnaBoardService.getProductQnaBoard(map);
-		
-		model.addAttribute("productCode", productCode);
-		model.addAttribute("seq", seq); // rn이 아니라 productQnaBoard에서 pk로 정해진 seq
-//		model.addAttribute("productQnaBoardDTO", productQnaBoardDTO);
-		model.addAttribute("memId", (String) session.getAttribute("memId"));
-		model.addAttribute("display","/shop/service/productQnaModifyForm.jsp");
-		return "/shop/main/index";
-	}
-	
-	@RequestMapping(value="/shop/service/productQnaBoardModify")
+	@RequestMapping(value="/shop/service/productQnaDelete")
 	@ResponseBody
-	public void productQnaModify(@RequestParam Map<String, String> map) {
-		if(map.get("secretCheckBox")==null) { // 비밀글 체크 안했을때
-			 map.put("secretCheckBox", "0"); 
-		}
-//		productQnaBoardService.modifyProductQnaBoard(map);
+	public void productQnaDelete(@RequestParam String seq) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("seq", seq);
+		productQnaBoardService.deleteProductQna(map);
 	}
-	
-	
 	
 	//=======관리자=====================================================================================
 	

@@ -107,7 +107,6 @@ $("#writeReview").click(function(){
 });
 
 
-
 function getReview(sort,pg_review) {
 	return $.ajax({
 		method: "POST",
@@ -160,7 +159,7 @@ function getReviewStarAvg() {
 						$("#starAvg").text('0');
 						$("#starImgArea").addClass("star-lg-"+convertStar(0));
 					} else {
-						$("#starAvg").text((Number(data.map.STAR)/10).toFixed(2));
+						$("#starAvg").text((Number(data.map.STAR)/10).toFixed(1));
 						$("#starImgArea").addClass("star-lg-"+convertStar(data.map.STAR));
 					}
 				}
@@ -179,7 +178,7 @@ function getProductQnaList(pg_qna){
 	return $.ajax({
 		type : 'post',
     	url : '/mintProject/shop/product/productQnaBoardList',
-    	data : {'productCode' : $('#productCode').val(), 'pg' : pg_qna},
+    	data : {'productCode' : $('#productCode').val(), 'pg' : pg_qna, 'subCategory' : $('#subCategory').val()},
     	dataType : 'text',
 	});
 }
@@ -483,6 +482,8 @@ $("#stockAlarm_btn").click(function(){
 		}
 	});
 });
+
+
 	
 
 

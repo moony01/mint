@@ -102,7 +102,7 @@ function createChart(chartData){
         }
     });
 	Highcharts.stockChart('supplierSalesChart',{
-		chart : {type : 'line'}, 
+		chart : {type : 'line'},  
 		colors: ['#3399CC'], 
 		series : [{
 			gapSize : 1,
@@ -114,10 +114,18 @@ function createChart(chartData){
 			tickInterval : 24 * 3600 * 1000, // one day,
 			ordinal : false
 		},
+		yAxis : {
+			title : {
+				text : ''
+			}
+		},
 		tooltip : {
 			pointFormat: '<b>{point.y:,.0f} 원</b><br/>',
 			valueDecimals: 2
-		}
+		},
+		title: { text: '' },
+		legend: { enabled: false },
+	    credits: { enabled: false }
 	});
 }
 </script>

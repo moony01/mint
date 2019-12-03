@@ -33,4 +33,8 @@
 	<insert id="writeProductQna">
 		insert into productQnaBoard(seq,productCode,id,subject,content,secretStatus,logtimeQ)values(seq_productQnaBoard.nextval,#{productCode},#{id},#{subject},#{summernote},#{secretStatus},sysdate)
 	</insert>
+	<!-- 문의글 삭제 -->
+	<delete id="deleteProductQna" parameterType="java.util.Map">
+		delete from productQnaBoard where seq = #{seq}
+	</delete>
 </mapper>

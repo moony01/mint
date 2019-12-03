@@ -109,7 +109,7 @@
                             />
                             <input
                                 type="text"
-                                class="shipping-tb__addr2"
+                                class="shipping-tb__addr2 read-only"
                                 id="addr2"
                                 value="${orderDetails.ADDR2 }"
                                 readonly
@@ -119,19 +119,19 @@
                     <tr class="shipping-tb__name">
                         <th class="size-2">수령인 이름 *</th>
                         <td class="size-10">
-                            <input type="text" value="${orderDetails.NAME }" />
+                            <input type="text" value="${orderDetails.NAME }" readonly/>
                         </td>
                     </tr>
                     <tr class="shipping-tb__phone">
                         <th class="size-2">휴대폰 *</th>
                         <td class="size-10">
-                            <input type="text" value="${orderDetails.TEL }" style="width:163px; padding-left:8px; text-align:left;">
+                            <input type="text" value="${orderDetails.TEL }" style="width:163px; padding-left:8px; text-align:left;" readonly>
                         </td>
                     </tr>
                     <tr class="shipping-tb__ask">
                         <th class="size-2">배송 요청사항</th>
                         <td class="size-10">
-                            <textArea class="shipping-tb__textarea" maxlength="50" style="resize: none;">${orderDetails.REQUEST }</textArea>
+                            <textArea class="shipping-tb__textarea" maxlength="50" style="resize: none;" readonly>${orderDetails.REQUEST }</textArea>
                         </td>
                     </tr>
                 </table>

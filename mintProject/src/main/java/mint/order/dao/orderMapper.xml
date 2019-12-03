@@ -27,6 +27,7 @@
 		<if test="from != null">
 		and logtime between to_date(#{from}, 'YYMMDDHH') and to_date(#{to}, 'YYMMDDHH') + 0.99999 
 		</if>
+		order  by logtime desc
 	</select>
 	<select id="getMyOrderProductList" parameterType="String" resultType="java.util.Map">
 		select id, mainSubject, od.qty as qty, od.price as orgprice, thumbnail, 

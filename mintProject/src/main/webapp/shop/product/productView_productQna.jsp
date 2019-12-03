@@ -18,6 +18,8 @@
 <input type="hidden" id="pg_qna" value="${pg }">
 <input type="hidden" id="totalArticle" value="${totalArticle }">
 <input type="hidden" id="addr" value="${addr }">
+<input type="hidden" id="pc" value="${productCode }">
+<input type="hidden" id="sc" value="${subCategory }">
 <table class="qna-tb">
 <tr class="qna-tb__head">
     <th class="size-1">번호</th>
@@ -36,9 +38,10 @@
     <td>${data.LOGTIMEQ }</td>
 </tr>
 <tr class="qna-tb__content">
-    <td colspan="5">${data.CONTENT }<c:if test="${data.REPLYSTATUS == '0' }">
-    	<input type="button" style="display: inline-block; float: right; border: none; margin-left: 5px;" class="review__write-btn" value="삭제">
-    	<input type="button" style="display: inline-block; float: right; border: none;" class="review__write-btn" value="수정" >
+    <td colspan="5">${data.CONTENT }<c:if test="${data.REPLYSTATUS == '0' && data.ID == memId }">
+    	<input type="hidden" value="${data.SEQ }">
+    	<input type="button" style="display: inline-block; float: right; border: none; margin-left: 5px;" class="review__write-btn pqna__delete-btn" value="삭제">
+    	<!-- <input type="button" style="display: inline-block; float: right; border: none;" class="review__write-btn pqna__modify-btn" value="수정" > -->
     	</c:if>
     </td>	
 </tr>
@@ -56,3 +59,20 @@
         <li class="page-item next"></li>
     </ul>
 </div>
+<script>
+$('.pqna__delete-btn').on('click', function(){
+	swal('작성하신 상품 문의글을 삭제하시겠습니까?')
+	.then((value) => {
+		if(value){
+			$.ajax({
+				type : 'POST',
+				data : {'seq' : $(this).prev().val()},
+				url : '/mintProject/shop/service/productQnaDelete',
+				success : function(){
+					location.href='/mintProject/shop/product/productView?productCode='+$('#pc').val()+"&subCategory="+$('#sc').val();
+				}
+			});
+		}
+	});
+});
+</script>

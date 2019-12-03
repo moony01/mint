@@ -47,4 +47,10 @@ public class ProductQnaBoardDAOMyBatis implements ProductQnaBoardDAO {
 		sqlSession.insert("productQnaBoardSQL.writeProductQna",map);
 		
 	}
+
+	@Override
+	public void deleteProductQna(Map<String, String> map) {
+		sqlSession.delete("productQnaBoardSQL.deleteProductQna",map);
+		
+	}
 }

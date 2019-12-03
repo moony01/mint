@@ -710,11 +710,10 @@
 }
 
 .member-benefit {
-    width: 700px;
     position: relative;
 }
 .member-benefit img {
-    width: 700px;
+    width: 500px;
     height: 700px;
 }
 

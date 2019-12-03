@@ -35,8 +35,8 @@ import mint.product.bean.ProductDTO;
  *
  *	구현된 기능 : 이벤트 등록, 이벤트 수정, 리스트 처리, 이벤트 삭제
  *  		     이벤트 상품 리스트, 이벤트 검색, 이벤트 연동, 일일특가
- *  			상품 추가, 상품 삭제, 상품 검색
- *	불완전 기능 : 페이징 처리, 
+ *  		    상품 추가, 상품 삭제, 상품 검색
+ *	불완전 기능 : 상품 페이징 처리
  *	이슈  1. 이벤트 등록/수정에 있는 상품 리스트 AJAX페이징 불완전함 (이전, 다음 버튼 기능 미구현)
  */
 
@@ -99,39 +99,36 @@ public class EventController {
 	}
 	
 	/* 이벤트 페이지 상품 리스트 */
-	@RequestMapping(value = "/goods/getEventProductList", method = RequestMethod.GET)
+	@RequestMapping(value = "/shop/goods/eventProductList", method = RequestMethod.GET)
 	public ModelAndView getProductList(@RequestParam Map<String, Object> map) {
 		
 		ModelAndView mav = new ModelAndView();
 		
 		// EventDTO에서 productCode 가져오기
 		EventDTO eventDTO = eventService.getEvent(Integer.parseInt((String)map.get("seq")));
-				
+
 		// productcode를 배열로 변환하기
 		String[] array = eventDTO.getProductCode().split(",");
 
 		// 게시물 리스트 가져오기
 		Map<String, Object> map2 = new HashMap<String, Object>();
-		map.put("array", array);
+		map2.put("array", array);
 
 		List<ProductDTO> list = eventService.getEventProductList(map2);
 				
 		int totalArticle = list.size();
 		
-		// mainCategory : 1 //subCategory : 2 //headerGubun
-		mav.addObject("gubun", map.get("gubun"));
 		// 신상품 : 1 //별점순 : 2 // 낮은 가격순 : 3 // 높은 가격순 : 4
 		mav.addObject("selectGubun", map.get("selectGubun"));
-		//
-		// mav.addObject("headGubun", map.get("headGubun"));
 		// 페이지
 		mav.addObject("pg", map.get("pg"));
 		// 조건에 따른 상품리스트 총 갯수
-
+		mav.addObject("seq", map.get("seq"));
+		mav.addObject("eventSubject", eventDTO.getSubject());
 		mav.addObject("list", list);
 		mav.addObject("totalArticle", totalArticle);
-		mav.addObject("addr", "/mintProject/goods/getEventProductList");
-		mav.addObject("display", "/shop/product/productList.jsp");
+		mav.addObject("addr", "/mintProject/shop/goods/eventProductList");
+		mav.addObject("display", "/shop/goods/eventProductList.jsp");
 		mav.setViewName("/shop/main/index");
 
 		return mav;

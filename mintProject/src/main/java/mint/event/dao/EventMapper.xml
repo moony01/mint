@@ -187,7 +187,7 @@
 	<select id="getEventListMain" resultType="event">
 		select * from
 			(select rownum rn, temp.* from 
-				(select subject, eventThumbnail from event where eventStatus = 1 order by startDate)
+				(select seq, subject, eventThumbnail from event where eventStatus = 1 order by startDate)
 			 temp)
 		<![CDATA[
 		where rn between 1 and 3

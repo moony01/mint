@@ -136,6 +136,7 @@
 		                <if test="searchOption==4">
 		              where ordernumber like '%'||#{keyword}||'%'  
 		               </if>
+		              order by seq desc 
 		               ) tt
 		       )
 		 where rn between #{startNum} and #{endNum}               

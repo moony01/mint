@@ -47,6 +47,11 @@
 	width: 1px;
 	height: 1px;
 }
+
+#mainSubject, #subSubject{
+	width : 500px;
+
+}
 </style>
 <form name="productWriteForm" method="post" action="/mintProject/productManage/productWrite" enctype="multipart/form-data">
 	<div class="main__title">
@@ -104,11 +109,11 @@
 	        </tr>
 	        <tr>
 	            <th>큰 제목</th>
-	            <td class="table--left"><input type="text" name="mainSubject"></td>
+	            <td class="table--left"><input type="text" name="mainSubject" id="mainSubject"></td>
 	        </tr>
 	        <tr>
 	            <th>소 제목</th>
-	            <td class="table--left"><input type="text" name="subSubject"></td>
+	            <td class="table--left"><input type="text" name="subSubject" id="subSubject"></td>
 	        </tr>
 	        <tr class="write-tb__content">
 	            <th>상품 대표 이미지</th>

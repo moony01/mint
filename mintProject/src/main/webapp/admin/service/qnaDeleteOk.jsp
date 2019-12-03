@@ -9,7 +9,17 @@
 <body>
 </body>
 <script>
-	alert("삭제 완료!")
-	location.href="/mintProject/admin/service/getAdminQnaBoardList?pg=1";
+$(function(){
+	swal({
+		text : "답변 삭제완료!",
+		showConfirmButton: true,
+		//confirmButtonColor: '#8CD4F5',
+		timer : 1600
+	})
+	.then(() => {
+		location.href="/mintProject/admin/service/getAdminQnaBoardList?pg=1";
+	});
+});
 </script>
 </html>
+

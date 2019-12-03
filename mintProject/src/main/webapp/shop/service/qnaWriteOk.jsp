@@ -9,7 +9,20 @@
 <body>
 </body>
 <script>
-	alert("글쓰기 작성완료!")
-	location.href="/mintProject/qnaboard/getQnaBoardList"
+$(function(){
+	swal({
+		text : "글쓰기 작성완료!",
+		showConfirmButton: true,
+		//confirmButtonColor: '#8CD4F5',
+		timer : 1600
+	})
+	.then(() => {
+		location.href="/mintProject/qnaboard/getQnaBoardList";
+	});
+});
+	
+	
+	
+	
 </script>
 </html>

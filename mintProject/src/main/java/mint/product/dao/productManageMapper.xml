@@ -42,6 +42,7 @@
         <if test="subCategory!=null">
 	                         subCategory = #{subCategory}
         </if>
+                         and productStatus = 0
 		<!-- 신상품 : 1   인기상품순 : 2    낮은 가격순 : 3   높은 가격순 : 4 -->
  		<choose>
  	    	<when test="selectGubun==null||selectGubun==1">
@@ -73,6 +74,7 @@
         <if test="subCategory!=null">
 	           subCategory = #{subCategory}
         </if>
+           and productStatus = 0
 		<!-- 신상품 : 1   별점순 : 2    낮은 가격순 : 3   높은 가격순 : 4 -->
  		<choose>
  	    	<when test="selectGubun==null||selectGubun==1">
@@ -99,6 +101,7 @@
 		         from (   
                       select *
 		              from product
+		             where productStatus = 0
 		<!-- 신상품 : 1  베스트 : 2   알뜰 쇼핑 : 3   -->
  		<choose>
  	    	<when test="headGubun==1">
@@ -108,8 +111,8 @@
  		              order by STAR desc
  	   		</when>	
  	   		<when test="headGubun==3">
-	                  where DISCOUNTRATE >= 10 
-	                  order by price
+	                    and DISCOUNTRATE >= 10 
+	                  order by price    
 	 		</when>
  	    </choose>
  	                  ) tt
@@ -145,7 +148,8 @@
 			select * 
 		      from product
 		     where subCategory = #{subCategory}
-               and rownum <=10 
+               and rownum <=10
+               and productStatus = 0 
 		     order by productCode desc
 		]]>
 	</select>

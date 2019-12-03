@@ -19,7 +19,7 @@ $(function(){
 	});
 });
 
-function eventExecute(result){
+function eventExecute(result){	
 	let event = result.list;
 	let now = new Date();
 	var eventOngoing = null;
@@ -33,7 +33,7 @@ function eventExecute(result){
 		  , discountRate = event[i].discountRate
 		  
 		/* 이벤트 진행 여부 */
-		if(eventStatus === 1 && endCount > 0){
+		if(eventStatus === '1' && endCount > 0){
 			/* 진행중인 일일특가 카운트 다운 */
 			if(event[i].subject.indexOf('[일일특가]') !== -1){
 				var countTo = event[i].endDate;
@@ -91,10 +91,21 @@ function dailySpecialInfo(seq, discountRate){
 			let eventPrice = price-(price/100*discountRate); 
 			$('.ds-mainsubject').text(mainSubject);
 			$('.ds-subsubject').text(subSubject);
-			$('.ds-discountrate').text(discountRate+'%');
 			$('.ds-price').text(price+'원');
 			$('.ds-eventprice').text(eventPrice+'원');
 			$('.ds-thumbnail').html('<img class="dailyspecial-thumb" src="/mintProject/shop/storage/mint/product/'+thumbnail+'">');
+			console.log(discountRate);
+			if(discountRate === 10){
+				$('.main__special-thumb').append('<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png"/>');				
+			}else if(discountRate === 20){
+				$('.main__special-thumb').append('<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png"/>');			
+			}else if(discountRate === 30){
+				$('.main__special-thumb').append('<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png"/>');				
+			}else if(discountRate === 40){
+				$('.main__special-thumb').append('<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png"/>');				
+			}else if(discountRate === 50){
+				$('.main__special-thumb').append('<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png"/>');				
+			}
 		},
 		error: function(error){
 			console.error(error);

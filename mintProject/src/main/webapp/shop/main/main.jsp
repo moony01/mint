@@ -222,38 +222,19 @@ pageEncoding="UTF-8"%>
             <a href="/mintProject/shop/goods/event">이벤트 소식</a>
         </div>
         <ul class="news__list">
-            <li class="news__item">
-                <a href=""
-                    ><img
-                        src="//img-cf.kurly.com/shop/data/main/3/pc_img_1574819821.jpg"
-                        alt=""
-                        class="news__thumb"
-                /></a>
-                <div class="news__subject">사미헌 최대 20% 할인</div>
-                <div class="news__desc">부산 소고기의 명가</div>
-            </li>
-
-            <li class="news__item">
-                <a href=""
-                    ><img
-                        src="//img-cf.kurly.com/shop/data/main/3/pc_img_1574819821.jpg"
-                        alt=""
-                        class="news__thumb"
-                /></a>
-                <div class="news__subject">사미헌 최대 20% 할인</div>
-                <div class="news__desc">부산 소고기의 명가</div>
-            </li>
-
-            <li class="news__item">
-                <a href=""
-                    ><img
-                        src="//img-cf.kurly.com/shop/data/main/3/pc_img_1574819821.jpg"
-                        alt=""
-                        class="news__thumb"
-                /></a>
-                <div class="news__subject">사미헌 최대 20% 할인</div>
-                <div class="news__desc">부산 소고기의 명가</div>
-            </li>
+	        <c:forEach items="${eventList }" var="eventList">
+	            <li class="news__item">
+	                <a href=""
+	                    ><img
+	                        src="/mintProject/shop/storage/mint/event/${eventList.eventThumbnail}"
+	                        alt=""
+	                        class="news__thumb"
+	                /></a>
+	                <div class="news__subject">${eventList.subject}</div>
+	                
+	            </li>
+	
+			</c:forEach>
         </ul>
     </div>
 
@@ -318,25 +299,5 @@ pageEncoding="UTF-8"%>
     </div>
 </main>
 
-
-
-<%-- 일일특가 임시 카운트다운 --%>
-<div class="dailyspecial-countdown" id="dscd">
-  <span class="timeel hours">00</span>
-  <span class="timeel timeRefHours">시간</span>
-  <span class="timeel minutes">00</span>
-  <span class="timeel timeRefMinutes">분</span>
-  <span class="timeel seconds">00</span>
-  <span class="timeel timeLeft">초 남음</span>
-</div>
-<%-- 일일특가 상품 정보 --%>
-<div class="dailyspecial-info">
-	<div class="ds-thumbnail"></div>
-	<span class="ds-mainsubject"></span><br>
-	<span class="ds-subsubject"></span><br>
-	<span class="ds-price"></span>
-	<span class="ds-eventprice"></span>
-	<span class="ds-discountrate"></span>
-</div>
-<script type="text/javascript" src="/mintProject/shop/js/event.js"></script>
 <script src="/mintProject/shop/js/main.js"></script>
+<script type="text/javascript" src="/mintProject/shop/js/event.js"></script>

@@ -352,6 +352,7 @@ $('#addEventProductBtn').click(function(){
 	var cnt = $('.check:checked').length; // 체크된 항목 갯수 구하기
 	if(cnt===0) alert('상품을 먼저 선택하세요');
 	else {
+		// 중복 체크
 		// inputProductCode
 		let inputProductCode = [];
 		
@@ -366,18 +367,31 @@ $('#addEventProductBtn').click(function(){
 			presentProductCode.push(value);
 		}
 		
-		$.ajax({
-			type:'post',
-			url:'/mintProject/admin/service/addProduct',
-			data: 'inputProductCode='+inputProductCode,
-			dataType:'json',
-			success: function(result){
-				eventProductListTemp(result);
-			},
-			error: function(error){
-				console.error(error);
+		
+		var cnt = 0
+		for(var i=0; i<presentProductCode.length; i++){
+			if(inputProductCode.indexOf(presentProductCode[i])!== -1){
+				cnt++;
 			}
-		});	
+		}
+		
+		if(cnt === 0){
+			$.ajax({
+				type:'post',
+				url:'/mintProject/admin/service/addProduct',
+				data: 'inputProductCode='+inputProductCode,
+				dataType:'json',
+				success: function(result){
+					eventProductListTemp(result);
+				},
+				error: function(error){
+					console.error(error);
+				}
+			});	
+		} else {
+			alert('중복 추가할 수 없습니다');
+		}
+		
 		
 		
 		

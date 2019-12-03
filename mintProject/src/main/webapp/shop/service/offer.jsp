@@ -18,10 +18,10 @@
         <h2 class="service__main-title">상품 제안</h2>
         <ul class="service__manual">
             <li>
-                <p class="txt">MINT에서 추가적으로 판매되면 좋을 상품을 제안해주세요.</p>
+                <p class="txt">민트에서 추가적으로 판매되면 좋을 상품을 제안해주세요.</p>
             </li>
             <li>
-                <p class="txt">고객님의 의견을 발 빠르게 반영하여 더욱 편리한 MINT가 되겠습니다.</p>
+                <p class="txt">고객님의 의견을 발 빠르게 반영하여 더욱 편리한 민트가 되겠습니다.</p>
             </li>
             <li>
             
@@ -55,7 +55,7 @@
                     	<c:if test="${suggestBoardDTO.imgName != null }">
                     		<img alt="" src="/mintProject/shop/storage/member/offer/${suggestBoardDTO.imgName}" width="400px" height="300px"><br>
                     	</c:if>
-                    	<pre style="background-color: #fff; ">${suggestBoardDTO.content }</pre>
+                    	<pre>${suggestBoardDTO.content }</pre>
                     	<c:if test="${suggestBoardDTO.replyStatus == 0 }">
 	                    	<div style="display: flex;  flex-direction:row-reverse;" >
 	                    		<input type="button" class="btnDelete" value="삭제" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;">

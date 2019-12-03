@@ -210,7 +210,7 @@
 
 .news__item img {
     width: 338px;
-    height: 338px;
+    height: 260px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -227,4 +227,98 @@
     color: #999;
     text-align: center;
     margin-top: 17px;
+}
+
+/* 임창현 이벤트 이미지 css 추가 */
+.dailyspecial-thumb{
+	background-position:50% 50%;
+	background-size:cover;
+}
+.news__thumb {
+	background-position:73% 50%;
+	background-size:cover;
+}
+
+/* 한문희 */
+.slide_mobile1{display: none;}
+.slide_mobile2{display: none;}
+.slide_mobile3{display: none;}
+
+
+/* 모바일 사이즈 */
+@media (min-width: 320px) and (max-width: 480px) {
+	body{min-width: 100%;}
+	.my-page{display: none;}
+	.gnb{display: none;}
+	#lnbMenu{display: block;}
+	.menu_shortcut{display: block;}
+	
+	.slide_pc1{display: none;} .slide_mobile1{display: block;}
+	.slide_pc2{display: none;} .slide_mobile2{display: block;}
+	.slide_pc3{display: none;} .slide_mobile3{display: block;}
+	
+	.header{position: fixed; z-index: 2; width: 100%;}
+	.header .header__main-wrap{width: 100%; height: 60px; top: 0; background: #45b8ac;}
+	.header .header__main-logo{width: 15vw; position: relative; top: 50%; transform: translateY(-50%);}
+	.header .cart_count{
+		display: block;
+		position: absolute;
+	    width: 50px;
+	    height: 50px;
+		right: 0;
+	    top: 50%;
+		transform: translateY(-50%);
+	    background: url(https://res.kurly.com/mobile/service/common/1908/ico_cart_fff_100x100.png) no-repeat 0 0;
+    	background-size: 50px;
+	}
+	.header .cart_count .screen_out{
+	    display: block;
+	    overflow: hidden;
+	    position: absolute;
+	    left: -9999px;
+	    width: 1px;
+	    height: 1px;
+	    font-size: 0;
+	    line-height: 0;
+	    text-indent: -9999px;
+	}
+	
+	.main{padding-top: 105px;}
+	.main__banner{display: block;}
+	.main__banner .main__banner-slide{height: 70vw;}
+	.main__banner .main__banner-slide .swiper-slide img{height: 100%; left: 90%;}
+	.main__banner .main__event-tit{font-size: 15vw;}
+	.main__banner .banner-slide-btn{opacity: 1; z-index: 1;}
+	.main__banner .banner-slide-btn img{width: 10vw;}
+	.main__banner .banner-btn--left{left: 5px;}
+	.main__banner .banner-btn--right{right: 5px;}
+	
+	.main > div:nth-child(even){display: block;}
+	.main__event{width: 100%; display: none; padding-bottom: 20px;}
+	.main__event .swiper-container{width: 95%;}
+	.main__event .swiper-container .swiper-slide.swiper-slide-active{margin-right: 3vw !important;}
+	.main__event .swiper-container .main__event-thumb{width: 100%; height: auto;}
+	.main__event .main__event-content{height: auto;}
+	.main__event .main__event-content .main__event-info{font-size: 3vw;}
+	.main__event .event-slide-btn{top: 50%; opacity: 0.5; z-index: 1;}
+	.main__event .event-slide-btn img{width: 13vw;}
+	.main__event .slide-btn--right{left: -1.5vw;}
+	.main__event .slide-btn--left{right: -1.5vw;}
+	
+	.main__special{display: block; width: 100%; padding-top: 20px;}
+	.main__special .main__special-tit{width: 100%; padding: 0;}
+	.main__special .main__special-content{width: 95%; margin: 0 auto;}
+	.main__special .main__special-content .main__special-thumb .special-thumb{width: 100%;}
+	.main__special .main__special-content .main__special-thumb .main__special-count{z-index: 1;}
+	.main__special .main__special-content .main__special-thumb .discount-rate{z-index: 1;}
+	
+	.main__news{display: block; width: 95%; margin: 0 auto;}
+	.main__news .news__list{justify-content: flex-start;}
+	.main__news .news__item{width: 30%; height: auto; margin-right: 4.5vw;}
+	.main__news .news__item:last-child{margin-right: 0;}
+	.main__news .news__item > a{width: 100%;}
+	.main__news .news__item > .news__subject{font-size: 15px; text-align: left;}
+	
+	.dailyspecial-countdown{display: none;}
+	.dailyspecial-info{display: none;}
 }

@@ -39,7 +39,7 @@ public class MemberAdminController {
 	@RequestMapping("/admin/member/writeSupplier")
 	public String writeSupplier(@ModelAttribute SupplierDTO supplierDTO) {
 		memberService.writeMember(supplierDTO);	
-		return "redirect:/admin/main/admin"; 
+		return "redirect:/admin/member/supplierList"; 
 	}
 	
 	@RequestMapping("/admin/member/isDuplicated")

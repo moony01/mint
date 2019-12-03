@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="my-page__top-article">
+<jsp:include page="mypage_main.jsp"/>
 
-</div>
-<seciton class="service">
+<section class="service">
     <div class="snb">
         <h2 class="snb__title">마이컬리</h2>
         <ul class="snb__list">
@@ -88,7 +87,7 @@
         </div>
     </div>
     
-</seciton>
+</section>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/mintProject/shop/js/myinfo.js"></script>
 <script type="text/javascript">

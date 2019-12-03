@@ -10,7 +10,7 @@
             <ul class="product__list">
             </ul>
             <div class="product__sort">
-                <span class="sort up">신상품순</span>
+                <span class="sort up" id="sort-up">신상품순</span>
                 <ul class="sort__list">
                 	<c:if test="${list != null}">
                 		<c:if test="${gubun == 1}">
@@ -40,30 +40,58 @@
     	<c:if test="${list != null}">
     		<c:forEach var="list" items="${list}">
 		        <div class="product__item">
-		            <div class="product__thumb">
-		            	<c:if test="${list.discountRate == 10}">
-		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">
-		            	</c:if>
-		            	<c:if test="${list.discountRate == 20}">
-		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png" alt="">
-		            	</c:if>
-		            	<c:if test="${list.discountRate == 30}">
-		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png" alt="">
-		            	</c:if>
-		            	<c:if test="${list.discountRate == 40}">
-		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png" alt="">
-		            	</c:if>
-		            	<c:if test="${list.discountRate == 50}">
-		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png" alt="">
-		            	</c:if>
-		            		<!-- 삼품 이미지 클릭 시 상품 상세뷰 페이지로 이동 -->         
-		                	<a href="/mintProject/shop/product/productView?productCode=${list.productCode}&subCategory=${list.subCategory}">
-		                		<img class="thumb" src="/mintProject/shop/storage/mint/product/${list.thumbnail}" alt="">
-		                	</a>			
-		                <div class="cart-btn">
-		                    <a href="/mintProject/shop/goods/cart"><img src="/mintProject/shop/storage/mint/icon/cart_test.png" alt="" style="width: 28px"></a>
-		                </div>
-		            </div>
+		            <c:if test="${list.stock == 0}">
+		            	<div class="product__thumb sold-out">
+			            	<c:if test="${list.discountRate == 10}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 20}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 30}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 40}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 50}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png" alt="">
+			            	</c:if>
+			            		<!-- 삼품 이미지 클릭 시 상품 상세뷰 페이지로 이동 -->         
+			                	<a href="/mintProject/shop/product/productView?productCode=${list.productCode}&subCategory=${list.subCategory}">
+			                		<img class="thumb" src="/mintProject/shop/storage/mint/product/${list.thumbnail}" alt="">
+			                	</a>			
+			                <div class="cart-btn">
+			                    <a href="/mintProject/shop/goods/cart"><img src="/mintProject/shop/storage/mint/icon/cart_test.png" alt="" style="width: 28px"></a>
+			                </div>
+		            	</div>
+		            </c:if>
+		            <c:if test="${list.stock != 0}">
+		            	 <div class="product__thumb">
+			            	<c:if test="${list.discountRate == 10}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 20}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 30}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 40}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 50}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png" alt="">
+			            	</c:if>
+			            		<!-- 삼품 이미지 클릭 시 상품 상세뷰 페이지로 이동 -->         
+			                	<a href="/mintProject/shop/product/productView?productCode=${list.productCode}&subCategory=${list.subCategory}">
+			                		<img class="thumb" src="/mintProject/shop/storage/mint/product/${list.thumbnail}" alt="">
+			                	</a>			
+			                <div class="cart-btn">
+			                    <a href="/mintProject/shop/goods/cart"><img src="/mintProject/shop/storage/mint/icon/cart_test.png" alt="" style="width: 28px"></a>
+			                </div>
+		            	</div>
+		            </c:if>
 		            <div class="product__info">
 		                <div class="product__name">${list.mainSubject }</div>
 		                <div class="product__cost"> 
@@ -125,6 +153,28 @@ console.log("headGubun :   "+ headGubun)
 /* +"&mainCategory="+mainCategory+"&subCategory="+subCategory+"&gubun="+gubun+"&selectGubun="+selectGubun */
 
 paging(totalArticle, currentPage, addr);
+
+//selectbox 구분 조회후 화면 리로딩된 후 설정
+$(document).ready(function(){
+	//sort-up
+	switch (selectGubun) {
+	case "1":
+		$("#sort-up").text("신상품순");
+		break;
+	case "2":
+		$("#sort-up").text("인기상품순");
+		break;
+	case "3":
+		$("#sort-up").text("낮은 가격순");
+	break;
+	case "4":
+		$("#sort-up").text("높은 가격순");
+	break;
+
+	default:
+		break;
+	}
+});
 
 //페이징 처리
 function paging(totalArticle, currentPage, addr){

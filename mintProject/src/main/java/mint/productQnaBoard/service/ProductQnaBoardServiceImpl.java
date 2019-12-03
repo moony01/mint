@@ -45,4 +45,9 @@ public class ProductQnaBoardServiceImpl implements ProductQnaBoardService {
 		productQnaBoardDAO.writeProductQna(map);
 		
 	}
+
+	@Override
+	public void deleteProductQna(Map<String, String> map) {
+		productQnaBoardDAO.deleteProductQna(map);
+	}
 }

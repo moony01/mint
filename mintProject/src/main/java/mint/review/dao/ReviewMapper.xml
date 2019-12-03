@@ -67,6 +67,9 @@
 	<update id="updateOrderReviewPoint" parameterType="mint.review.bean.Review">
 		update member set point = point + 50 where id = #{id}
 	</update>
+	<update id="updateProductStar" parameterType="mint.review.bean.Review">
+		update product set star = star + #{star} where productCode = #{productCode}
+	</update>
 </mapper>
 
 

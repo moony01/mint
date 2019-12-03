@@ -9,7 +9,16 @@
 <body>
 </body>
 <script>
-	alert("상품 수정완료!")
-	location.href="/mintProject/admin/productAdminList?pg=1"
+$(function(){
+	swal({
+		text : "상품 수정완료!",
+		showConfirmButton: true,
+		//confirmButtonColor: '#8CD4F5',
+		timer : 1600
+	})
+	.then(() => {
+		location.href="/mintProject/admin/productAdminList?pg=1";
+	});
+});
 </script>
 </html>

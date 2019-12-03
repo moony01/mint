@@ -1,4 +1,12 @@
-
+/**
+* 관리자 페이지 faq.js
+*
+* @version 1.0
+* @author LimChangHyun
+*
+* 연동되는 파일들 : FAQBoardController.java ~ faqBoardMapper.xml
+* /admin/service/faq.jsp
+*/
 
 $(function(){
 	/* 게시판 리스트 가져오기 */ 
@@ -19,6 +27,14 @@ $(function(){
 
 /* 카테고리 선택시 게시판 리스트 불러오기 */
 $('#categorySelect').change(function(){
+	if($('#categorySelect').val() == 9){
+		location.href="/mintProject/admin/service/faq";
+	} else {		
+		faqCategory();
+	}
+});
+
+function faqCategory(){
 	// 기존 테이블 비우기
 	$('.faqRow').remove();
 	
@@ -29,13 +45,13 @@ $('#categorySelect').change(function(){
 		dataType:'json',
 		success: function(result){
 			getAdminFAQList(result);
-			$('.pagination').html(result.faqBoardPaging.pagingHTML);
+			$('.pagination').html(result.faqCategoryPaging.pagingHTML);
 		},
 		error: function(error){
 			console.error(error);
 		}
 	});
-});
+}
 
 /* 엔터키로 검색 기능  */
 $(".searchTerm").keypress(function(e){

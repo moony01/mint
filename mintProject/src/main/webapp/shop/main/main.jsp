@@ -50,10 +50,8 @@ pageEncoding="UTF-8"%>
 
     <!-- 이 상품 어때요 슬라이더 -->
     <div class="main__event">
-        <div class="main__event-tit">
-            이 상품 어때요?
-        </div>
-        <div class="swiper-container main__event-slide1">
+        <div class="main__event-tit"> 이 상품 어때요? </div>
+        <div class="swiper-container main__event-slide1 slide_pc1">
             <div class="swiper-wrapper">
             <!-- 컨텐트가 슬라이더 안에 들어가는 아이템들 짝수 단위로 넣어주세요
                             컨테트는 swiper-slide요소 안에 있어야 돼요-->
@@ -93,9 +91,52 @@ pageEncoding="UTF-8"%>
                     </div>
                 </div>
 			</c:forEach>
-  
             </div>
         </div>
+        
+        <div class="swiper-container main__event-slide1 slide_mobile1">
+            <div class="swiper-wrapper">
+            <!-- 컨텐트가 슬라이더 안에 들어가는 아이템들 짝수 단위로 넣어주세요
+                            컨테트는 swiper-slide요소 안에 있어야 돼요-->
+            <c:forEach items="${recList }" var="recProduct">
+                <div class="swiper-slide">
+                    <div class="main__event-content">
+                        <c:if test="${recProduct.discountRate == 10}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${recProduct.discountRate == 20}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${recProduct.discountRate == 30}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${recProduct.discountRate == 40}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${recProduct.discountRate == 50}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png" alt="">
+		            	</c:if>
+
+                        <a href="/mintProject/shop/product/productView?productCode=${recProduct.productCode}&subCategory=${recProduct.subCategory}">
+                            <img
+                                src="/mintProject/shop/storage/mint/product/${recProduct.thumbnail}"
+                                alt=""
+                                class="main__event-thumb"
+                            />
+                        </a>
+                        <div class="main__event-info">
+                            <span class="info-name">${recProduct.mainSubject }</span>
+                            <span class="info-price"><fmt:formatNumber type="currency" value = "${recProduct.price - (recProduct.price * (recProduct.discountRate * (1/100)))}" currencyCode="KRW" pattern="#,###"/>원</span>
+                            <c:if test="${recProduct.discountRate != 0}">
+                            <span class="info-cost"><fmt:formatNumber type="currency" value="${recProduct.price}" currencyCode="KRW" pattern="#,###"/>원</span>
+                        	</c:if>
+                        </div>
+                    </div>
+                </div>
+			</c:forEach>
+            </div>
+        </div>
+        
         <button class="event-slide-btn slide-btn--right" id="event1-pre">
             <img
                 src="/mintProject/shop/storage/mint/icon/prev-btn-default.png"
@@ -128,13 +169,7 @@ pageEncoding="UTF-8"%>
 
         <div class="main__special-content">
             <a class="main__special-thumb" href="">
-                <img
-                    class="discount-rate"
-                    src="/mintProject/shop/storage/mint/icon/distate-20.png"
-                    alt=""
-                />
                 <div class="ds-thumbnail special-thumb"></div>
-
                 <div class="main__special-count">
                     <div class="special-count" id="dscd">
 					  <span class="timeel hours">00</span>
@@ -162,7 +197,7 @@ pageEncoding="UTF-8"%>
         <div class="main__event-tit">
             <a href="/mintProject/productList/getProductList?gubun=3&headGubun=3&pg=1">알뜰 상품</a>
         </div>
-        <div class="swiper-container main__event-slide2">
+        <div class="swiper-container main__event-slide2 slide_pc2">
             <div class="swiper-wrapper">
             <c:forEach items="${saleList }" var="saleProduct">
                 <div class="swiper-slide">
@@ -202,6 +237,48 @@ pageEncoding="UTF-8"%>
 			</c:forEach>
             </div>
         </div>
+        
+        <div class="swiper-container main__event-slide2 slide_mobile2">
+            <div class="swiper-wrapper">
+            <c:forEach items="${saleList }" var="saleProduct">
+                <div class="swiper-slide">
+                    <div class="main__event-content">
+                        <c:if test="${saleProduct.discountRate == 10}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${saleProduct.discountRate == 20}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${saleProduct.discountRate == 30}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${saleProduct.discountRate == 40}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${saleProduct.discountRate == 50}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png" alt="">
+		            	</c:if>
+
+                        <a href="/mintProject/shop/product/productView?productCode=${saleProduct.productCode}&subCategory=${saleProduct.subCategory}">
+                            <img
+                                src="/mintProject/shop/storage/mint/product/${saleProduct.thumbnail}"
+                                alt=""
+                                class="main__event-thumb"
+                            />
+                        </a>
+                        <div class="main__event-info">
+                            <span class="info-name">${saleProduct.mainSubject }</span>
+                            <span class="info-price"><fmt:formatNumber type="currency" value = "${saleProduct.price - (saleProduct.price * (saleProduct.discountRate * (1/100)))}" currencyCode="KRW" pattern="#,###"/>원</span>
+                            <c:if test="${saleProduct.discountRate != 0}">
+                            <span class="info-cost"><fmt:formatNumber type="currency" value="${saleProduct.price}" currencyCode="KRW" pattern="#,###"/>원</span>
+                        	</c:if>
+                        </div>
+                    </div>
+                </div>
+			</c:forEach>
+            </div>
+        </div>
+        
         <button class="event-slide-btn slide-btn--right" id="event2-pre">
             <img
                 src="/mintProject/shop/storage/mint/icon/prev-btn-default.png"
@@ -222,38 +299,18 @@ pageEncoding="UTF-8"%>
             <a href="/mintProject/shop/goods/event">이벤트 소식</a>
         </div>
         <ul class="news__list">
-            <li class="news__item">
-                <a href=""
-                    ><img
-                        src="//img-cf.kurly.com/shop/data/main/3/pc_img_1574819821.jpg"
-                        alt=""
-                        class="news__thumb"
-                /></a>
-                <div class="news__subject">사미헌 최대 20% 할인</div>
-                <div class="news__desc">부산 소고기의 명가</div>
-            </li>
-
-            <li class="news__item">
-                <a href=""
-                    ><img
-                        src="//img-cf.kurly.com/shop/data/main/3/pc_img_1574819821.jpg"
-                        alt=""
-                        class="news__thumb"
-                /></a>
-                <div class="news__subject">사미헌 최대 20% 할인</div>
-                <div class="news__desc">부산 소고기의 명가</div>
-            </li>
-
-            <li class="news__item">
-                <a href=""
-                    ><img
-                        src="//img-cf.kurly.com/shop/data/main/3/pc_img_1574819821.jpg"
-                        alt=""
-                        class="news__thumb"
-                /></a>
-                <div class="news__subject">사미헌 최대 20% 할인</div>
-                <div class="news__desc">부산 소고기의 명가</div>
-            </li>
+	        <c:forEach items="${eventList }" var="eventList">
+	            <li class="news__item">
+	                <a href=""
+	                    ><img
+	                        style="background-image:url(/mintProject/shop/storage/mint/event/${eventList.eventThumbnail})"
+	                        class="news__thumb"
+	                /></a>
+	                <div class="news__subject">${eventList.subject}</div>
+	                
+	            </li>
+	
+			</c:forEach>
         </ul>
     </div>
 
@@ -262,7 +319,7 @@ pageEncoding="UTF-8"%>
         <div class="main__event-tit">
             <a href="/mintProject/productList/getProductList?gubun=3&headGubun=1&pg=1">오늘의 신상품</a>
         </div>
-        <div class="swiper-container main__event-slide3">
+        <div class="swiper-container main__event-slide3 slide_pc3">
             <div class="swiper-wrapper">
             <c:forEach items="${newList }" var="newProduct">
                 <div class="swiper-slide">
@@ -303,6 +360,49 @@ pageEncoding="UTF-8"%>
               
             </div>
         </div>
+        
+        <div class="swiper-container main__event-slide3 slide_mobile3">
+            <div class="swiper-wrapper">
+            <c:forEach items="${newList }" var="newProduct">
+                <div class="swiper-slide">
+                    <div class="main__event-content">
+                        <c:if test="${newProduct.discountRate == 10}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${newProduct.discountRate == 20}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${newProduct.discountRate == 30}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${newProduct.discountRate == 40}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png" alt="">
+		            	</c:if>
+		            	<c:if test="${newProduct.discountRate == 50}">
+		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png" alt="">
+		            	</c:if>
+
+                        <a href="/mintProject/shop/product/productView?productCode=${newProduct.productCode}&subCategory=${newProduct.subCategory}">
+                            <img
+                                src="/mintProject/shop/storage/mint/product/${newProduct.thumbnail}"
+                                alt=""
+                                class="main__event-thumb"
+                            />
+                        </a>
+                        <div class="main__event-info">
+                            <span class="info-name">${newProduct.mainSubject }</span>
+                            <span class="info-price"><fmt:formatNumber type="currency" value = "${newProduct.price - (newProduct.price * (newProduct.discountRate * (1/100)))}" currencyCode="KRW" pattern="#,###"/>원</span>
+                            <c:if test="${newProduct.discountRate != 0}">
+                            <span class="info-cost"><fmt:formatNumber type="currency" value="${newProduct.price}" currencyCode="KRW" pattern="#,###"/>원</span>
+                        	</c:if>
+                        </div>
+                    </div>
+                </div>
+			</c:forEach>
+              
+            </div>
+        </div>
+        
         <button class="event-slide-btn slide-btn--right" id="event3-pre">
             <img
                 src="/mintProject/shop/storage/mint/icon/prev-btn-default.png"
@@ -318,25 +418,5 @@ pageEncoding="UTF-8"%>
     </div>
 </main>
 
-
-
-<%-- 일일특가 임시 카운트다운 --%>
-<div class="dailyspecial-countdown" id="dscd">
-  <span class="timeel hours">00</span>
-  <span class="timeel timeRefHours">시간</span>
-  <span class="timeel minutes">00</span>
-  <span class="timeel timeRefMinutes">분</span>
-  <span class="timeel seconds">00</span>
-  <span class="timeel timeLeft">초 남음</span>
-</div>
-<%-- 일일특가 상품 정보 --%>
-<div class="dailyspecial-info">
-	<div class="ds-thumbnail"></div>
-	<span class="ds-mainsubject"></span><br>
-	<span class="ds-subsubject"></span><br>
-	<span class="ds-price"></span>
-	<span class="ds-eventprice"></span>
-	<span class="ds-discountrate"></span>
-</div>
-<script type="text/javascript" src="/mintProject/shop/js/event.js"></script>
 <script src="/mintProject/shop/js/main.js"></script>
+<script type="text/javascript" src="/mintProject/shop/js/event.js"></script>

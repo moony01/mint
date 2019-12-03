@@ -64,11 +64,11 @@
 	         <tr>
 	            <th>주소</th>
 	            <td class="table--left">
-	                <label for="thumbnail-img" class="img-upload-btn btn-addr">주소 검색</label>
+	                <label for="thumbnail-img" class="img-upload-btn btn-addr" style="margin-bottom: 5px;">주소 검색</label>
 	                <div class="join-title"></div>
-	                <input type="text" class="join-input input--full" name="addr1" id="addr1" readonly style="width: 460px;">
+	                <input type="text" class="join-input input--full" name="addr1" id="addr1" readonly style="width: 460px; margin-bottom: 5px;">
 	                <div class="join-title"></div>
-	                <input type="text" class="join-input input--full" name="addr2" id="addr2" placeholder="세부 주소를 입력해주세요" style="width: 460px;">
+	                <input type="text" class="join-input input--full" name="addr2" id="addr2" placeholder="세부 주소를 입력해주세요" style="width: 460px; margin-bottom: 5px;">
 	            </td>
 	        </tr>
 	        

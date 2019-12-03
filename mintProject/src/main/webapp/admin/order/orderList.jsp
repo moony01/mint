@@ -53,11 +53,10 @@
 	        
 	        <table class="table table-bordered table-order">
 	            <tr class="th--dark">
-	                <th class="col-md-1"><input type="checkbox" class="checkbox-all"></th>
 	                <th class="col-md-3">주문번호</th>
-	                <th class="col-md-1">아이디</th>
-	                <th class="col-md-1">주문일자</th>
-	                <th class="col-md-1">상태</th>
+	                <th class="col-md-2">아이디</th>
+	                <th class="col-md-2">주문일자</th>
+	                <th class="col-md-2">상태</th>
 	            </tr>
 	
 	           <!-- 여기에 컬럼 추가 -->

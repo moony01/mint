@@ -72,8 +72,7 @@ function printList(result){
 		}
 		
 		let order = `<tr>
-			<td><input type="checkbox" class="checkbox-one" value="${status}"></td>
-            <td onclick="location.href='/mintProject/admin/sales/orderView/${id}/${orderNumber}'" style="cursor : pointer;">${orderNumber}</td>
+			<td onclick="location.href='/mintProject/admin/sales/orderView/${id}/${orderNumber}'" style="cursor : pointer;">${orderNumber}</td>
             <td>${id}</td>
             <td>${logtime}</td>
             <td><a class="status${status}" href="javascript:void(0)" onclick="updateOrderStatus('${id}', '${orderNumber}')">${status_str}</a></td>
@@ -94,13 +93,22 @@ function printList(result){
 
 
 function updateOrderStatus(id, orderNumber){
-	getUpdateOrderPage(id, orderNumber)
-	.then(function(){
-		getList(5)
-		.then(printList)
-		.catch(printError);
-	})
-	.catch(printError);
+	swal({
+		text: '정말 변경하시겠습니까? ',
+		icon : 'warning',
+		buttons : true
+	}).then((value) => {
+		if(value){
+			getUpdateOrderPage(id, orderNumber)
+			.then(function(){
+				getList(5)
+				.then(printList)
+				.catch(printError);
+			})
+			.catch(printError);
+			
+		}
+	});
 	
 	
 }
@@ -111,21 +119,6 @@ function getUpdateOrderPage(id, orderNumber){
 		url: '/mintProject/admin/sales/orderUpdate/'+id+'/'+orderNumber,
 	});
 }
-
-//전체선택
-$('.checkbox-all').on('change', function cbxChecked(){
-	let cbxOne  = $('.checkbox-one');
-	if(this.checked) {
-		for (var i = 0; i < cbxOne.length; i++) {
-			cbxOne.eq(i).prop('checked', true);
-		}
-	} else {
-		for (var i = 0; i < cbxOne.length; i++) {
-			cbxOne.eq(i).prop('checked', false);
-		}
-	}
-	
-});
 
 function printError(err){
 	console.log(err);

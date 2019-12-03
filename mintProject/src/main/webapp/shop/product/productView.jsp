@@ -126,9 +126,13 @@
                 <c:if test="${productDTO.stock != 0}">
                 	<div class="g-btn btn-alaram btn-off">재입고 알림</div>
                 </c:if>
-                
                 <div class="g-btn btn-always">늘 사는 것</div>
-                <div class="g-btn btn-save">장바구니 담기</div>
+                <c:if test="${productDTO.stock == 0}">
+                	<div class="g-btn btn-save btn-save--off">장바구니 담기</div>
+                </c:if>
+                <c:if test="${productDTO.stock != 0}">
+                	<div class="g-btn btn-save">장바구니 담기</div>
+                </c:if>
             </div>
         </div>
     </div>

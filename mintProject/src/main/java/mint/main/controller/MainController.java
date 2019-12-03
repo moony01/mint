@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import mint.event.bean.EventDTO;
+import mint.event.service.EventService;
 import mint.product.bean.ProductDTO;
 import mint.product.service.ProductManageService;
 
@@ -15,6 +17,8 @@ import mint.product.service.ProductManageService;
 public class MainController {
 	@Autowired
 	private ProductManageService productService; 
+	@Autowired
+	private EventService eventService;  
 	
 	@RequestMapping(value="/shop/main/index", method=RequestMethod.GET)
 	public ModelAndView index() {
@@ -24,9 +28,12 @@ public class MainController {
 		List<ProductDTO> newList = productService.getProductListMain(1); // 신상품
 		List<ProductDTO> saleList = productService.getProductListMain(2); // 알뜰상품
 		
+		List<EventDTO> eventList = eventService.getEventListMain();
+		
 		mav.addObject("recList", recList);
 		mav.addObject("newList", newList);
 		mav.addObject("saleList", saleList);
+		mav.addObject("eventList", eventList);
 		mav.addObject("display","/shop/main/main.jsp");
 		mav.setViewName("/shop/main/index");
 		return mav;

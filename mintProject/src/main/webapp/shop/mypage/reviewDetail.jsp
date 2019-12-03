@@ -49,7 +49,7 @@ function drawReview(data) {
 	$("#id").text(review.id);
 	$("#subject").text(review.subject);
 	$("#logtime").text(review.logtime);
-	$("#star").text(review.star);
+	$("#star").text(Number(review.star).toFixed(1));
 	$("#content").text(review.content);
 	if(review.imgName != null){
 		$("#imgArea").empty().append('<br><img src="/mintProject/shop/storage/member/review/' + review.imgName + '" alt="" style="vertical-align:unset; width: 300px;">');

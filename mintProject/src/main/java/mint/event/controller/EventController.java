@@ -30,16 +30,14 @@ import mint.product.bean.ProductDTO;
  *	EventController
  * 	이벤트 컨트롤러
  * 
- * @version 1.12
+ * @version 1.13
  * @author LimChangHyun 
  *
- *	구현된 기능 : 이벤트 등록, 리스트 처리, 이벤트 삭제
+ *	구현된 기능 : 이벤트 등록, 이벤트 수정, 리스트 처리, 이벤트 삭제
  *  		     이벤트 상품 리스트, 이벤트 검색, 이벤트 연동, 일일특가
- *  			상품 추가, 상품 삭제
- *	불완전 기능 : 상품 검색(상품관리쪽과 겹침), 페이징 처리, 이벤트 수정
- *	이슈 1. 기간 설정 안하고 등록/수정할 경우 typemismatch발생(DTO로 받아서 발생하는 문제)
- *		 2. 이벤트 등록/수정에 있는 상품 리스트 페이징을 비동기 AJAX 페이징으로 바꾸어야함
- *			(기존 페이징을 이용해 페이지 선택하면 모두 초기화 됨)
+ *  			상품 추가, 상품 삭제, 상품 검색
+ *	불완전 기능 : 페이징 처리, 
+ *	이슈  1. 이벤트 등록/수정에 있는 상품 리스트 AJAX페이징 불완전함 (이전, 다음 버튼 기능 미구현)
  */
 
 @Controller
@@ -103,7 +101,7 @@ public class EventController {
 	/* 이벤트 페이지 상품 리스트 */
 	@RequestMapping(value = "/goods/getEventProductList", method = RequestMethod.GET)
 	public ModelAndView getProductList(@RequestParam Map<String, Object> map) {
-		System.out.println("map : " + map);
+		
 		ModelAndView mav = new ModelAndView();
 		
 		// EventDTO에서 productCode 가져오기
@@ -244,6 +242,7 @@ public class EventController {
 						 , @RequestParam String isPeriodOn) {
 		// 위치
 		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/event/"; // 원하는
+
 		try {
 			FileCopyUtils.copy(event_thumbnail_img.getInputStream(),
 			new FileOutputStream(new File(filePath, event_thumbnail_img.getOriginalFilename())));
@@ -265,20 +264,21 @@ public class EventController {
 						  , @RequestParam MultipartFile event_thumbnail_img
 						  , @RequestParam String isPeriodOn) {
 		// 위치
-		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/event/"; // 원하는
-		try {
-			FileCopyUtils.copy(event_thumbnail_img.getInputStream(),
-			new FileOutputStream(new File(filePath, event_thumbnail_img.getOriginalFilename())));
-		} catch (IOException e) {
-			e.printStackTrace();
+		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/event/";
+		if (!event_thumbnail_img.isEmpty()) {
+			try {
+				FileCopyUtils.copy(event_thumbnail_img.getInputStream(),
+				new FileOutputStream(new File(filePath, event_thumbnail_img.getOriginalFilename())));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			eventDTO.setEventThumbnail(event_thumbnail_img.getOriginalFilename());
 		}
-		eventDTO.setEventThumbnail(event_thumbnail_img.getOriginalFilename());
 		
 		// 임시 input
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("eventDTO", eventDTO);
 		map.put("isPeriodOn", isPeriodOn);
-		
 		eventService.eventModify(map);
 	}
 	

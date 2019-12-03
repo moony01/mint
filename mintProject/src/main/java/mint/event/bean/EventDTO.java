@@ -14,8 +14,8 @@ import lombok.Data;
 public class EventDTO {
 	private String seq;
 	private String subject;
-	private Object startDate;
-	private Object endDate;
+	private Date startDate;
+	private Date endDate;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date logtime;
 	private String productCode;

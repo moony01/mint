@@ -33,4 +33,6 @@ public interface EventDAO {
 
 	public int getTotalProduct(Map<String, Object> map);
 
+	public List<EventDTO> getEventListMain();
+
 }

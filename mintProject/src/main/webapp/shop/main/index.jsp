@@ -90,8 +90,30 @@
 			<a href="/mintProject/shop/main/index"><img
 				src="/mintProject/shop/storage/mint/icon/main_logo.png"
 				alt="마켓컬리 로고" class="header__main-logo" /></a>
-			<!--             <a href="/mintProject/shop/main/index"><img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" class="header__main-logo"></a> -->
+			<!-- <a href="/mintProject/shop/main/index"><img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" class="header__main-logo"></a> -->
+			<a href="" class="cart_count" role="button">
+				<span class="screen_out">장바구니로 가기</span>
+			</a>
 		</div>
+	</header>
+	<div id="lnbMenu" class="lnb_menu lnb_menu_main" style="top: 60px;">
+		<div class="inner_lnb">
+			<ul class="list">
+				<li><a href="" class="on">민트추천<span class="bg_on"></span></a></li>
+				<li><a href="">신상품</a></li>
+				<li><a href="">베스트</a></li>
+				<li><a href="">알뜰쇼핑</a></li>
+				<li><a href="" class="">이벤트</a></li>
+			</ul>
+		</div>
+	</div>
+	<header id="header-bottom" class="menu_shortcut">
+		<ul id="userMenu" class="list">
+			<li><a href="" class="shortcut_home on">홈</a></li>
+			<li><a href="" class="shortcut_menu ">카테고리</a></li>
+			<li><a href="#none" id="search-area-open" class="shortcut_search ">검색</a></li>
+			<li><a href="" class="shortcut_mypage "> 마이컬리</a></li>
+		</ul>
 	</header>
 	<nav class="gnb">
 		<ul class="gnb__list">

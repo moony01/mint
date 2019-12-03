@@ -1,11 +1,11 @@
 /**
-* faq.js
+* 사용자 페이지 faq.js
 *
-* @version 1.2
+* @version 1.3
 * @author LimChangHyun
 *
 * 연동되는 파일들 : FAQBoardController.java ~ faqBoardMapper.xml
-* faq.jsp
+* /shop/service/faq.jsp
 */
 
 $(function(){
@@ -14,14 +14,14 @@ $(function(){
 	$.ajax({
 		type:'post',
 		url:'/mintProject/shop/service/faq/getBoardList',
-		data: 'pg='+$('#pg').val(),
+		data:'pg='+$('#pg').val(),
 		dataType:'json',
 		success: function(result){
-		getFAQList(result);
-		$('.pagination').html(result.faqBoardPaging.pagingHTML);
+			getFAQList(result);
+			$('.pagination').html(result.faqBoardPaging.pagingHTML);
 		},
 		error: function(error){
-		console.error(error);
+			console.error(error);
 		}
 	});
 	
@@ -29,6 +29,14 @@ $(function(){
 
 /* 카테고리 선택시 */
 $('#categorySelect').change(function(){
+	if($('#categorySelect').val() == 9){
+		// 페이징 처리 때문에  전체 리스트를 부르게 함
+		location.href="/mintProject/shop/service/faq/getBoardList";
+	} else {		
+		faqCategory();
+	}
+});
+function faqCategory(){
 	// 기존 테이블 비우기
 	$('.tb-content').remove();
 	$('.tb-view').remove();
@@ -40,21 +48,21 @@ $('#categorySelect').change(function(){
 		dataType:'json',
 		success: function(result){
 			getFAQList(result);
-			$('.pagination').html(result.faqBoardPaging.pagingHTML);
+			$('.pagination').html(result.faqBoardPaging.pagingHTML);				
 		},
 		error: function(error){
 			console.error(error);
 		}
 	});
-});
+}
 
-/* 검색어에 변화 있을 때 검색 버튼에 포커스 */
-$('#searchTerm').change(function(){
-	$('#searchButton').focus();	
-});
+/* 검색할 때 엔터키로 검색 기능 */
 
 /* 검색 기능 */
 $('#searchButton').click(function(){
+	faqSearch();
+});
+function faqSearch(){
 	// 기존 테이블 비우기
 	$('.tb-content').remove();
 	$('.tb-view').remove();
@@ -66,24 +74,13 @@ $('#searchButton').click(function(){
 		dataType:'json',
 		success: function(result){
 			getFAQList(result);
-			$('.pagination').html(result.faqBoardPaging.pagingHTML);
+			$('.pagination').html(result.faqSearchPaging.pagingHTML);
 		},
 		error: function(error){
 			console.error(error);
 		}
 	});
-	/* 처음 열어봤을 때부터 있던 건데 이 부분 무슨 용도인지 잘 모르겠음 
-	const contents = document.querySelectorAll('.tb-content');
-	const length = contents.length;
-	
-	for(let i=0; i<length; i++){
-		contents[i].addEventListener('click',function(){ 
-			const view = contents[i].nextElementSibling;
-	    view.classList.toggle('tb-on');
-	    });
-	}
-	 */
-});
+}
 
 
 /* FAQ게시물 리스트 테이블에 붙여넣기 */

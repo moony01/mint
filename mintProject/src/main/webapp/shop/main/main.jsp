@@ -303,7 +303,7 @@ pageEncoding="UTF-8"%>
 	            <li class="news__item">
 	                <a href=""
 	                    ><img
-	                        style="background-image:url(http://localhost:8080/mintProject/shop/storage/mint/event/${eventList.eventThumbnail})"
+	                        style="background-image:url(/mintProject/shop/storage/mint/event/${eventList.eventThumbnail})"
 	                        class="news__thumb"
 	                /></a>
 	                <div class="news__subject">${eventList.subject}</div>

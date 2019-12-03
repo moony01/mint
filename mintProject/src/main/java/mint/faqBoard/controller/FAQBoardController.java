@@ -99,12 +99,12 @@ public class FAQBoardController {
 		faqBoardPaging.setPageBlock(5);
 		faqBoardPaging.setPageSize(15);
 		faqBoardPaging.setTotalArticle(totalArticle);
-		faqBoardPaging.makePagingHTML();
+		faqBoardPaging.makeCategoryPagingHTML();
 		
 		// Response		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
-		mav.addObject("faqBoardPaging", faqBoardPaging);
+		mav.addObject("faqCategoryPaging", faqBoardPaging);
 		mav.setViewName("jsonView");
 		return mav;
 	}
@@ -130,12 +130,12 @@ public class FAQBoardController {
 		faqBoardPaging.setPageBlock(5);
 		faqBoardPaging.setPageSize(15);
 		faqBoardPaging.setTotalArticle(totalArticle);
-		faqBoardPaging.makePagingHTML();
+		faqBoardPaging.makeSearchPagingHTML();
 		
 		// Response		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
-		mav.addObject("faqBoardPaging", faqBoardPaging);
+		mav.addObject("faqSearchPaging", faqBoardPaging);
 		mav.setViewName("jsonView");
 		return mav;
 	}

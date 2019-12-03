@@ -57,11 +57,11 @@ public class QnaBoardController {
 
 	@RequestMapping(value = "/qnaboard/getQnaBoardWriteForm")
 	public ModelAndView getQnaBoardWriteForm(HttpSession session) {
-		// qndWrite실행시킬때 주문목록 값 미리 가져가기 email로 조회
-		String email = (String) session.getAttribute("memEmail");
+		// qndWrite실행시킬때 주문목록 값 미리 가져가기 id로 조회
+		String memId = (String) session.getAttribute("memId");
 
-		List<OrderAndSalesDTO> list = qnaBoardService.getOrderList(email);
-
+		List<Map<String,String>> list = qnaBoardService.getOrderList(memId);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
 		mav.addObject("display", "/shop/service/qnaWrite.jsp");
@@ -74,11 +74,6 @@ public class QnaBoardController {
 	@RequestMapping(value = "/qnaboard/qnaBoardWrite", method = RequestMethod.POST)
 	public ModelAndView qndBoardWrite(@ModelAttribute QnaBoardDTO qnaBoardDTO, @RequestParam MultipartFile img,
 			HttpSession session) {
-
-		System.out.println(qnaBoardDTO.getContent());
-		System.out.println(qnaBoardDTO.getSubject());
-		System.out.println(qnaBoardDTO.getCategory());
-
 		if (!img.isEmpty()) {
 			System.out.println("파일 집어넣었다!!!!!!!!");
 			String filePath = "C:\\Users\\bitcamp\\Documents\\GitHub\\mint\\mintProject\\src\\main\\webapp\\shop\\storage\\member\\qnaboard";
@@ -114,9 +109,9 @@ public class QnaBoardController {
 	@RequestMapping(value = "/qnaboard/qnaBoardModifyForm")
 	public ModelAndView qnaBoardModifyForm(@RequestParam int seq, HttpSession session) {
 		// qndWrite실행시킬때 주문목록 값 미리 가져가기 email로 조회
-		String email = (String) session.getAttribute("memEmail");
+		String memId = (String) session.getAttribute("memId");
 
-		List<OrderAndSalesDTO> list = qnaBoardService.getOrderList(email);
+		List<Map<String, String>> list = qnaBoardService.getOrderList(memId);
 		// 수정할 정보 seq로 조회해서 가져오기
 		QnaBoardDTO qnaBoardDTO = qnaBoardService.getQnaModify(seq);
 

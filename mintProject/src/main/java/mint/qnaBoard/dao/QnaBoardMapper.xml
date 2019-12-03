@@ -17,10 +17,18 @@
 	</select>
 	<!--  where rn >= #{startNum} and rn <= #{endNum} -->
 	
-	<select id="getOrderList" parameterType="String" resultType="orderAndSales">
-		select * 
-		  from orderAndSales
-		 where email = #{email} 
+	<select id="getOrderList" parameterType="String" resultType="java.util.Map">
+		select ordernumber  
+             , oi.logtime logtime
+		     , pd.mainsubject mainsubject
+		     , od.qty qty
+		     , od.price price
+		  from product pd
+		 inner join OrderDetails od
+		 using (productcode)
+		 inner join OrderInfo oi
+		 using (ordernumber)
+		 where id= #{memId}
 	</select>
 	
 	<select id="getQnaModify" parameterType="Integer" resultType="qnaBoard">

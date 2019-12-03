@@ -9,7 +9,17 @@
 <body>
 </body>
 <script>
-	alert("답변 등록완료!")
-	location.href="/mintProject/admin/service/getAdminQnaBoardList?pg="+${pg}
+$(function(){
+	swal({
+		text : "답변 등록완료!",
+		showConfirmButton: true,
+		//confirmButtonColor: '#8CD4F5',
+		timer : 1600
+	})
+	.then(() => {
+		location.href="/mintProject/admin/service/getAdminQnaBoardList?pg="+${pg}
+	});
+});
+	
 </script>
 </html>

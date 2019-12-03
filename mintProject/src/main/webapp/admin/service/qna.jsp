@@ -29,8 +29,8 @@
             <!-- <th class="col-md-1"><input type="checkbox" name="" id=""></th> -->
             <th class="col-md-1">번호</th>
             <th class="col-md-2">카테고리</th>
-            <th class="col-md-6">제목</th>
-            <th class="col-md-1">작성일</th>
+            <th class="col-md-5">제목</th>
+            <th class="col-md-2	">작성일</th>
             <th class="col-md-1">작성자</th>
             <th class="col-md-1">상태</th>
 
@@ -79,7 +79,7 @@
                     <option value="4">주문번호</option>
                 </select>
                 <div class="search">
-                    <input type="text" id="keyword" class="searchTerm" placeholder="검색 해주세요!!">
+                    <input type="text" id="keyword" class="searchTerm" placeholder="검색어 입력">
                     <button type="button" class="searchButton">
                         <i class="fa fa-search"></i>
                     </button>
@@ -115,7 +115,7 @@ $(document).ready(function(){
 });
 
 //아래 전체조회
-/* $(".searchButton").click(function(){
+$(".searchButton").click(function(){
 	var searchOption = $("#searchOption").val();
 	var keyword= $("#keyword").val();
 	
@@ -123,14 +123,14 @@ $(document).ready(function(){
 	console.log("keyword : " + keyword);
 	
 	location.href="/mintProject/admin/service/getAdminQnaBoardList?pg=1"+"&searchOption="+searchOption+"&keyword="+keyword;
-}); */
+});
 
 //엔터키 입력 가능
 $("#keyword").keypress(function(e){
-	if(e.which == 13){
+	if(e.keyCode == 13){
+		e.preventDefault();
 		var searchOption = $("#searchOption").val();
 		var keyword= $("#keyword").val();
-		
 		location.href="/mintProject/admin/service/getAdminQnaBoardList?pg=1"+"&searchOption="+searchOption+"&keyword="+keyword;
 	}
 });

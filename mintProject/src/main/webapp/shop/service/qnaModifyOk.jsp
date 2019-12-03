@@ -5,11 +5,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.swal-button {
+  background-color: #45B8AC;
+}
+</style>
 </head>
 <body>
 </body>
 <script>
-	alert("수정 완료!")
-	location.href="/mintProject/qnaboard/getQnaBoardList"
+$(function(){
+	swal({
+		text : "수정 완료!",
+		showConfirmButton: true,
+		//confirmButtonColor: '#8CD4F5',
+		timer : 1600
+	})
+	.then(() => {
+		location.href="/mintProject/qnaboard/getQnaBoardList";
+	});
+});
 </script>
 </html>

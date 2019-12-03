@@ -47,6 +47,12 @@
 	width: 1px;
 	height: 1px;
 }
+
+#mainSubject, #subSubject{
+	width : 500px;
+
+}
+
 </style>
 <form name="productUpdateForm" method="post" action="/mintProject/shop/product/updateProduct" enctype="multipart/form-data">
 	<input type="hidden" id="productCode" name="productCode" value="${productDTO.productCode}">
@@ -106,11 +112,11 @@
 	        </tr>
 	        <tr>
 	            <th>큰 제목</th>
-	            <td class="table--left"><input type="text" name="mainSubject" value="${productDTO.mainSubject }"></td>
+	            <td class="table--left"><input type="text" name="mainSubject" id="mainSubject" value="${productDTO.mainSubject }"></td>
 	        </tr>
 	        <tr>
 	            <th>소 제목</th>
-	            <td class="table--left"><input type="text" name="subSubject" value="${productDTO.subSubject }"></td>
+	            <td class="table--left"><input type="text" name="subSubject" id="subSubject" value="${productDTO.subSubject }"></td>
 	        </tr>
 	        <tr class="write-tb__content">
 	            <th>상품 대표 이미지</th>

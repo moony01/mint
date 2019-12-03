@@ -210,7 +210,7 @@
 
 .news__item img {
     width: 338px;
-    height: 338px;
+    height: 260px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -235,7 +235,7 @@
 	background-size:cover;
 }
 .news__thumb {
-	background-position:60% 50%;
+	background-position:73% 50%;
 	background-size:cover;
 }
 

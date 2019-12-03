@@ -249,7 +249,7 @@
 	.menu_shortcut{display: block;}
 	
 	.header{position: fixed; z-index: 2; width: 100%;}
-	.header .header__main-wrap{height: 60px; top: 0; background: #45b8ac;}
+	.header .header__main-wrap{width: 100%; height: 60px; top: 0; background: #45b8ac;}
 	.header .header__main-logo{width: 15vw; position: relative; top: 50%; transform: translateY(-50%);}
 	.header .cart_count{
 		display: block;
@@ -279,7 +279,7 @@
 	.main__banner .main__banner-slide{height: 70vw;}
 	.main__banner .main__banner-slide .swiper-slide img{height: 100%; left: 90%;}
 	.main__banner .main__event-tit{font-size: 15vw;}
-	.main__banner .banner-slide-btn{opacity: 1;}
+	.main__banner .banner-slide-btn{opacity: 1; z-index: 1;}
 	.main__banner .banner-slide-btn img{width: 10vw;}
 	.main__banner .banner-btn--left{left: 5px;}
 	.main__banner .banner-btn--right{right: 5px;}
@@ -295,7 +295,7 @@
 	.main__event .slide-btn--right{left: -1.5vw;}
 	.main__event .slide-btn--left{right: -1.5vw;}
 	
-	.main__special{display: block;}
+	.main__special{display: none;}
 	
 	.main__event{width: 100%; display: none;}
 	.main__news{display: none;}

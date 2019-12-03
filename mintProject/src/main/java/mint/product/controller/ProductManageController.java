@@ -65,8 +65,7 @@ public class ProductManageController {
 	}
 
 	@RequestMapping(value = "/productManage/productWrite", method = RequestMethod.POST)
-	@ResponseBody
-	public void productWrite(@ModelAttribute ProductDTO productDTO, @RequestParam MultipartFile product_img,
+	public ModelAndView productWrite(@ModelAttribute ProductDTO productDTO, @RequestParam MultipartFile product_img,
 			@RequestParam MultipartFile thumbnail_img) {
 		String filePath = "C:/Users/bitcamp/Documents/GitHub/mint/mintProject/src/main/webapp/shop/storage/mint/product/"; // 원하는 위치
 		try {
@@ -81,6 +80,12 @@ public class ProductManageController {
 		productDTO.setProductImage(product_img.getOriginalFilename());
 
 		productManageService.productWrite(productDTO);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("display", "/admin/service/productWriteOk.jsp");
+		mav.setViewName("/admin/main/admin");
+		
+		return mav;
 	}
 
 	@RequestMapping(value = "/productList/getProductList", method = RequestMethod.GET)

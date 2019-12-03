@@ -74,12 +74,6 @@ $(document).ready(function(){
 function noticeBoardWrite() {
 	let type = '"${type}"';
 	
-	let subject = $('#subjectWrite').val();
-	let content = $('#summernote').text();
-	
-	console.log('subject = '+subject);
-	console.log('content = '+content);
-	
 	if(type === '"mod"'){
 		$.ajax({
 			type:'post',

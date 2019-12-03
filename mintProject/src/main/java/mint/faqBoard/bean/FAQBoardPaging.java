@@ -30,27 +30,27 @@ public class FAQBoardPaging {
 		if(endPage > totalP) endPage = totalP;
 		
 		
-		pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg=1'><<</a></li>");
+		pagingHTML.append("<li class='page-item'><a class='page-link' href='faq?pg=1'><<</a></li>");
 		
 		if(currentPage == 1) 
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg=1'><</a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='faq?pg=1'><</a></li>");
 		else 
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg="+(currentPage-1)+"'><</a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='faq?pg="+(currentPage-1)+"'><</a></li>");
 		
 		
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
-				pagingHTML.append("<li class='page-item active'><a class='page-link' href='faqBoardList?pg="+i+"'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item active'><a class='page-link' href='faq?pg="+i+"'>"+i+"</a></li>");
 			else
-				pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg="+i+"'>"+i+"</a></li>");
+				pagingHTML.append("<li class='page-item'><a class='page-link' href='faq?pg="+i+"'>"+i+"</a></li>");
 		}
 		
 		
 		if(currentPage == endPage)
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg="+(endPage)+"'>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='faq?pg="+(endPage)+"'>></a></li>");
 		else 
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg="+(currentPage+1)+"'>></a></li>");
-			pagingHTML.append("<li class='page-item'><a class='page-link' href='faqBoardList?pg="+(endPage)+"'>>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='faq?pg="+(currentPage+1)+"'>></a></li>");
+			pagingHTML.append("<li class='page-item'><a class='page-link' href='faq?pg="+(endPage)+"'>>></a></li>");
 	}
 	
 	public void makeSearchPagingHTML() {

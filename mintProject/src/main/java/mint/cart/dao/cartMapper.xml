@@ -14,9 +14,10 @@
 	</delete>
 	
 	<select id="getSameCart" parameterType="java.util.Map" resultType="Integer">
-		select count(*)
+		select count(*) cnt
 		  from cart
 		 where productCode = #{productCode} 
+		   and id = #{memId}
 	</select>
 	
 	<insert id="addCartProduct" parameterType="java.util.Map">

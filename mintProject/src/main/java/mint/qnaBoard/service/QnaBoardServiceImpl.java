@@ -21,8 +21,8 @@ public class QnaBoardServiceImpl implements QnaBoardService{
 	}
 
 	@Override
-	public List<OrderAndSalesDTO> getOrderList(String email) {
-		return qndBoardDAO.getOrderList(email);
+	public List<Map<String,String>> getOrderList(String memId) {
+		return qndBoardDAO.getOrderList(memId);
 //		return qndBoardDAO.getOrderList(email);
 	}
 

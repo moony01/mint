@@ -50,16 +50,14 @@
                                     <th class="size-2">수량</th>
                                     <th class="size-2">주문금액</th>
                                 </tr>
-                                <!-- 예시 -->
                                 <c:if test="${list != null}">
-                                	 <c:forEach var="list" items="${list}">
+                                	<c:forEach var="list" items="${list}">
 										 <tr class="orders__list">
-                                    		<td>${list.orderNumber}</td>
-                                    		<td>${list.logtime}</td>
-                                    		<%-- <td><fmt:formatDate value="${list.logtime}" pattern="yyyy-MM-dd"/></td> --%>
-                                    		<td>일단보류</td>
-		                                    <td>${list.qty}</td>
-		                                    <td>${list.price}</td>
+                                    		<td>${list.ORDERNUMBER}</td>
+                                    		<td><fmt:formatDate value="${list.LOGTIME}" pattern="yyyy-MM-dd"/></td>
+                                    		<td>${list.MAINSUBJECT}</td>
+		                                    <td>${list.QTY}</td>
+		                                    <td>${list.PRICE}</td>
 		                                </tr>                                
                                		</c:forEach>
                                 </c:if>

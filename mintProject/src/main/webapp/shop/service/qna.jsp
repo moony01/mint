@@ -76,11 +76,11 @@
         </table> 
         <div class="paging">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#"><</a></li>
+              <!--   <li class="page-item"><a class="page-link" href="#"><</a></li> -->
                 <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">></a></li>
+             <!--    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+              <!--   <li class="page-item"><a class="page-link" href="#">></a></li> -->
             </ul>
         </div>
         <div class="service__write-btn clearfix" style="background-color: #45b8ac"  onclick="location.href='/mintProject/qnaboard/getQnaBoardWriteForm'">글쓰기</div>

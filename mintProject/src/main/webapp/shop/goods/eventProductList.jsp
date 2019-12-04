@@ -13,10 +13,10 @@
                 <span class="sort up" id="sort-up">신상품순</span>
                 <ul class="sort__list">
                 	<c:if test="${list != null}">
-                		<li><a href="/mintProject/goods/eventProductList?seq=${seq}&selectGubun=1&pg=1">신상품순</a></li>
-	                    <li><a href="/mintProject/goods/eventProductList?seq=${seq}&selectGubun=2&pg=1">인기상품순</a></li>
-	                    <li><a href="/mintProject/goods/eventProductList?seq=${seq}&selectGubun=3&pg=1">낮은 가격순</a></li>
-	                    <li><a href="/mintProject/goods/eventProductList?seq=${seq}&selectGubun=4&pg=1">높은 가격순</a></li>       
+                		<li><a href="/mintProject/shop/goods/eventProductList?seq=${seq}&selectGubun=1&pg=1">신상품순</a></li>
+	                    <li><a href="/mintProject/shop/goods/eventProductList?seq=${seq}&selectGubun=2&pg=1">인기상품순</a></li>
+	                    <li><a href="/mintProject/shop/goods/eventProductList?seq=${seq}&selectGubun=3&pg=1">낮은 가격순</a></li>
+	                    <li><a href="/mintProject/shop/goods/eventProductList?seq=${seq}&selectGubun=4&pg=1">높은 가격순</a></li>       
                 	</c:if>
                 </ul>
             </div>

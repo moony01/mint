@@ -12,6 +12,7 @@ $(function(){
 		dataType:'json',
 		success: function(result){
 			eventExecute(result);
+			eventMainTemp(result);
 		},
 		error: function(error){
 			console.error(error);
@@ -134,3 +135,39 @@ function dailySpecialInfo(seq, discountRate){
 	});
 }
 
+/* 메인 이벤트 소식 */
+function eventMainTemp(result){
+	let event = result.list;
+	let now = new Date();
+	
+	for(var i=0; i<event.length; i++){
+		if(event[i].startDate < now) var startCount = 0;
+		else var startCount = event[i].startDate - now;
+		let endCount = event[i].endDate - now
+		, eventStatus = event[i].eventStatus
+		, seq = event[i].seq
+		, subject = event[i].subject
+		, eventThumbnail = event[i].eventThumbnail;
+
+		if(eventStatus === '1' && endCount > 0 && startCount == 0){
+			$('.news__list').append
+			($('<li/>',{
+				class : 'news__item'
+			}).append
+				($('<a/>',{
+					href : '/mintProject/shop/goods/eventProductList?seq='+seq+'&pg=1'
+				}).append
+					($('<img/>',{
+						class : 'news__thumb',
+						style : 'background-image:url(/mintProject/shop/storage/mint/event/'+eventThumbnail+')'
+					})
+				)).append
+					($('<div/>',{
+						class : 'news__subject',
+						text : subject
+					}))
+			)
+		;
+		}
+	}	
+}

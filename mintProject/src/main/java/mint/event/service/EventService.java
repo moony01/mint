@@ -35,5 +35,7 @@ public interface EventService {
 
 	public List<EventDTO> getEventListMain();
 
+	public List<ProductDTO> getEventProductListWithSort(Map<String, Object> map2);
+
 
 }

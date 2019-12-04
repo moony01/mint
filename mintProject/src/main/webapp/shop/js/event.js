@@ -139,7 +139,8 @@ function dailySpecialInfo(seq, discountRate){
 function eventMainTemp(result){
 	let event = result.list;
 	let now = new Date();
-	
+		
+	var eventCnt = 1;
 	for(var i=0; i<event.length; i++){
 		if(event[i].startDate < now) var startCount = 0;
 		else var startCount = event[i].startDate - now;
@@ -149,25 +150,28 @@ function eventMainTemp(result){
 		, subject = event[i].subject
 		, eventThumbnail = event[i].eventThumbnail;
 
+			
 		if(eventStatus === '1' && endCount > 0 && startCount == 0){
-			$('.news__list').append
-			($('<li/>',{
-				class : 'news__item'
-			}).append
-				($('<a/>',{
-					href : '/mintProject/shop/goods/eventProductList?seq='+seq+'&pg=1'
+			while(eventCnt <= 3){
+				$('.news__list').append
+				($('<li/>',{
+					class : 'news__item'
 				}).append
-					($('<img/>',{
-						class : 'news__thumb',
-						style : 'background-image:url(/mintProject/shop/storage/mint/event/'+eventThumbnail+')'
-					})
-				)).append
-					($('<div/>',{
-						class : 'news__subject',
-						text : subject
-					}))
-			)
-		;
+					($('<a/>',{
+						href : '/mintProject/shop/goods/eventProductList?seq='+seq+'&pg=1'
+					}).append
+						($('<img/>',{
+							class : 'news__thumb',
+							style : 'background-image:url(/mintProject/shop/storage/mint/event/'+eventThumbnail+')'
+						})
+					)).append
+						($('<div/>',{
+							class : 'news__subject',
+							text : subject
+						}))
+					)
+				;
+			}
 		}
 	}	
 }

@@ -85,4 +85,9 @@ public class EventServiceImpl implements EventService {
 		return eventDAO.getEventListMain();
 	}
 
+	@Override
+	public List<ProductDTO> getEventProductListWithSort(Map<String, Object> map2) {
+		return eventDAO.getEventProductListWithSort(map2);
+	}
+
 }

@@ -33,15 +33,24 @@ function eventExecute(result){
 		  , discountRate = event[i].discountRate
 		  
 		/* 이벤트 진행 여부 */
-		if(eventStatus === '1' && endCount > 0){
+		if(eventStatus === '1' && endCount > 0 && startCount == 0){
+			var cnt = 0;
 			/* 진행중인 일일특가 카운트 다운 */
 			if(event[i].subject.indexOf('[일일특가]') !== -1){
+				cnt++;
 				var countTo = event[i].endDate;
 				dailySpecialCntDown(countTo, 'dscd');
 				dailySpecialInfo(seq, discountRate);
 			}
-		} else {
-			// 시간 지나면 해당 부분 종료 이미지로 처리하기
+			
+			if(cnt === 0){
+				$('.ds-thumbnail')
+				.addClass('dailyspecial-thumb')
+				.css({'background-image':'url(/mintProject/shop/storage/mint/event/event_end.png)'})
+				.css('opacity', '0.5');
+				$('#dscd').text('일일특가 종료');
+				$('.main__special-count').css('opacity', '0.5');
+			}
 		}
 	}	
 }
@@ -60,16 +69,18 @@ function dailySpecialCntDown(countTo, id) {
 				(((timeDifference % (secondsInADay)) % (secondsInAHour))/ (60 * 1000) * 1);
 		secs = Math.floor
 				((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
-
-	var cntdwn = document.getElementById('dscd');
-	cntdwn.getElementsByClassName('hours')[0].innerHTML = hours;
-	cntdwn.getElementsByClassName('minutes')[0].innerHTML = mins;
-	cntdwn.getElementsByClassName('seconds')[0].innerHTML = secs;
-
-	clearTimeout(dailySpecialCntDown.interval);
-	dailySpecialCntDown.interval = setTimeout(function() {
-		dailySpecialCntDown(countTo, 'dscd');
-	}, 1000);
+	if(hours <= 0 && mins <= 0 && secs <= 0){
+		$('#dscd').text('일일특가 종료');
+	} else {
+		var cntdwn = document.getElementById('dscd');
+		cntdwn.getElementsByClassName('hours')[0].innerHTML = hours;
+		cntdwn.getElementsByClassName('minutes')[0].innerHTML = mins;
+		cntdwn.getElementsByClassName('seconds')[0].innerHTML = secs;
+		clearTimeout(dailySpecialCntDown.interval);
+		dailySpecialCntDown.interval = setTimeout(function() {
+			dailySpecialCntDown(countTo, 'dscd');
+		}, 1000);		
+	}
 }
 
 /* 일일특가 상품 정보 */

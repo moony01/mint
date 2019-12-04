@@ -301,7 +301,7 @@ pageEncoding="UTF-8"%>
         <ul class="news__list">
 	        <c:forEach items="${eventList }" var="eventList">
 	            <li class="news__item">
-	                <a href=""
+	                <a href="/mintProject/shop/goods/eventProductList?seq=${eventList.seq}&pg=1"
 	                    ><img
 	                        style="background-image:url(/mintProject/shop/storage/mint/event/${eventList.eventThumbnail})"
 	                        class="news__thumb"

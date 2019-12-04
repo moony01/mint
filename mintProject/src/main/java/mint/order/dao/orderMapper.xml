@@ -53,13 +53,16 @@
 	</select>
 	
 	<select id="getOrderList" parameterType="java.util.Map" resultType="orderInfo">
-		select * from
-		(select rownum rn, orderNumber, id, to_char(logtime, 'yyyy-MM-dd') as logtime, status from orderInfo  
-		<if test="status != 5">
+		select * from 
+		(select rownum rn, temp.* from
+		(select orderNumber, id, to_char(logtime, 'yyyy-MM-dd') as logtime, status from orderInfo  
+        <if test="status != 5">
 			where status = #{status}
 		</if>
-		order by orderNumber desc) temp
+        
+        order by orderNumber desc) temp)
 		where rn between #{startNum} and #{endNum} 
+		
 	</select>
 	
 	<select id="getOrderListByDate" parameterType="java.util.Map" resultType="orderInfo">
@@ -68,7 +71,7 @@
 		<if test="status != 5">
 			and status = #{status}
 		</if>
-		order by status asc, id asc
+		order by orderNumber desc
 	</select>
 	
 	<select id="getOrderView" parameterType="java.util.Map" resultType="java.util.Map">

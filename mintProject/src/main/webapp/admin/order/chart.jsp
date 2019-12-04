@@ -119,7 +119,7 @@ function createProductSalesChart(categories,seriesData){
 	    },
 	    yAxis: {
 	        min: 0,
-	        max: 100,
+	        max: 20,
 	        title: {
 	            text: '상품수',
 	            align: 'high'

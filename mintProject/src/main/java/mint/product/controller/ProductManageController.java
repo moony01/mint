@@ -90,14 +90,12 @@ public class ProductManageController {
 
 	@RequestMapping(value = "/productList/getProductList", method = RequestMethod.GET)
 	public ModelAndView getProductList(@RequestParam Map<String, String> map) {
-		System.out.println("map : " + map);
 		ModelAndView mav = new ModelAndView();
 
 		// gubun이 1 또는 2일때
 		if (map.get("gubun").equals("1") || map.get("gubun").equals("2")) {
 			// 총 갯수 구하기
 			int totalArticle = productManageService.getCntProductList(map);
-			System.out.println("totalArticle: " + totalArticle);
 			// 시작페이지와 끝 설정
 			setPagingNumber(map);
 
@@ -125,8 +123,6 @@ public class ProductManageController {
 
 			// gubun이 3일 떄
 		} else {
-			System.out.println("gubun이 3일 때....");
-			System.out.println("map : " + map);
 			// 총 갯수 ..일단 100개로만 한정함...
 			// 시작페이지와 끝 설정
 			setPagingNumber(map);
@@ -156,15 +152,12 @@ public class ProductManageController {
 
 	@RequestMapping(value = "/shop/product/productView")
 	public ModelAndView productView(HttpSession session, @RequestParam Map<String, String> map) {
-		System.out.println("productView 메서드");
-		System.out.println("map : " + map);
-
+		
 		// 상품 1개 정보들
 		ProductDTO productDTO = productManageService.getProductInfo(map);
 		// 상품 상세 뷰 페이지 아래 같은 subCategory 상품 10개 최신순으로 불러오기
 		List<ProductDTO> list = productManageService.getSameSubcategoryProductList(map);
-		System.out.println("list : " + list);
-
+		
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("productDTO", productDTO);
@@ -185,8 +178,6 @@ public class ProductManageController {
 	// 관리자 상품 업데이트 화면 호출
 	@RequestMapping(value = "/shop/product/updateProductForm")
 	public ModelAndView updateProductForm(HttpSession session, @RequestParam Map<String, String> map) {
-		System.out.println("updateProductForm 메서드");
-		System.out.println("map : " + map);
 		// 상품 1개 정보들
 		ProductDTO productDTO = productManageService.getProductInfo(map);
 
@@ -213,7 +204,6 @@ public class ProductManageController {
 
 		// 메인사진
 		if (thumbnail_img.isEmpty()) {
-			System.out.println("thumbnail_img 값 안 넘어옴:" + thumbnail_img);
 		} else {
 			try {
 				FileCopyUtils.copy(thumbnail_img.getInputStream(),
@@ -221,13 +211,12 @@ public class ProductManageController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.out.println("thumbnail_img.getOriginalFilename() : " + thumbnail_img.getOriginalFilename());
 			productDTO.setThumbnail(thumbnail_img.getOriginalFilename());
 
 		}
 		// 상품이미지사진(아래)
 		if (product_img.isEmpty()) {
-			System.out.println("product_img 값 안 넘어옴: " + product_img);
+			
 		} else {
 			try {
 				FileCopyUtils.copy(product_img.getInputStream(),
@@ -235,14 +224,12 @@ public class ProductManageController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.out.println("product_img.getOriginalFilename() : " + product_img.getOriginalFilename());
 			productDTO.setProductImage(product_img.getOriginalFilename());
 		}
 
 		int updateCnt = productManageService.productUpdate(productDTO);
 		ModelAndView mav = new ModelAndView();
 		if (updateCnt == 1) {
-			System.out.println("일단 상품 수정 성공!");
 			//재입고 메일로 알림 추가
 			if(orgStock.equals("0")) {
 				//상품 수정한 물품이 재입고 알림 테이블에 있는지 확인
@@ -290,12 +277,9 @@ public class ProductManageController {
 	@RequestMapping(value="/shop/product/setProductAlarm", method=RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView setProductAlarm(@RequestParam Map<String,String>map,HttpSession session) {
-		System.out.println("setProductAlarm map : " + map);
 		ModelAndView mav = new ModelAndView();
 		
 		String memEmail = (String)session.getAttribute("memEmail");
-		
-		System.out.println("email : " + memEmail);
 		map.put("memEmail", memEmail);
 		
 		//재입고 알림 신청 중복 방지

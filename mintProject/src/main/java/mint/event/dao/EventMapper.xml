@@ -136,9 +136,15 @@
 	 	</where>
 	</select>
 	
+	<select id="getEventProductList" parameterType="java.util.Map" resultType="product">
+		select * from product where productCode in
+		<foreach collection="array" item="productCode" index="i" open="(" separator="," close=")">
+			#{productCode}
+		</foreach>
+	</select>	
 
 	<!-- 이벤트 상품 가져오기 -->
-	<select id="getEventProductList" parameterType="java.util.Map" resultType="product">
+	<select id="getEventProductListWithSort" parameterType="java.util.Map" resultType="product">
 		select * from
 			(select rownum rn, tt.* from
 				(select * from product

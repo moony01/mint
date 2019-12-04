@@ -118,8 +118,8 @@ public class EventController {
 		map2.put("selectGubun", map.get("selectGubun"));
 		map2.put("endNum", endNum + "");
 		map2.put("startNum", startNum + "");
-		System.out.println(map2);
-		List<ProductDTO> list = eventService.getEventProductList(map2);
+
+		List<ProductDTO> list = eventService.getEventProductListWithSort(map2);
 				
 		int totalArticle = list.size();
 		

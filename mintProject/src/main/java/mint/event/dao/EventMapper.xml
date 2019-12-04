@@ -213,11 +213,14 @@
 	
 	<!-- 메인 화면 이벤트 노출 -->
 	<select id="getEventListMain" resultType="event">
+		<![CDATA[
 		select * from
 			(select rownum rn, temp.* from 
-				(select seq, subject, eventThumbnail from event where eventStatus = 1 order by startDate)
+				(select seq, eventStatus, subject, startDate, endDate, eventThumbnail from event 
+				where eventStatus = 1 
+				and startDate <= sysdate	
+				order by startDate desc)
 			 temp)
-		<![CDATA[
 		where rn between 1 and 3
 		]]>
 	</select>

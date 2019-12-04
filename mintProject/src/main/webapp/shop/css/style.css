@@ -561,7 +561,6 @@
     border-bottom: 1px solid #45b8ac;
 }
 .search_box .inp {
-    float: left;
     width: 603px;
     height: 45px;
     margin-right: 20px;
@@ -569,11 +568,9 @@
     border: 1px solid #ccc;
     font-size: 14px;
     color: #333;
-    /* letter-spacing: -1px; */
 }
 
 .search_box .search_btn {
-    float: left;
     width: 175px;
     height: 45px;
     line-height: 45px;
@@ -581,7 +578,6 @@
 }
 
 .search_wrap {
-    height: 180px;
     padding-top: 55px;
     padding-bottom: 50px;
 }

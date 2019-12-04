@@ -74,11 +74,9 @@ $(document).ready(function(){
 	
 	dataSet(); //상품정보 박스 데이터가공(할인적용가, 최종결제금액)
 	paymentDataSet() //결제창 데이터 가공
-	comma();
 
 	//상품정보 박스 데이터가공(할인적용가, 최종결제금액)
 	function dataSet() {
-
 		for(var i=0; i<cnt; i++) {
 			price[i] = parseInt($('.price span').eq(i).text()); //정가
 			discountRate[i] = parseInt($('.discountRate span').eq(i).text()); //할인율
@@ -150,6 +148,10 @@ $(document).ready(function(){
 		
 		//결제하기 클릭 결제하기
 		document.getElementById('btnPayment').onclick = function(){
+			function removeComma(str){
+			    return parseInt(str.replace(",",""));
+			}
+			
 			let request = $('#request').val();
 			let pointuse = $('.pointUse').text();
 			name = $('#recipient').val();
@@ -207,79 +209,26 @@ $(document).ready(function(){
 		};
 	}
 	
-	
-	function comma(){
-		const onePrdPrice = document.querySelector(".onePrdPrice"); //개당얼마
-		const salesPrice = document.querySelector(".salesPrice"); //상품금액
-		const pmPrdPrice = document.querySelector(".pmPrdPrice"); //결제상품금액
-		const pmSalePrice = document.querySelector(".pmSalePrice"); //상품할인금액
-		const pointUse = document.querySelector(".pointUse"); //적립금사용
-		const lastTotalPrice = document.querySelector(".lastTotalPrice"); //최종결제금액
-		const pmPoint = document.querySelector(".pmPoint"); //구매시포인트
-		
-		
-		function makeComma(num){
-		    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");            
-		}
-		function removeComma(str){
-		    return parseInt(str.replace(",",""));
-		}
-		
-		const onePrdPrice_comma = removeComma(onePrdPrice.innerText);
-		const salesPrice_comma = removeComma(salesPrice.innerText);
-		const pmPrdPrice_comma = removeComma(pmPrdPrice.innerText);
-		const pmSalePrice_comma = removeComma(pmSalePrice.innerText);
-		const pointUse_comma = removeComma(pointUse.innerText);
-		const lastTotalPrice_comma = removeComma(lastTotalPrice.innerText);
-		const pmPoint_comma = removeComma(pmPoint.innerText);
-		
-		onePrdPrice.innerText = makeComma(onePrdPrice_comma);
-		salesPrice.innerText = makeComma(salesPrice_comma);
-		pmPrdPrice.innerText = makeComma(pmPrdPrice_comma);
-		pmSalePrice.innerText = makeComma(pmSalePrice_comma);
-		pointUse.innerText = makeComma(pointUse_comma);
-		lastTotalPrice.innerText = makeComma(lastTotalPrice_comma);
-		pmPoint.innerText = makeComma(pmPoint_comma);
-	}
-	
-	
 	let myPoint = $('#memberPoint').text();
 	
 	$('#pointChk').change(function(){
-		
-		function makeComma(num){
-		    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");            
-		}
-		function removeComma(str){
-		    return parseInt(str.replace(",",""));
-		}
 		
 		if($('#pointChk').is(':checked')){
 			$('.check-label').addClass('checked');
 			$('#myPoint').val(myPoint);
 			$('.pointUse').text(myPoint);
 			
-			let lastTotalPrice_comma = document.querySelector(".lastTotalPrice");
-			
-			let lastTotalPrice = removeComma(lastTotalPrice_comma.innerText);
-			lastPriceSet = lastTotalPrice;
+			lastPriceSet = parseInt($('.bill-tb__total-price span').text());
 			lastPriceSet -= myPoint;
-			let change_totalPrice = lastPriceSet;
-			$('.lastTotalPrice').text(lastPriceSet);
-			lastTotalPrice_comma.innerText = makeComma(change_totalPrice);
+			$('.bill-tb__total-price span').text(lastPriceSet);
+			
 		}else {
 			$('.check-label').removeClass('checked');
 			$('#myPoint').val(0);
 			$('.pointUse').text('0');
 			
-			lastTotalPrice_comma = document.querySelector(".lastTotalPrice");
-			
-			let lastTotalPrice = removeComma(lastTotalPrice_comma.innerText);
-			lastPriceSet = lastTotalPrice;
 			lastPriceSet += parseInt(myPoint);
-			let change_totalPrice = lastPriceSet;
-			$('.lastTotalPrice').text(lastPriceSet);
-			lastTotalPrice_comma.innerText = makeComma(change_totalPrice);
+			$('.bill-tb__total-price span').text(lastPriceSet);
 		}
 	});
 

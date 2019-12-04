@@ -140,7 +140,7 @@ function eventMainTemp(result){
 	let event = result.list;
 	let now = new Date();
 		
-	var eventCnt = 1;
+
 	for(var i=0; i<event.length; i++){
 		if(event[i].startDate < now) var startCount = 0;
 		else var startCount = event[i].startDate - now;
@@ -150,9 +150,8 @@ function eventMainTemp(result){
 		, subject = event[i].subject
 		, eventThumbnail = event[i].eventThumbnail;
 
-			
 		if(eventStatus === '1' && endCount > 0 && startCount == 0){
-			while(eventCnt <= 3){
+						
 				$('.news__list').append
 				($('<li/>',{
 					class : 'news__item'
@@ -171,7 +170,7 @@ function eventMainTemp(result){
 						}))
 					)
 				;
-			}
+			
 		}
 	}	
 }

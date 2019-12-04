@@ -272,7 +272,13 @@
 	</nav>
 
 	<jsp:include page="${display}" />
-	<footer class="footer"></footer>
+	<footer class="footer">
+		<div class="inner">
+			<p>
+				Copyright © 2019 team mint All Rights Resevered
+			</p>
+		</div>
+	</footer>
 	<div class="page-top-btn">
 		<img
 			src="https://res.kurly.com/pc/service/common/1903/btn_pagetop_v2.png"

@@ -247,7 +247,15 @@
     z-index: 150;
 }
 .footer {
-    height: 200px;
+    margin-top: 20px;
+}
+.footer .inner {
+    width: 1050px;
+    height: 70px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* 메인 부분 컨테이너 */

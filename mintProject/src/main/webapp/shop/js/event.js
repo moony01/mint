@@ -98,19 +98,24 @@ function dailySpecialInfo(seq, discountRate){
 		dataType:'json',
 		success: function(result){
 			let eventProduct = result.list[0];
-			let mainSubject = eventProduct.mainSubject;
-			let subSubject = eventProduct.subSubject;
-			let price = eventProduct.price;
-			let thumbnail = eventProduct.thumbnail;
-
+			let mainSubject = eventProduct.mainSubject
+			  , subSubject = eventProduct.subSubject
+			  , productCode = eventProduct.productCode
+			  , subCategory = eventProduct.subCategory
+			  , price = eventProduct.price
+			  , thumbnail = eventProduct.thumbnail;
+			
 			// 할인가 계산
 			let eventPrice = price-(price/100*discountRate); 
+			
 			$('.ds-mainsubject').text(mainSubject);
 			$('.ds-subsubject').text(subSubject);
 			$('.ds-price').text(price+'원');
 			$('.ds-eventprice').text(eventPrice+'원');
 			$('.ds-thumbnail').addClass('dailyspecial-thumb').css({'background-image':'url(/mintProject/shop/storage/mint/product/'+thumbnail+')'});
 
+			$('.main__special-thumb').attr('href', '/mintProject/shop/product/productView?productCode='+productCode+'&subCategory='+subCategory);
+			
 			if(discountRate === '10'){
 				$('.main__special-thumb').append('<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png"/>');				
 			}else if(discountRate === '20'){

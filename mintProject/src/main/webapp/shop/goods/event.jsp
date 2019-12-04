@@ -40,14 +40,14 @@ function eventBannerTemp(result){
 				($('<div/>',{
 					class : 'event__thumb'
 				}).append
-						($('<a/>',{
-							href : '/mintProject/shop/goods/eventProductList?seq='+seq+'&pg=1'
-						}).append
-							($('<img/>',{
-								class : 'event-thumb',
-								src : '/mintProject/shop/storage/mint/event/'+eventThumbnail
-							})
-						))
+					($('<a/>',{
+						href : '/mintProject/shop/goods/eventProductList?seq='+seq+'&pg=1'
+					}).append
+						($('<img/>',{
+							class : 'event-thumb',
+							src : '/mintProject/shop/storage/mint/event/'+eventThumbnail
+						})
+					))
 				)
 			;
 		}

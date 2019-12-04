@@ -338,7 +338,7 @@ const checkJoin = () => {
             } else {
                 getJoinPage()
                     .then(function() {
-                        alert('회원가입이 완료되었습니다. ');
+                        swal('회원가입이 완료되었습니다. ');
                         location.href = '/mintProject/shop/main/index';
                     })
                     .catch(printError);

@@ -87,7 +87,14 @@
 	            
 	            <tr class="th--dark">
 	                <th class="col-md-3">적립금 사용</th>
-	                	<td colspan="1"><fmt:formatNumber value="${list.get(0).POINTUSE }" pattern="#,###"/>원</td>
+		                <td colspan="1">
+			                <c:if test="${list.get(0).POINTUSE != null }">
+		                	<fmt:formatNumber value="${list.get(0).POINTUSE }" pattern="#,###"/>원
+		                	</c:if>
+		                	<c:if test="${list.get(0).POINTUSE == null }">
+		                	0원
+		                	</c:if>
+	                	</td>
 	            </tr>
 	            
 	            <tr class="th--dark">

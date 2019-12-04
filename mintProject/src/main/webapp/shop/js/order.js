@@ -197,14 +197,23 @@ $(document).ready(function(){
 			                discountRate: discountRate,
 			    		})
 			    	}).then((data) => {
+			    		swal({
+					    	text : msg,
+					    	buttons : false,
+					    	timer : 2000
+					    });
 			    		location.href='/mintProject/shop/main/index';
 			    	})
 			    	
 			    } else {
 				    var msg = '결제에 실패하였습니다.';
 				    msg += '에러내용 : ' + rsp.error_msg;
+				    swal({
+				    	text : msg,
+				    	buttons : false,
+				    	timer : 2000
+				    });
 			    }
-			    swal(msg);
 			});
 		};
 	}

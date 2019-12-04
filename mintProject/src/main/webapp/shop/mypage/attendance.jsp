@@ -67,7 +67,10 @@ $(document).ready(function(){
      			dataType : 'JSON',
      			success : function(data){
      				if(data.attDates=="!"){
-     					alert("매일매일 출석체크해서 포인트를 모아보세요 :D");
+     					swal({
+     						text : "매일매일 출석체크해서 포인트를 모아보세요 :D",
+     						buttons : false
+     					});
      				} else { 
      					var events = [];
            				$.each(data.attDates, function(index,value){

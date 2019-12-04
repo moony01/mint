@@ -13,9 +13,9 @@ document.getElementById('noticeSearchBtn').onclick = function(event, str) {
 	var keyword = $('input[name=keyword]').val();
 	
 	if(count==0){
-		alert("검색할 항목을 선택하세요.");
+		swal("검색할 항목을 선택하세요.");
 	} else if(keyword==''){
-		alert("검색할 단어를 입력해주세요.");
+		swal("검색할 단어를 입력해주세요.");
 	} else {
 		$.ajax({
 			type: 'post',
@@ -23,7 +23,6 @@ document.getElementById('noticeSearchBtn').onclick = function(event, str) {
 			data: $('#noticeBoardSearchForm').serialize(),
 			dataType: 'json',
 			success: function(data){
-				//console.log(JSON.stringify(data));
 				$('tr.tb-content').remove();
 				
 				$.each(data.list, function(index, items){
@@ -69,7 +68,6 @@ document.getElementById('noticeSearchBtn').onclick = function(event, str) {
 //게시판 검색 후 페이징처리
 function noticeBoardSearchPaging(pg){	
 	$('input[name=pg]').val(pg);
-	console.log($('input[name=pg]').val(pg));
 	$('#noticeSearchBtn').trigger('click','trigger');
 }
 

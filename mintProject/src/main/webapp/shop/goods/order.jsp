@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style>
 	.cart span, .cart td{vertical-align: middle;}
-	#getDataBoxBtn{position: fixed; top: 20px; right: 0;}
+	#getDataBoxBtn{position: fixed; display: none; top: 20px; right: 0;}
 	#postDataBoxBtn{position: fixed; top: 20px; right: 90px;}
 </style>
 
@@ -151,7 +151,7 @@ pageEncoding="UTF-8"%>
 		<table class="bill-tb">
 			<tr class="bill-tb__product-price">
 				<th>상품 금액</th>
-				<td><span></span> 원</td>
+				<td><span class="pmPrdPrice"></span> 원</td>
 			</tr>
 			<tr class="tb-hr">
 				<th><hr class="tb-line" /></th>
@@ -159,17 +159,17 @@ pageEncoding="UTF-8"%>
 			</tr>
 			<tr class="bill-tb__col_sale bill-tb__col">
 				<th>상품할인금액</th>
-				<td>- <span></span> 원</td>
+				<td>- <span class="pmSalePrice"></span> 원</td>
 			</tr>
 			<tr class="bill-tb__col">
 				<th>배송비</th>
 				<td>
-					<span>${deleveryPrice }</span> 원
+					<span class="pmDeleveryPrice">${deleveryPrice }</span> 원
 				</td>
 			</tr>
 			<tr class="bill-tb__col_point bill-tb__col">
 				<th>적립금사용</th>
-				<td><span class="pointUse"></span> 원</td>
+				<td>- <span class="pointUse">0</span> 원</td>
 			</tr>
 	
 			<tr class="tb-hr">
@@ -179,12 +179,12 @@ pageEncoding="UTF-8"%>
 	
 			<tr class="bill-tb__total-price">
 				<th>최종결제금액</th>
-				<td><span></span> 원</td>
+				<td><span class="lastTotalPrice"></span> 원</td>
 			</tr>
 	
 			<tr class="bill-tb__earn-point">
 				<td colspan="2">
-					<span>구매 시 ${totalPoint }원 (
+					<span>구매 시 <span class="pmPoint">${totalPoint }</span>원 (
 						<c:if test="${memberDTO.memLevel == 0 }">
 							<span>5%</span>
 						</c:if>

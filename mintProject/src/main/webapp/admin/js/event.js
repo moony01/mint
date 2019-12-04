@@ -38,7 +38,6 @@ $(function(){
 		url:'/mintProject/admin/service/getEventList',
 		dataType:'json',
 		success: function(result){
-			console.log(result);
 			eventListTemp(result);
 			eventExecute(result);
 		},

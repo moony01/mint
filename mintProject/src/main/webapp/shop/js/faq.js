@@ -31,7 +31,7 @@ $(function(){
 $('#categorySelect').change(function(){
 	if($('#categorySelect').val() == 9){
 		// 페이징 처리 때문에  전체 리스트를 부르게 함
-		location.href="/mintProject/shop/service/faq/getBoardList";
+		location.href="/mintProject/shop/service/faq";
 	} else {		
 		faqCategory();
 	}

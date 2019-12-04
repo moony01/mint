@@ -20,39 +20,44 @@ $(function(){
 });
 
 function eventExecute(result){	
-	let event = result.list;
 	let now = new Date();
 	var eventOngoing = null;
+	
+	let event = result.list;
+	
+	/* 이벤트 진행 여부 */
+	var cnt = 0;
 	
 	for(var i=0; i<event.length; i++){
 		if(event[i].startDate < now) var startCount = 0;
 		else var startCount = event[i].startDate - now;
 		let endCount = event[i].endDate - now
-		  , eventStatus = event[i].eventStatus
-		  , seq = event[i].seq
-		  , discountRate = event[i].discountRate
-		  
-		/* 이벤트 진행 여부 */
+		, eventStatus = event[i].eventStatus
+		, seq = event[i].seq
+		, subject = event[i].subject
+		, discountRate = event[i].discountRate;
+
 		if(eventStatus === '1' && endCount > 0 && startCount == 0){
-			var cnt = 0;
-			/* 진행중인 일일특가 카운트 다운 */
-			if(event[i].subject.indexOf('[일일특가]') !== -1){
+			if(subject.indexOf('일일특가') !== -1){
 				cnt++;
+				/* 진행중인 일일특가 카운트 다운 */
 				var countTo = event[i].endDate;
 				dailySpecialCntDown(countTo, 'dscd');
 				dailySpecialInfo(seq, discountRate);
 			}
-			
-			if(cnt === 0){
-				$('.ds-thumbnail')
-				.addClass('dailyspecial-thumb')
-				.css({'background-image':'url(/mintProject/shop/storage/mint/event/event_end.png)'})
-				.css('opacity', '0.5');
-				$('#dscd').text('일일특가 종료');
-				$('.main__special-count').css('opacity', '0.5');
-			}
-		}
+		}	
 	}	
+		
+	/* 진행중인 일일특가 없다면 종료 이미지 교체*/
+	if(cnt === 0){
+		$('.ds-thumbnail')
+		.addClass('dailyspecial-thumb')
+		.css({'background-image':'url(/mintProject/shop/storage/mint/event/event_end.png)'})
+		.css('opacity', '0.5');
+		$('#dscd').text('일일특가 종료');
+		$('.main__special-count').css('opacity', '0.5');
+	}
+			
 }
 
 /* 일일특가 카운트다운 실행 로직 */
@@ -69,7 +74,7 @@ function dailySpecialCntDown(countTo, id) {
 				(((timeDifference % (secondsInADay)) % (secondsInAHour))/ (60 * 1000) * 1);
 		secs = Math.floor
 				((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
-	if(hours <= 0 && mins <= 0 && secs <= 0){
+	if(hours < 0 && mins < 0 && secs < 0){
 		$('#dscd').text('일일특가 종료');
 	} else {
 		var cntdwn = document.getElementById('dscd');

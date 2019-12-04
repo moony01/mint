@@ -319,7 +319,7 @@ function total_calcul() {
 
 	memlevel = $('.memlevel').eq(0).val();
 	if(memlevel == 0) {
-		$('#totalPoint span').text((originalTotPrice - discountTotPrice) * 0.05); // 적립금 : 최종 결제 예정 금액 * 적립금 비율(memLevel에 따라 달라짐: pointRate의 값 가져옴)
+		$('#totalPoint span').text(parseInt((originalTotPrice - discountTotPrice) * 0.05)); // 적립금 : 최종 결제 예정 금액 * 적립금 비율(memLevel에 따라 달라짐: pointRate의 값 가져옴)
 		//savingPrice = $('#totalPoint span').text();
 		//$('.savingPrice').eq(0).val(savingPrice);
 	}else if(memlevel == 1) {

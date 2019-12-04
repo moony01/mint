@@ -112,8 +112,13 @@ public class EventController {
 
 		// 게시물 리스트 가져오기
 		Map<String, Object> map2 = new HashMap<String, Object>();
+		int endNum = Integer.parseInt((String) map.get("pg")) * 9;
+		int startNum = endNum - 8;
 		map2.put("array", array);
-
+		map2.put("selectGubun", map.get("selectGubun"));
+		map2.put("endNum", endNum + "");
+		map2.put("startNum", startNum + "");
+		System.out.println(map2);
 		List<ProductDTO> list = eventService.getEventProductList(map2);
 				
 		int totalArticle = list.size();

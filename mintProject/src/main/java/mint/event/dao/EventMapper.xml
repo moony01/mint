@@ -139,10 +139,32 @@
 
 	<!-- 이벤트 상품 가져오기 -->
 	<select id="getEventProductList" parameterType="java.util.Map" resultType="product">
-		select * from product where productCode in
-		<foreach collection="array" item="productCode" index="i" open="(" separator="," close=")">
-			#{productCode}
-		</foreach>
+		select * from
+			(select rownum rn, tt.* from
+				(select * from product
+				where productStatus = 0
+				  and productCode in
+					<foreach collection="array" item="productCode" index="i" open="(" separator="," close=")">
+						#{productCode}
+					</foreach>
+		<!-- 신상품 : 1   인기상품순 : 2    낮은 가격순 : 3   높은 가격순 : 4 -->
+ 		<choose>
+ 	    	<when test="selectGubun==null || selectGubun==1">
+ 	                    order by productCode desc
+ 		    </when>
+ 	        <when test="selectGubun==2">
+ 		                order by STAR desc
+ 	   		</when>	
+ 	   		<when test="selectGubun==3">
+	                   order by price
+	 		</when>
+		 	<otherwise>
+		               order by price desc
+		 	</otherwise>
+ 	    </choose>
+ 	    	    ) tt
+			)
+		where rn between #{startNum} and #{endNum}
 	</select>
 	
 	<!-- 이벤트 상품 할인율 수정 (이벤트 실행) -->

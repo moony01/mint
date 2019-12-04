@@ -46,9 +46,15 @@ function getOfferBoardView(){
 //제안글 삭제
 $('.btnDelete').click(function(){
 	let seq = $(this).parent().parent().parent().prev().children(':first-child').text();
-	if(confirm('정말 삭제하시겠습니까? ')) {
-		location.href='/mintProject/shop/service/offerDelete?seq='+seq;
-	}
+	swal({
+		text: '정말 삭제하시겠습니까? ',
+		button: true, 
+		
+	}).then(value => {
+		if(value){
+			location.href='/mintProject/shop/service/offerDelete?seq='+seq;
+		}
+	});
 });
 
 //페이징 처리

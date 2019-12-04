@@ -191,18 +191,29 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 .val();
             console.log(stockTest);
             if (stockTest[i] == 0) {
-                alert('품절상품이있습니다 품절상품을 삭제해주세요.');
+                swal({
+                	text : '품절상품이있습니다 품절상품을 삭제해주세요.',
+                	buttons : false
+                });
                 return;
             }
         }
 
         if (passPrice == 0) {
-            alert('결제할 항목을 선택하세요');
+            swal({
+            	text : '결제할 항목을 선택하세요',
+            	buttons : false
+            });
         } else {
-            if (confirm('결제를 진행하시겠습니까?')) {
-                $('#process').submit();
-                console.log(form);
-            }
+        	swal({
+        		text : '결제를 진행하시겠습니까?',
+        		showConfirmButton: true
+        	}).then((value) => {
+        		if(value){
+        			$('#process').submit();
+                    console.log(form);
+        		}
+        	});
         }
     };
 </script>

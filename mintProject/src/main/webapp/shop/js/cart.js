@@ -364,42 +364,6 @@ function change_Allcheckbox(label){
 	
 }
 
-function comma() {
-	const price1 = document.querySelector(".price1"); //정가
-	const price2 = document.querySelector(".price2"); //할인가격
-	const prd_price = document.querySelector(".prd_price"); //상품금액
-	const amountPrice = document.querySelector("#amountPrice"); //토탈 상품금액
-	const amountSale = document.querySelector("#amountSale"); //토탈 상품 할인금액
-	const amountCourier = document.querySelector("#amountCourier"); //토탈 배송비
-	const amountTotal = document.querySelector("#amountTotal"); //토탈 결제예정금액
-	const totalPoint = document.querySelector("#totalPoint span"); //토탈 결제예정금액
-	
-	function makeComma(num){
-	    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");            
-	}
-	function removeComma(str){
-	    return parseInt(str.replace(",",""));
-	}
-
-	const price1_comma = removeComma(price1.innerText);
-	const price2_comma = removeComma(price2.innerText);
-	const prd_price_comma = removeComma(prd_price.innerText);
-	const amountPrice_comma = removeComma(amountPrice.innerText);
-	const amountSale_comma = removeComma(amountSale.innerText);
-	const amountCourier_comma = removeComma(amountCourier.innerText);
-	const amountTotal_comma = removeComma(amountTotal.innerText);
-	const totalPoint_comma = removeComma(totalPoint.innerText);
-
-	price1.innerText = makeComma(price1_comma);
-	price2.innerText = makeComma(price2_comma);
-	prd_price.innerText = makeComma(prd_price_comma);
-	amountPrice.innerText = makeComma(amountPrice_comma);
-	amountSale.innerText = makeComma(amountSale_comma);
-	amountCourier.innerText = makeComma(amountCourier_comma);
-	amountTotal.innerText = makeComma(amountTotal_comma);
-	totalPoint.innerText = makeComma(totalPoint_comma);
-}
-
 
 
 

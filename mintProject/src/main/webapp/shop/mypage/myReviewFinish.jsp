@@ -5,7 +5,7 @@
 </div> -->
 <seciton class="service">
     <div class="snb">
-        <h2 class="snb__title">마이컬리</h2>
+        <h2 class="snb__title">마이페이지</h2>
         <ul class="snb__list">
             <li class="snb__item"><a href="">주문내역</a></li>
             <li class="snb__item"><a href="">늘 사는 것</a></li>

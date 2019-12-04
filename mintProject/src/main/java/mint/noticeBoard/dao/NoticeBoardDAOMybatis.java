@@ -38,6 +38,7 @@ public class NoticeBoardDAOMybatis implements NoticeBoardDAO {
 
 	@Override
 	public NoticeBoardDTO getNoticeBoardView(String seq) {
+		sqlSession.update("noticeBoardSQL.updateHit", Integer.parseInt(seq));
 		return sqlSession.selectOne("noticeBoardSQL.getNoticeBoardView", Integer.parseInt(seq));
 	}
 

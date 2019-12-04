@@ -45,6 +45,10 @@
 		select * from noticeboard where seq=#{seq}
 	</select>
 	
+	<update id="updateHit" parameterType="int">
+		update noticeboard set hit = hit+1 where seq = #{seq}
+	</update>
+	
 	<!-- 게시판지우기 -->
 	<delete id="noticeBoardDelete" parameterType="java.util.Map">
 		delete from noticeboard where id=#{memId} and seq=#{seq}

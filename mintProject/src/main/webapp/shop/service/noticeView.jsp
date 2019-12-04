@@ -28,7 +28,7 @@
     </table>
     
     <div class="content_btm_wrap">
-	    <div class="service__write-btn" onclick="window.location.href='/mintProject/notice/noticeBoardList?pg='+${pg}">목록</div>
+	    <div class="service__write-btn" onclick="window.location.href='/mintProject/shop/service/notice?pg='+${pg}">목록</div>
 	    <div class="notice-board-movement" style="display: none;">
 	    	<ul>
 	    		<li class="prev">

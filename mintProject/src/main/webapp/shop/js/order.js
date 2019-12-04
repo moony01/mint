@@ -74,16 +74,17 @@ $(document).ready(function(){
 	
 	dataSet(); //상품정보 박스 데이터가공(할인적용가, 최종결제금액)
 	paymentDataSet() //결제창 데이터 가공
+	comma();
 
 	//상품정보 박스 데이터가공(할인적용가, 최종결제금액)
 	function dataSet() {
+
 		for(var i=0; i<cnt; i++) {
 			price[i] = parseInt($('.price span').eq(i).text()); //정가
 			discountRate[i] = parseInt($('.discountRate span').eq(i).text()); //할인율
 			discountPriceMinus[i] = price[i]*(discountRate[i] / 100); //할인된금액
 			discountPrice[i] = parseInt(price[i] - discountPriceMinus[i]); //할인적용가
 			qty[i] = parseInt($('.ctCount span').eq(i).text()); //수량
-			deleveryPrice = parseInt($('#deleveryPrice').text());
 			
 			$(".dp").eq(i).text(discountPrice[i]);
 			$(".salesPrice").eq(i).text(discountPrice[i] * qty[i]);
@@ -96,6 +97,15 @@ $(document).ready(function(){
 			lastTotPrice += totPrice[i]; //정가금액합계
 			lastTotSalePrice += totSalePrice[i]; //할인금액합계
 		}
+		
+		let pmDeleveryPrice_comma = document.querySelector(".pmDeleveryPrice"); //배송비
+		
+		function removeComma(str){
+		    return parseInt(str.replace(",",""));
+		}
+		
+		let pmDeleveryPrice = removeComma(pmDeleveryPrice_comma.innerText);
+		deleveryPrice = pmDeleveryPrice;
 		
 		$('#lastPrice').text(lastPrice); 
 		
@@ -136,7 +146,7 @@ $(document).ready(function(){
 			$(".onePrdPrice").eq(i).text(onePrdPrice[i]);
 		}
 		
-		lastPriceSet = parseInt($('.bill-tb__total-price span').text());
+		lastPriceSet = parseInt($('.bill-tb__total-price .lastTotalPrice').text());
 		
 		//결제하기 클릭 결제하기
 		document.getElementById('btnPayment').onclick = function(){
@@ -149,17 +159,6 @@ $(document).ready(function(){
 			
 			var IMP = window.IMP; // 생략가능
 			IMP.init('imp22922268'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-			console.log(lastPriceSet);
-			console.log(request);
-			console.log(delevery);
-			console.log(pointuse);
-			console.log(pointadd);
-			console.log("tel" +setTel);
-	    	console.log("qty : "+qty);
-	    	console.log("productCode : "+productCode);
-	    	console.log("lastPriceSet : "+lastPriceSet);
-	    	console.log("price : "+price);
-	    	console.log("discountRate : "+discountRate);
 			IMP.request_pay({
 				pg: 'html5_inicis', // version 1.1.0부터 지원.  
 				pay_method: 'card',
@@ -174,7 +173,6 @@ $(document).ready(function(){
 				m_redirect_url: '/mintProject/shop/goods/redirect' // 나중에 수정
 			}, function (rsp) {
 			    if (rsp.success) {
-			    	console.log(rsp);
 				    var msg = '결제가 완료되었습니다.';
 
 			    	$.ajax({
@@ -204,31 +202,84 @@ $(document).ready(function(){
 				    var msg = '결제에 실패하였습니다.';
 				    msg += '에러내용 : ' + rsp.error_msg;
 			    }
-			    alert(msg);
-			    console.log(msg);
+			    swal(msg);
 			});
 		};
 	}
 	
+	
+	function comma(){
+		const onePrdPrice = document.querySelector(".onePrdPrice"); //개당얼마
+		const salesPrice = document.querySelector(".salesPrice"); //상품금액
+		const pmPrdPrice = document.querySelector(".pmPrdPrice"); //결제상품금액
+		const pmSalePrice = document.querySelector(".pmSalePrice"); //상품할인금액
+		const pointUse = document.querySelector(".pointUse"); //적립금사용
+		const lastTotalPrice = document.querySelector(".lastTotalPrice"); //최종결제금액
+		const pmPoint = document.querySelector(".pmPoint"); //구매시포인트
+		
+		
+		function makeComma(num){
+		    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");            
+		}
+		function removeComma(str){
+		    return parseInt(str.replace(",",""));
+		}
+		
+		const onePrdPrice_comma = removeComma(onePrdPrice.innerText);
+		const salesPrice_comma = removeComma(salesPrice.innerText);
+		const pmPrdPrice_comma = removeComma(pmPrdPrice.innerText);
+		const pmSalePrice_comma = removeComma(pmSalePrice.innerText);
+		const pointUse_comma = removeComma(pointUse.innerText);
+		const lastTotalPrice_comma = removeComma(lastTotalPrice.innerText);
+		const pmPoint_comma = removeComma(pmPoint.innerText);
+		
+		onePrdPrice.innerText = makeComma(onePrdPrice_comma);
+		salesPrice.innerText = makeComma(salesPrice_comma);
+		pmPrdPrice.innerText = makeComma(pmPrdPrice_comma);
+		pmSalePrice.innerText = makeComma(pmSalePrice_comma);
+		pointUse.innerText = makeComma(pointUse_comma);
+		lastTotalPrice.innerText = makeComma(lastTotalPrice_comma);
+		pmPoint.innerText = makeComma(pmPoint_comma);
+	}
+	
+	
 	let myPoint = $('#memberPoint').text();
 	
 	$('#pointChk').change(function(){
+		
+		function makeComma(num){
+		    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");            
+		}
+		function removeComma(str){
+		    return parseInt(str.replace(",",""));
+		}
+		
 		if($('#pointChk').is(':checked')){
 			$('.check-label').addClass('checked');
-			$('#myPoint').val($('#memberPoint').text());
+			$('#myPoint').val(myPoint);
 			$('.pointUse').text(myPoint);
 			
-			lastPriceSet = parseInt($('.bill-tb__total-price span').text());
+			let lastTotalPrice_comma = document.querySelector(".lastTotalPrice");
+			
+			let lastTotalPrice = removeComma(lastTotalPrice_comma.innerText);
+			lastPriceSet = lastTotalPrice;
 			lastPriceSet -= myPoint;
-			$('.bill-tb__total-price span').text(lastPriceSet);
+			let change_totalPrice = lastPriceSet;
+			$('.lastTotalPrice').text(lastPriceSet);
+			lastTotalPrice_comma.innerText = makeComma(change_totalPrice);
 		}else {
 			$('.check-label').removeClass('checked');
 			$('#myPoint').val(0);
 			$('.pointUse').text('0');
 			
-			lastPriceSet = parseInt($('.bill-tb__total-price span').text());
+			lastTotalPrice_comma = document.querySelector(".lastTotalPrice");
+			
+			let lastTotalPrice = removeComma(lastTotalPrice_comma.innerText);
+			lastPriceSet = lastTotalPrice;
 			lastPriceSet += parseInt(myPoint);
-			$('.bill-tb__total-price span').text(lastPriceSet);
+			let change_totalPrice = lastPriceSet;
+			$('.lastTotalPrice').text(lastPriceSet);
+			lastTotalPrice_comma.innerText = makeComma(change_totalPrice);
 		}
 	});
 

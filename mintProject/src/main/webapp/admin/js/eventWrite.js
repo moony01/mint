@@ -337,7 +337,15 @@ function eventProductListTemp(result){
 					<td>${stock}</td>
 					<td>${star}</td>
 					<td class="price">${price}</td>
-					<td><input type="text" size="2" maxlength="2" class="discountRate"/>%</td>
+					<td>
+						<select class="discountRate" class="select-box">
+				            <option value="10">10</option>
+				            <option value="20">20</option>
+				            <option value="30">30</option>
+				            <option value="40">40</option>
+				            <option value="50">50</option>
+						</select>%
+					</td>
 					<td class="prevDiscountRate">${discountRate}%</td>
 				</tr>
 				`;

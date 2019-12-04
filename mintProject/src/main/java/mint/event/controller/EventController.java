@@ -30,7 +30,7 @@ import mint.product.bean.ProductDTO;
  *	EventController
  * 	이벤트 컨트롤러
  * 
- * @version 1.14
+ * @version 1.15
  * @author LimChangHyun 
  *
  *	구현된 기능 : 이벤트 등록, 이벤트 수정, 리스트 처리, 이벤트 삭제
@@ -91,6 +91,19 @@ public class EventController {
 	public ModelAndView getEventList(@PathVariable String temp) {
 
 		List<EventDTO> list = eventService.getEventList();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	/* 이벤트 리스트 가져오기 (메인뷰용) */
+	@RequestMapping(value="/{temp}/service/getEventListMain", method=RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView getEventListMain(@PathVariable String temp) {
+
+		List<EventDTO> list = eventService.getEventListMain();
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);

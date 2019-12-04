@@ -12,6 +12,17 @@ $(function(){
 		dataType:'json',
 		success: function(result){
 			eventExecute(result);
+		},
+		error: function(error){
+			console.error(error);
+		}
+	});
+	
+	$.ajax({
+		type:'post',
+		url:'/mintProject/shop/service/getEventListMain',
+		dataType:'json',
+		success: function(result){
 			eventMainTemp(result);
 		},
 		error: function(error){
@@ -139,7 +150,8 @@ function dailySpecialInfo(seq, discountRate){
 function eventMainTemp(result){
 	let event = result.list;
 	let now = new Date();
-		
+	
+	console.log(event);
 
 	for(var i=0; i<event.length; i++){
 		if(event[i].startDate < now) var startCount = 0;

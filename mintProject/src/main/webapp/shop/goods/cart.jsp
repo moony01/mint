@@ -184,12 +184,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         var passPrice = parseInt($('#amountTotal').text());
         let stockTest = new Array();
         let cnt = $('.qty').length;
-        console.log(cnt);
         for (i = 0; i < cnt; i++) {
             stockTest[i] = $('.stock')
                 .eq(i)
                 .val();
-            console.log(stockTest);
             if (stockTest[i] == 0) {
                 swal({
                 	text : '품절상품이있습니다 품절상품을 삭제해주세요.',
@@ -211,7 +209,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         	}).then((value) => {
         		if(value){
         			$('#process').submit();
-                    console.log(form);
         		}
         	});
         }

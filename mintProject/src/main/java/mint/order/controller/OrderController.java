@@ -91,9 +91,6 @@ public class OrderController {
 		List<Map<String, String>> productList = orderService.getMyOrderProductList(ordernumber);
 		Map<String, String> orderDetails = orderService.getMyOrderDetails(ordernumber);
 		
-		System.out.println(productList);
-		System.out.println(orderDetails);
-		
 		if(!((String) session.getAttribute("memId")).equals(productList.get(0).get("ID"))) {
 			String result = "주문자 아이디와 현재 로그인중인 아이디가 일치하지 않습니다.";
 			mav.addObject("result",result);
@@ -123,7 +120,6 @@ public class OrderController {
 		order.remove("price");
 		order.remove("discountRate");
 		order.put("id", id);
-		System.out.println("order : "+order);
 		orderService.insertOrderInfo(order);
 		orderService.minusMemberPoint(order);
 		

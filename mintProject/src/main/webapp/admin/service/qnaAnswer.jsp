@@ -109,15 +109,26 @@
  
  //삭제하기 버튼 클릭 시
  $("#deleteQna").click(function(){
-	 if(confirm("삭제하실건가요??")){
+	 swal({
+			text : '정말로 삭제하시겠습니까?',
+			icon : 'warning',
+			showConfirmButton : true
+		}).then(function(isConfirm){
+			if(isConfirm){
 		 location.href="/mintProject/admin/service/adminQnaDelete?seq="+${qndBoardDTO.seq};
+			}
+		});
 	 }
  });
  
  //답변 버튼 클릭 시 
   $("#goReply").click(function(){
 	 if($("#content").val() == ""){
-		 alert("답변 내용을 입력하여 주세요.")
+		 swal({
+			text : '답변 내용을 입력해주세요',
+			buttons : false,
+			timer : 2000
+			});
 	 }else{
 		 document.adminQnaReplyUpdate.submit();
 	 }

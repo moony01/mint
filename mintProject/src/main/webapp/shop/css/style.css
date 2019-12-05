@@ -63,7 +63,7 @@
 .gnb__list {
     display: flex;
     align-items: center;
-    min-width: 1050px;
+    width: 1050px;
     margin: 0 auto;
     position: relative;
 }
@@ -240,7 +240,7 @@
 /* 스크롤 200 까지 내려갔을 때 */
 .fixed {
     background: #ffffff;
-    position: fixed;
+    position: sticky;
     border-bottom: #e3e7ee 1px solid;
     width: 100%;
     top: 0;
@@ -561,6 +561,7 @@
     border-bottom: 1px solid #45b8ac;
 }
 .search_box .inp {
+    float: left;
     width: 603px;
     height: 45px;
     margin-right: 20px;
@@ -568,9 +569,11 @@
     border: 1px solid #ccc;
     font-size: 14px;
     color: #333;
+    /* letter-spacing: -1px; */
 }
 
 .search_box .search_btn {
+    float: left;
     width: 175px;
     height: 45px;
     line-height: 45px;
@@ -578,6 +581,7 @@
 }
 
 .search_wrap {
+    height: 180px;
     padding-top: 55px;
     padding-bottom: 50px;
 }

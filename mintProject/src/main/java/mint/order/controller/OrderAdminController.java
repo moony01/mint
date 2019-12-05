@@ -32,6 +32,7 @@ public class OrderAdminController {
 	public ModelAndView getOrderList(@PathVariable String option, 
 									@PathVariable String searchValue, 
 									@RequestParam(required = false, defaultValue = "1") String pg, ModelAndView mav) {
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("status", Integer.parseInt(option));
 		int totalArticle = 0;
@@ -52,11 +53,8 @@ public class OrderAdminController {
 		map.put("endNum", endNum);
 		map.put("startNum", startNum);
 		
-		System.out.println(map);
 		List<OrderInfoDTO> list = orderService.getOrderList(map);
 		
-		System.out.println("list: "+list.size());
-		System.out.println("totA: "+totalArticle);
 		mav.addObject("pg", pg);
 		mav.addObject("totalArticle", totalArticle);
 		mav.addObject("list", list);

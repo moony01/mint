@@ -101,7 +101,7 @@ function updateOrderStatus(id, orderNumber){
 		if(value){
 			getUpdateOrderPage(id, orderNumber)
 			.then(function(){
-				getList(5)
+				getList(5, '', pg)
 				.then(printList)
 				.catch(printError);
 			})

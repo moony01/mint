@@ -34,8 +34,10 @@ public interface OrderDAO {
 
 	public Map<String, String> getMyOrderDetails(String ordernumber);
 
-	public int getOrderTotalArticle();
+	public int getOrderTotalArticle(Map<String, Object> map);
 
 	public void minusMemberPoint(Map<String, Object> order);
+
+	public int getOrderTotalArticleByDate(Map<String, Object> map);
 
 }

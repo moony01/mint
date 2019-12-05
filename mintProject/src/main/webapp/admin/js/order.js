@@ -127,8 +127,8 @@ function printError(err){
 
 //페이징 처리
 function paging(totalArticle, currentPage){
-	let pageBlock = 10;
-	let pageSize = 10;
+	let pageBlock = 20;
+	let pageSize = 20;
 	let temp = Math.ceil(currentPage / pageBlock);
 	let totalPage = Math.floor((totalArticle+pageSize-1) / pageSize);
 	let startPage = Math.ceil((temp-1)/pageBlock) * pageBlock +1; 

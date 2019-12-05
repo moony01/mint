@@ -48,8 +48,20 @@
 	</select>
 	
 	<!-- [관리자] 주문내역 보기 ======================================================================================-->
-	<select id="getOrderTotalArticle" resultType="int">
+	<select id="getOrderTotalArticle" parameterType="java.util.Map" resultType="int">
 		select count(*) from orderInfo
+		<if test="status != 5">
+			where status = #{status}
+		</if>
+	</select>
+	
+	<select id="getOrderTotalArticleByDate" parameterType="java.util.Map" resultType="int">
+		select count(*) from orderInfo
+		where logtime between to_date(#{from}, 'YYMMDD') and to_date(#{to}, 'YYMMDD') + 0.99999	
+		<if test="status != 5">
+			and status = #{status}
+		</if>
+        
 	</select>
 	
 	<select id="getOrderList" parameterType="java.util.Map" resultType="orderInfo">
@@ -59,19 +71,21 @@
         <if test="status != 5">
 			where status = #{status}
 		</if>
-        
         order by orderNumber desc) temp)
 		where rn between #{startNum} and #{endNum} 
 		
 	</select>
 	
 	<select id="getOrderListByDate" parameterType="java.util.Map" resultType="orderInfo">
-		select orderNumber, id, to_char(logtime, 'YY/MM/DD') as logtime, status from orderInfo  
-		where  logtime between to_date(#{from}, 'YYMMDD') and to_date(#{to}, 'YYMMDD') + 0.99999
-		<if test="status != 5">
+		select * from (select rownum rn, temp.* from
+		(select orderNumber, id, to_char(logtime, 'yyyy-MM-dd') as logtime, status from orderInfo  
+        where logtime between to_date(#{from}, 'YYMMDD') and to_date(#{to}, 'YYMMDD') + 0.99999
+        <if test="status != 5">
 			and status = #{status}
 		</if>
-		order by orderNumber desc
+        order by orderNumber desc) temp)
+        where rn between #{startNum} and #{endNum} 
+        
 	</select>
 	
 	<select id="getOrderView" parameterType="java.util.Map" resultType="java.util.Map">

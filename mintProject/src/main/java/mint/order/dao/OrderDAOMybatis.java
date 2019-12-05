@@ -108,8 +108,8 @@ public class OrderDAOMybatis implements OrderDAO {
 	}
 
 	@Override
-	public int getOrderTotalArticle() {
-		return sqlSession.selectOne("orderSQL.getOrderTotalArticle");
+	public int getOrderTotalArticle(Map<String, Object> map) {
+		return sqlSession.selectOne("orderSQL.getOrderTotalArticle", map);
 	}
 
 	@Override
@@ -117,6 +117,11 @@ public class OrderDAOMybatis implements OrderDAO {
 		
 		sqlSession.update("memberSQL.minusMemberPoint", order);
 		
+	}
+
+	@Override
+	public int getOrderTotalArticleByDate(Map<String, Object> map) {
+		return sqlSession.selectOne("orderSQL.getOrderTotalArticleByDate", map);
 	}
 
 }

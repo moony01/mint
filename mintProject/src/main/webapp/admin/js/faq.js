@@ -172,7 +172,7 @@ $('#faqDeleteBtn').click(function(){
 		swal({
 			text : '정말로 삭제하시겠습니까?',
 			icon : 'warning',
-			showCongirmButton : true
+			showConfirmButton : true
 		}).then(function(isConfirm){
 			if(isConfirm) {
 				$.ajax({
@@ -181,7 +181,7 @@ $('#faqDeleteBtn').click(function(){
 					data: $('#faqBoardForm').serialize(),
 					success: function(result){
 						swal({
-					    	text : '삭제완료!',
+					    	text : '삭제 완료',
 					    	buttons : false
 					    }).then(function(){
 					    	location.href='/mintProject/admin/service/faq';

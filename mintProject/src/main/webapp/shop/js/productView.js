@@ -464,23 +464,34 @@ function reviewPaging(totalArticle, currentPage){
 
 //재입고 알림 신청
 $("#stockAlarm_btn").click(function(){
-	$.ajax({
-		type : "post",
-		url : "/mintProject/shop/product/setProductAlarm",	
-		data : "productCode="+$("#productCode").val(),
-		dataType : "json",
-		success : function(data){
-			$(".notice-modal").removeClass("hidden");
-			if(data.gubun=='1'){
-				$('.notice-modal__message').text("이미 재입고 신청알림이 등록되었습니다.");
-			}else if(data.gubun=='2'){
-				$('.notice-modal__message').text("재입고 알림 신청이 되었습니다.");
+	if($("#sessionId").val() == ""){
+		$(function(){
+			swal({
+				text : "로그인 후 이용할 수 있습니다.",
+				showConfirmButton: true,
+				//confirmButtonColor: '#8CD4F5',
+				timer : 1600
+			})
+		});
+	}else{
+		$.ajax({
+			type : "post",
+			url : "/mintProject/shop/product/setProductAlarm",	
+			data : "productCode="+$("#productCode").val(),
+			dataType : "json",
+			success : function(data){
+				$(".notice-modal").removeClass("hidden");
+				if(data.gubun=='1'){
+					$('.notice-modal__message').text("이미 재입고 신청알림이 등록되었습니다.");
+				}else if(data.gubun=='2'){
+					$('.notice-modal__message').text("재입고 알림 신청이 되었습니다.");
+				}
+			},
+			error : function(){
+				
 			}
-		},
-		error : function(){
-			
-		}
-	});
+		});
+	}
 });
 
 

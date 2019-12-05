@@ -61,7 +61,7 @@ function printProductQnaBoard(result){
 												</tr>
 												<tr class="content_wrap qna_${i}">
 													<td colspan="6" style="text-align:center; padding : 10px;">
-														<textarea style="width:100%; height:195px; resize:none;"></textarea><input type='button' value="답변등록" id="reply_btn" style="margin-top:10px;">
+														<textarea style="width:100%; height:195px; resize:none;"></textarea><input type='button' value="답변등록" class="reply_btn" style="margin-top:10px;">
 													</td>
 												</tr>`;
 		}
@@ -80,7 +80,7 @@ function printProductQnaBoard(result){
 		}
 	})
 	
-	$('#reply_btn').on('click', function(){
+	$('.reply_btn').on('click', function(){
 		var seq = $(this).parent().parent().prev().prev().children(':first').text();
 		var replyContent = $(this).prev().val();	
 		$.ajax({

@@ -81,8 +81,8 @@ $('.btn-reply').click(function(){
 
 //페이징 처리
 function paging(totalArticle, currentPage, addr){
-	let pageBlock = 5;
-	let pageSize = 5;
+	let pageBlock = 10;
+	let pageSize = 10;
 	let temp = Math.ceil(currentPage / pageBlock);
 	let totalPage = Math.floor((totalArticle+pageSize-1) / pageSize);
 	let startPage = Math.ceil((temp-1)/pageBlock) * pageBlock +1; 

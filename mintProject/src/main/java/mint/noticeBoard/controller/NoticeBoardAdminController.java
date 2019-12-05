@@ -37,8 +37,8 @@ public class NoticeBoardAdminController {
 	@RequestMapping(value="/admin/service/notice")
 	public ModelAndView noticeBoardList(@RequestParam(required=false, defaultValue="1") String pg,
 										ModelAndView mav) {
-		int endNum = Integer.parseInt(pg)*5;
-		int startNum = endNum-4;
+		int endNum = Integer.parseInt(pg)*10;
+		int startNum = endNum-9;
 		
 		Map<String,Integer> map = new HashMap<String,Integer>();
 		map.put("startNum", startNum);
@@ -49,8 +49,8 @@ public class NoticeBoardAdminController {
 		//페이징 처리
 		int totalNotice = noticeBoardService.getTotalNotice();
 		noticeBoardPaging.setCurrentPage(Integer.parseInt(pg));
-		noticeBoardPaging.setPageBlock(5);
-		noticeBoardPaging.setPageSize(5);
+		noticeBoardPaging.setPageBlock(10);
+		noticeBoardPaging.setPageSize(10);
 		noticeBoardPaging.setTotalNotice(totalNotice);
 		noticeBoardPaging.makePagingHTML();
 		

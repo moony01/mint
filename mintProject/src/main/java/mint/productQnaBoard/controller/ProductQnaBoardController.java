@@ -144,7 +144,6 @@ public class ProductQnaBoardController {
 	@RequestMapping(value="/admin/service/productQna_reply")
 	@ResponseBody
 	public void productQna_reply(@RequestParam String replyContent, String seq, Map<String, String> map) {
-		System.out.println(seq+" "+replyContent);
 		map.put("seq", seq);
 		map.put("replyContent", replyContent);
 		productQnaBoardService.reply(map);
@@ -152,8 +151,8 @@ public class ProductQnaBoardController {
 	
 	// [사용자, 관리자 페이지 공통 함수] ==================================================================================================
 		public  void setPagingNumber(String pg, Map<String, Object> map) {
-			int endNum = Integer.parseInt(pg) *5;
-			int startNum = endNum -4; 
+			int endNum = Integer.parseInt(pg) *10;
+			int startNum = endNum -9; 
 			
 			map.put("endNum", endNum);
 			map.put("startNum", startNum);

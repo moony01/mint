@@ -32,8 +32,8 @@ public class NoticeBoardController {
 								  HttpSession session) {
 		
 		//1페이지당 5개씩
-		int endNum = Integer.parseInt(pg)*5;
-		int startNum = endNum-4;
+		int endNum = Integer.parseInt(pg)*10;
+		int startNum = endNum-9;
 		
 		Map<String,Integer> map = new HashMap<String,Integer>();
 		map.put("startNum", startNum);
@@ -44,8 +44,8 @@ public class NoticeBoardController {
 		//페이징 처리
 		int totalNotice = noticeBoardService.getTotalNotice();//총글수
 		noticeBoardPaging.setCurrentPage(Integer.parseInt(pg));
-		noticeBoardPaging.setPageBlock(5);
-		noticeBoardPaging.setPageSize(5);
+		noticeBoardPaging.setPageBlock(10);
+		noticeBoardPaging.setPageSize(10);
 		noticeBoardPaging.setTotalNotice(totalNotice);
 		noticeBoardPaging.makePagingHTML();
 		

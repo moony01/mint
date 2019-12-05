@@ -74,12 +74,10 @@ public class QnaBoardController {
 	public ModelAndView qndBoardWrite(@ModelAttribute QnaBoardDTO qnaBoardDTO, @RequestParam MultipartFile img,
 			HttpSession session) {
 		if (!img.isEmpty()) {
-			System.out.println("파일 집어넣었다!!!!!!!!");
 			String filePath = "C:\\Users\\bitcamp\\Documents\\GitHub\\mint\\mintProject\\src\\main\\webapp\\shop\\storage\\member\\qnaboard";
 			String fileName = img.getOriginalFilename();
 			File file = new File(filePath, fileName);
-			System.out.println(fileName);
-
+			
 			try {
 				FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
 			} catch (IOException e) {
@@ -87,7 +85,6 @@ public class QnaBoardController {
 			}
 			qnaBoardDTO.setFileName(fileName);
 		} else {
-			System.out.println("파일 안집어넣었다!!!!!!!!");
 			qnaBoardDTO.setFileName("");
 		}
 
@@ -129,16 +126,12 @@ public class QnaBoardController {
 	public ModelAndView qnaBoardModify(@ModelAttribute QnaBoardDTO qnaBoardDTO, @RequestParam MultipartFile img,
 			HttpSession session) {
 
-		System.out.println("qnaBoardDTO : " + qnaBoardDTO);
-		System.out.println("img : " + img);
-
+		
 		if (!img.isEmpty()) {
-			System.out.println("파일 집어넣었다!!!!!!!!");
 			String filePath = "C:\\Users\\bitcamp\\Documents\\GitHub\\mint\\mintProject\\src\\main\\webapp\\shop\\storage";
 			String fileName = img.getOriginalFilename();
 			File file = new File(filePath, fileName);
-			System.out.println(fileName);
-
+		
 			try {
 				FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
 			} catch (IOException e) {
@@ -146,7 +139,6 @@ public class QnaBoardController {
 			}
 			qnaBoardDTO.setFileName(fileName);
 		} else {
-			System.out.println("파일 안집어넣었다!!!!!!!!");
 		}
 
 		qnaBoardService.qnaBoardModify(qnaBoardDTO);
@@ -162,7 +154,6 @@ public class QnaBoardController {
 	@RequestMapping(value = "/qnaboard/qnaBoardDelete", method = RequestMethod.POST)
 	@ResponseBody
 	public void qnaBoardDelete(@RequestParam int seq, HttpSession session) {
-		System.out.println("삭제할 seq : " + seq);
 		qnaBoardService.qnaBoardDelete(seq);
 	}
 
@@ -173,8 +164,7 @@ public class QnaBoardController {
 		// 총 갯수
 		int totalArticle = qnaBoardService.getAdminQnaBoardCnt(map);
 		setPagingNumber(map);
-		System.out.println("map : " + map);
-
+		
 		List<QnaBoardDTO> list = qnaBoardService.getAdminQnaBoardList(map);
 
 		// 셀렉트 박스 구분
@@ -225,9 +215,6 @@ public class QnaBoardController {
 	public ModelAndView adminQnaReplyUpdate(@RequestParam Map<String,String> map) {
 		ModelAndView mav = new ModelAndView();
 		//String content, @RequestParam String pg
-		System.out.println("content : " + map.get("content"));
-		System.out.println("pg : " + map.get("pg"));
-		System.out.println("seq : " + map.get("seq"));
 		
 		//관리자 1:1문의 답변달기
 		int cnt = qnaBoardService.updateAdminReply(map);
@@ -246,7 +233,6 @@ public class QnaBoardController {
 		public ModelAndView adminQnaDelete(@RequestParam Map<String,String> map) {
 			ModelAndView mav = new ModelAndView();
 			//String content, @RequestParam String pg
-			System.out.println("삭제할 seq : " + map.get("seq"));
 			qnaBoardService.qnaBoardDelete(Integer.parseInt(map.get("seq")));
 			
 			mav.addObject("display", "/admin/service/qnaDeleteOk.jsp");
@@ -258,8 +244,8 @@ public class QnaBoardController {
 	// [사용자, 관리자 페이지 공통 함수]
 	// ==================================================================================================
 	public void setPagingNumber(Map<String, String> map) {
-		int endNum = Integer.parseInt((String) map.get("pg")) * 9;
-		int startNum = endNum - 8;
+		int endNum = Integer.parseInt((String) map.get("pg")) * 10;
+		int startNum = endNum - 9;
 
 		map.put("endNum", endNum + "");
 		map.put("startNum", startNum + "");

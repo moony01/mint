@@ -52,8 +52,7 @@ function printgetSuggestBoard(result){
 			reply = '답변 완료'; 
 		}
 		let suggestBoard = `<tr>
-								<td><input type="checkbox" name="" id=""></td>
-					            <td>${seq}</td>
+								<td>${seq}</td>
 					            <td>${category}</td>
 					            <td class="table--left"><a href="/mintProject/admin/service/offerAnswer?pg=${pg}&seq=${seq}">${subject}</a></td>
 					            <td>${parseDate}</td>

@@ -30,7 +30,7 @@ import mint.product.bean.ProductDTO;
  *	EventController
  * 	이벤트 컨트롤러
  * 
- * @version 1.13
+ * @version 1.15
  * @author LimChangHyun 
  *
  *	구현된 기능 : 이벤트 등록, 이벤트 수정, 리스트 처리, 이벤트 삭제
@@ -98,9 +98,22 @@ public class EventController {
 		return mav;
 	}
 	
+	/* 이벤트 리스트 가져오기 (메인뷰용) */
+	@RequestMapping(value="/{temp}/service/getEventListMain", method=RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView getEventListMain(@PathVariable String temp) {
+
+		List<EventDTO> list = eventService.getEventListMain();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
 	/* 이벤트 페이지 상품 리스트 */
 	@RequestMapping(value = "/shop/goods/eventProductList", method = RequestMethod.GET)
-	public ModelAndView getProductList(@RequestParam Map<String, Object> map) {
+	public ModelAndView getEventProductList(@RequestParam Map<String, Object> map) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -112,9 +125,14 @@ public class EventController {
 
 		// 게시물 리스트 가져오기
 		Map<String, Object> map2 = new HashMap<String, Object>();
+		int endNum = Integer.parseInt((String) map.get("pg")) * 9;
+		int startNum = endNum - 8;
 		map2.put("array", array);
+		map2.put("selectGubun", map.get("selectGubun"));
+		map2.put("endNum", endNum + "");
+		map2.put("startNum", startNum + "");
 
-		List<ProductDTO> list = eventService.getEventProductList(map2);
+		List<ProductDTO> list = eventService.getEventProductListWithSort(map2);
 				
 		int totalArticle = list.size();
 		
@@ -172,7 +190,7 @@ public class EventController {
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
 		map.put("searchOption", searchOption);
-		map.put("categorySelect", searchOption);
+		map.put("categorySelect", categorySelect);
 		map.put("keyword", keyword);
 
 		List<ProductDTO> list = eventService.getProductList(map);
@@ -192,7 +210,7 @@ public class EventController {
 	/* 상품 추가를 위해 선택한 상품 리스트 가져오기 */
 	@RequestMapping(value="/admin/service/addProduct", method=RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView getProductList(@RequestParam String[] inputProductCode) {
+	public ModelAndView addProduct(@RequestParam String[] inputProductCode) {
 		
 		// 해당 상품 리스트 가져오기
 		Map<String, Object> map = new HashMap<String, Object>();

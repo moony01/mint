@@ -51,9 +51,6 @@ public class OrderController {
 
 		MemberDTO memberDTO = orderService.getUserData(map);
 		
-		// System.out.println("list :"+list);
-		// System.out.println("memberDTO :"+memberDTO);
-		
 		model.addAttribute("totalPoint", totalPoint);
 		model.addAttribute("deleveryPrice", deleveryPrice);
 		model.addAttribute("list", list);

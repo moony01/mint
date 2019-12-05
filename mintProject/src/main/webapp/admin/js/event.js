@@ -38,7 +38,6 @@ $(function(){
 		url:'/mintProject/admin/service/getEventList',
 		dataType:'json',
 		success: function(result){
-			console.log(result);
 			eventListTemp(result);
 			eventExecute(result);
 		},
@@ -239,22 +238,38 @@ $('#chkAll').click(function(){
 /* 이벤트 삭제 */
 $('#eventDeleteBtn').click(function(){
 	var cnt = $('.check:checked').length; // 체크된 항목 갯수 구하기
-	if(cnt===0) alert('삭제할 항목을 먼저 선택하세요');
+	if(cnt===0) {
+		swal({
+			text : '삭제할 항목을 먼저 선택하세요',
+			buttons : false,
+			timer : 2000
+		});
+	}
 	else {
-		if(confirm('정말로 삭제하시겠습니까?')) {
-			$.ajax({
-				type:'post',
-				url:'/mintProject/admin/service/eventDelete',
-				data: $('#eventListForm').serialize(),
-				success: function(result){
-					alert('삭제 완료!');
-					location.href='/mintProject/admin/service/event';
-				},
-				error: function(error){
-					console.error(error);
-				}
-			});
-		}
+		swal({
+			text : '정말로 삭제하시겠습니까?',
+			icon : 'warning',
+			showConfirmButton : true
+		}).then(function(isConfirm){
+			if(isConfirm) {
+				$.ajax({
+					type:'post',
+					url:'/mintProject/admin/service/eventDelete',
+					data: $('#eventListForm').serialize(),
+					success: function(result){
+						swal({
+					    	text : '삭제 완료',
+					    	buttons : false
+					    }).then(function(){
+					    	location.href='/mintProject/admin/service/event';
+					    });
+					},
+					error: function(error){
+						console.error(error);
+					}
+				});
+			}
+		});
 	}
 });
 

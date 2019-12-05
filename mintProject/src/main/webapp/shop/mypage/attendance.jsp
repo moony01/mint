@@ -23,7 +23,7 @@
 
 <section class="service">
     <div class="snb">
-        <h2 class="snb__title">마이컬리</h2>
+        <h2 class="snb__title">마이페이지</h2>
         <ul class="snb__list">
             <li class="snb__item"><a href="/mintProject/shop/mypage/myOrderList">주문내역</a></li>
             <li class="snb__item"><a href="">늘 사는 것</a></li>
@@ -67,7 +67,10 @@ $(document).ready(function(){
      			dataType : 'JSON',
      			success : function(data){
      				if(data.attDates=="!"){
-     					alert("매일매일 출석체크해서 포인트를 모아보세요 :D");
+     					swal({
+     						text : "매일매일 출석체크해서 포인트를 모아보세요 :D",
+     						buttons : false
+     					});
      				} else { 
      					var events = [];
            				$.each(data.attDates, function(index,value){

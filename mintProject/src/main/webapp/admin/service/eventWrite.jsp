@@ -27,7 +27,6 @@
 	padding-bottom: 30px;
 }
 
-
 .table td, .table th{
 	vertical-align: middle !important;
 }
@@ -123,7 +122,6 @@
 				<th class="col-md-1">평점</th>
 				<th class="col-md-1">정상가</th>
 				<th class="col-md-1">현재할인율</th>
-	            <th class="col-md-1"></th>
 	        </tr>
 	    </table>
 	    <div class="paging">
@@ -158,7 +156,14 @@
 	            <th>일괄처리기능</th>
 	            <td class="table--left">
 	            	모든 상품 
-	                <input type="text" size="2" maxlength="2" id="eventRate">% 할인
+					<select id="eventRate" class="select-box">
+			            <option value="10">10</option>
+			            <option value="20">20</option>
+			            <option value="30">30</option>
+			            <option value="40">40</option>
+			            <option value="50">50</option>
+					</select>
+					% 할인
 	                <button type="button" id="discountRateApplyBtn" class="btn btn-primary btn-sm">
 	    			<i class="fa fa-calculator" aria-hidden="true"></i>
 	    			일괄입력

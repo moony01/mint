@@ -81,13 +81,18 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int getOrderTotalArticle() {
-		return orderDAO.getOrderTotalArticle();
+	public int getOrderTotalArticle(Map<String, Object> map) {
+		return orderDAO.getOrderTotalArticle(map);
 	}
 
 	@Override
 	public void minusMemberPoint(Map<String, Object> order) {
 		orderDAO.minusMemberPoint(order);
+	}
+
+	@Override
+	public int getOrderTotalArticleByDate(Map<String, Object> map) {
+		return orderDAO.getOrderTotalArticleByDate(map);
 	}
 	
 }

@@ -69,7 +69,11 @@ $('.searchButton').click(function(){
 /* 검색 기능 */
 function faqSearch(){
 	if(!$('.searchTerm').val()){
-		alert('검색어를 입력해주세요');
+		swal({
+			text : '검색어를 입력해주세요',
+			buttons : false,
+			timer : 2000
+		});
 	} else {
 		// 기존 테이블 비우기
 		$('.faqRow').remove();
@@ -157,22 +161,38 @@ $('#chkAll').click(function(){
 // 삭제 기능
 $('#faqDeleteBtn').click(function(){
 	var cnt = $('.check:checked').length; // 체크된 항목 갯수 구하기
-	if(cnt===0) alert('삭제할 항목을 먼저 선택하세요');
+	if(cnt===0){
+		swal({
+			text : '삭제할 항목을 먼저 선택하세요',
+			buttons : false,
+			timer : 2000
+		});
+	} 
 	else {
-		if(confirm('정말로 삭제하시겠습니까?')) {
-			$.ajax({
-				type:'post',
-				url:'/mintProject/admin/service/faqDelete',
-				data: $('#faqBoardForm').serialize(),
-				success: function(result){
-					alert('삭제 완료!');
-					location.href='/mintProject/admin/service/faq';
-				},
-				error: function(error){
-					console.error(error);
-				}
-			});
-		}
+		swal({
+			text : '정말로 삭제하시겠습니까?',
+			icon : 'warning',
+			showConfirmButton : true
+		}).then(function(isConfirm){
+			if(isConfirm) {
+				$.ajax({
+					type:'post',
+					url:'/mintProject/admin/service/faqDelete',
+					data: $('#faqBoardForm').serialize(),
+					success: function(result){
+						swal({
+					    	text : '삭제 완료',
+					    	buttons : false
+					    }).then(function(){
+					    	location.href='/mintProject/admin/service/faq';
+					    });
+					},
+					error: function(error){
+						console.error(error);
+					}
+				});
+			}
+		});
 	}
 });
 

@@ -83,5 +83,10 @@ public class EventDAOMybatis implements EventDAO{
 		return sqlSession.selectList("eventSQL.getEventListMain");
 	}
 
+	@Override
+	public List<ProductDTO> getEventProductListWithSort(Map<String, Object> map2) {
+		return sqlSession.selectList("eventSQL.getEventProductListWithSort", map2);
+	}
+
 
 }

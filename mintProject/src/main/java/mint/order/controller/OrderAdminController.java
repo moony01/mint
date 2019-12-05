@@ -34,19 +34,29 @@ public class OrderAdminController {
 									@RequestParam(required = false, defaultValue = "1") String pg, ModelAndView mav) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("status", Integer.parseInt(option));
-
+		int totalArticle = 0;
+		
 		if(searchValue.contains("-")) {
 			searchValue = searchValue.replace(".", "");
 			map.put("from", searchValue.substring(0, 6));
 			map.put("to", searchValue.substring(9));
+			totalArticle = orderService.getOrderTotalArticleByDate(map);
+
+		} else {
+			totalArticle = orderService.getOrderTotalArticle(map);			
 		}
-		int totalArticle = orderService.getOrderTotalArticle();
-		int endNum = Integer.parseInt(pg) *10;
-		int startNum = endNum -9; 
+		
+		int endNum = Integer.parseInt(pg) *20;
+		int startNum = endNum -19; 
 		
 		map.put("endNum", endNum);
 		map.put("startNum", startNum);
+		
+		System.out.println(map);
 		List<OrderInfoDTO> list = orderService.getOrderList(map);
+		
+		System.out.println("list: "+list.size());
+		System.out.println("totA: "+totalArticle);
 		mav.addObject("pg", pg);
 		mav.addObject("totalArticle", totalArticle);
 		mav.addObject("list", list);

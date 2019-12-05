@@ -6,7 +6,6 @@
 $(document).ready(function(){
 	if(memId != ''){
 		$(function() {
-			console.log("session memId : "+memId);
 			const $viewGoods = $('.viewGoods');
 			
 			getCartList()
@@ -96,12 +95,13 @@ $(document).ready(function(){
 				PriceCntSum();//총상품금액 수량 1이상일때 계산
 				hide_stock();//품절처리
 				selectDelete();//선택삭제
+				comma();
 			}
 			
 		});
 		
 	} else {
-		alert("로그인을 하지 않았습니다.");
+		swal("로그인을 하지 않았습니다.");
 		history.back();
 	}
 });
@@ -110,7 +110,6 @@ $(document).ready(function(){
 function PriceCntSum() {
 	let salePrice = new Array();
 	let cnt = $('.qty').length;
-	console.log(cnt);
 	
 	for(i=0; i<cnt; i++) {
 		salePrice[i] = parseInt($('.price2').eq(i).text() * $('.qty').eq(i).val());
@@ -125,7 +124,6 @@ function hide_stock() {
 	$(".stock").each(function(index, item) {
 		stock.push(parseInt($(item).val()));
 	});
-	console.log(stock);
 	for(i=0; i<prdCnt; i++) {
 		if(stock[i] == 0) {
 			$(".stock").eq(i).parents(".viewDel").css("background", "white").css("opacity", "20%").addClass("soldOut");
@@ -141,9 +139,7 @@ $('.soldOutBtn').click(function(){
 	
 	for(i=0; i<soldCnt; i++) {
 		soldOutPrd[i] = $('.soldOut').eq(i).children('.productCode').val();
-		console.log(soldOutPrd[i]);
 	}
-	console.log(soldOutPrd);
 	
 	$.ajax({
 		type: 'post',
@@ -154,7 +150,6 @@ $('.soldOutBtn').click(function(){
 			productCode : soldOutPrd 
 		}),
 		success: function(data){
-			console.log(JSON.stringify(data));
 			location.reload(true);
 		},
 		error: function(err){
@@ -244,7 +239,7 @@ function fnDn(btn) {
 	let discountTotPrice = discountPrice * quan; 
 	
 	if(quan == '0') {
-		alert('0 이하로는 설정할 수 없습니다. ');
+		swal('0 이하로는 설정할 수 없습니다. ');
 		return;
 	}
 	
@@ -324,15 +319,12 @@ function total_calcul() {
 
 	memlevel = $('.memlevel').eq(0).val();
 	if(memlevel == 0) {
-		console.log("memlevel : 0");
-		$('#totalPoint span').text((originalTotPrice - discountTotPrice) * 0.05); // 적립금 : 최종 결제 예정 금액 * 적립금 비율(memLevel에 따라 달라짐: pointRate의 값 가져옴)
+		$('#totalPoint span').text(parseInt((originalTotPrice - discountTotPrice) * 0.05)); // 적립금 : 최종 결제 예정 금액 * 적립금 비율(memLevel에 따라 달라짐: pointRate의 값 가져옴)
 		//savingPrice = $('#totalPoint span').text();
 		//$('.savingPrice').eq(0).val(savingPrice);
 	}else if(memlevel == 1) {
-		console.log("memlevel : 1");
 		$('#totalPoint span').text(parseInt((originalTotPrice - discountTotPrice) * 0.07));
 	}else if(memlevel == 2) {
-		console.log("memlevel : 2");
 		$('#totalPoint span').text(parseInt((originalTotPrice - discountTotPrice) * 0.1));
 	}
 
@@ -371,3 +363,20 @@ function change_Allcheckbox(label){
 	total_calcul();
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -3,8 +3,10 @@ window.addEventListener('scroll', function() {
     const gnb = document.querySelector('.gnb');
     if (scrollTop > 98) {
         gnb.classList.add('fixed');
+ 
     } else {
         gnb.classList.remove('fixed');
+
     }
 });
 

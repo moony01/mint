@@ -30,7 +30,7 @@
 	                	<td>${list.seq}</td>
 	                	<c:choose>
 							<c:when test="${list.category == '1'}"><td>배송지연/불만</td></c:when>
-							<c:when test="${list.category == '2'}"><td>컬리패스(무료배송)</td></c:when>
+							<c:when test="${list.category == '2'}"><td>무료배송</td></c:when>
 							<c:when test="${list.category == '3'}"><td>반품문의</td></c:when>
 							<c:when test="${list.category == '4'}"><td>A/S문의</td></c:when>
 							<c:when test="${list.category == '5'}"><td>환불문의</td></c:when>

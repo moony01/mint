@@ -45,22 +45,20 @@
 		select * from
 			 (select rownum rn, tt.* from
 				 (select * from product
-					<where>
-						<if test="searchOption==null">
-							<if test="categorySelect != 9">
-					  	mainCategory = #{categorySelect}
-					  	</if>
-						</if>
-						<if test="searchOption==1">
-			              and productCode like '%'||#{keyword}||'%' 
-						</if>
-						<if test="searchOption==2">
-			              and mainSubject like '%'||#{keyword}||'%'  
-						</if>
-						<if test="searchOption==3">
-			              and supplierCode like '%'||#{keyword}||'%'  
-						</if>
-					</where>
+				<where>
+					<if test="categorySelect != 9">
+			  			mainCategory = #{categorySelect}
+			  		</if>
+					<if test="searchOption==1">
+		              and productCode like '%'||#{keyword}||'%' 
+					</if>
+					<if test="searchOption==2">
+		              and mainSubject like '%'||#{keyword}||'%'  
+					</if>
+					<if test="searchOption==3">
+		              and supplierCode like '%'||#{keyword}||'%'  
+					</if>
+				</where>
 				)
 			tt)
 		where rn &gt;= #{startNum} and rn &lt;= #{endNum}
@@ -70,10 +68,8 @@
 	<select id="getTotalProduct" parameterType="java.util.Map" resultType="Integer">
 		select count(*) from product
 		<where>
-			<if test="searchOption==null">
-				<if test="categorySelect != 9">
-					mainCategory = #{categorySelect}
-				</if>
+			<if test="categorySelect != 9">
+				mainCategory = #{categorySelect}
 			</if>
 			<if test="searchOption==1">
 				and productCode like '%'||#{keyword}||'%'
@@ -89,24 +85,24 @@
 
 	<!-- 이벤트 수정 -->
 	<update id="eventModify" parameterType="java.util.Map">
-			update event set subject=#{eventDTO.subject}
-			<if test='isPeriodOn == 1'>
-				, startDate=#{eventDTO.startDate}
-				, endDate=#{eventDTO.endDate}
+		update event set subject=#{eventDTO.subject}
+		<if test='isPeriodOn == 1'>
+			, startDate=#{eventDTO.startDate}
+			, endDate=#{eventDTO.endDate}
+		</if>
+		<if test='isPeriodOn == 0'>
+			, startDate=null
+			, endDate=null
+		</if>
+			, logtime=sysdate
+			, productCode=#{eventDTO.productCode}
+			, discountRate=#{eventDTO.discountRate}
+			, prevDiscountRate=#{eventDTO.prevDiscountRate}
+			, eventStatus=#{eventDTO.eventStatus}
+			<if test="eventThumbnail != null">
+			, eventthumbnail=#{eventDTO.eventThumbnail}
 			</if>
-			<if test='isPeriodOn == 0'>
-				, startDate=null
-				, endDate=null
-			</if>
-				, logtime=sysdate
-				, productCode=#{eventDTO.productCode}
-				, discountRate=#{eventDTO.discountRate}
-				, prevDiscountRate=#{eventDTO.prevDiscountRate}
-				, eventStatus=#{eventDTO.eventStatus}
-				<if test="eventThumbnail != null">
-				, eventthumbnail=#{eventDTO.eventThumbnail}
-				</if>
-			where seq=#{eventDTO.seq}
+		where seq=#{eventDTO.seq}
 	</update>
 	
 	<!-- 이벤트 삭제 -->
@@ -136,13 +132,41 @@
 	 	</where>
 	</select>
 	
-
-	<!-- 이벤트 상품 가져오기 -->
 	<select id="getEventProductList" parameterType="java.util.Map" resultType="product">
 		select * from product where productCode in
 		<foreach collection="array" item="productCode" index="i" open="(" separator="," close=")">
 			#{productCode}
 		</foreach>
+	</select>	
+
+	<!-- 이벤트 상품 가져오기 -->
+	<select id="getEventProductListWithSort" parameterType="java.util.Map" resultType="product">
+		select * from
+			(select rownum rn, tt.* from
+				(select * from product
+				where productStatus = 0
+				  and productCode in
+					<foreach collection="array" item="productCode" index="i" open="(" separator="," close=")">
+						#{productCode}
+					</foreach>
+		<!-- 신상품 : 1   인기상품순 : 2    낮은 가격순 : 3   높은 가격순 : 4 -->
+ 		<choose>
+ 	    	<when test="selectGubun==null || selectGubun==1">
+ 	                    order by productCode desc
+ 		    </when>
+ 	        <when test="selectGubun==2">
+ 		                order by STAR desc
+ 	   		</when>	
+ 	   		<when test="selectGubun==3">
+	                   order by price
+	 		</when>
+		 	<otherwise>
+		               order by price desc
+		 	</otherwise>
+ 	    </choose>
+ 	    	    ) tt
+			)
+		where rn between #{startNum} and #{endNum}
 	</select>
 	
 	<!-- 이벤트 상품 할인율 수정 (이벤트 실행) -->
@@ -185,11 +209,14 @@
 	
 	<!-- 메인 화면 이벤트 노출 -->
 	<select id="getEventListMain" resultType="event">
+		<![CDATA[
 		select * from
 			(select rownum rn, temp.* from 
-				(select seq, subject, eventThumbnail from event where eventStatus = 1 order by startDate)
+				(select seq, eventStatus, subject, startDate, endDate, eventThumbnail from event 
+				where eventStatus = 1 
+				and startDate <= sysdate	
+				order by startDate desc)
 			 temp)
-		<![CDATA[
 		where rn between 1 and 3
 		]]>
 	</select>

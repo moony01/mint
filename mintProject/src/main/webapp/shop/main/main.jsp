@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
                 <div class="swiper-slide">
                     <a href="">
                         <img
-                            src="//img-cf.kurly.com/shop/data/main/1/pc_img_1574925170.jpg"
+                            src="/mintProject/shop/storage/mint/icon/swipe-slide_01.png"
                             alt=""
                         />
                     </a>
@@ -19,7 +19,7 @@ pageEncoding="UTF-8"%>
                 <div class="swiper-slide">
                     <a href="">
                         <img
-                            src="//img-cf.kurly.com/shop/data/main/1/pc_img_1572599646.jpg"
+                            src="/mintProject/shop/storage/mint/icon/swipe-slide_02.png"
                             alt=""
                         />
                     </a>
@@ -27,7 +27,15 @@ pageEncoding="UTF-8"%>
                 <div class="swiper-slide">
                     <a href="">
                         <img
-                            src="//img-cf.kurly.com/shop/data/main/1/pc_img_1572494957.jpg"
+                             src="/mintProject/shop/storage/mint/icon/swipe-slide_03.png"
+                            alt=""
+                        />
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="/mintProject/shop/mypage/attendance">
+                        <img
+                             src="/mintProject/shop/storage/mint/icon/swipe-slide_04.png"
                             alt=""
                         />
                     </a>
@@ -299,8 +307,8 @@ pageEncoding="UTF-8"%>
             <a href="/mintProject/shop/goods/event">이벤트 소식</a>
         </div>
         <ul class="news__list">
-	        <c:forEach items="${eventList }" var="eventList">
-	            <li class="news__item">
+	   
+	           <%--  <li class="news__item">
 	                <a href="/mintProject/shop/goods/eventProductList?seq=${eventList.seq}&pg=1"
 	                    ><img
 	                        style="background-image:url(/mintProject/shop/storage/mint/event/${eventList.eventThumbnail})"
@@ -308,9 +316,9 @@ pageEncoding="UTF-8"%>
 	                /></a>
 	                <div class="news__subject">${eventList.subject}</div>
 	                
-	            </li>
+	            </li> --%>
 	
-			</c:forEach>
+		
         </ul>
     </div>
 

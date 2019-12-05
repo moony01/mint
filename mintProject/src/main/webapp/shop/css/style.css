@@ -63,7 +63,7 @@
 .gnb__list {
     display: flex;
     align-items: center;
-    width: 1050px;
+    min-width: 1050px;
     margin: 0 auto;
     position: relative;
 }

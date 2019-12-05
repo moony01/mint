@@ -27,7 +27,6 @@
 	padding-bottom: 30px;
 }
 
-
 .table td, .table th{
 	vertical-align: middle !important;
 }
@@ -123,7 +122,6 @@
 				<th class="col-md-1">평점</th>
 				<th class="col-md-1">정상가</th>
 				<th class="col-md-1">현재할인율</th>
-	            <th class="col-md-1"></th>
 	        </tr>
 	    </table>
 	    <div class="paging">

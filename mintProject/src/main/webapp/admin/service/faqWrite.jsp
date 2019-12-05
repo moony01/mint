@@ -68,12 +68,32 @@ $(document).ready(function(){
 });
    
 // 글쓰기 버튼 클릭시
-/* 유효성 검사 alert로 해놓긴 했는데 div나 다른 방식으로 바꿀 수 있음  */
+/* 유효성 검사 alert로 해놓긴 했는데 div나 다른 방식으로 바꿀 수 있음  
+ * swal로 바꿨습니다
+ */
 $('#faqWriteBtn').click(function(){
 	let type = '"${type}"';
-	if($('#faqWriteCategory').val() === '') alert('카테고리 선택을 해주세요');
-	else if (!$('#faqWriteSubject').val()) alert('제목을 입력 해주세요');
-	else if (!$('#summernote').val()) alert('내용을 입력 해주세요');
+	if($('#faqWriteCategory').val() === ''){
+		swal({
+			text : '카테고리 선택을 해주세요',
+			buttons : false,
+			timer : 2000
+		});
+	}
+	else if (!$('#faqWriteSubject').val()){
+		swal({
+			text : '제목을 입력 해주세요',
+			buttons : false,
+			timer : 2000
+		});
+	}
+	else if (!$('#summernote').val()){
+		swal({
+			text : '내용을 입력 해주세요',
+			buttons : false,
+			timer : 2000
+		});
+	}
 	else {
 		if(type === '"mod"'){
 			$.ajax({
@@ -81,11 +101,19 @@ $('#faqWriteBtn').click(function(){
 				url:'/mintProject/admin/service/faqModify',
 				data: $('#faqAdminWriteForm').serialize(),
 				success: function(){
-					alert('수정 완료!');
+					swal({
+						text : '수정 완료!',
+						buttons : false,
+						timer : 2000
+					});
 					location.href='/mintProject/admin/service/faq?pg=${pg}';
 				},
 				error: function(error){
-					alert('수정 실패!');
+					swal({
+						text : '수정 실패!',
+						buttons : false,
+						timer : 2000
+					});
 					console.error(error);
 				}
 			});
@@ -95,11 +123,19 @@ $('#faqWriteBtn').click(function(){
 				url:'/mintProject/admin/service/faqWrite',
 				data: $('#faqAdminWriteForm').serialize(),
 				success: function(){
-					alert('작성 완료!');
-					location.href='/mintProject/admin/service/faq';
+					swal({
+						text : '작성 완료!',
+						buttons : false
+					}).then(function(){
+						location.href='/mintProject/admin/service/faq';	
+					});
 				},
 				error: function(error){
-					alert('작성 실패!');
+					swal({
+						text : '작성 완료!',
+						buttons : false,
+						timer : 2000
+					});
 					console.error(error);
 				}
 			

@@ -102,12 +102,22 @@ function createChart(chartData){
         }
     });
 	Highcharts.stockChart('supplierSalesChart',{
-		chart : {type : 'line'},  
 		colors: ['#3399CC'], 
 		series : [{
+			type : 'column',
 			gapSize : 1,
-			data : chartData
+			data : chartData,
+			showInNavigator : true 
 		}],
+		navigator : {
+			series : {
+				type : 'column',
+				pointRange : null,
+				dataGrouping : {  
+					groupPixelWidth : 10
+				}
+			}
+		},
 		xAxis : {
 			type : 'datetime',
 			tickWidth: 0,

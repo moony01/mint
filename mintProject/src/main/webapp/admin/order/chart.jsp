@@ -63,6 +63,15 @@ function createTotalSalesChart(chartData){
 		chart: { 
 			type: 'line',
 		},
+		navigator : {
+			series : {
+				type : 'line',
+				pointRange : null,
+				dataGrouping : {  
+					groupPixelWidth : 10
+				}
+			}
+		},
 		colors: ['#3399CC'],
         series : [{ 
 	       	name : 'test',

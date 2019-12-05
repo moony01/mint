@@ -165,9 +165,8 @@ public class FAQBoardController {
 	@ResponseBody
 	public void faqAdminExecuteWrite(@RequestParam Map<String, String> map,
 													HttpSession session) {
-		// String id = (String)session.getAttribute("memId");
-		// 임시로 id 잡아두었음. 나중에 session 가져올 수 있으면 변경 예정
-		map.put("id", "mint_admin");
+		String id = (String)session.getAttribute("memId");
+		map.put("id", id);
 		
 		faqBoardService.faqBoardWrite(map);
 	}

@@ -115,10 +115,10 @@
 			showConfirmButton : true
 		}).then(function(isConfirm){
 			if(isConfirm){
-		 location.href="/mintProject/admin/service/adminQnaDelete?seq="+${qndBoardDTO.seq};
+		 		location.href="/mintProject/admin/service/adminQnaDelete?seq="+${qndBoardDTO.seq};
 			}
 		});
-	 }
+	 
  });
  
  //답변 버튼 클릭 시 

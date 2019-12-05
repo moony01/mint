@@ -113,7 +113,7 @@ public class EventController {
 	
 	/* 이벤트 페이지 상품 리스트 */
 	@RequestMapping(value = "/shop/goods/eventProductList", method = RequestMethod.GET)
-	public ModelAndView getProductList(@RequestParam Map<String, Object> map) {
+	public ModelAndView getEventProductList(@RequestParam Map<String, Object> map) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -190,7 +190,7 @@ public class EventController {
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
 		map.put("searchOption", searchOption);
-		map.put("categorySelect", searchOption);
+		map.put("categorySelect", categorySelect);
 		map.put("keyword", keyword);
 
 		List<ProductDTO> list = eventService.getProductList(map);
@@ -210,7 +210,7 @@ public class EventController {
 	/* 상품 추가를 위해 선택한 상품 리스트 가져오기 */
 	@RequestMapping(value="/admin/service/addProduct", method=RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView getProductList(@RequestParam String[] inputProductCode) {
+	public ModelAndView addProduct(@RequestParam String[] inputProductCode) {
 		
 		// 해당 상품 리스트 가져오기
 		Map<String, Object> map = new HashMap<String, Object>();

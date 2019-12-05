@@ -20,7 +20,6 @@
     
     <table class="table table-bordered table-offer">
         <tr class="th--dark">
-            <th class="col-md-1"><input type="checkbox" name="" id=""></th>
             <th class="col-md-1">번호</th>
             <th class="col-md-1">카테고리</th>
             <th class="col-md-6">제목</th>
@@ -35,26 +34,6 @@
            
         </ul>
     </div>
-    <div class="main__btns">
-        <form action="" id="searchForm">
-            <div class="searches">
-                <select name="" id="" class="select-box">
-                    <option value="">제목</option>
-                    <option value="">작성자</option>
-                    <option value="">내용</option>
-                    <option value="">주문번호</option>
-                </select>
-                <div class="search">
-                    <input type="text" class="searchTerm" placeholder="검색어를 입력하세요">
-                    <button type="submit" class="searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-        <!-- <div>
-            <button type="button" class="btn btn-primary">선택 삭제</button>
-        </div>-->
-    </div> 
+   
 </div>
 <script src="/mintProject/admin/js/offer.js"></script>

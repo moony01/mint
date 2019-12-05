@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
                 <div class="swiper-slide">
                     <a href="">
                         <img
-                            src="//img-cf.kurly.com/shop/data/main/1/pc_img_1574925170.jpg"
+                            src="/mintProject/shop/storage/mint/icon/swipe-slide_01.png"
                             alt=""
                         />
                     </a>
@@ -19,7 +19,7 @@ pageEncoding="UTF-8"%>
                 <div class="swiper-slide">
                     <a href="">
                         <img
-                            src="//img-cf.kurly.com/shop/data/main/1/pc_img_1572599646.jpg"
+                            src="/mintProject/shop/storage/mint/icon/swipe-slide_02.png"
                             alt=""
                         />
                     </a>
@@ -27,7 +27,15 @@ pageEncoding="UTF-8"%>
                 <div class="swiper-slide">
                     <a href="">
                         <img
-                            src="//img-cf.kurly.com/shop/data/main/1/pc_img_1572494957.jpg"
+                             src="/mintProject/shop/storage/mint/icon/swipe-slide_03.png"
+                            alt=""
+                        />
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="/mintProject/shop/mypage/attendance">
+                        <img
+                             src="/mintProject/shop/storage/mint/icon/swipe-slide_04.png"
                             alt=""
                         />
                     </a>

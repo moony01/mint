@@ -32,7 +32,7 @@
 }
 .service-view {
     padding-top: 40px;
-    height: auto;
+    min-height: 600px;
 }
 .snb {
     margin-right: 30px;

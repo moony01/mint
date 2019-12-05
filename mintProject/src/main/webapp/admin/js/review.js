@@ -34,19 +34,24 @@ function drawReview(data) {
 	})
 	
 	$(".delBtn").click(function(){
-		if(confirm('정말 삭제하시겠습니까?')){
-			var id = $(this).attr("data");
-			$.ajax({
-				method: "GET",
-				type: 'json',
-				dataType: "json",
-				url: "/mintProject/api/review/delete?id=" + id,
-				success:function(data) {
-					getReview ();	
-				}
-			});
-			
-		}
+		swal({
+			text : '정말로 삭제하시겠습니까?',
+			icon : 'warning',
+			showConfirmButton : true
+		}).then(function(isConfirm){
+			if(isConfirm){
+				var id = $(this).attr("data");
+				$.ajax({
+					method: "GET",
+					type: 'json',
+					dataType: "json",
+					url: "/mintProject/api/review/delete?id=" + id,
+					success:function(data) {
+						getReview ();	
+					}
+				});
+			}
+		});
 	})
 }
 

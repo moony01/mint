@@ -125,14 +125,15 @@ $('#faqWriteBtn').click(function(){
 				success: function(){
 					swal({
 						text : '작성 완료!',
-						buttons : false
+						buttons : false,
+						timer : 2000
 					}).then(function(){
 						location.href='/mintProject/admin/service/faq';	
 					});
 				},
 				error: function(error){
 					swal({
-						text : '작성 완료!',
+						text : '작성 실패!',
 						buttons : false,
 						timer : 2000
 					});

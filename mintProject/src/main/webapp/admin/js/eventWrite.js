@@ -351,7 +351,13 @@ function eventProductListTemp(result){
 /* 상품 추가 버튼 클릭시 */
 $('#addEventProductBtn').click(function(){
 	var cnt = $('.check:checked').length; // 체크된 항목 갯수 구하기
-	if(cnt===0) alert('상품을 먼저 선택하세요');
+	if(cnt===0){
+		swal({
+			text : '상품을 먼저 선택하세요',
+			buttons : false,
+			timer : 2000
+		});
+	}
 	else {
 		// 중복 체크
 		// 위에서 체크한 상품들 productCode
@@ -391,7 +397,11 @@ $('#addEventProductBtn').click(function(){
 				}
 			});	
 		} else {
-			alert('중복 추가할 수 없습니다');
+			swal({
+				text : '중복 추가할 수 없습니다',
+				buttons : false,
+				timer : 2000
+			});
 		}
 	}
 });
@@ -402,11 +412,27 @@ $('#eventWriteBtn').click(function(){
 	// productCode, discountRate 직렬화
 	dataManufacturing();
 	
-	if($('#eventSubject').val() === '') alert('이벤트명을 입력해주세요');
-	else if($('.eventProductRow').length === 0) alert('이벤트 상품을 추가해주세요');
+	if($('#eventSubject').val() === ''){
+		swal({
+			text : '이벤트명을 입력해주세요',
+			buttons : false,
+			timer : 2000
+		});
+	}
+	else if($('.eventProductRow').length === 0){
+		swal({
+			text : '이벤트 상품을 추가해주세요',
+			buttons : false,
+			timer : 2000
+		});
+	}
 	else if($('.isPeriodOn').prop('checked')){
 		if($('#datetimepickerStart').val() == '' || $('#datetimepickerEnd').val() == ''){
-			alert('이벤트 기간을 설정해주세요');
+			swal({
+				text : '이벤트 기간을 설정해주세요',
+				buttons : false,
+				timer : 2000
+			});
 		} else ajax(type);
 	} else ajax(type);
 });
@@ -469,11 +495,20 @@ function ajax(type){
 			enctype : 'multipart/form-data',
 			processData : false,
 			success: function(){
-				alert('수정 완료!');
-				location.href='/mintProject/admin/service/event';
+				swal({
+					text : '수정 완료',
+					buttons : false,
+					timer : 2000
+				}).then(function(){					
+					location.href='/mintProject/admin/service/event';
+				});
 			},
 			error: function(error){
-				alert('수정 실패!');
+				swal({
+					text : '수정 실패',
+					buttons : false,
+					timer : 2000
+				});
 				console.error(error);
 			}
 		});
@@ -486,11 +521,20 @@ function ajax(type){
 			enctype : 'multipart/form-data',
 			processData : false,
 			success: function(){
-				alert('작성 완료!');
-				location.href='/mintProject/admin/service/event';
+				swal({
+					text : '작성 완료',
+					buttons : false,
+					timer : 2000
+				}).then(function(){
+					location.href='/mintProject/admin/service/event';					
+				});
 			},
 			error: function(error){
-				alert('작성 실패!');
+				swal({
+					text : '작성 실패',
+					buttons : false,
+					timer : 2000
+				});
 				console.error(error);
 			}
 		});
@@ -531,6 +575,12 @@ $('#discountRateApplyBtn').click(function(){
 /* 선택 상품 리스트 삭제 (DB를 거치지 않음) */
 $('#deleteEventProductBtn').click(function(){
 	var cnt = $('.pcheck:checked').length; // 체크된 항목 갯수 구하기
-	if(cnt===0) alert('삭제할 항목을 먼저 선택하세요');
+	if(cnt===0) {
+		swal({
+			text : '삭제할 항목을 먼저 선택하세요',
+			buttons : false,
+			timer : 2000
+		});
+	}
 	else $('.pcheck:checked').parent().parent().remove();
 });

@@ -123,7 +123,6 @@ public class ReviewController {
 		}
 		review.setImgName(fileName);
 		review.setId((String) session.getAttribute("memId"));
-		System.out.println(review);
 		rs.addReview(review);
 		return "redirect:/shop/mypage/review/finish";
 	}

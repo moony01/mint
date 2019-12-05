@@ -23,7 +23,7 @@
                     <div class="board-write__subject-inputs">
 	                    <select name="category" id="category" class="board-write__subject-select" >
 	                        <option value="1">배송지연/불만</option>
-	                        <option value="2">컬리패스(무료배송)</option>
+	                        <option value="2">무료배송</option>
 	                        <option value="3">반품문의</option>
 	                        <option value="4">A/S문의</option>
 	                        <option value="5">환불문의</option>

@@ -40,7 +40,7 @@
             <th>카테고리</th>
             <c:choose>
 				<c:when test="${qndBoardDTO.category == '1'}"><td>배송지연/불만</td></c:when>
-				<c:when test="${qndBoardDTO.category == '2'}"><td>컬리패스(무료배송)</td></c:when>
+				<c:when test="${qndBoardDTO.category == '2'}"><td>무료배송</td></c:when>
 				<c:when test="${qndBoardDTO.category == '3'}"><td>반품문의</td></c:when>
 				<c:when test="${qndBoardDTO.category == '4'}"><td>A/S문의</td></c:when>
 				<c:when test="${qndBoardDTO.category == '5'}"><td>환불문의</td></c:when>
@@ -62,7 +62,7 @@
            			<img alt="" src="/mintProject/shop/storage/member/qnaboard/${qndBoardDTO.fileName}" width="200px" height="250px">
            			<br><br>
            		</c:if>
-                ${qndBoardDTO.content}
+           		<pre>${qndBoardDTO.content}</pre>
             </td>
         </tr>
         

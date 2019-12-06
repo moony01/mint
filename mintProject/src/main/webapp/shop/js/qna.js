@@ -1,21 +1,29 @@
 //삭제버튼 클릭 시 
 function qnaDelete(seq) {
-	alert(seq);
-	if(confirm("정말 삭제할거야??")){
-		$.ajax({
-			type : "post",
-			url : "/mintProject/qnaboard/qnaBoardDelete",
-			data : {'seq' : seq},
-			success : function(){
-				location.href = "/mintProject/qnaboard/getQnaBoardList";
-				alert("삭제 완료!");
-			},
-			error : function(err){
-				console.log(err);
-			}
-		});
-	}
-	
+	swal({
+		text : '정말로 삭제하시겠습니까?',
+		icon : 'warning',
+		showConfirmButton : true
+	}).then(function(isConfirm){
+		if(isConfirm) {
+			$.ajax({
+				type:'post',
+				url:'/mintProject/qnaboard/qnaBoardDelete',
+				data: {'seq' : seq},
+				success: function(result){
+					swal({
+				    	text : '삭제 완료되었습니다.',
+				    	buttons : false
+				    }).then(function(){
+				    	location.href='/mintProject/qnaboard/getQnaBoardList';
+				    });
+				},
+				error: function(error){
+					console.error(error);
+				}
+			});
+		}
+	});
 }
 
 (function() {

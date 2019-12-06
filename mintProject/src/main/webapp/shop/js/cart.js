@@ -95,7 +95,6 @@ $(document).ready(function(){
 				PriceCntSum();//총상품금액 수량 1이상일때 계산
 				hide_stock();//품절처리
 				selectDelete();//선택삭제
-				comma();
 			}
 			
 		});
@@ -221,9 +220,16 @@ function chCount() {
 //수량 +버튼
 function fnUp(btn) {
 	let quan = btn.prev().val(); // span의 text (수량) 가져오기
-	quan++; // 값을 1 증가
+	let stock = btn.parent().parent().prev().prev().prev().prev().prev().prev().val() //해당 상품 수량
 	let discountPrice = btn.parent().parent().prev().prev().prev().prev().val(); // 할인가 (fix) 1개 당 가격: [상품금액] column에 들어가는 값이 할인가 * 수량 이길래 수정해서 받았습니다. 
 	let discountTotPrice = discountPrice * quan; // 할인가 total = 가격 * 수량 
+	
+	quan++; // 값을 1 증가
+	
+	if(stock < quan){
+		alert('선택한 수량이 남은 제고보다 많습니다. 남은제고 수량 = '+stock+"개");
+		return;
+	}
 	
 	btn.prev().val(quan); // 1 증가한 수를 span 의 text 에 넣고
 	btn.parent().parent().next().text(discountTotPrice); // [상품금액] column에 계산된 할인가를 넣는다. 
@@ -234,13 +240,17 @@ function fnUp(btn) {
 //수량 -버튼
 function fnDn(btn) {
 	let quan = btn.next().val();
-	quan--;
+	let stock = btn.parent().parent().prev().prev().prev().prev().prev().prev().val() //해당 상품 수량
 	let discountPrice = btn.parent().parent().prev().prev().prev().prev().val(); // 1개 가격 - 할인가 
 	let discountTotPrice = discountPrice * quan; 
+	
+	quan--;
 	
 	if(quan == '0') {
 		swal('0 이하로는 설정할 수 없습니다. ');
 		return;
+	}else if(stock < quan) {
+		swal('선택한 수량이 남은 제고보다 많습니다. 남은제고 수량 = '+stock+"개 수량을 맞춰주세요");
 	}
 	
 	btn.next().val(quan);

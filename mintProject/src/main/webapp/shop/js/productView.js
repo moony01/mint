@@ -223,7 +223,12 @@ function printProductQnaList(result){
 		            }
 		            
         	} else {
-        		alert('비밀글입니다');
+        		swal({
+        			text : '비밀글입니다.',
+        			showConfirmButton : true,
+        			timer : 2000
+        		});
+ 
         	}
         });
     }

@@ -7,6 +7,7 @@
 	<input type="hidden" id="productCode" value="${productDTO.productCode }">
 	<input type="hidden" id="subCategory" value="${productDTO.subCategory }">
 	<input type="hidden" id="sessionId" value="${memId }">
+	<input type="hidden" id="stock" value="${productDTO.stock }">
     <div class="goods-info">
         <div class="goods-info__thumb">
             <img id="thumbImg" src="/mintProject/shop/storage/mint/product/${productDTO.thumbnail}" alt="">

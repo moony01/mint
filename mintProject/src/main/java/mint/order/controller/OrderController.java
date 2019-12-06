@@ -49,6 +49,8 @@ public class OrderController {
 			list.add(resultMap);
 		}
 
+		System.out.println("list" + list);
+		
 		MemberDTO memberDTO = orderService.getUserData(map);
 		
 		model.addAttribute("totalPoint", totalPoint);

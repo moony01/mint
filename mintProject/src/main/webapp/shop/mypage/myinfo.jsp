@@ -42,7 +42,7 @@
                 <input type="text" class="join-input input--lg" name="name" value="${memberDTO.name }">
             </div>
             <div class="join-col">
-                <div class="join-title">휴대폰*</div>
+                <div class="join-title">휴대폰</div>
                 <input type="text" class="join-input input--lg" name="tel" value="${memberDTO.tel }">
             </div>
             <div class="join-col">

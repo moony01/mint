@@ -74,19 +74,30 @@ public class CartController {
 		
 		int cnt  = cartService.getSameCart(map);
 		
-		if(cnt > 0) {
-			mav.addObject("gubun", 1);
-			mav.setViewName("jsonView");
+		//gubun3 은 재고보다 장바구니에 넣을 수량이 적을 시 return
+		if(Integer.parseInt(map.get("stock")) <  Integer.parseInt(map.get("ctCount"))) {
+			if(cnt > 0) {
+				mav.addObject("gubun", 1);
+				mav.setViewName("jsonView");
+			}else {
+				mav.addObject("gubun", 3);
+				mav.setViewName("jsonView");
+			}
 		}else {
-			String id = (String)session.getAttribute("memId");
-			map.put("id", id);
-			
-			int count = cartService.addCartProduct(map);
-			session.setAttribute("memCart", count);
-			
-			mav.addObject("memCart", session.getAttribute("memCart"));
-			mav.addObject("gubun", 2);
-			mav.setViewName("jsonView");
+			if(cnt > 0) {
+				mav.addObject("gubun", 1);
+				mav.setViewName("jsonView");
+			}else {
+				String id = (String)session.getAttribute("memId");
+				map.put("id", id);
+				
+				int count = cartService.addCartProduct(map);
+				session.setAttribute("memCart", count);
+				
+				mav.addObject("memCart", session.getAttribute("memCart"));
+				mav.addObject("gubun", 2);
+				mav.setViewName("jsonView");
+			}
 		}
 		return mav;
 	}

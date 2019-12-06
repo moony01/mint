@@ -22,6 +22,7 @@ pageEncoding="UTF-8"%>
 			<div class="discountRate">상품할인율 : <span>${product.DISCOUNTRATE }</span></div>
 			<div class="discountPrice">상품할인적용가 :  <span class="dp"></span></div>
 			<div class="ctCount">수량 : <span>${product.CTCOUNT }</span></div>
+			<div class="stock">상품수량 : <span>${product.STOCK }</span></div>
 			<br />
 		</c:forEach>
 	</c:if>
@@ -133,7 +134,7 @@ pageEncoding="UTF-8"%>
 				<th class="size-2">적립금 적용</th>
 				<td class="size-10">
 					<div class="pont-tb__point">
-						<input type="text" id="myPoint" value="0" />원
+						<input type="text" id="myPoint" value="0" readonly />원
 						<label for="pointChk" class="check-label point-tb__checkbox">
 							<input type="checkbox" class="check-box" name="pointChk" id="pointChk" />
 						</label>

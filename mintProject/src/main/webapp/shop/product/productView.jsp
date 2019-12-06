@@ -7,6 +7,7 @@
 	<input type="hidden" id="productCode" value="${productDTO.productCode }">
 	<input type="hidden" id="subCategory" value="${productDTO.subCategory }">
 	<input type="hidden" id="sessionId" value="${memId }">
+	<input type="hidden" id="stock" value="${productDTO.stock }">
     <div class="goods-info">
         <div class="goods-info__thumb">
             <img id="thumbImg" src="/mintProject/shop/storage/mint/product/${productDTO.thumbnail}" alt="">
@@ -120,14 +121,14 @@
             <div class="goods-total__btns">
                 <!-- 벨류는 자동으로 변경됨 -->
                 <!-- btn-off 이벤트 설정 못하게 하는 클래스 -->
-                <c:if test="${productDTO.stock == 0}">
+                <c:if test="${productDTO.stock <= 0}">
                 	<div class="g-btn btn-alaram btn-on" id="stockAlarm_btn">재입고 알림</div>
                 </c:if>
                 <c:if test="${productDTO.stock != 0}">
                 	<div class="g-btn btn-alaram btn-off">재입고 알림</div>
                 </c:if>
                 <div class="g-btn btn-always">늘 사는 것</div>
-                <c:if test="${productDTO.stock == 0}">
+                <c:if test="${productDTO.stock <= 0}">
                 	<div class="g-btn btn-save btn-save--off">장바구니 담기</div>
                 </c:if>
                 <c:if test="${productDTO.stock != 0}">

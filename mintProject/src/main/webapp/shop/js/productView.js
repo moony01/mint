@@ -37,6 +37,7 @@ let sort = "NEW";
     
    
     plusBtn.addEventListener("click",function(){
+    	
         let curPoint = removeComma(pointCount.innerText);
         pointCount.innerText = makeComma(curPoint+point);
         
@@ -48,7 +49,7 @@ let sort = "NEW";
     });
 
     minusBtn.addEventListener("click",function(){
-        if(qtyCount <= 0) return;
+        if(qtyCount <= 1) return;
         let curPoint = removeComma(pointCount.innerText);
         pointCount.innerText = makeComma(curPoint-point);
 
@@ -222,7 +223,12 @@ function printProductQnaList(result){
 		            }
 		            
         	} else {
-        		alert('비밀글입니다');
+        		swal({
+        			text : '비밀글입니다.',
+        			showConfirmButton : true,
+        			timer : 2000
+        		});
+ 
         	}
         });
     }
@@ -326,17 +332,19 @@ reivewInit();
     	if($("#sessionId").val() == ""){
     		$('.notice-modal__message').text("로그인 하신 후 장바구니 등록을 해주세요.")
     	}else{
-    		$.ajax({
+    		//장바구니 등록하는 당시에 재고보다 장바구니에 넣을 물품이 더 클 경우 방지 
+			$.ajax({
         		type : "post",
         		url : "/mintProject/shop/goods/addCartList",
         		data : {'productCode' : $('#productCode').val(),
-        			    'ctCount' : $('.qty').val()		
+        			    'ctCount' : $('.qty').val(),
+        			    'stock' : $('#stock').val()
         				},
         		dataType : "json",
         		success : function(data){
         			if(data.gubun=='1'){
         				$('.notice-modal__message').text("이미 동일한 상품이 장바구니에 존재합니다.");
-        			} else {
+        			}else if(data.gubun=='2'){
         				console.log($('#thumbImg').prop('src'));
         				$('.notice-modal__message').append($('<img>',{
         					src : $('#thumbImg').prop('src'),
@@ -345,7 +353,8 @@ reivewInit();
         				})).append("&emsp;장바구니에 담겼습니다.");
         				
         				$('.gnb__cart-count').text(data.memCart);
-
+        			}else if(data.gubun=='3'){
+        				$('.notice-modal__message').text("재고보다 장바구니에 등록할 갯수가 부족합니다.");
         			}
         		},
         		error : function(error){
@@ -355,7 +364,6 @@ reivewInit();
         	});
     	}
     	 modal.classList.remove("hidden");
-		
     }
     saveBtn.addEventListener("click",openModal);
     overlay.addEventListener("click",closeModal);

@@ -27,30 +27,58 @@
     	<c:if test="${list != null}">
     		<c:forEach var="list" items="${list}">
 		        <div class="product__item">
-		            <div class="product__thumb">
-		            	<c:if test="${list.discountRate == 10}">
-		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">
-		            	</c:if>
-		            	<c:if test="${list.discountRate == 20}">
-		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png" alt="">
-		            	</c:if>
-		            	<c:if test="${list.discountRate == 30}">
-		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png" alt="">
-		            	</c:if>
-		            	<c:if test="${list.discountRate == 40}">
-		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png" alt="">
-		            	</c:if>
-		            	<c:if test="${list.discountRate == 50}">
-		            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png" alt="">
-		            	</c:if>
-		                <!-- 삼품 이미지 클릭 시 상품 상세뷰 페이지로 이동 -->         
-	                	<a href="/mintProject/shop/product/productView?productCode=${list.productCode}&subCategory=${list.subCategory}">
-	                		<img class="thumb" src="/mintProject/shop/storage/mint/product/${list.thumbnail}" alt="">
-	                	</a>
-		                <div class="cart-btn">
-		                    <a href="/mintProject/shop/goods/cart"><img src="/mintProject/shop/storage/mint/icon/cart_test.png" alt="" style="width: 28px"></a>
-		                </div>
-		            </div>
+	    			<c:if test="${list.stock == 0}">
+	    				<div class="product__thumb sold-out">
+			            	<c:if test="${list.discountRate == 10}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 20}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 30}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 40}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 50}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png" alt="">
+			            	</c:if>
+			                <!-- 삼품 이미지 클릭 시 상품 상세뷰 페이지로 이동 -->         
+		                	<a href="/mintProject/shop/product/productView?productCode=${list.productCode}&subCategory=${list.subCategory}">
+		                		<img class="thumb" src="/mintProject/shop/storage/mint/product/${list.thumbnail}" alt="">
+		                	</a>
+			                <div class="cart-btn">
+			                    <a href="/mintProject/shop/goods/cart"><img src="/mintProject/shop/storage/mint/icon/cart_test.png" alt="" style="width: 28px"></a>
+			                </div>
+			            </div>
+	    			</c:if>
+	    			<c:if test="${list.stock != 0}">
+	    				<div class="product__thumb">
+			            	<c:if test="${list.discountRate == 10}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 20}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_20_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 30}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_30_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 40}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_40_mint.png" alt="">
+			            	</c:if>
+			            	<c:if test="${list.discountRate == 50}">
+			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_50_mint.png" alt="">
+			            	</c:if>
+			                <!-- 삼품 이미지 클릭 시 상품 상세뷰 페이지로 이동 -->         
+		                	<a href="/mintProject/shop/product/productView?productCode=${list.productCode}&subCategory=${list.subCategory}">
+		                		<img class="thumb" src="/mintProject/shop/storage/mint/product/${list.thumbnail}" alt="">
+		                	</a>
+			                <div class="cart-btn">
+			                    <a href="/mintProject/shop/goods/cart"><img src="/mintProject/shop/storage/mint/icon/cart_test.png" alt="" style="width: 28px"></a>
+			                </div>
+			            </div>
+	    			</c:if>
 		            <div class="product__info">
 		                <div class="product__name">${list.mainSubject }</div>
 		                <div class="product__cost"> 

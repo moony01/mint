@@ -37,6 +37,7 @@ let sort = "NEW";
     
    
     plusBtn.addEventListener("click",function(){
+    	
         let curPoint = removeComma(pointCount.innerText);
         pointCount.innerText = makeComma(curPoint+point);
         
@@ -48,7 +49,7 @@ let sort = "NEW";
     });
 
     minusBtn.addEventListener("click",function(){
-        if(qtyCount <= 0) return;
+        if(qtyCount <= 1) return;
         let curPoint = removeComma(pointCount.innerText);
         pointCount.innerText = makeComma(curPoint-point);
 

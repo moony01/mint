@@ -134,7 +134,7 @@ pageEncoding="UTF-8"%>
 				<th class="size-2">적립금 적용</th>
 				<td class="size-10">
 					<div class="pont-tb__point">
-						<input type="text" id="myPoint" value="0" />원
+						<input type="text" id="myPoint" value="0" readonly />원
 						<label for="pointChk" class="check-label point-tb__checkbox">
 							<input type="checkbox" class="check-box" name="pointChk" id="pointChk" />
 						</label>

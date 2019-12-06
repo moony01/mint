@@ -48,7 +48,7 @@ function faqCategory(){
 		dataType:'json',
 		success: function(result){
 			getFAQList(result);
-			$('.pagination').html(result.faqBoardPaging.pagingHTML);				
+			$('.pagination').html(result.faqCategoryPaging.pagingHTML);				
 		},
 		error: function(error){
 			console.error(error);

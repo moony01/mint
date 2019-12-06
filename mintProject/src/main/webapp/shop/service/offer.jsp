@@ -45,7 +45,7 @@
 	               <td>${suggestBoardDTO.seq }</td>
 	               <td>${suggestBoardDTO.category }</td>
 	               <td>${suggestBoardDTO.subject }</td>
-	               <td><fmt:formatDate value="${suggestBoardDTO.logtimeQ }" pattern="yyyy.MM.dd"/></td>
+	               <td><fmt:formatDate value="${suggestBoardDTO.logtimeQ }" pattern="yyyy-MM-dd"/></td>
 	               <c:if test="${suggestBoardDTO.replyStatus == 0 }"><td>대기중</td></c:if>
 	               <c:if test="${suggestBoardDTO.replyStatus == 1 }"><td>답변완료</td></c:if>    
 	           </tr>

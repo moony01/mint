@@ -188,7 +188,7 @@
 	</select>
 	<!-- 전체검색 -->
 	<select id="productSearch" parameterType="String" resultType="product">
-		select * from product where mainSubject like '%'||'${sword}'||'%'
+		select * from product where mainSubject like '%'||'${sword}'||'%' and productStatus = 0
 	</select>
 	
 	<!-- 관리자 상품리스트 조회 -->
@@ -299,7 +299,7 @@
 		
 		select * from
 		(select rownum rn, temp.* from 
-			(select productcode, subCategory, mainSubject, thumbnail, stock, price, discountRate from product 
+			(select * from product 
 			<if test="number == 0">
 			order by productcode desc) temp)
 			</if>
@@ -307,13 +307,10 @@
 			order by stock desc) temp)
 			</if>
 			<if test="number == 2">
-			<![CDATA[
 			where discountRate >= 10) temp)
-			]]>
 			</if>
-			<![CDATA[
-			where stock > 0 and rn between 1 and 10
-			]]>
+			where stock > 0 and productStatus = 0 and rn between 1 and 10 
+			
 	</select>
 	
 	<!-- 상품 수정한 물품이 재입고 알림 테이블에 있는지 확인 -->

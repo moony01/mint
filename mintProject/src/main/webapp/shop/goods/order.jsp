@@ -22,6 +22,7 @@ pageEncoding="UTF-8"%>
 			<div class="discountRate">상품할인율 : <span>${product.DISCOUNTRATE }</span></div>
 			<div class="discountPrice">상품할인적용가 :  <span class="dp"></span></div>
 			<div class="ctCount">수량 : <span>${product.CTCOUNT }</span></div>
+			<div class="stock">상품수량 : <span>${product.STOCK }</span></div>
 			<br />
 		</c:forEach>
 	</c:if>

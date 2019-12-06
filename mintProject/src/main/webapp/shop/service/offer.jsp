@@ -58,8 +58,8 @@
                     	<pre>${suggestBoardDTO.content }</pre>
                     	<c:if test="${suggestBoardDTO.replyStatus == 0 }">
 	                    	<div style="display: flex;  flex-direction:row-reverse;" >
-	                    		<input type="button" class="btnDelete" value="삭제" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;">
-	                    		<input type="button" value="수정" style="background-color: white; border: 1px solid #795C90; align-content: center; line-height: 20px;"
+	                    		<input type="button" class="btnDelete" value="삭제" style="background-color: white; border: 1px solid #45b8ac; align-content: center; line-height: 20px;">
+	                    		<input type="button" value="수정" style="background-color: white; border: 1px solid #45b8ac; align-content: center; line-height: 20px;"
 	                    		onclick="location.href='/mintProject/shop/service/offerModify?pg=${pg}&seq=${suggestBoardDTO.seq }'"> 
 	                    	</div>
 	                    </c:if>

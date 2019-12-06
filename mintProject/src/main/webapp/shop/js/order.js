@@ -53,8 +53,11 @@ addrBtn.addEventListener("click", function(){
 
 $(document).ready(function(){
 	var cnt = $(".price").length; //상품갯수
-	
 	let qty = new Array(cnt); //수량
+	
+	let stock = new Array(cnt); //재고 
+	let mainSubject = new Array(cnt); //상품명 
+	
 	var price = new Array(cnt); //가격
 	var discountRate = new Array(cnt); //할인율
 	var discountPriceMinus = new Array(cnt); //할인된금액
@@ -83,6 +86,8 @@ $(document).ready(function(){
 			discountPriceMinus[i] = price[i]*(discountRate[i] / 100); //할인된금액
 			discountPrice[i] = parseInt(price[i] - discountPriceMinus[i]); //할인적용가
 			qty[i] = parseInt($('.ctCount span').eq(i).text()); //수량
+			stock[i] = parseInt($('.stock span').eq(i).text());
+			mainSubject[i] = $('.mainSubject').eq(i).text();
 			
 			$(".dp").eq(i).text(discountPrice[i]);
 			$(".salesPrice").eq(i).text(discountPrice[i] * qty[i]);
@@ -148,73 +153,95 @@ $(document).ready(function(){
 		
 		//결제하기 클릭 결제하기
 		document.getElementById('btnPayment').onclick = function(){
-			function removeComma(str){
-			    return parseInt(str.replace(",",""));
-			}
-			
-			let request = $('#request').val();
-			let pointuse = $('.pointUse').text();
-			name = $('#recipient').val();
-			let setTel = $('#tel1').val() + $('#tel2').val() + $('#tel3').val();
-			addr1 = $('#delivery_addr1').val();
-			addr2 = $('#delivery_addr2').val();
-			
-			var IMP = window.IMP; // 생략가능
-			IMP.init('imp22922268'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-			IMP.request_pay({
-				pg: 'html5_inicis', // version 1.1.0부터 지원.  
-				pay_method: 'card',
-				merchant_uid : 'merchant_' + new Date().getTime(),
-				name: topProductName+"외"+otherCnt, //결제창에서 보여질 이름
-				//amount: lastPriceSet, //가격
-				amount: 100, //가격
-				buyer_name: name,
-				buyer_tel:  setTel,
-				buyer_addr: addr1,
-				buyer_postcode: addr2,
-				m_redirect_url: '/mintProject/shop/goods/redirect' // 나중에 수정
-			}, function (rsp) {
-			    if (rsp.success) {
-				    var msg = '결제가 완료되었습니다.';
+			$.ajax({
+				type: 'post',
+				url: '/mintProject/shop/goods/checkStock',
+				data: JSON.stringify({productCode : productCode}),
+				contentType: "application/json; charset=utf-8",
+				dataType: 'json',
+				success: function(result){
+					let flag = true;
+					let list = result.list;
+					for (var i = 0; i < list.length ; i++) {
+						if(list[i].STOCK < 0 || list[i].STOCK - qty[i] < 0) {
+							swal('앗! 품절된 상품이 있습니다! \n' + mainSubject[i]);
+							flag = false;
+						} 
+					}
+					
 
-			    	$.ajax({
-			    		type: 'POST',
-			    		url: "/mintProject/shop/goods/redirectServer",
-			    		contentType: 'application/json; charset=utf-8',
-			    		data: JSON.stringify({
-			    			buyer_name: rsp.buyer_name,
-			    			buyer_tel: rsp.buyer_tel,
-			    			buyer_addr: rsp.buyer_addr,
-			    			buyer_postcode: rsp.buyer_postcode,
-			    			request: request,
-			    			fprice: lastPriceSet,
-			    			dprice: delevery,
-			    			pointuse: pointuse,
-			    			pointadd: pointadd,
-			                productCode: productCode,
-			                qty: qty,
-			                price: price,
-			                discountRate: discountRate,
-			    		})
-			    	}).then((data) => {
-			    		swal({
-					    	text : msg,
-					    	buttons : false,
-					    	timer : 2000
-					    });
-			    		location.href='/mintProject/shop/main/index';
-			    	})
-			    	
-			    } else {
-				    var msg = '결제에 실패하였습니다.';
-				    msg += '에러내용 : ' + rsp.error_msg;
-				    swal({
-				    	text : msg,
-				    	buttons : false,
-				    	timer : 2000
-				    });
-			    }
+					let request = $('#request').val();
+					let pointuse = $('.pointUse').text();
+					name = $('#recipient').val();
+					let setTel = $('#tel1').val() + $('#tel2').val() + $('#tel3').val();
+					addr1 = $('#delivery_addr1').val();
+					addr2 = $('#delivery_addr2').val();
+					
+					if(flag === true) {
+						var IMP = window.IMP; // 생략가능
+						IMP.init('imp22922268'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+						IMP.request_pay({
+							pg: 'html5_inicis', // version 1.1.0부터 지원.  
+							pay_method: 'card',
+							merchant_uid : 'merchant_' + new Date().getTime(),
+							name: topProductName+"외"+otherCnt, //결제창에서 보여질 이름
+							//amount: lastPriceSet, //가격
+							amount: 100, //가격
+							buyer_name: name,
+							buyer_tel:  setTel,
+							buyer_addr: addr1,
+							buyer_postcode: addr2,
+							m_redirect_url: '/mintProject/shop/goods/redirect' // 나중에 수정
+						}, function (rsp) {
+							if (rsp.success) {
+								var msg = '결제가 완료되었습니다.';
+								
+								$.ajax({
+									type: 'POST',
+									url: "/mintProject/shop/goods/redirectServer",
+									contentType: 'application/json; charset=utf-8',
+									data: JSON.stringify({
+										buyer_name: rsp.buyer_name,
+										buyer_tel: rsp.buyer_tel,
+										buyer_addr: rsp.buyer_addr,
+										buyer_postcode: rsp.buyer_postcode,
+										request: request,
+										fprice: lastPriceSet,
+										dprice: delevery,
+										pointuse: pointuse,
+										pointadd: pointadd,
+										productCode: productCode,
+										qty: qty,
+										price: price,
+										discountRate: discountRate,
+									})
+								}).then((data) => {
+									swal({
+										text : msg,
+										buttons : false,
+										timer : 2000
+									});
+									location.href='/mintProject/shop/main/index';
+								})
+								
+							} else {
+								var msg = '결제에 실패하였습니다.';
+								msg += '에러내용 : ' + rsp.error_msg;
+								swal({
+									text : msg,
+									buttons : false,
+									timer : 2000
+								});
+							}
+						});
+					}
+					
+				},
+				error: function(err){
+					console.log(err);
+				}
 			});
+
 		};
 	}
 	

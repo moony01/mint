@@ -1,7 +1,9 @@
 package mint.order.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,8 +50,6 @@ public class OrderController {
 			resultMap = orderService.getProductCartData(map);
 			list.add(resultMap);
 		}
-
-		System.out.println("list" + list);
 		
 		MemberDTO memberDTO = orderService.getUserData(map);
 		
@@ -61,6 +61,30 @@ public class OrderController {
 		return "/shop/main/index";
 	}
 	
+	//결제하기 전에 stock 체크 
+	@RequestMapping("/shop/goods/checkStock")
+	@ResponseBody
+	public ModelAndView orderList2(@RequestBody LinkedHashMap<String, Object> hashMap, Map<String, Object> resultMap,
+							HttpSession session, ModelAndView mav) {
+		
+		ArrayList<String> arrayList = (ArrayList<String>) hashMap.get("productCode");
+		String id = (String)session.getAttribute("memId");
+		Map<String,Object> map = new HashMap<String,Object>();
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		
+		for (int i = 0; i < arrayList.size() ; i++) {
+			map.put("productCode", arrayList.get(i));
+			map.put("id", id);
+			resultMap = orderService.getProductCartData(map);
+			list.add(resultMap);
+		}
+		
+		mav.addObject("list", list);
+		mav.setViewName("jsonView");
+		
+		return mav;
+		
+	}
 	// 마이페이지 - 주문내역 페이지
 	@RequestMapping(value="/shop/mypage/myOrderList", method = RequestMethod.GET)
 	public ModelAndView myOrderList() {

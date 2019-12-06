@@ -123,7 +123,9 @@ public class MemberController {
 	public void kakaoLogin(@RequestParam String email, HttpSession session, Map<String, String> map) {
 		map.put("key", "email");
 		map.put("value", email);
+		System.out.println(email);
 		MemberDTO memberDTO = memberService.getUserBy(map);
+		System.out.println(memberDTO);
 		if(memberDTO.getEmail().equals(email)) {
 			session.setAttribute("memId", memberDTO.getId());
 			session.setAttribute("memName", memberDTO.getName());

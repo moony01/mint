@@ -26,7 +26,7 @@
     	<c:if test="${list != null}">
     		<c:forEach var="list" items="${list}">
 		        <div class="product__item">
-		            <c:if test="${list.stock == 0}">
+		            <c:if test="${list.stock <= 0}">
 		            	<div class="product__thumb sold-out">
 			            	<c:if test="${list.discountRate == 10}">
 			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">
@@ -52,7 +52,7 @@
 			                </div>
 		            	</div>
 		            </c:if>
-		            <c:if test="${list.stock != 0}">
+		            <c:if test="${list.stock > 0}">
 		            	 <div class="product__thumb">
 			            	<c:if test="${list.discountRate == 10}">
 			            		<img class="discount-rate" src="/mintProject/shop/storage/mint/icon/icon_save_10_mint.png" alt="">

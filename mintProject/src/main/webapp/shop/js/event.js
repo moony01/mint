@@ -151,8 +151,6 @@ function eventMainTemp(result){
 	let event = result.list;
 	let now = new Date();
 	
-	console.log(event);
-
 	for(var i=0; i<event.length; i++){
 		if(event[i].startDate < now) var startCount = 0;
 		else var startCount = event[i].startDate - now;

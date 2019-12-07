@@ -76,6 +76,13 @@
                         </p>
                     </div>
                 </div>
+                
+                 <div>
+	            <button type="button" id="" class="btn btn-primary" onclick="location.href='/mintProject/admin/member/supplierForm'">
+	            	<i class="fa fa-pen" aria-hidden="true"></i> 
+	            	판매자 등록
+	            </button>
+	        </div>
 	        </div>
 	    </div>
     </form>
@@ -124,4 +131,5 @@ $(function() {
   }, function(start, end, label) {
   });
 });
+
 </script>

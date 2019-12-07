@@ -190,7 +190,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 .val();
             if (stockTest[i] == 0) {
                 swal({
-                	text : '품절상품이있습니다 품절상품을 삭제해주세요.',
+                	text : '품절상품이 있습니다. \n 품절상품을 삭제해주세요.',
                 	buttons : false
                 });
                 return;

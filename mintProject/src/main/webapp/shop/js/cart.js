@@ -227,7 +227,7 @@ function fnUp(btn) {
 	quan++; // 값을 1 증가
 	
 	if(stock < quan){
-		alert('선택한 수량이 남은 제고보다 많습니다. 남은제고 수량 = '+stock+"개");
+		swal('선택한 수량이 남은 재고보다 많습니다. \n 남은재고 수량 = '+stock+"개");
 		return;
 	}
 	
@@ -250,7 +250,7 @@ function fnDn(btn) {
 		swal('0 이하로는 설정할 수 없습니다. ');
 		return;
 	}else if(stock < quan) {
-		swal('선택한 수량이 남은 제고보다 많습니다. 남은제고 수량 = '+stock+"개 수량을 맞춰주세요");
+		swal('선택한 수량이 남은 재고보다 많습니다. \n 남은재고 수량 = '+stock+"개 수량을 맞춰주세요");
 	}
 	
 	btn.next().val(quan);

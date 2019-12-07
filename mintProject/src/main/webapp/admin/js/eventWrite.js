@@ -292,7 +292,7 @@ function eventProductListTemp(result){
 				discountRate,
 				prevDiscountRate
 			} = eventInfos[i];
-		
+
 			eventProductRow = `
 				<tr class="eventProductRow">
 					<td><input type="checkbox" class="pcheck" name="chk" value="${productCode}"></td>
@@ -463,6 +463,9 @@ function dataManufacturing(){
 	let discountRate = [];
 	for(var i=0; i<amount; i++) {
 		let value = $('.discountRate').eq(i).val();
+		if(value.trim() === '' || value.trim() === null){
+			value = 0;
+		}
 		discountRate.push(value);
 	}
 	input2.value = discountRate;
@@ -475,6 +478,9 @@ function dataManufacturing(){
 	let prevDiscountRate = [];
 	for(var i=0; i<amount; i++) {
 		let value = $('.prevDiscountRate').eq(i).text().replace('%','');
+		if(value.trim() === '' || value.trim() === null){
+			value = 0;
+		}
 		prevDiscountRate.push(value);
 	}
 	input3.value = prevDiscountRate;
@@ -582,5 +588,8 @@ $('#deleteEventProductBtn').click(function(){
 			timer : 2000
 		});
 	}
-	else $('.pcheck:checked').parent().parent().remove();
+	else {
+		$('.pcheck:checked').parent().parent().remove();
+		
+	}
 });

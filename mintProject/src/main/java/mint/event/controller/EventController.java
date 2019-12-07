@@ -289,7 +289,7 @@ public class EventController {
 			}
 			eventDTO.setEventThumbnail(event_thumbnail_img.getOriginalFilename());
 		}
-		
+
 		// 임시 input
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("eventDTO", eventDTO);

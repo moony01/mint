@@ -25,7 +25,7 @@
 		 
 		<if test='category != 9'>
 			<![CDATA[
-				where category like #{category} order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
+				where category = #{category} order by seq desc) tt) where rn >= #{startNum} and rn <= #{endNum}
 			]]>  
 		</if>
 		<if test='category == 9'>
@@ -38,7 +38,7 @@
 	<!-- FAQ게시판 카테고리 선택시 총 게시물 -->
 	<select id="getFAQCategoryTotalArticle" parameterType="java.util.Map" resultType="Integer">
 		<if test='category != 9'>
-			select count(*) from faqboard where category like #{category}
+			select count(*) from faqboard where category = #{category}
 		</if>
 		<if test='category == 9'>
 			select count(*) from faqboard

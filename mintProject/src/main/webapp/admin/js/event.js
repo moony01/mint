@@ -238,14 +238,37 @@ $('#chkAll').click(function(){
 /* 이벤트 삭제 */
 $('#eventDeleteBtn').click(function(){
 	var cnt = $('.check:checked').length; // 체크된 항목 갯수 구하기
-	if(cnt===0) {
+	var checkbox = $('.check:checked');
+	var statusArray = [];
+	
+	// 삭제하려는 이벤트 중에 진행중인 것이 있는지 찾기
+	checkbox.each(function(i) {
+		var tr = checkbox.parent().parent().eq(i);
+		var status = tr.children().eq(1).text();
+		statusArray.push(status);
+	});
+	
+	var isOngoing = false;
+	for(var i=0; i<statusArray.length; i++) {
+		if(statusArray[i] === '진행함'){
+			isOngoing = true;
+		}
+	}
+	
+	if(cnt === 0) {
 		swal({
 			text : '삭제할 항목을 먼저 선택하세요',
 			buttons : false,
 			timer : 2000
 		});
+	} else if (isOngoing === true){
+		swal({
+			text : '현재 진행 중이거나 진행 예정인 이벤트는 삭제할 수 없습니다',
+			buttons : false,
+			timer : 2000
+		});
 	}
-	else {
+	else if (cnt !== 0 && isOngoing === false){
 		swal({
 			text : '정말로 삭제하시겠습니까?',
 			icon : 'warning',

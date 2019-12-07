@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" --%>
     pageEncoding="UTF-8"%>
     
 <style>
@@ -66,7 +66,7 @@
 	        <div class="main__btns">
 	            <div>
 	                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">포인트 지급</button>
-	                <button type="button" class="btn btn-primary">SMS 발송</button>
+	                
 	            </div>
 	        </div>
 	    </div>

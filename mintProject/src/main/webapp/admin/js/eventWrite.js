@@ -259,7 +259,6 @@ function getProductListTemp(result){
 					<td>${star}</td>
 					<td>${price}</td>
 					<td>${discountRate}%</td>
-					<td></td>
 				</tr>
 				`;
 			$frag.append($(productRow));
@@ -589,5 +588,8 @@ $('#deleteEventProductBtn').click(function(){
 			timer : 2000
 		});
 	}
-	else $('.pcheck:checked').parent().parent().remove();
+	else {
+		$('.pcheck:checked').parent().parent().remove();
+		
+	}
 });

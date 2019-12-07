@@ -204,6 +204,7 @@
 			  ,trim(regexp_substr(prevdiscountrate, '[^,]+', 1, level)) as "prevDiscountRate"
 		from eventproducttable
 		connect by level <= regexp_count(discountrate, ',') + 1
+		order by productCode
 		]]>
 	</select>
 	

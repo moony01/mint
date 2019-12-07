@@ -55,12 +55,11 @@
             <div class="mem-manage">  
                 <div class="nav__item">
                     <i class="fas fa-user"></i>
-                    <span>회원</span>
+                    <span>유저</span>
                 </div>
                 <ul class="list">
-                    <li><a href="/mintProject/admin/member/memberList">회원 목록</a></li>
-                    <li><a href="/mintProject/admin/member/supplierList">판매자 목록</a></li>
-                    <li><a href="/mintProject/admin/member/supplierForm">판매자 등록</a></li>
+                    <li><a href="/mintProject/admin/member/memberList">회원 관리</a></li>
+                    <li><a href="/mintProject/admin/member/supplierList">판매자 관리</a></li>
                 </ul>            
             </div>
             <div class="prd-manage">

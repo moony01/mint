@@ -317,6 +317,8 @@
     width: 680px;
     background-color: #fff;
     overflow: visible;
+    line-height: 16px; 
+    padding: 10px; 
 }
 
 /* 페이징 */

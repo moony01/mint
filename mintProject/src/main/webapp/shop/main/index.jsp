@@ -8,6 +8,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<link rel="icon" type="image/png" sizes="32x32" href="/mintProject/shop/storage/mint/icon/main_logo.png">
+
 
 <!-- fontawome  -->
 <script src="https://kit.fontawesome.com/09d022f581.js"

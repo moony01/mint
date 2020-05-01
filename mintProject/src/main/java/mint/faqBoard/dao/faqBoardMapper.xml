@@ -109,7 +109,7 @@
 	
 	<!-- FAQ게시판 글 수정 -->
 	<update id="faqModify" parameterType="java.util.Map">
-		update faqboard set subject=#{subject}, content=#{content}, logtime=sysdate where seq=#{seq}
+		update faqboard set subject=#{subject}, category=#{category}, content=#{content}, logtime=sysdate where seq=#{seq}
 	</update>
 	
 </mapper>

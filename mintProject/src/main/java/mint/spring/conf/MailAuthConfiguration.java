@@ -20,13 +20,13 @@ public class MailAuthConfiguration {
 		properties.put("mail.transport.protocol", "smtp");
 		properties.put("mail.smtp.starttls.enable", true);
 		properties.put("mail.smtp.starttls.required", true);
-		properties.put("mail.debug", true);
+		properties.put("mail.debug", Boolean.valueOf(getEnv("MINT_MAIL_DEBUG", "false")));
 		
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		mailSender.setHost("smtp.gmail.com");
-		mailSender.setPort(587);
-		mailSender.setUsername("marketintaste@gmail.com");
-		mailSender.setPassword("mintproject1");
+		mailSender.setHost(getEnv("MINT_MAIL_HOST", "smtp.gmail.com"));
+		mailSender.setPort(Integer.parseInt(getEnv("MINT_MAIL_PORT", "587")));
+		mailSender.setUsername(requiredEnv("MINT_MAIL_USERNAME"));
+		mailSender.setPassword(requiredEnv("MINT_MAIL_PASSWORD"));
 		mailSender.setDefaultEncoding("utf-8");
 		mailSender.setJavaMailProperties(properties);
 		
@@ -39,4 +39,16 @@ public class MailAuthConfiguration {
 	//2) https://thiago6.tistory.com/38 
 	//3) https://dlgkstjq623.tistory.com/351
 	
+	private String requiredEnv(String name) {
+		String value = System.getenv(name);
+		if(value == null || value.trim().isEmpty()) {
+			throw new IllegalStateException("Missing required environment variable: " + name);
+		}
+		return value;
+	}
+
+	private String getEnv(String name, String defaultValue) {
+		String value = System.getenv(name);
+		return value == null || value.trim().isEmpty() ? defaultValue : value;
+	}
 }

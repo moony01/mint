@@ -14,10 +14,10 @@ public class SpringConfiguration {
 	@Bean(name="dataSource")
 	public BasicDataSource getBasicDataSource() {
 		BasicDataSource basicDataSource = new BasicDataSource();
-		basicDataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		basicDataSource.setUrl("jdbc:oracle:thin:@mint.c4ccogloxvpr.ap-northeast-2.rds.amazonaws.com:1521:ORCL"); //
-		basicDataSource.setUsername("mint");
-		basicDataSource.setPassword("mint12345");
+		basicDataSource.setDriverClassName(getEnv("MINT_DB_DRIVER", "oracle.jdbc.OracleDriver"));
+		basicDataSource.setUrl(requiredEnv("MINT_DB_URL"));
+		basicDataSource.setUsername(requiredEnv("MINT_DB_USERNAME"));
+		basicDataSource.setPassword(requiredEnv("MINT_DB_PASSWORD"));
 		basicDataSource.setMaxTotal(20);
 		basicDataSource.setMaxIdle(3);
 		return basicDataSource;
@@ -46,5 +46,17 @@ public class SpringConfiguration {
 		dataSourceTransactionManager.setDataSource(getBasicDataSource());
 		return dataSourceTransactionManager;		
 	}
-}
 
+	private String requiredEnv(String name) {
+		String value = System.getenv(name);
+		if(value == null || value.trim().isEmpty()) {
+			throw new IllegalStateException("Missing required environment variable: " + name);
+		}
+		return value;
+	}
+
+	private String getEnv(String name, String defaultValue) {
+		String value = System.getenv(name);
+		return value == null || value.trim().isEmpty() ? defaultValue : value;
+	}
+}

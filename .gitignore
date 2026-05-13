@@ -8,6 +8,3 @@
 /mintProject/bin
 /mintProject/.springWebflow
 /mintProject/.factorypath
-
-# Local git worktrees
-.worktrees/

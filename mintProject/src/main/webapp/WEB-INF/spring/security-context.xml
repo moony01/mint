@@ -4,8 +4,8 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<!-- <security:http:/>: springSecurityFilterChain 설정  
 		● auto-config: true => filter는 default값으로 동작한다. false 일 시 anonymous, x-509, http-basic, remember-me 등을 직접 정의해주어야 함.
